@@ -37,134 +37,138 @@ img {
 /*******************/
 /*** Main Navbar ***/
 /*******************/
-.navbar {
+#navbar {
     background: #eee;
     padding: 20px;
 }
 
 /* Makes all elements into a flex row */
-.navbar .container {
+#navbar .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 /* Styles the title element */
-.navbar .title a {
+#navbar #title a {
     padding: 10px 20px;
     display: block;
     font-weight: 600;
     transition: 0.15s;
 }
 
-.navbar .title a:hover {
+#navbar #title a:hover {
     color: var(--primary-color);
 }
 
 /* Makes the list elements into a flex row */
-.navbar .main-menu {
+#navbar #main-menu {
     display: flex;
     align-items: center;
 }
 
-.navbar .main-menu ul {
+#navbar #main-menu ul {
     display: flex;
     align-items: center;
     padding: 0px 10px;
 }
 
 /* Styles the list elements */
-.navbar ul li a {
+#navbar ul li a {
     padding: 10px 20px;
     display: block;
     font-weight: 600;
     transition: 0.15s;
 }
 
-.navbar ul li a:hover {
+#navbar ul li a:hover {
     color: var(--primary-color);
+}
+
+/* Moves the spotify logo over so it is in line with the rest of the "container" class borders */
+#navbar #main-menu a {
+    padding-right: 25px;
 }
 
 
 /**************************/
 /*** List-Select Navbar ***/
 /**************************/
-.list-select-navbar {
+#list-select-navbar {
     background: #ddd;
     padding: 20px;
-    padding-bottom: 10px;
 }
 
 /* Centers the entire list-selector navbar */
-.list-select-navbar .container {
+#list-select-navbar .container {
     display: flex;
     justify-content: space-around;
 }
 
 /* Makes the elements in the center a flex row */
-.list-select-navbar .list-menu ul {
+#list-select-navbar #list-menu ul {
     display: flex;
 }
 
 /* Styles the list elements */
-.list-select-navbar ul li a {
+#list-select-navbar ul li a {
     padding: 0px 40px;
     display: block;
     font-weight: 600;
     transition: 0.15s;
 }
 
-.list-select-navbar ul li a:hover {
+#list-select-navbar ul li a:hover {
     color: var(--primary-color); ;
 }
 
 /**************************/
 /*** Year-Select Navbar ***/
 /**************************/
-.year-navbar {
+#year-navbar {
     background: #ccc;
     padding: 0 20px;
 }
 
 /* Centers the entire year navbar */
-.year-navbar .container {
+#year-navbar .container {
     display: flex;
     justify-content: space-around;
 }
 
 /* Puts the buttons and year list into a flex row */
-.year-navbar .year-menu {
+#year-navbar #year-menu {
     display: flex;
 }
 
 /* Styles and adds border to the list elements */
-.year-navbar .year-menu ul {
+#year-navbar #year-menu ul {
     display: flex;
     justify-content: space-between;
 }
 
-.year-navbar .year-menu li {
+#year-navbar #year-menu li {
     border-left: 1px solid var(--dark-color);
     border-top: 1px solid var(--dark-color);
     border-bottom: 1px solid var(--dark-color);
 }
-.year-navbar .year-menu li:last-child {
+#year-navbar #year-menu li:last-child {
     border-right: 1px solid var(--dark-color);
 }
 
-.year-navbar ul li a {
+#year-navbar ul li a {
     padding: 0px 15px;
     display: block;
     font-weight: 600;
     transition: 0.15s;
 }
 
-.year-navbar ul li a:hover {
+#year-navbar ul li a:hover {
     color: var(--primary-color); 
 }
 
 /* Styles the button elements */
-.year-navbar button {
+#year-navbar button {
     padding: 0px 10px;
     font-weight: 500;
     border: none;
@@ -172,9 +176,61 @@ img {
     transition: 0.15s;
 }
 
-.year-navbar button:hover {
+#year-navbar button:hover {
     color: var(--primary-color);
     cursor: pointer;   
+}
+
+/*************/
+/*** Table ***/
+/*************/
+
+#album-list {
+    padding-top: 20px;
+}
+
+#album-list table {
+    width: 100%;
+}
+
+/* Table column widths */
+#album-list #album-art {
+    width: 450px;
+}
+
+#album-list #artist {
+    width: 450px;
+}
+
+#album-list #album {
+    width: 450px;
+}
+
+#album-list #genre {
+    width: 450px;
+}
+
+#album-list #favorite-songs {
+    width: 450px;
+}
+
+#album-list #rating {
+    width: 450px;
+}
+
+/* Table style */
+#album-list table, th, td {
+    padding: 10px;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+#album-list thead {
+    background-color: rgb(228 240 245);
+}
+
+#album-list tbody > tr:nth-of-type(even) {
+    background-color: rgb(237 238 242);
 }
 
 /***********************/

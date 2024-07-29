@@ -20,16 +20,18 @@
     />
     <link rel="stylesheet" href="css/style.css"> <!-- STYLE -->
     <!-- <link rel="shortcut icon" href="images/vinyl3.png" type="image/x-icon" /> -->
+    <script src="https://d3js.org/d3.v5.min.js"></script> <!-- D3 For CSV data manipulation -->
 </head>
 <body>
     
-    <nav class="navbar">
+    <!-- ------------------------ HEADERS AND MENUS ------------------------ -->
+    <nav id="navbar">
         <div class="container"> <!-- Stops the nav bar from going all the way to the edge of the window-->
-            <div class="title">
+            <div id="title">
                 <a href="index.html">Albums From Kyle</a>
             </div>
 
-            <div class="main-menu">
+            <div id="main-menu">
                 <ul>
                     <li><a href="#">Random</a></li> <!-- Maybe lead to a random "good" album? -->
                     <li><a href="#">Kyle</a></li> <!-- (Maybe roll this in with the "About" section) This can describe what this project is, why I do it, what can be expected from this, what some of my "core"/favorite albums are, etc. -->
@@ -45,9 +47,9 @@
         </div>
     </nav>
 
-    <nav class="list-select-navbar">
+    <nav id="list-select-navbar">
         <div class="container">
-            <div class="list-menu">
+            <div id="list-menu">
                 <ul>
                     <li><a href="#">Full Year List</a></li>
                     <li><a href="#">Favorite Albums</a></li>
@@ -58,12 +60,10 @@
         </div>
     </nav>
 
-    <nav class="year-navbar">
+    <nav id="year-navbar">
         <div class="container">
-            
-
-            <div class="year-menu">
-                <button class="year-decrease">◀</button>
+            <div id="year-menu">
+                <button id="year-decrease">◀</button>
                 <ul>
                     <li><a href="#">2019</a></li>
                     <li><a href="#">2020</a></li>
@@ -72,14 +72,40 @@
                     <li><a href="#">2023</a></li>
                     <li><a href="#">2024</a></li>
                 </ul>
-                <button class="year-increase">▶</button>
+                <button id="year-increase">▶</button>
             </div>
 
         </div>
     </nav>
 
+    <!-- ------------------------ DEBUG ------------------------ -->
+    <div class="printer">
+        Test text
+    </div>
 
-    <!-- <a href="https://www.flaticon.com/free-icons/vinyl" title="vinyl icons">Vinyl icons created by Georgy - Flaticon</a>
+    <!-- ------------------------ BODY / TABLES ------------------------ -->
+    <div id="album-list">
+        <div class="container">
+            <table id="album-table">
+                <!-- Headers-->
+                <thead>
+                    <tr>
+                        <th scope="col" id="album-art">Album Art</th>
+                        <th scope="col" id="artist">Artist</th>
+                        <th scope="col" id="album">Album</th>
+                        <th scope="col" id="genre">Genre</th>
+                        <th scope="col" id="favorite-songs">Favorite Songs</th>
+                        <th scope="col" id="rating">Rating</th>
+                    </tr>
+                </thead>
+                <!-- Body -->
+                <tbody id="album-table-body">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- <a href="https://www.flaticon.com/free-icons/vinyl" title="vinyl icons">Vinyl icons created by Georgy - Flaticon</a> -->
 
     <script src="js/main.js"></script>    
 </body>
