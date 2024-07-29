@@ -1,0 +1,188 @@
+/* Apply to everything */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --primary-color: #4891ff;
+    --light-color: #f4f4f6;
+    --dark-color: #494949;
+}
+
+/**********************/
+/*** Basic elements ***/
+/**********************/
+body {
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    background: #fff;
+}
+
+a {
+    text-decoration: None;
+    color: var(--dark-color)
+}
+
+ul {
+    list-style: None;
+}
+
+img {
+    max-width: 100%;
+}
+
+/*******************/
+/*** Main Navbar ***/
+/*******************/
+.navbar {
+    background: #eee;
+    padding: 20px;
+}
+
+/* Makes all elements into a flex row */
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Styles the title element */
+.navbar .title a {
+    padding: 10px 20px;
+    display: block;
+    font-weight: 600;
+    transition: 0.15s;
+}
+
+.navbar .title a:hover {
+    color: var(--primary-color);
+}
+
+/* Makes the list elements into a flex row */
+.navbar .main-menu {
+    display: flex;
+    align-items: center;
+}
+
+.navbar .main-menu ul {
+    display: flex;
+    align-items: center;
+    padding: 0px 10px;
+}
+
+/* Styles the list elements */
+.navbar ul li a {
+    padding: 10px 20px;
+    display: block;
+    font-weight: 600;
+    transition: 0.15s;
+}
+
+.navbar ul li a:hover {
+    color: var(--primary-color);
+}
+
+
+/**************************/
+/*** List-Select Navbar ***/
+/**************************/
+.list-select-navbar {
+    background: #ddd;
+    padding: 20px;
+    padding-bottom: 10px;
+}
+
+/* Centers the entire list-selector navbar */
+.list-select-navbar .container {
+    display: flex;
+    justify-content: space-around;
+}
+
+/* Makes the elements in the center a flex row */
+.list-select-navbar .list-menu ul {
+    display: flex;
+}
+
+/* Styles the list elements */
+.list-select-navbar ul li a {
+    padding: 0px 40px;
+    display: block;
+    font-weight: 600;
+    transition: 0.15s;
+}
+
+.list-select-navbar ul li a:hover {
+    color: var(--primary-color); ;
+}
+
+/**************************/
+/*** Year-Select Navbar ***/
+/**************************/
+.year-navbar {
+    background: #ccc;
+    padding: 0 20px;
+}
+
+/* Centers the entire year navbar */
+.year-navbar .container {
+    display: flex;
+    justify-content: space-around;
+}
+
+/* Puts the buttons and year list into a flex row */
+.year-navbar .year-menu {
+    display: flex;
+}
+
+/* Styles and adds border to the list elements */
+.year-navbar .year-menu ul {
+    display: flex;
+    justify-content: space-between;
+}
+
+.year-navbar .year-menu li {
+    border-left: 1px solid var(--dark-color);
+    border-top: 1px solid var(--dark-color);
+    border-bottom: 1px solid var(--dark-color);
+}
+.year-navbar .year-menu li:last-child {
+    border-right: 1px solid var(--dark-color);
+}
+
+.year-navbar ul li a {
+    padding: 0px 15px;
+    display: block;
+    font-weight: 600;
+    transition: 0.15s;
+}
+
+.year-navbar ul li a:hover {
+    color: var(--primary-color); 
+}
+
+/* Styles the button elements */
+.year-navbar button {
+    padding: 0px 10px;
+    font-weight: 500;
+    border: none;
+    background: none;
+    transition: 0.15s;
+}
+
+.year-navbar button:hover {
+    color: var(--primary-color);
+    cursor: pointer;   
+}
+
+/***********************/
+/*** Utility classes ***/
+/***********************/
+.container {
+    max-width: 1650px;
+    margin: 0 auto; /* top & bottom = 0, left & right = auto */
+    padding: 0 15px;
+    /* background: #aaa; */
+}
