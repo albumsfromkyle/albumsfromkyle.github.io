@@ -35,6 +35,7 @@
                 <ul>
                     <li><a href="#">Random</a></li> <!-- Maybe lead to a random "good" album? -->
                     <li><a href="#">Kyle</a></li> <!-- (Maybe roll this in with the "About" section) This can describe what this project is, why I do it, what can be expected from this, what some of my "core"/favorite albums are, etc. -->
+                    <li><a href="#">Reviews</a></li> <!-- Longer form reviews? -->
                     <li><a href="#">About</a></li> <!-- This can describe my rating system, what the colors mean, what my current "rules" are, how my "rules" have changed over the years, etc. -->
                     <li><a href="#">Resources</a></li> <!-- This can describe how I find my music -->
                 </ul>
@@ -64,24 +65,18 @@
         <div class="container">
             <div id="year-menu">
                 <button id="year-decrease">◀</button>
-                <ul>
-                    <li><a href="#">2019</a></li>
-                    <li><a href="#">2020</a></li>
-                    <li><a href="#">2021</a></li>
-                    <li><a href="#">2022</a></li>
-                    <li><a href="#">2023</a></li>
-                    <li><a href="#">2024</a></li>
+                <ul id="year-list">
+                    <li><button id="year1", disabled="true">2020</a></li>
+                    <li><button id="year2", disabled="true">2021</a></li>
+                    <li><button id="year3">2022</a></li>
+                    <li><button id="year4">2023</a></li>
+                    <li><button id="year5">2024</a></li>
                 </ul>
-                <button id="year-increase">▶</button>
+                <button id="year-increase", disabled="true">▶</button>
             </div>
 
         </div>
     </nav>
-
-    <!-- ------------------------ DEBUG ------------------------ -->
-    <div class="printer">
-        Test text
-    </div>
 
     <!-- ------------------------ BODY / TABLES ------------------------ -->
     <div id="album-list">

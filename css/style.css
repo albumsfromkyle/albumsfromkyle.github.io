@@ -11,9 +11,9 @@
     --dark-color: #494949;
 }
 
-/**********************/
-/*** Basic elements ***/
-/**********************/
+/***********************
+**** Basic elements ****
+***********************/
 body {
     font-family: "Poppins", sans-serif;
     font-size: 16px;
@@ -34,9 +34,9 @@ img {
     max-width: 100%;
 }
 
-/*******************/
-/*** Main Navbar ***/
-/*******************/
+/********************
+**** Main Navbar ****
+********************/
 #navbar {
     background: #eee;
     padding: 20px;
@@ -91,9 +91,9 @@ img {
 }
 
 
-/**************************/
-/*** List-Select Navbar ***/
-/**************************/
+/***************************
+**** List-Select Navbar ****
+***************************/
 #list-select-navbar {
     background: #ddd;
     padding: 20px;
@@ -122,9 +122,9 @@ img {
     color: var(--primary-color); ;
 }
 
-/**************************/
-/*** Year-Select Navbar ***/
-/**************************/
+/***************************
+**** Year-Select Navbar ****
+***************************/
 #year-navbar {
     background: #ccc;
     padding: 0 20px;
@@ -156,34 +156,25 @@ img {
     border-right: 1px solid var(--dark-color);
 }
 
-#year-navbar ul li a {
+/* Style the buttons */
+#year-navbar button {
     padding: 0px 15px;
     display: block;
+    font-size: medium;
     font-weight: 600;
     transition: 0.15s;
-}
-
-#year-navbar ul li a:hover {
-    color: var(--primary-color); 
-}
-
-/* Styles the button elements */
-#year-navbar button {
-    padding: 0px 10px;
-    font-weight: 500;
     border: none;
     background: none;
-    transition: 0.15s;
 }
 
 #year-navbar button:hover {
     color: var(--primary-color);
-    cursor: pointer;   
+    cursor: pointer;
 }
 
-/*************/
-/*** Table ***/
-/*************/
+/**************
+**** Table ****
+**************/
 
 #album-list {
     padding-top: 20px;
@@ -220,7 +211,7 @@ img {
 
 /* Table style */
 #album-list table, th, td {
-    padding: 10px;
+    padding: 5px 5px;
     border: 1px solid black;
     border-collapse: collapse;
 }
@@ -233,9 +224,9 @@ img {
     background-color: rgb(237 238 242);
 }
 
-/***********************/
-/*** Utility classes ***/
-/***********************/
+/************************
+**** Utility classes ****
+************************/
 .container {
     max-width: 1650px;
     margin: 0 auto; /* top & bottom = 0, left & right = auto */
