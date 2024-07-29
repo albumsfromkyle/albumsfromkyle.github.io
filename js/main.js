@@ -1,6 +1,8 @@
-const OLDEST_YEAR = 2019
-const CURRENT_YEAR = 2024
-const NUM_YEARS = 5
+const OLDEST_YEAR = 2019;
+const CURRENT_YEAR = 2024;
+const NUM_YEARS = 5;
+
+var SELECTED_YEAR = CURRENT_YEAR;
 
 
 /***************
@@ -12,6 +14,20 @@ function checkFileExists(filename) {
     return fetch(filename, { method: 'HEAD' })
         .then(response => response.ok)
         .catch(() => false);
+}
+
+
+function updateActiveYear() {
+    document.querySelectorAll("#year-list button").forEach(btn => {
+        console.log(btn.innerHTML);
+        console.log(btn.innerHTML == SELECTED_YEAR);
+        if (btn.innerHTML != SELECTED_YEAR) {
+            btn.classList.remove("active")
+        }
+        else {
+            btn.classList.add("active")
+        }
+    });
 }
 
 
@@ -42,6 +58,10 @@ document.getElementById("year-list").addEventListener("click", async function(ev
     d3.csv("csv/" + year + ".csv").then(function(data) {
         displayData(data);
     });
+    
+    // Set the currently selected year and change the active button
+    SELECTED_YEAR = year;
+    updateActiveYear();
 });
 
 
@@ -109,6 +129,9 @@ document.getElementById("year-increase").onclick = function() {
     // Gray out all years without a CSV
     grayOutMissingYears();
 
+    // Update which year is active
+    updateActiveYear();
+
     // If the user is at the end, gray out the button
     document.getElementById("year-increase").disabled = false;
     document.getElementById("year-decrease").disabled = false;
@@ -133,6 +156,9 @@ document.getElementById("year-decrease").onclick = function() {
 
     // Gray out all years without a CSV
     grayOutMissingYears();
+
+    // Update which year is active
+    updateActiveYear();
 
     // TODO: If the user is at the end, gray out the button
     document.getElementById("year-increase").disabled = false;

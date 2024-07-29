@@ -14,6 +14,7 @@
 /***********************
 **** Basic elements ****
 ***********************/
+/* #region BASIC ELEMENTS */
 body {
     font-family: "Poppins", sans-serif;
     font-size: 16px;
@@ -33,10 +34,13 @@ ul {
 img {
     max-width: 100%;
 }
+/* #endregion */
+
 
 /********************
 **** Main Navbar ****
 ********************/
+/* #region NAVBAR */
 #navbar {
     background: #eee;
     padding: 20px;
@@ -89,11 +93,13 @@ img {
 #navbar #main-menu a {
     padding-right: 25px;
 }
+/* #endregion */
 
 
 /***************************
 **** List-Select Navbar ****
 ***************************/
+/* #region LIST-SELECT NAVBAR */
 #list-select-navbar {
     background: #ddd;
     padding: 20px;
@@ -111,20 +117,41 @@ img {
 }
 
 /* Styles the list elements */
-#list-select-navbar ul li a {
+#list-select-navbar ul li button {
     padding: 0px 40px;
     display: block;
     font-weight: 600;
+    font-size: medium;
     transition: 0.15s;
+    border: none;
+    background: none;
 }
 
-#list-select-navbar ul li a:hover {
+#list-select-navbar ul li button:hover {
     color: var(--primary-color); ;
 }
+
+/* Styles the ACTIVE list element */
+#list-select-navbar #list-list .active {
+    padding: 0px 40px;
+    display: block;
+    font-weight: 600;
+    font-size: medium;
+    transition: 0.15s;
+    border: none;
+    background: greenyellow;
+}
+
+#list-select-navbar #list-list .active:hover {
+    color: red; ;
+}
+/* #endregion */
+
 
 /***************************
 **** Year-Select Navbar ****
 ***************************/
+/* #region YEAR-SELECT NAVBAR */
 #year-navbar {
     background: #ccc;
     padding: 0 20px;
@@ -156,7 +183,7 @@ img {
     border-right: 1px solid var(--dark-color);
 }
 
-/* Style the buttons */
+/* Style ALL the buttons */
 #year-navbar button {
     padding: 0px 15px;
     display: block;
@@ -172,10 +199,21 @@ img {
     cursor: pointer;
 }
 
+/* Style the selected year */
+#year-navbar #year-list .active {
+    background: greenyellow;
+}
+
+#year-navbar #year-list .active:hover {
+    color: red;
+}
+/* #endregion */
+
+
 /**************
 **** Table ****
 **************/
-
+/* #region TABLE */
 #album-list {
     padding-top: 20px;
 }
@@ -223,13 +261,17 @@ img {
 #album-list tbody > tr:nth-of-type(even) {
     background-color: rgb(237 238 242);
 }
+/* #endregion */
+
 
 /************************
 **** Utility classes ****
 ************************/
+/* #region UTILITY */
 .container {
     max-width: 1650px;
     margin: 0 auto; /* top & bottom = 0, left & right = auto */
     padding: 0 15px;
     /* background: #aaa; */
 }
+/* #endregion */

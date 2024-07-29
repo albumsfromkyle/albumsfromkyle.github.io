@@ -22,12 +22,6 @@
 * Add ability to scroll through years in the year-selector bar
     - Prio: Extremely High
     - Diff: Medium?
-* Either remove years without rankings, OR make those years "grayed out"
-    - Prio: High
-    - Diff: Medium
-* Make the selected year, and selected list, stand out
-    - Prio: High
-    - Diff: Low
 
 # TABLE
 * Make the column sizes resizeable when clicked on by the user
@@ -46,5 +40,8 @@
     - Prio: Extremely High
     - Diff: Low
 * Add hidden ranking value that determines the PRECISE ranking of each album (or at least the top ones)
+    - Prio: High
+    - Diff: Low
+* Add year-end statistics at the top(?) of the table
     - Prio: High
     - Diff: Low
