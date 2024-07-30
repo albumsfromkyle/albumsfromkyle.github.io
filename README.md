@@ -1,4 +1,4 @@
-# albumsfromkyle.github.io
+# Albums From Kyle
 
 ## What is this?
 This is a website for me to share my music hobby! 
@@ -10,12 +10,15 @@ The main things I want to have on this are:
 * My year-end lists of favorite albums
 * My year-end lists of favorite songs
 
-As I go, I may add other features, but I won't make any promises for now.
+As I go I may add other features, but I won't make any promises for now.
+
+## How can I visit the website?
+To actually see the website, just go to [`https://albumsfromkyle.github.io/`](https://albumsfromkyle.github.io/). It is hosted for free using [Github Pages](https://pages.github.com/). All the source code for the website can be viewed here in this repository.
 
 ## Development context
 This is purely a personal passion project. However, even though I have a great passion for music, I am not much of a fan of web development. Let that set the expectations for this project as a whole. It definitely won't be fancy and updates will be infrequent. This is NOT meant to be professional at all. I am putting up with web development so I can achieve my greater goal of sharing music with others.
 
-Additionally, for the time being this website will ONLY be for desktop (and will only be tested using Google Chrome on my monitors I have at home). I have no idea how this will function on other sized monitors, other web browsers like Firefox, or how it will look on IOS. Given my skills with web development, my hope is not high. This is something that may potentially come in the future, but that is a *long* ways away.
+Additionally, for the time being this website will ONLY be for desktop (and will only be tested using Google Chrome on my personal computer with the monitors I have at home). I have no idea how this will function on other sized monitors, other web browsers, or how it will look on iOS. Given my skills with web development, my hopes are not high. This is something that may potentially come in the future, but that is a *long* ways away.
 
 For now, please be patient as I slowly develop this and add the base functionality. 
 
