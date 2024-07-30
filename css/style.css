@@ -258,8 +258,14 @@ img {
     background-color: rgb(228 240 245);
 }
 
-#album-list tbody > tr:nth-of-type(even) {
-    background-color: rgb(237 238 242);
+#album-list #album-table .gold {
+    background: goldenrod;
+}
+#album-list #album-table .silver {
+    background: silver;
+}
+#album-list #album-table .bronze {
+    background: #cd7f32 ;
 }
 /* #endregion */
 

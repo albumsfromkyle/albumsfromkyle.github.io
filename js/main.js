@@ -85,6 +85,17 @@ function displayData(data) {
         genre.innerHTML = csv_row["Genre"] ? csv_row["Genre"] : "-";
         favorite_songs.innerHTML = csv_row["Favorite Songs"] ? csv_row["Favorite Songs"] : "-";
         rating.innerHTML = csv_row["Rating"] ? csv_row["Rating"] : "-";
+
+        console.log(parseInt(rating.innerHTML));
+        if (parseInt(rating.innerHTML) >= 9) {
+            new_row.classList.add("gold");
+        }
+        else if (parseInt(rating.innerHTML) >= 8) {
+            new_row.classList.add("silver");
+        }
+        else if (parseInt(rating.innerHTML) >= 7) {
+            new_row.classList.add("bronze");
+        }
     });
 
     // TODO: Add row highlighting depending on rating
