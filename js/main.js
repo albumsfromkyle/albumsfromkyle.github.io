@@ -3,7 +3,7 @@ const CURRENT_YEAR = 2024;
 const NUM_YEARS = 5;
 
 var SELECTED_YEAR = CURRENT_YEAR;
-var SELECTED_LIST = "all";
+var SELECTED_LIST = "Full Year List";
 
 
 /***************
@@ -35,9 +35,9 @@ function getExtensionFromList(list_type) {
 /********************
 **** CSV LOADING ****
 ********************/
-// Loads newest CSV by on startup
+// Loads newest CSV by on startup ONLY
 d3.csv("csv/2024.csv").then(function(data) {
-    displayData(data);
+        displayData(data);
 });
 
 
@@ -45,24 +45,24 @@ d3.csv("csv/2024.csv").then(function(data) {
 function displayData(data) {
     const table = document.getElementById("album-table-body");
     
+    updateTableHeaders()
+
     // Loop through each entry (which is an album), and copy the data into a new table row
     data.forEach(function(csv_row, r) {
         new_row = table.insertRow(-1);
-        // album_art = new_row.insertCell(-1);
+        
         artist = new_row.insertCell(-1);
         album = new_row.insertCell(-1);
         genre = new_row.insertCell(-1);
         favorite_songs = new_row.insertCell(-1);
         rating = new_row.insertCell(-1);
 
-        // album_art.innerHTML = "-";
         artist.innerHTML = csv_row["Artist"] ? csv_row["Artist"] : "-";
         album.innerHTML = csv_row["Album"] ? csv_row["Album"] : "-";
         genre.innerHTML = csv_row["Genre"] ? csv_row["Genre"] : "-";
         favorite_songs.innerHTML = csv_row["Favorite Songs"] ? csv_row["Favorite Songs"] : "-";
         rating.innerHTML = csv_row["Rating"] ? csv_row["Rating"] : "-";
 
-        console.log(parseInt(rating.innerHTML));
         if (parseInt(rating.innerHTML) >= 9) {
             new_row.classList.add("gold");
         }
@@ -76,6 +76,87 @@ function displayData(data) {
 }
 
 
+// Loads passed in CSV data into the album list table 
+function displaySongData(data) {
+    const table = document.getElementById("album-table-body");
+    
+    updateTableHeaders()
+
+    // Loop through each entry (which is an album), and copy the data into a new table row
+    data.forEach(function(csv_row, r) {
+        new_row = table.insertRow(-1);
+        
+        song = new_row.insertCell(-1);
+        artist = new_row.insertCell(-1);
+        album = new_row.insertCell(-1);
+        genre = new_row.insertCell(-1);
+
+        song.innerHTML = csv_row["Song"] ? csv_row["Song"] : "-";
+        artist.innerHTML = csv_row["Artist"] ? csv_row["Artist"] : "-";
+        album.innerHTML = csv_row["Album"] ? csv_row["Album"] : "-";
+        genre.innerHTML = csv_row["Genre"] ? csv_row["Genre"] : "-";
+
+        hidden_rating = csv_row["Rating"] ? csv_row["Rating"] : "-";
+        if (parseInt(hidden_rating) >= 9) {
+            new_row.classList.add("gold");
+        }
+        else if (parseInt(hidden_rating) >= 8) {
+            new_row.classList.add("silver");
+        }
+        else if (parseInt(hidden_rating) >= 7) {
+            new_row.classList.add("bronze");
+        }
+    });
+}
+
+
+// Update what values are shown as the table headers
+function updateTableHeaders() {
+    header = document.getElementById("table-headers");
+    header.innerHTML = "";
+
+    if (SELECTED_LIST == "Favorite Songs") {
+        new_row = header.insertRow();
+
+        song = new_row.insertCell()
+        artist = new_row.insertCell()
+        album = new_row.insertCell()
+        genre = new_row.insertCell()
+
+        song.innerHTML = "Song";
+        artist.innerHTML = "Artist";
+        album.innerHTML = "Album";
+        genre.innerHTML = "Genre";
+        
+        song.classList.add("song");
+        artist.classList.add("artist");
+        album.classList.add("album");
+        genre.classList.add("genre");
+    }
+    else {
+        new_row = header.insertRow();
+
+        artist = new_row.insertCell()
+        album = new_row.insertCell()
+        genre = new_row.insertCell()
+        favorite_songs = new_row.insertCell()
+        rating = new_row.insertCell()
+
+        artist.innerHTML = "Artist";
+        album.innerHTML = "Album";
+        genre.innerHTML = "Genre";
+        favorite_songs.innerHTML = "Favorite Songs";
+        rating.innerHTML = "Rating";
+        
+        artist.classList.add("artist");
+        album.classList.add("album");
+        genre.classList.add("genre");
+        favorite_songs.classList.add("favorite-songs");
+        rating.classList.add("rating");
+    }
+}
+
+
 // Uses the SELECTED_YEAR and SELECTED_LIST to update the table with the correct data
 function updateTable() {
     // Clear the current table
@@ -85,7 +166,10 @@ function updateTable() {
     var extension = getExtensionFromList(SELECTED_LIST);
     var filename = "csv/" + SELECTED_YEAR + extension + ".csv"
     d3.csv(filename).then(function(data) {
-        displayData(data);
+        if (SELECTED_LIST == "Favorite Songs")
+            displaySongData(data);
+        else
+            displayData(data);
     });
 }
 
@@ -238,3 +322,32 @@ document.getElementById("year-decrease").onclick = function() {
     }
 };
 
+
+// Copy/pasted straight from https://www.w3schools.com/howto/howto_html_include.asp
+function includeHTML() {
+  var z, i, elmnt, file, xhttp;
+  /* Loop through a collection of all HTML elements: */
+  z = document.getElementsByTagName("*");
+  for (i = 0; i < z.length; i++) {
+    elmnt = z[i];
+    /*search for elements with a certain atrribute:*/
+    file = elmnt.getAttribute("w3-include-html");
+    if (file) {
+      /* Make an HTTP request using the attribute value as the file name: */
+      xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4) {
+          if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+          if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+          /* Remove the attribute, and call this function once more: */
+          elmnt.removeAttribute("w3-include-html");
+          includeHTML();
+        }
+      }
+      xhttp.open("GET", file, true);
+      xhttp.send();
+      /* Exit the function: */
+      return;
+    }
+  }
+}

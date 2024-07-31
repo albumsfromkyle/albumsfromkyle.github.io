@@ -24,30 +24,10 @@
 </head>
 <body>
     
-    <!-- ------------------------ HEADERS AND MENUS ------------------------ -->
-    <nav id="navbar">
-        <div class="container"> <!-- Stops the nav bar from going all the way to the edge of the window-->
-            <div id="title">
-                <a href="index.html">Albums From Kyle</a>
-            </div>
+    <!-- ------------------------ MAIN NAVBARS ------------------------ -->
+    <div w3-include-html="navbar.html"></div>
 
-            <div id="main-menu">
-                <ul>
-                    <li><a href="#">Random</a></li> <!-- Maybe lead to a random "good" album? -->
-                    <li><a href="#">Kyle</a></li> <!-- (Maybe roll this in with the "About" section) This can describe what this project is, why I do it, what can be expected from this, what some of my "core"/favorite albums are, etc. -->
-                    <li><a href="#">Reviews</a></li> <!-- Longer form reviews? -->
-                    <li><a href="#">About</a></li> <!-- This can describe my rating system, what the colors mean, what my current "rules" are, how my "rules" have changed over the years, etc. -->
-                    <li><a href="#">Resources</a></li> <!-- This can describe how I find my music -->
-                </ul>
-                <!-- <a href="https://open.spotify.com/user/8f68w4pvrs06luetrjbgrxyu5?si=f1b32525c6bb43f8"><img src="images/spotify_logo.png" alt="Spotify" width="25" height="25"></a> -->
-                <a href="https://open.spotify.com/user/8f68w4pvrs06luetrjbgrxyu5?si=f1b32525c6bb43f8">
-                    <img src="images/spotify_logo.png" alt="Spotify" width="25" height="25" onmouseover='this.src="images/spotify_logo_green.png";' onmouseout='this.src="images/spotify_logo.png";'>
-                </a>
-            </div>
-
-        </div>
-    </nav>
-
+    <!-- ------------------------ LIST-NAVBAR ------------------------ -->
     <nav id="list-select-navbar">
         <div class="container">
             <div id="list-menu">
@@ -60,7 +40,8 @@
             </div>
         </div>
     </nav>
-
+    
+    <!-- ------------------------ YEAR NAVBAR ------------------------ -->
     <nav id="year-navbar">
         <div class="container">
             <div id="year-menu">
@@ -78,19 +59,29 @@
         </div>
     </nav>
 
-    <!-- ------------------------ BODY / TABLES ------------------------ -->
+    <!-- ------------------------ SPOTIFY PLAYLIST ------------------------ -->
+    <!-- <div class="spotify-playlist">
+        <div class="container">
+            Spotify playlist:
+
+            <a href="https://open.spotify.com/playlist/5Gc046e1S0rptnfVX2TQaT?si=df565cec7adf47c0">Albums 2024</a> 
+            <a href="https://open.spotify.com/playlist/7nzU9D67SJdgd41dLbRwcf?si=b6cf781d95f74177">Songs 2024</a>
+
+        </div>
+    </div> -->
+
+    <!-- ------------------------ TABLE ------------------------ -->
     <div id="album-list">
         <div class="container">
             <table id="album-table">
                 <!-- Headers-->
-                <thead>
+                <thead id="table-headers">
                     <tr>
-                        <!-- <th scope="col" id="album-art">Album Art</th> -->
-                        <th scope="col" id="artist">Artist</th>
-                        <th scope="col" id="album">Album</th>
-                        <th scope="col" id="genre">Genre</th>
-                        <th scope="col" id="favorite-songs">Favorite Songs</th>
-                        <th scope="col" id="rating">Rating</th>
+                        <th scope="col" class="artist">Artist</th>
+                        <th scope="col" class="album">Album</th>
+                        <th scope="col" class="genre">Genre</th>
+                        <th scope="col" class="favorite-songs">Favorite Songs</th>
+                        <th scope="col" class="rating">Rating</th>
                     </tr>
                 </thead>
                 <!-- Body -->
@@ -102,6 +93,8 @@
 
     <!-- <a href="https://www.flaticon.com/free-icons/vinyl" title="vinyl icons">Vinyl icons created by Georgy - Flaticon</a> -->
 
-    <script src="js/main.js"></script>    
+    
+    <script src="js/main.js"></script>
+    <script>includeHTML();</script>
 </body>
 </html>

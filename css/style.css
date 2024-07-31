@@ -223,27 +223,31 @@ img {
 }
 
 /* Table column widths */
-#album-list #album-art {
+#album-list #table-headers {
+    font-weight: 600;
+}
+
+#album-list .song {
     width: 450px;
 }
 
-#album-list #artist {
+#album-list .artist {
     width: 450px;
 }
 
-#album-list #album {
+#album-list .album {
     width: 450px;
 }
 
-#album-list #genre {
+#album-list .genre {
     width: 450px;
 }
 
-#album-list #favorite-songs {
+#album-list .favorite-songs {
     width: 450px;
 }
 
-#album-list #rating {
+#album-list .rating {
     width: 450px;
 }
 

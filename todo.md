@@ -24,6 +24,9 @@
 * Maybe add "Grid Layout" in addition to "Table Layout," which will be a grid of album arts with the artist, album name, genre, and ranking beneath (no favorite songs)
     - Prio: Low
     - Diff: High
+* Maybe add calendar showing when I listen to certain albums
+    - Prio: Extremely Low
+    - Diff: High
 
 # NAV BAR
 * Make disabled buttons not highlight the same as active buttons
