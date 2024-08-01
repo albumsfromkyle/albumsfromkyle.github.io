@@ -41,6 +41,20 @@ d3.csv("csv/2024.csv").then(function(data) {
 });
 
 
+// Highlight the row as gold, silver, or bronze if the rating is high enough
+function highlight_row_from_rating(row, rating) {
+    if (parseInt(rating) >= 9) {
+        row.classList.add("gold");
+    }
+    else if (parseInt(rating) >= 8) {
+        row.classList.add("silver");
+    }
+    else if (parseInt(rating) >= 7) {
+        row.classList.add("bronze");
+    }
+}
+
+
 // Loads passed in CSV data into the album list table 
 function displayData(data) {
     const table = document.getElementById("album-table-body");
@@ -50,62 +64,29 @@ function displayData(data) {
     // Loop through each entry (which is an album), and copy the data into a new table row
     data.forEach(function(csv_row, r) {
         new_row = table.insertRow(-1);
+
+        // Populate the row depending on what list is selected
+        if (SELECTED_LIST == "Favorite Songs") {
+            ["Song", "Artist", "Album", "Genre"].forEach(function(label) {
+                cell = new_row.insertCell();
+                cell.innerHTML = csv_row[label] ? csv_row[label] : "-";;
+            });
+        }
+        else {
+            ["Artist", "Album", "Genre", "Favorite Songs", "Rating"].forEach(function(label) {
+                cell = new_row.insertCell();
+                cell.innerHTML = csv_row[label] ? csv_row[label] : "-";
+            });
+        }
         
-        artist = new_row.insertCell(-1);
-        album = new_row.insertCell(-1);
-        genre = new_row.insertCell(-1);
-        favorite_songs = new_row.insertCell(-1);
-        rating = new_row.insertCell(-1);
-
-        artist.innerHTML = csv_row["Artist"] ? csv_row["Artist"] : "-";
-        album.innerHTML = csv_row["Album"] ? csv_row["Album"] : "-";
-        genre.innerHTML = csv_row["Genre"] ? csv_row["Genre"] : "-";
-        favorite_songs.innerHTML = csv_row["Favorite Songs"] ? csv_row["Favorite Songs"] : "-";
-        rating.innerHTML = csv_row["Rating"] ? csv_row["Rating"] : "-";
-
-        if (parseInt(rating.innerHTML) >= 9) {
-            new_row.classList.add("gold");
+        // Some previous lists include albums from ANY year
+        // I want to exclude those for now, and only include albums release the selected year
+        release_date = Date.parse( csv_row["Release Date"] );
+        if (release_date < Date.parse("1/1/" + SELECTED_YEAR)) {
+            return;
         }
-        else if (parseInt(rating.innerHTML) >= 8) {
-            new_row.classList.add("silver");
-        }
-        else if (parseInt(rating.innerHTML) >= 7) {
-            new_row.classList.add("bronze");
-        }
-    });
-}
-
-
-// Loads passed in CSV data into the album list table 
-function displaySongData(data) {
-    const table = document.getElementById("album-table-body");
-    
-    updateTableHeaders()
-
-    // Loop through each entry (which is an album), and copy the data into a new table row
-    data.forEach(function(csv_row, r) {
-        new_row = table.insertRow(-1);
         
-        song = new_row.insertCell(-1);
-        artist = new_row.insertCell(-1);
-        album = new_row.insertCell(-1);
-        genre = new_row.insertCell(-1);
-
-        song.innerHTML = csv_row["Song"] ? csv_row["Song"] : "-";
-        artist.innerHTML = csv_row["Artist"] ? csv_row["Artist"] : "-";
-        album.innerHTML = csv_row["Album"] ? csv_row["Album"] : "-";
-        genre.innerHTML = csv_row["Genre"] ? csv_row["Genre"] : "-";
-
-        hidden_rating = csv_row["Rating"] ? csv_row["Rating"] : "-";
-        if (parseInt(hidden_rating) >= 9) {
-            new_row.classList.add("gold");
-        }
-        else if (parseInt(hidden_rating) >= 8) {
-            new_row.classList.add("silver");
-        }
-        else if (parseInt(hidden_rating) >= 7) {
-            new_row.classList.add("bronze");
-        }
+        highlight_row_from_rating(new_row, csv_row["Rating"]);
     });
 }
 
@@ -117,42 +98,21 @@ function updateTableHeaders() {
 
     if (SELECTED_LIST == "Favorite Songs") {
         new_row = header.insertRow();
-
-        song = new_row.insertCell()
-        artist = new_row.insertCell()
-        album = new_row.insertCell()
-        genre = new_row.insertCell()
-
-        song.innerHTML = "Song";
-        artist.innerHTML = "Artist";
-        album.innerHTML = "Album";
-        genre.innerHTML = "Genre";
         
-        song.classList.add("song");
-        artist.classList.add("artist");
-        album.classList.add("album");
-        genre.classList.add("genre");
+        ["Song", "Artist", "Album", "Genre"].forEach(function(label) {
+            cell = new_row.insertCell();
+            cell.innerHTML = label;
+            cell.classList.add(label.toLowerCase());
+        });
     }
     else {
         new_row = header.insertRow();
 
-        artist = new_row.insertCell()
-        album = new_row.insertCell()
-        genre = new_row.insertCell()
-        favorite_songs = new_row.insertCell()
-        rating = new_row.insertCell()
-
-        artist.innerHTML = "Artist";
-        album.innerHTML = "Album";
-        genre.innerHTML = "Genre";
-        favorite_songs.innerHTML = "Favorite Songs";
-        rating.innerHTML = "Rating";
-        
-        artist.classList.add("artist");
-        album.classList.add("album");
-        genre.classList.add("genre");
-        favorite_songs.classList.add("favorite-songs");
-        rating.classList.add("rating");
+        ["Artist", "Album", "Genre", "Favorite Songs", "Rating"].forEach(function(label) {
+            cell = new_row.insertCell();
+            cell.innerHTML = label;
+            cell.classList.add(label.replace(" ", "-").toLowerCase());
+        });
     }
 }
 
@@ -166,12 +126,10 @@ function updateTable() {
     var extension = getExtensionFromList(SELECTED_LIST);
     var filename = "csv/" + SELECTED_YEAR + extension + ".csv"
     d3.csv(filename).then(function(data) {
-        if (SELECTED_LIST == "Favorite Songs")
-            displaySongData(data);
-        else
-            displayData(data);
+        displayData(data);
     });
 }
+
 
 /****************************
 **** YEAR/LIST SELECTORS ****
