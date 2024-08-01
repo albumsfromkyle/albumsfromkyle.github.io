@@ -27,6 +27,8 @@
 * Maybe add calendar showing when I listen to certain albums
     - Prio: Extremely Low
     - Diff: High
+* REMOVE "ALBUMS" LIST, SINCE THAT SHOULD JUST BE DONE BY SORTING THE OVERALL LIST BY RATING (or at least make it extract all the data from the main csv so i dont need to create a separate csv file for it)
+* Add album art to each list
 
 # NAV BAR
 * Make disabled buttons not highlight the same as active buttons
@@ -43,15 +45,23 @@
 * Adjust default table column sizes to fit better
     - Prio: High
     - Diff: Low
-* Add default if there is no rating (or other value)
-    - Prio: Extremely High
-    - Diff: Low
 * Add hidden ranking value that determines the PRECISE ranking of each album (or at least the top ones)
     - Prio: High
     - Diff: Low
 * Add year-end statistics at the top(?) of the table
-    - Prio: High
+    - Prio: Low
     - Diff: Low
 * Have the row highlighting depend on the HIDDEN ranking, not public (or even depend on the favorites list)
     - Prio: High
     - Diff: Medium
+* Add year selector for ALL years
+    - Prio: Low
+    - Diff: Medium
+
+
+---
+
+* Create script for automating generating the songs list
+    - Use exportify to get everything but genre,
+    - Potentially use RYM web scraper for genre
+    - Otherwise, use previous songs list and manually fill in the gaps
