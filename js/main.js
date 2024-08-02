@@ -37,7 +37,7 @@ function getExtensionFromList(list_type) {
 ********************/
 // Loads newest CSV by on startup ONLY
 d3.csv("csv/2024.csv").then(function(data) {
-        displayData(data);
+        displayCSVData(data);
 });
 
 
@@ -56,13 +56,20 @@ function highlight_row_from_rating(row, rating) {
 
 
 // Loads passed in CSV data into the album list table 
-function displayData(data) {
+function displayCSVData(data) {
     const table = document.getElementById("album-table-body");
     
     updateTableHeaders()
 
     // Loop through each entry (which is an album), and copy the data into a new table row
     data.forEach(function(csv_row, r) {
+        // Some previous lists include albums from ANY year
+        // I want to exclude those for now, and only include albums release the selected year
+        release_date = Date.parse( csv_row["Release Date"] );
+        if (release_date < Date.parse("1/1/" + SELECTED_YEAR)) {
+            return;
+        }
+
         new_row = table.insertRow(-1);
 
         // Populate the row depending on what list is selected
@@ -79,13 +86,6 @@ function displayData(data) {
             });
         }
         
-        // Some previous lists include albums from ANY year
-        // I want to exclude those for now, and only include albums release the selected year
-        release_date = Date.parse( csv_row["Release Date"] );
-        if (release_date < Date.parse("1/1/" + SELECTED_YEAR)) {
-            return;
-        }
-        
         highlight_row_from_rating(new_row, csv_row["Rating"]);
     });
 }
@@ -99,19 +99,21 @@ function updateTableHeaders() {
     if (SELECTED_LIST == "Favorite Songs") {
         new_row = header.insertRow();
         
-        ["Song", "Artist", "Album", "Genre"].forEach(function(label) {
+        ["Song", "Artist", "Album", "Genre"].forEach(function(label, i) {
             cell = new_row.insertCell();
-            cell.innerHTML = label;
+            cell.innerHTML = "<div class=\"header\">" + label + "<span id=\"header_" + i + "_order\">▲</span> </div>";
             cell.classList.add(label.toLowerCase());
+            cell.setAttribute("onclick", "sortTable(" + i + ")");
         });
     }
     else {
         new_row = header.insertRow();
 
-        ["Artist", "Album", "Genre", "Favorite Songs", "Rating"].forEach(function(label) {
+        ["Artist", "Album", "Genre", "Favorite Songs", "Rating"].forEach(function(label, i) {
             cell = new_row.insertCell();
-            cell.innerHTML = label;
+            cell.innerHTML = "<div class=\"header\">" + label + "<span id=\"header_" + i + "_order\">▲</span> </div>";
             cell.classList.add(label.replace(" ", "-").toLowerCase());
+            cell.setAttribute("onclick", "sortTable(" + i + ")");
         });
     }
 }
@@ -126,8 +128,75 @@ function updateTable() {
     var extension = getExtensionFromList(SELECTED_LIST);
     var filename = "csv/" + SELECTED_YEAR + extension + ".csv"
     d3.csv(filename).then(function(data) {
-        displayData(data);
+        displayCSVData(data);
     });
+}
+
+
+/**************************
+**** SORTING FUNCTIONS ****
+***************************/
+function updateOrderTriangles(active_element) {
+    // Make all order arrows default to grayed out triangles pointing up
+    document.querySelectorAll("#album-list #table-headers .header span").forEach(span => {
+        if (span != active_element){
+            span.innerHTML = "▲";
+            span.classList.remove("active");
+        }
+        else {
+            active_element.classList.add("active");
+        }
+    });
+}
+
+
+// Sort the table depending on what header is selected, and if in ascending or descending order
+function sortTable(header_index) {
+    // Get if it should be sorting in ascending or descending order
+    // Get current sorting order and do the opposite
+    order = document.getElementById("header_" + header_index + "_order");
+    if (order.innerHTML == "▲") {
+        tableBubbleSort(header_index, "desc");
+        order.innerHTML = "▼";
+        updateOrderTriangles(order);
+    }
+    else {
+        tableBubbleSort(header_index, "asc");
+        order.innerHTML = "▲";
+        updateOrderTriangles(order);
+    }
+}
+
+
+// Sort the table depending on what header is selected
+function tableBubbleSort(header_index, order) {
+    table = document.getElementById("album-table-body");
+    rows = table.rows;
+
+    // Fine doing a simple bubble sort since n is always small
+    for (i = 0; i < rows.length - 1; i++) {
+        
+        swapped = false;
+        for (j = 0; j < rows.length - i - 1; j++) {
+            cell_j0 = rows[j].cells[header_index].innerHTML
+            cell_j1 = rows[j + 1].cells[header_index].innerHTML
+
+            // Convert to numbers if the column is numeric
+            if (!isNaN(cell_j0) && !isNaN(cell_j1)) {
+                cell_j0 = Number(cell_j0);
+                cell_j1 = Number(cell_j1);
+            }
+            
+            // Perform the swap depending on if we are in increasing or decreasing order
+            if ((order == "desc"  && cell_j1 > cell_j0) || (order == "asc" && cell_j1 < cell_j0)) {
+                rows[j].parentNode.insertBefore(rows[j + 1], rows[j]);
+                swapped = true;
+            }
+        }
+
+        if (swapped == false)
+            break;
+    }
 }
 
 

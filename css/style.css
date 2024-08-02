@@ -252,6 +252,23 @@ img {
     width: 450px;
 }
 
+#album-list #table-headers .header span {
+    color: rgb(175, 175, 175);
+}
+
+#album-list #table-headers .header .active {
+    color: black;
+}
+
+#album-list #table-headers .header {
+    display: flex;
+    justify-content: space-between;
+}
+
+#album-list #table-headers .header:hover {
+    background-color: lightblue;
+}
+
 /* Table style */
 #album-list table, th, td {
     padding: 5px 5px;

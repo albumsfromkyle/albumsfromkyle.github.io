@@ -29,6 +29,8 @@
     - Diff: High
 * REMOVE "ALBUMS" LIST, SINCE THAT SHOULD JUST BE DONE BY SORTING THE OVERALL LIST BY RATING (or at least make it extract all the data from the main csv so i dont need to create a separate csv file for it)
 * Add album art to each list
+* Make the default table ordering to order by RATING (OR by newest added)
+* Add a column for release data and/or listened to date
 
 # NAV BAR
 * Make disabled buttons not highlight the same as active buttons
