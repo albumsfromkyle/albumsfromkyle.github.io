@@ -23,8 +23,6 @@ function getExtensionFromList(list_type) {
     var extension = "";
     if (list_type == "Full Year List")
         extension = "";
-    else if (list_type == "Favorite Albums")
-        extension = "_albums";
     else if (list_type == "Favorite Songs")
         extension = "_songs";
 

@@ -17,9 +17,6 @@
 * Maybe add calendar showing when I listen to certain albums
     - Prio: Extremely Low
     - Diff: High
-* REMOVE "ALBUMS" LIST, SINCE THAT SHOULD JUST BE DONE BY SORTING THE OVERALL LIST BY RATING (or at least make it extract all the data from the main csv so i dont need to create a separate csv file for it)
-    - Prio: High
-    - Diff: Low
 
 
 # NAV BAR
