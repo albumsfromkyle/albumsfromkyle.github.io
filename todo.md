@@ -1,13 +1,3 @@
-# DESIGN THOUGHTS
-* Two paths to go down:
-    1. It could all be one one "webpage" where I am just loading different CSV files each time
-    2. Each year/list has it's own webpage that I redirect to
-* Need a CSV for each list:
-    - Full year list
-    - Favorite Albums list
-    - Favorite Songs list
-    - Current Obsessions(?maybe not for this, it can be a blog-like page?)
-
 # GENERAL
 * Allow the user to search for an album/artist
     - Prio: Low
@@ -28,9 +18,9 @@
     - Prio: Extremely Low
     - Diff: High
 * REMOVE "ALBUMS" LIST, SINCE THAT SHOULD JUST BE DONE BY SORTING THE OVERALL LIST BY RATING (or at least make it extract all the data from the main csv so i dont need to create a separate csv file for it)
-* Add album art to each list
-* Make the default table ordering to order by RATING (OR by newest added)
-* Add a column for release data and/or listened to date
+    - Prio: High
+    - Diff: Low
+
 
 # NAV BAR
 * Make disabled buttons not highlight the same as active buttons
@@ -41,9 +31,6 @@
 * Make the column sizes resizeable when clicked on by the user
     - Prio: High
     - Diff: High
-* Allow the user to sort the table by the column (alphabetically, genre, date, rating)
-    - Prio: Medium
-    - Diff: Medium
 * Adjust default table column sizes to fit better
     - Prio: High
     - Diff: Low
@@ -53,16 +40,20 @@
 * Add year-end statistics at the top(?) of the table
     - Prio: Low
     - Diff: Low
-* Have the row highlighting depend on the HIDDEN ranking, not public (or even depend on the favorites list)
+* Do all sorting for rankings based off HIDDEN ratings, since the program won't be able to determine between albums of the same ranking
     - Prio: High
     - Diff: Medium
-* Add year selector for ALL years
+* Add album art to each list
     - Prio: Low
-    - Diff: Medium
+    - Diff: High
+* Add a column for release data and/or listened to date
+    - Prio: Medium
+    - Diff: Low
 
 
 ---
-
+* Script to automatically update the CSV files?
+    - Or at least have the script automatically split my master CSV list into the separate CSVs here
 * Create script for automating generating the songs list
     - Use exportify to get everything but genre,
     - Potentially use RYM web scraper for genre

@@ -35,12 +35,6 @@ function getExtensionFromList(list_type) {
 /********************
 **** CSV LOADING ****
 ********************/
-// Loads newest CSV by on startup ONLY
-d3.csv("csv/2024.csv").then(function(data) {
-        displayCSVData(data);
-});
-
-
 // Highlight the row as gold, silver, or bronze if the rating is high enough
 function highlight_row_from_rating(row, rating) {
     if (parseInt(rating) >= 9) {
@@ -59,7 +53,7 @@ function highlight_row_from_rating(row, rating) {
 function displayCSVData(data) {
     const table = document.getElementById("album-table-body");
     
-    updateTableHeaders()
+    updateTableHeaders();
 
     // Loop through each entry (which is an album), and copy the data into a new table row
     data.forEach(function(csv_row, r) {
@@ -88,6 +82,12 @@ function displayCSVData(data) {
         
         highlight_row_from_rating(new_row, csv_row["Rating"]);
     });
+
+    // Since this should only be called when loading in a CSV for the first time,
+    // Defaultly sort by the "Rating" if this is NOT the songs list
+    if (SELECTED_LIST != "Favorite Songs") {
+        sortTable(4); // 4 == "Rating"
+    }
 }
 
 
