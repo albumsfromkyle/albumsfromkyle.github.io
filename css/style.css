@@ -6,9 +6,75 @@
 }
 
 :root {
-    --primary-color: #4891ff;
-    --light-color: #f4f4f6;
-    --dark-color: #494949;
+    /* Reference Colors */
+    --PRIMARY-COLOR: #4891ff;
+    --LIGHT-COLOR: #f4f4f6;
+    --DARK-COLOR: #494949;
+
+    --DISABLED-COLOR: rgb(175, 175, 175);
+
+
+    /* Top Navbar Colors */
+    --NAVBAR-BACKGROUND: #eee;
+
+    --NAVBAR-TEXT: black;
+    --NAVBAR-TEXT-HOVER: var(--PRIMARY-COLOR);
+
+
+    /* List Selector Colors */
+    --LIST-BACKGROUND: #ddd;
+
+    --LIST-TEXT: black;
+    --LIST-TEXT-HOVER: var(--PRIMARY-COLOR);
+    --LIST-BUTTON-BACKGROUND: #ddd;
+    --LIST-BUTTON-BACKGROUND-HOVER: #ddd;
+
+    --LIST-SELECTED-TEXT: black;
+    --LIST-SELECTED-TEXT-HOVER: red;
+    --LIST-SELECTED-BUTTON-BACKGROUND: greenyellow;
+    --LIST-SELECTED-BUTTON-BACKGROUND-HOVER: greenyellow;
+    
+    
+    /* Year Selector Colors */
+    --YEAR-BACKGROUND: #ccc;
+    --YEAR-BORDER: black;
+
+    --YEAR-TEXT: black;
+    --YEAR-TEXT-HOVER: var(--PRIMARY-COLOR);
+    --YEAR-BUTTON-BACKGROUND: #ccc;
+    --YEAR-BUTTON-BACKGROUND-HOVER: #ccc;
+    
+    --YEAR-DISABLED-TEXT: var(--DISABLED-COLOR);
+    --YEAR-DISABLED-TEXT-HOVER: var(--DISABLED-COLOR);
+    --YEAR-DISABLED-BUTTON-BACKGROUND: #ccc;
+    --YEAR-DISABLED-BUTTON-BACKGROUND-HOVER: #ccc;
+
+    --YEAR-SELECTED-TEXT: red;
+    --YEAR-SELECTED-TEXT-HOVER: var(--PRIMARY-COLOR);
+    --YEAR-SELECTED-BUTTON-BACKGROUND: greenyellow;
+    --YEAR-SELECTED-BUTTON-BACKGROUND-HOVER: greenyellow;
+
+
+    /* Table Colors */
+    --TABLE-HEADER-TEXT: #black;
+    --TABLE-HEADER-TEXT-HOVER: var(--PRIMARY-COLOR);
+    --TABLE-HEADER-BACKGROUND: rgb(228 240 245);
+    --TABLE-HEADER-BACKGROUND-HOVER: lightblue;
+    
+    --TABLE-HEADER-ORDER: var(--DISABLED-COLOR);
+    --TABLE-SELECTED-HEADER-ORDER: black;
+
+    --TABLE-BORDER: black;
+
+    --TABLE-CELL-BACKGROUND: white;
+    
+    --TABLE-GOLD: goldenrod;
+    --TABLE-SILVER: silver;
+    --TABLE-BRONZE: #cd7f32;
+
+
+    /* Body Colors */
+    --BODY-BACKGROUND: white;
 }
 
 /***********************
@@ -19,13 +85,13 @@ body {
     font-family: "Poppins", sans-serif;
     font-size: 16px;
     line-height: 1.5;
-    background: #fff;
     padding-bottom: 50px;
+    background: var(--BODY-BACKGROUND);
 }
 
 a {
     text-decoration: None;
-    color: var(--dark-color)
+    color: var(--DARK-COLOR)
 }
 
 ul {
@@ -43,7 +109,7 @@ img {
 ********************/
 /* #region NAVBAR */
 #navbar {
-    background: #eee;
+    background: var(--NAVBAR-BACKGROUND);
     padding: 20px;
 }
 
@@ -60,10 +126,11 @@ img {
     display: block;
     font-weight: 600;
     transition: 0.15s;
+    color: var(--NAVBAR-TEXT);
 }
 
 #navbar #title a:hover {
-    color: var(--primary-color);
+    color: var(--NAVBAR-TEXT-HOVER);
 }
 
 /* Makes the list elements into a flex row */
@@ -84,10 +151,11 @@ img {
     display: block;
     font-weight: 600;
     transition: 0.15s;
+    color: var(--NAVBAR-TEXT);
 }
 
 #navbar ul li a:hover {
-    color: var(--primary-color);
+    color: var(--NAVBAR-TEXT-HOVER);
 }
 
 /* Moves the spotify logo over so it is in line with the rest of the "container" class borders */
@@ -102,7 +170,7 @@ img {
 ***************************/
 /* #region LIST-SELECT NAVBAR */
 #list-select-navbar {
-    background: #ddd;
+    background: var(--LIST-BACKGROUND);
     padding: 20px;
 }
 
@@ -125,11 +193,13 @@ img {
     font-size: medium;
     transition: 0.15s;
     border: none;
-    background: none;
+    background: var(--LIST-BUTTON-BACKGROUND);
+    color: var(--LIST-TEXT);
 }
 
 #list-select-navbar ul li button:hover {
-    color: var(--primary-color); ;
+    background: var(--LIST-BUTTON-BACKGROUND-HOVER);
+    color: var(--LIST-TEXT-HOVER);
 }
 
 /* Styles the ACTIVE list element */
@@ -140,11 +210,13 @@ img {
     font-size: medium;
     transition: 0.15s;
     border: none;
-    background: greenyellow;
+    background: var(--LIST-SELECTED-BUTTON-BACKGROUND);
+    color: var(--LIST-SELECTED-TEXT);
 }
 
 #list-select-navbar #list-list .active:hover {
-    color: red; ;
+    background: var(--LIST-SELECTED-BUTTON-BACKGROUND-HOVER);
+    color: var(--LIST-SELECTED-TEXT-HOVER);
 }
 /* #endregion */
 
@@ -154,8 +226,8 @@ img {
 ***************************/
 /* #region YEAR-SELECT NAVBAR */
 #year-navbar {
-    background: #ccc;
-    padding: 0 20px;
+    background: var(--YEAR-BACKGROUND);
+    padding: 0px 20px;
 }
 
 /* Centers the entire year navbar */
@@ -176,37 +248,55 @@ img {
 }
 
 #year-navbar #year-menu li {
-    border-left: 1px solid var(--dark-color);
-    border-top: 1px solid var(--dark-color);
-    border-bottom: 1px solid var(--dark-color);
+    border-left: 1px solid var(--YEAR-BORDER);
+    border-top: 1px solid var(--YEAR-BORDER);
+    border-bottom: 1px solid var(--YEAR-BORDER);
 }
+
 #year-navbar #year-menu li:last-child {
-    border-right: 1px solid var(--dark-color);
+    border-right: 1px solid var(--YEAR-BORDER);
 }
 
 /* Style ALL the buttons */
 #year-navbar button {
-    padding: 0px 15px;
+    padding: 2px 18px;
     display: block;
     font-size: medium;
     font-weight: 600;
     transition: 0.15s;
     border: none;
-    background: none;
+    background: var(--YEAR-BUTTON-BACKGROUND);
+    color: var(--YEAR-TEXT);
 }
 
 #year-navbar button:hover {
-    color: var(--primary-color);
+    background: var(--YEAR-BUTTON-BACKGROUND-HOVER);
+    color: var(--YEAR-TEXT-HOVER);
     cursor: pointer;
 }
 
+#year-navbar button:disabled {
+    background: var(--YEAR-DISABLED-BUTTON-BACKGROUND);
+    color: var(--YEAR-DISABLED-TEXT);
+}
+
+#year-navbar button:disabled:hover {
+    background: var(--YEAR-DISABLED-BUTTON-BACKGROUND-HOVER);
+    color: var(--YEAR-DISABLED-TEXT-HOVER);
+    cursor: pointer;
+}
+
+
+
 /* Style the selected year */
 #year-navbar #year-list .active {
-    background: greenyellow;
+    background: var(--YEAR-SELECTED-BUTTON-BACKGROUND);
+    color: var(--YEAR-SELECTED-TEXT);
 }
 
 #year-navbar #year-list .active:hover {
-    color: red;
+    background: var(--YEAR-SELECTED-BUTTON-BACKGROUND-HOVER);
+    color: var(--YEAR-SELECTED-TEXT-HOVER);
 }
 /* #endregion */
 
@@ -252,42 +342,47 @@ img {
     width: 450px;
 }
 
-#album-list #table-headers .header span {
-    color: rgb(175, 175, 175);
+#album-list #table-headers .header span { /* Order triangles */
+    color: var(--TABLE-HEADER-ORDER);
 }
 
 #album-list #table-headers .header .active {
-    color: black;
+    color: var(--TABLE-SELECTED-HEADER-ORDER);
 }
 
-#album-list #table-headers .header {
+#album-list #table-headers .header { /* Inner div inside the cell */
     display: flex;
     justify-content: space-between;
-}
-
-#album-list #table-headers .header:hover {
-    background-color: lightblue;
 }
 
 /* Table style */
 #album-list table, th, td {
     padding: 5px 5px;
-    border: 1px solid black;
+    border: 1px solid var(--TABLE-BORDER);
     border-collapse: collapse;
 }
 
-#album-list thead {
-    background-color: rgb(228 240 245);
+#album-list thead td {  /* Entire header cell */
+    color: var(--TABLE-HEADER-TEXT);
+    background: var(--TABLE-HEADER-BACKGROUND);
 }
 
+#album-list thead td:hover {  /* Entire header cell */
+    color: var(--TABLE-HEADER-TEXT-HOVER);
+    background: var(--TABLE-HEADER-BACKGROUND-HOVER);
+}
+
+#album-list #album-table {
+    background: var(--TABLE-CELL-BACKGROUND);
+}
 #album-list #album-table .gold {
-    background: goldenrod;
+    background: var(--TABLE-GOLD);
 }
 #album-list #album-table .silver {
-    background: silver;
+    background: var(--TABLE-SILVER);
 }
 #album-list #album-table .bronze {
-    background: #cd7f32 ;
+    background: var(--TABLE-BRONZE);
 }
 /* #endregion */
 
@@ -300,6 +395,6 @@ img {
     max-width: 1500px;
     margin: 0 auto; /* top & bottom = 0, left & right = auto */
     padding: 0 15px;
-    /* background: #aaa; */
+    /* background: pink; */
 }
 /* #endregion */
