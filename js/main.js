@@ -99,9 +99,13 @@ function updateTableHeaders() {
         
         ["Song", "Artist", "Album", "Genre"].forEach(function(label, i) {
             cell = new_row.insertCell();
-            cell.innerHTML = "<div class=\"header\">" + label + "<span id=\"header_" + i + "_order\">▲</span> </div>";
             cell.classList.add(label.toLowerCase());
-            cell.setAttribute("onclick", "sortTable(" + i + ")");
+            cell.innerHTML = "<div class=\"header\">" + label + "</div>";
+
+            if ([""].includes(label)) { // Add all headers that I want to be sortable to this list
+                cell.innerHTML = "<div class=\"header\">" + label + "<span id=\"header_" + i + "_order\">▲</span> </div>";
+                cell.setAttribute("onclick", "sortTable(" + i + ")");
+            }
         });
     }
     else {
@@ -109,9 +113,13 @@ function updateTableHeaders() {
 
         ["Artist", "Album", "Genre", "Favorite Songs", "Rating"].forEach(function(label, i) {
             cell = new_row.insertCell();
-            cell.innerHTML = "<div class=\"header\">" + label + "<span id=\"header_" + i + "_order\">▲</span> </div>";
             cell.classList.add(label.replace(" ", "-").toLowerCase());
-            cell.setAttribute("onclick", "sortTable(" + i + ")");
+            cell.innerHTML = "<div class=\"header\">" + label + "</div>";
+            
+            if (["Rating"].includes(label)) { // Add all headers that I want to be sortable to this list
+                cell.innerHTML = "<div class=\"header\">" + label + "<span id=\"header_" + i + "_order\">▲</span> </div>";
+                cell.setAttribute("onclick", "sortTable(" + i + ")");
+            }
         });
     }
 }
