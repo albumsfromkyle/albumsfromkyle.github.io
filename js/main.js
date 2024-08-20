@@ -116,7 +116,7 @@ function updateTableHeaders() {
             cell.classList.add(label.replace(" ", "-").toLowerCase());
             cell.innerHTML = "<div class=\"header\">" + label + "</div>";
             
-            if (["Rating"].includes(label)) { // Add all headers that I want to be sortable to this list
+            if ([""].includes(label)) { // Add all headers that I want to be sortable to this list
                 cell.innerHTML = "<div class=\"header\">" + label + "<span id=\"header_" + i + "_order\">▲</span> </div>";
                 cell.setAttribute("onclick", "sortTable(" + i + ")");
             }
@@ -161,7 +161,7 @@ function sortTable(header_index) {
     // Get if it should be sorting in ascending or descending order
     // Get current sorting order and do the opposite
     order = document.getElementById("header_" + header_index + "_order");
-    if (order.innerHTML == "▲") {
+    if (order == null || order.innerHTML == "▲") { // The "order == null" allows the if statement to short circuit for the default sort
         tableBubbleSort(header_index, "desc");
         order.innerHTML = "▼";
         updateOrderTriangles(order);
