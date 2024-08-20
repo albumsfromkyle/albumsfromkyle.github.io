@@ -310,37 +310,9 @@ img {
     padding-top: 20px;
 }
 
-#album-list table {
-    width: 100%;
-}
-
 /* Table column widths */
 #album-list #table-headers {
     font-weight: 600;
-}
-
-#album-list .song {
-    width: 450px;
-}
-
-#album-list .artist {
-    width: 450px;
-}
-
-#album-list .album {
-    width: 450px;
-}
-
-#album-list .genre {
-    width: 450px;
-}
-
-#album-list .favorite-songs {
-    width: 450px;
-}
-
-#album-list .rating {
-    width: 450px;
 }
 
 #album-list #table-headers .header span { /* Order triangles */
@@ -361,6 +333,19 @@ img {
     padding: 5px 5px;
     border: 1px solid var(--TABLE-BORDER);
     border-collapse: collapse;
+    position: relative;
+}
+td.resizable {
+    position: relative;
+}
+td.resizable:after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    cursor: ew-resize;
 }
 
 #album-list thead td {  /* Entire header cell */
@@ -385,6 +370,8 @@ img {
 #album-list #album-table .bronze {
     background: var(--TABLE-BRONZE);
 }
+
+
 /* #endregion */
 
 
@@ -397,5 +384,12 @@ img {
     margin: 0 auto; /* top & bottom = 0, left & right = auto */
     padding: 0 15px;
     /* background: pink; */
+}
+
+.no-select {
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 }
 /* #endregion */

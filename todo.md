@@ -29,9 +29,6 @@
 
 
 # TABLE
-* Make the column sizes resizeable when clicked on by the user
-    - Prio: High
-    - Diff: High
 * Adjust default table column sizes to fit better
     - Prio: High
     - Diff: Low
