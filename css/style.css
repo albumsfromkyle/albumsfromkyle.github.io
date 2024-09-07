@@ -23,6 +23,7 @@
 
     /* List Selector Colors */
     --LIST-BACKGROUND: var(--NAVBAR-BACKGROUND);
+    --LIST-BORDER: black;
 
     --LIST-TEXT: black;
     --LIST-TEXT-HOVER: var(--PRIMARY-COLOR);
@@ -31,8 +32,8 @@
 
     --LIST-SELECTED-TEXT: black;
     --LIST-SELECTED-TEXT-HOVER: black;
-    --LIST-SELECTED-BUTTON-BACKGROUND: var(--LIST-BACKGROUND);
-    --LIST-SELECTED-BUTTON-BACKGROUND-HOVER: var(--LIST-BACKGROUND);
+    --LIST-SELECTED-BUTTON-BACKGROUND: #dfdfdf;
+    --LIST-SELECTED-BUTTON-BACKGROUND-HOVER: --LIST-SELECTED-BUTTON-BACKGROUND;
 
     
     /* Year Selector Colors */
@@ -51,7 +52,7 @@
 
     --YEAR-SELECTED-TEXT: black;
     --YEAR-SELECTED-TEXT-HOVER: black;
-    --YEAR-SELECTED-BUTTON-BACKGROUND: #c4c4c4;
+    --YEAR-SELECTED-BUTTON-BACKGROUND: #dfdfdf;
     --YEAR-SELECTED-BUTTON-BACKGROUND-HOVER: var(--YEAR-SELECTED-BUTTON-BACKGROUND);
 
 
@@ -187,6 +188,8 @@ img {
 #selector-navbar #list-selector {
     background: var(--LIST-BACKGROUND);
     padding-bottom: 5px;
+    display: flex;
+    justify-content: center;
 }
 
 /* Makes the elements in the center a flex row */
@@ -197,9 +200,9 @@ img {
 
 /* Styles the list elements */
 #selector-navbar #list-selector ul li button {
-    padding: 0px 40px;
+    padding: 0px 32px;
     display: block;
-    font-weight: bold;
+    font-weight: 500;
     font-size: medium;
     transition: color 0.15s;
     border: none;
@@ -214,9 +217,21 @@ img {
     color: var(--LIST-TEXT-HOVER);
 }
 
+/* Styles the borders around the list options */
+#selector-navbar #list-selector li {
+    border-left: 1px solid var(--LIST-BORDER);
+    border-top: 1px solid var(--LIST-BORDER);
+    border-bottom: 1px solid var(--LIST-BORDER);
+    border-right: none;
+}
+
+#selector-navbar #list-selector li:last-child {
+    border-right: 1px solid var(--LIST-BORDER);
+}
+
 /* Styles the ACTIVE list element */
 #selector-navbar #list-selector #list-list .active {
-    font-weight: 800;
+    font-weight: 600;
     background: var(--LIST-SELECTED-BUTTON-BACKGROUND);
     color: var(--LIST-SELECTED-TEXT);
 }
@@ -373,6 +388,27 @@ td.resizable:after {
 
 /* #endregion */
 
+
+/******************
+**** Site Info ****
+******************/
+/* #region SITE-INFO */
+#site-info {
+    padding-top: 20px;
+    padding-bottom: 50px;
+}
+/* #endregion */
+
+
+/******************
+**** Resources ****
+******************/
+/* #region RESOURCES */
+#resources {
+    padding-top: 20px;
+    padding-bottom: 50px;
+}
+/* #endregion */
 
 /************************
 **** Utility classes ****

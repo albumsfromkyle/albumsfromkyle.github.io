@@ -51,18 +51,13 @@
 
 ---
 
-* Script to automatically update the CSV files?
-    - Or at least have the script automatically split my master CSV list into the separate CSVs here
-* Create script for automating generating the songs list
-    - Use exportify to get everything but genre,
-    - Potentially use RYM web scraper for genre
-    - Otherwise, use previous songs list and manually fill in the gaps
-* Make script to convert readme to html for "about" page
-    - Prio: Extremely Low
-    - Diff: High
-* Script to check for inconsistenceies between the master google sheets vs the website CSV vs my exported spotify playlist
-    - Prio: Extremely Low
-    - Diff: High
 * Script to aid in creating my manual ranking of the top albums (automatically put all 7-10 albums into basic order)
     - Prio: Extremely Low
     - Diff: Medium
+
+
+---
+
+Border around years and list selectors?
+Colors?
+Single navbar vs two?
