@@ -4,59 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Albums From Kyle</title>
-    <!-- FONTS -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
     <link rel="stylesheet" href="css/style.css"> <!-- STYLE -->
     <!-- <link rel="shortcut icon" href="images/vinyl3.png" type="image/x-icon" /> -->
     <script src="https://d3js.org/d3.v5.min.js"></script> <!-- D3 For CSV data manipulation -->
 </head>
 <body>
     
-    <!-- ------------------------ MAIN NAVBARS ------------------------ -->
-    <div w3-include-html="navbar.html"></div>
-
-    <!-- ------------------------ LIST-NAVBAR ------------------------ -->
-    <nav id="list-select-navbar">
+    <!-- ------------------------ NAVBARS ------------------------ -->
+    <div id="navbar"> <!-- Overall container -->
         <div class="container">
-            <div id="list-menu">
-                <ul id = "list-list">
-                    <li><button class="active">Favorite Albums</button></li>
-                    <li><button>Favorite Songs</button></li>
-                    <!-- <li><button>Current Obsessions</button></li> -->
+
+            <!-- ------------------------ MAIN MENU NAVBAR ------------------------ -->
+            <div id="main-menu">
+                <ul>
+                    <li><a href="index.html">Albums From Kyle</a></li>
+                    <li><a href="siteinfo.html">Site Info</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                    <li><a href="spotify.html"> <!-- Alternatively use "https://open.spotify.com/user/8f68w4pvrs06luetrjbgrxyu5?si=f1b32525c6bb43f8" for a link to my profile -->
+                        <img src="images/spotify_logo.png" alt="Spotify" width="25" height="25" onmouseover='this.src="images/spotify_logo_green.png";' onmouseout='this.src="images/spotify_logo.png";'>
+                    </a></li>
                 </ul>
             </div>
-        </div>
-    </nav>
-    
-    <!-- ------------------------ YEAR NAVBAR ------------------------ -->
-    <nav id="year-navbar">
-        <div class="container">
-            <div id="year-menu">
-                <button id="year-decrease">◀</button>
-                <ul id="year-list">
-                    <li><button id="year1", disabled="true">2020</button></li>
-                    <li><button id="year2", disabled="true">2021</button></li>
-                    <li><button id="year3">2022</button></li>
-                    <li><button id="year4">2023</button></li>
-                    <li><button id="year5" class="active">2024</button></li>
-                </ul>
-                <button id="year-increase", disabled="true">▶</button>
-            </div>
+            
+            <div id="selector-navbar">
+                <!-- ------------------------ LIST SELECTOR (ALBUMS/SONGS) NAVBAR ------------------------ -->
+                <div id="list-selector">
+                    <ul id = "list-list">
+                        <li><button class="active">Favorite Albums</button></li>
+                        <li><button>Favorite Songs</button></li>
+                    </ul>
+                </div>
 
+                <!-- ------------------------ YEAR SELECTOR NAVBAR ------------------------ -->
+                <div id="year-selector">
+                    <button id="year-decrease">◀</button>
+                    <ul id="year-list">
+                        <li><button id="year1", disabled="true">2020</button></li>
+                        <li><button id="year2", disabled="true">2021</button></li>
+                        <li><button id="year3">2022</button></li>
+                        <li><button id="year4">2023</button></li>
+                        <li><button id="year5" class="active">2024</button></li>
+                    </ul>
+                    <button id="year-increase", disabled="true">▶</button>
+                </div>
+            </div>
+            
         </div>
-    </nav>
+    </div>
 
     <!-- ------------------------ SPOTIFY PLAYLIST ------------------------ -->
     <!-- <div class="spotify-playlist">

@@ -11,18 +11,18 @@
     --LIGHT-COLOR: #f4f4f4;
     --DARK-COLOR: #494949;
 
-    --DISABLED-COLOR: rgb(175, 175, 175);
+    --DISABLED-COLOR: #c8ced8;
 
 
     /* Top Navbar Colors */
-    --NAVBAR-BACKGROUND: #eee;
+    --NAVBAR-BACKGROUND: #ecf4ff;
 
     --NAVBAR-TEXT: black;
     --NAVBAR-TEXT-HOVER: var(--PRIMARY-COLOR);
 
 
     /* List Selector Colors */
-    --LIST-BACKGROUND: #ddd;
+    --LIST-BACKGROUND: var(--NAVBAR-BACKGROUND);
 
     --LIST-TEXT: black;
     --LIST-TEXT-HOVER: var(--PRIMARY-COLOR);
@@ -33,59 +33,68 @@
     --LIST-SELECTED-TEXT-HOVER: black;
     --LIST-SELECTED-BUTTON-BACKGROUND: var(--LIST-BACKGROUND);
     --LIST-SELECTED-BUTTON-BACKGROUND-HOVER: var(--LIST-BACKGROUND);
-    
+
     
     /* Year Selector Colors */
-    --YEAR-BACKGROUND: var(--LIST-BACKGROUND);
+    --YEAR-BACKGROUND: var(--NAVBAR-BACKGROUND);
     --YEAR-BORDER: black;
 
-    --YEAR-TEXT: var(--LIST-TEXT);
-    --YEAR-TEXT-HOVER: var(--LIST-TEXT-HOVER);
-    --YEAR-BUTTON-BACKGROUND: var(--LIST-BUTTON-BACKGROUND);
-    --YEAR-BUTTON-BACKGROUND-HOVER: var(--LIST-BUTTON-BACKGROUND-HOVER);
+    --YEAR-TEXT: black;
+    --YEAR-TEXT-HOVER: var(--PRIMARY-COLOR);
+    --YEAR-BUTTON-BACKGROUND: var(--YEAR-BACKGROUND);
+    --YEAR-BUTTON-BACKGROUND-HOVER: var(--YEAR-BACKGROUND);
     
     --YEAR-DISABLED-TEXT: var(--DISABLED-COLOR);
     --YEAR-DISABLED-TEXT-HOVER: var(--DISABLED-COLOR);
-    --YEAR-DISABLED-BUTTON-BACKGROUND: var(--LIST-BUTTON-BACKGROUND);
-    --YEAR-DISABLED-BUTTON-BACKGROUND-HOVER: var(--LIST-BUTTON-BACKGROUND-HOVER);
+    --YEAR-DISABLED-BUTTON-BACKGROUND: var(--YEAR-BACKGROUND);
+    --YEAR-DISABLED-BUTTON-BACKGROUND-HOVER: var(--YEAR-BACKGROUND);
 
-    --YEAR-SELECTED-TEXT: var(--LIST-SELECTED-TEXT);
-    --YEAR-SELECTED-TEXT-HOVER: var(--LIST-SELECTED-TEXT-HOVER);
+    --YEAR-SELECTED-TEXT: black;
+    --YEAR-SELECTED-TEXT-HOVER: black;
     --YEAR-SELECTED-BUTTON-BACKGROUND: #c4c4c4;
-    --YEAR-SELECTED-BUTTON-BACKGROUND-HOVER: #b9b9b9;
+    --YEAR-SELECTED-BUTTON-BACKGROUND-HOVER: var(--YEAR-SELECTED-BUTTON-BACKGROUND);
 
 
     /* Table Colors */
     --TABLE-HEADER-TEXT: black;
-    --TABLE-HEADER-TEXT-HOVER: var(--PRIMARY-COLOR);
+    --TABLE-HEADER-TEXT-HOVER: var(--TABLE-HEADER-TEXT);
     --TABLE-HEADER-BACKGROUND: rgb(228 240 245);
-    --TABLE-HEADER-BACKGROUND-HOVER: lightblue;
+    --TABLE-HEADER-BACKGROUND-HOVER: var(--TABLE-HEADER-BACKGROUND);
     
     --TABLE-HEADER-ORDER: var(--DISABLED-COLOR);
     --TABLE-SELECTED-HEADER-ORDER: black;
 
     --TABLE-BORDER: black;
 
-    --TABLE-CELL-BACKGROUND: white;
-    
-    --TABLE-GOLD: goldenrod;
+    --TABLE-GOLD: #ffbf00;
     --TABLE-SILVER: silver;
     --TABLE-BRONZE: #cd7f32;
+    --TABLE-CELL-BACKGROUND: #f3f8ff;
 
 
     /* Body Colors */
     --BODY-BACKGROUND: #fdfdfd;
+    --BODY-BACKGROUND: lightblue;
+
+    --CONTAINER-BACKGROUND: var(--BODY-BACKGROUND);
 }
 
 /***********************
 **** Basic elements ****
 ***********************/
 /* #region BASIC ELEMENTS */
+@font-face {
+    font-family: "Binomic Medium";
+    src: url("fonts/Binomic-Medium.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
-    font-family: "Poppins", sans-serif;
+    font-family: "Binomic Medium", sans-serif;
     font-size: 16px;
     line-height: 1.5;
-    padding-bottom: 50px;
+    padding-bottom: 0px;
     background: var(--BODY-BACKGROUND);
 }
 
@@ -110,7 +119,7 @@ img {
 /* #region NAVBAR */
 #navbar {
     background: var(--NAVBAR-BACKGROUND);
-    padding: 10px;
+    border-bottom: black solid 1px;
 }
 
 /* Makes all elements into a flex row */
@@ -121,21 +130,9 @@ img {
     font-size: 18px;
 }
 
-/* Styles the title element */
-#navbar #title a {
-    padding: 10px 20px;
-    display: block;
-    font-weight: 600;
-    transition: 0.15s;
-    color: var(--NAVBAR-TEXT);
-}
-
-#navbar #title a:hover {
-    color: var(--NAVBAR-TEXT-HOVER);
-}
-
 /* Makes the list elements into a flex row */
 #navbar #main-menu {
+    padding: 5px 0px;
     display: flex;
     align-items: center;
 }
@@ -166,29 +163,40 @@ img {
 /* #endregion */
 
 
-/***************************
-**** List-Select Navbar ****
-***************************/
-/* #region LIST-SELECT NAVBAR */
-#list-select-navbar {
-    background: var(--LIST-BACKGROUND);
-    padding-top: 5px;
-    border-top: 1px solid black;
+/************************
+**** Selector Navbar ****
+************************/
+/* #region SELECTOR-NAVBAR */
+#selector-navbar {
+    background: var(--NAVBAR-BACKGROUND);
+    padding: 5px 0px;
 }
 
-/* Centers the entire list-selector navbar */
-#list-select-navbar .container {
+/* Centers the entire selector navbar */
+#selector-navbar .container {
+    display: flex;
+    justify-content: space-around;
+}
+/* #endregion */
+
+
+/**********************
+**** List-Selector ****
+**********************/
+/* #region LIST-SELECTOR */
+#selector-navbar #list-selector {
+    background: var(--LIST-BACKGROUND);
+    padding-bottom: 5px;
+}
+
+/* Makes the elements in the center a flex row */
+#selector-navbar #list-selector ul {
     display: flex;
     justify-content: space-around;
 }
 
-/* Makes the elements in the center a flex row */
-#list-select-navbar #list-menu ul {
-    display: flex;
-}
-
 /* Styles the list elements */
-#list-select-navbar ul li button {
+#selector-navbar #list-selector ul li button {
     padding: 0px 40px;
     display: block;
     font-weight: bold;
@@ -201,101 +209,86 @@ img {
     line-height: 1;
 }
 
-#list-select-navbar ul li button:hover {
+#selector-navbar #list-selector ul li button:hover {
     background: var(--LIST-BUTTON-BACKGROUND-HOVER);
     color: var(--LIST-TEXT-HOVER);
 }
 
 /* Styles the ACTIVE list element */
-#list-select-navbar #list-list .active {
+#selector-navbar #list-selector #list-list .active {
     font-weight: 800;
     background: var(--LIST-SELECTED-BUTTON-BACKGROUND);
     color: var(--LIST-SELECTED-TEXT);
 }
 
-#list-select-navbar #list-list .active:hover {
+#selector-navbar #list-selector #list-list .active:hover {
     background: var(--LIST-SELECTED-BUTTON-BACKGROUND-HOVER);
     color: var(--LIST-SELECTED-TEXT-HOVER);
 }
 /* #endregion */
 
 
-/***************************
-**** Year-Select Navbar ****
-***************************/
+/**********************
+**** Year-Selector ****
+**********************/
 /* #region YEAR-SELECT NAVBAR */
-#year-navbar {
-    background: var(--YEAR-BACKGROUND);
-    padding: 5px;
-    padding-bottom: 5px;
-    border-bottom: 1px solid black;
-}
-
-/* Centers the entire year navbar */
-#year-navbar .container {
-    display: flex;
-    justify-content: space-around;
-}
-
-/* Puts the buttons and year list into a flex row */
-#year-navbar #year-menu {
+#selector-navbar #year-selector {
     display: flex;
 }
 
 /* Styles and adds border to the list elements */
-#year-navbar #year-menu ul {
+#selector-navbar #year-selector ul {
     display: flex;
     justify-content: space-between;
 }
 
-#year-navbar #year-menu li {
+#selector-navbar #year-selector li {
     border-left: 1px solid var(--YEAR-BORDER);
     border-top: 1px solid var(--YEAR-BORDER);
     border-bottom: 1px solid var(--YEAR-BORDER);
 }
 
-#year-navbar #year-menu li:last-child {
+#selector-navbar #year-selector li:last-child {
     border-right: 1px solid var(--YEAR-BORDER);
 }
 
 /* Style ALL the buttons */
-#year-navbar button {
+#selector-navbar #year-selector button {
     padding: 2px 18px;
     display: block;
     font-size: medium;
     font-weight: 500;
     transition: 0.15s;
     border: none;
-    background: var(--YEAR-BUTTON-BACKGROUND);
+    background: var(--NAVBAR-BACKGROUND);
     color: var(--YEAR-TEXT);
 }
 
-#year-navbar button:hover {
+#selector-navbar #year-selector button:hover {
     background: var(--YEAR-BUTTON-BACKGROUND-HOVER);
     color: var(--YEAR-TEXT-HOVER);
     cursor: pointer;
 }
 
-#year-navbar button:disabled {
+#selector-navbar #year-selector button:disabled {
     background: var(--YEAR-DISABLED-BUTTON-BACKGROUND);
     color: var(--YEAR-DISABLED-TEXT);
 }
 
-#year-navbar button:disabled:hover {
+#selector-navbar #year-selector button:disabled:hover {
     background: var(--YEAR-DISABLED-BUTTON-BACKGROUND-HOVER);
     color: var(--YEAR-DISABLED-TEXT-HOVER);
     cursor: pointer;
 }
 
 /* Style the selected year */
-#year-navbar #year-list .active {
+#selector-navbar #year-selector #year-list .active {
     font-weight: 600;
-    
     background: var(--YEAR-SELECTED-BUTTON-BACKGROUND);
     color: var(--YEAR-SELECTED-TEXT);
 }
 
-#year-navbar #year-list .active:hover {
+#selector-navbar #year-selector #year-list .active:hover {
     background: var(--YEAR-SELECTED-BUTTON-BACKGROUND-HOVER);
     color: var(--YEAR-SELECTED-TEXT-HOVER);
 }
@@ -306,8 +299,14 @@ img {
 **** Table ****
 **************/
 /* #region TABLE */
-#album-list {
-    padding-top: 20px;
+#album-list .container {
+    padding-top: 30px;
+    padding-bottom: 50px;
+
+    padding-right: 75px;
+    padding-left: 75px;
+
+    background: var(--CONTAINER-BACKGROUND);
 }
 
 /* Table column widths */
@@ -380,10 +379,9 @@ td.resizable:after {
 ************************/
 /* #region UTILITY */
 .container {
-    max-width: 1500px;
+    max-width: 1600px;
     margin: 0 auto; /* top & bottom = 0, left & right = auto */
     padding: 0 15px;
-    /* background: pink; */
 }
 
 .no-select {
