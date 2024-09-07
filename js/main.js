@@ -90,35 +90,35 @@ function displayCSVData(data) {
 
 
 // Update the table headers to be resizeable
-function updateHeaderResizable() {
-    document.querySelectorAll("td.resizable").forEach(function(td) {
-        let startX, startWidth;
+// function updateHeaderResizable() {
+//     document.querySelectorAll("td.resizable").forEach(function(td) {
+//         let startX, startWidth;
         
-        // Add an event listener to each new header cell that listens for a user click
-        td.addEventListener("mousedown", function(e) {
-            if (e.offsetX > td.offsetWidth - 5) {
-                startX = e.pageX;
-                startWidth = td.offsetWidth;
-                document.addEventListener("mousemove", onMouseMove);
-                document.addEventListener("mouseup", onMouseUp);
-            }
-        });
+//         // Add an event listener to each new header cell that listens for a user click
+//         td.addEventListener("mousedown", function(e) {
+//             if (e.offsetX > td.offsetWidth - 5) {
+//                 startX = e.pageX;
+//                 startWidth = td.offsetWidth;
+//                 document.addEventListener("mousemove", onMouseMove);
+//                 document.addEventListener("mouseup", onMouseUp);
+//             }
+//         });
         
-        // If the user click is close to the border, allow the column to be resized
-        function onMouseMove(e) {
-            let newWidth = startWidth + (e.pageX - startX);
-            td.style.width = newWidth + "px";
-            document.body.classList.add('no-select');
-        }
+//         // If the user click is close to the border, allow the column to be resized
+//         function onMouseMove(e) {
+//             let newWidth = startWidth + (e.pageX - startX);
+//             td.style.width = newWidth + "px";
+//             document.body.classList.add('no-select');
+//         }
         
-        // Stop resizing
-        function onMouseUp() {
-            document.body.classList.remove('no-select');
-            document.removeEventListener("mousemove", onMouseMove);
-            document.removeEventListener("mouseup", onMouseUp);
-        }
-    });
-}
+//         // Stop resizing
+//         function onMouseUp() {
+//             document.body.classList.remove('no-select');
+//             document.removeEventListener("mousemove", onMouseMove);
+//             document.removeEventListener("mouseup", onMouseUp);
+//         }
+//     });
+// }
 
 
 // Update what values are shown as the table headers
@@ -132,7 +132,7 @@ function updateTableHeaders() {
         ["Song", "Artist", "Album", "Genre"].forEach(function(label, i) {
             cell = new_row.insertCell();
             cell.classList.add(label.toLowerCase());
-            cell.classList.add("resizable");
+            // cell.classList.add("resizable");
             cell.innerHTML = "<div class=\"header\">" + label + "</div>";
 
             if ([""].includes(label)) { // Add all headers that I want to be sortable to this list
@@ -147,7 +147,7 @@ function updateTableHeaders() {
         ["Artist", "Album", "Genre", "Favorite Songs", "Rating"].forEach(function(label, i) {
             cell = new_row.insertCell();
             cell.classList.add(label.replace(" ", "-").toLowerCase());
-            cell.classList.add("resizable");
+            // cell.classList.add("resizable");
             cell.innerHTML = "<div class=\"header\">" + label + "</div>";
             
             if ([""].includes(label)) { // Add all headers that I want to be sortable to this list
@@ -157,7 +157,7 @@ function updateTableHeaders() {
         });
     }
 
-    updateHeaderResizable();
+    // updateHeaderResizable();
 }
 
 

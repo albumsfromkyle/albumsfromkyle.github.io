@@ -315,6 +315,31 @@ img {
     font-weight: 600;
 }
 
+#album-list .song {
+    width: 450px;
+}
+
+#album-list .artist {
+    width: 450px;
+}
+
+#album-list .album {
+    width: 450px;
+}
+
+#album-list .genre {
+    width: 450px;
+}
+
+#album-list .favorite-songs {
+    width: 450px;
+}
+
+#album-list .rating {
+    width: 450px;
+}
+
+/* Table colors & states */
 #album-list #table-headers .header span { /* Order triangles */
     color: var(--TABLE-HEADER-ORDER);
 }
@@ -335,9 +360,11 @@ img {
     border-collapse: collapse;
     position: relative;
 }
-td.resizable {
+
+/* td.resizable {
     position: relative;
 }
+
 td.resizable:after {
     content: "";
     position: absolute;
@@ -346,7 +373,7 @@ td.resizable:after {
     bottom: 0;
     width: 5px;
     cursor: ew-resize;
-}
+} */
 
 #album-list thead td {  /* Entire header cell */
     color: var(--TABLE-HEADER-TEXT);
@@ -386,10 +413,10 @@ td.resizable:after {
     /* background: pink; */
 }
 
-.no-select {
+/* .no-select {
     user-select: none;
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
-}
+} */
 /* #endregion */
