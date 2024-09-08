@@ -39,38 +39,38 @@
     --YEAR-BACKGROUND: var(--LIST-BACKGROUND);
     --YEAR-BORDER: black;
 
-    --YEAR-TEXT: var(--LIST-TEXT);
-    --YEAR-TEXT-HOVER: var(--LIST-TEXT-HOVER);
-    --YEAR-BUTTON-BACKGROUND: var(--LIST-BUTTON-BACKGROUND);
-    --YEAR-BUTTON-BACKGROUND-HOVER: var(--LIST-BUTTON-BACKGROUND-HOVER);
+    --YEAR-TEXT: black;
+    --YEAR-TEXT-HOVER: var(--PRIMARY-COLOR);
+    --YEAR-BUTTON-BACKGROUND: var(--YEAR-BACKGROUND);
+    --YEAR-BUTTON-BACKGROUND-HOVER: var(--YEAR-BACKGROUND);
     
     --YEAR-DISABLED-TEXT: var(--DISABLED-COLOR);
     --YEAR-DISABLED-TEXT-HOVER: var(--DISABLED-COLOR);
-    --YEAR-DISABLED-BUTTON-BACKGROUND: var(--LIST-BUTTON-BACKGROUND);
-    --YEAR-DISABLED-BUTTON-BACKGROUND-HOVER: var(--LIST-BUTTON-BACKGROUND-HOVER);
+    --YEAR-DISABLED-BUTTON-BACKGROUND: var(--YEAR-BACKGROUND);
+    --YEAR-DISABLED-BUTTON-BACKGROUND-HOVER: var(--YEAR-BACKGROUND);
 
-    --YEAR-SELECTED-TEXT: var(--LIST-SELECTED-TEXT);
-    --YEAR-SELECTED-TEXT-HOVER: var(--LIST-SELECTED-TEXT-HOVER);
+    --YEAR-SELECTED-TEXT: black;
+    --YEAR-SELECTED-TEXT-HOVER: var(--YEAR-SELECTED-TEXT);
     --YEAR-SELECTED-BUTTON-BACKGROUND: #c4c4c4;
-    --YEAR-SELECTED-BUTTON-BACKGROUND-HOVER: #b9b9b9;
+    --YEAR-SELECTED-BUTTON-BACKGROUND-HOVER: var(--YEAR-SELECTED-BUTTON-BACKGROUND);
 
 
     /* Table Colors */
     --TABLE-HEADER-TEXT: black;
-    --TABLE-HEADER-TEXT-HOVER: var(--PRIMARY-COLOR);
+    --TABLE-HEADER-TEXT-HOVER: var(--TABLE-HEADER-TEXT);
     --TABLE-HEADER-BACKGROUND: rgb(228 240 245);
-    --TABLE-HEADER-BACKGROUND-HOVER: lightblue;
+    --TABLE-HEADER-BACKGROUND-HOVER: var(--TABLE-HEADER-BACKGROUND);
     
     --TABLE-HEADER-ORDER: var(--DISABLED-COLOR);
     --TABLE-SELECTED-HEADER-ORDER: black;
 
     --TABLE-BORDER: black;
 
-    --TABLE-CELL-BACKGROUND: white;
     
-    --TABLE-GOLD: goldenrod;
+    --TABLE-GOLD: #ffbf00;
     --TABLE-SILVER: silver;
     --TABLE-BRONZE: #cd7f32;
+    --TABLE-CELL-BACKGROUND: #f3f8ff;
 
 
     /* Body Colors */
@@ -110,7 +110,7 @@ img {
 /* #region NAVBAR */
 #navbar {
     background: var(--NAVBAR-BACKGROUND);
-    padding: 10px;
+    padding: 0px;
 }
 
 /* Makes all elements into a flex row */
@@ -123,7 +123,7 @@ img {
 
 /* Styles the title element */
 #navbar #title a {
-    padding: 10px 20px;
+    padding: 5px 0px;
     display: block;
     font-weight: 600;
     transition: 0.15s;
@@ -148,7 +148,7 @@ img {
 
 /* Styles the list elements */
 #navbar ul li a {
-    padding: 10px 20px;
+    padding: 5px 20px;
     display: block;
     font-weight: 600;
     transition: 0.15s;
@@ -226,7 +226,7 @@ img {
 /* #region YEAR-SELECT NAVBAR */
 #year-navbar {
     background: var(--YEAR-BACKGROUND);
-    padding: 5px;
+    padding-top: 5px;
     padding-bottom: 5px;
     border-bottom: 1px solid black;
 }
@@ -306,8 +306,11 @@ img {
 **** Table ****
 **************/
 /* #region TABLE */
-#album-list {
+#album-list .container {
     padding-top: 20px;
+    padding-bottom: 50px;
+
+    background: var(--CONTAINER-BACKGROUND);
 }
 
 /* Table column widths */
@@ -407,7 +410,7 @@ td.resizable:after {
 ************************/
 /* #region UTILITY */
 .container {
-    max-width: 1500px;
+    max-width: 1300px;
     margin: 0 auto; /* top & bottom = 0, left & right = auto */
     padding: 0 15px;
     /* background: pink; */
