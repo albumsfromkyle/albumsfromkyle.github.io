@@ -1,8 +1,16 @@
+@font-face {
+    font-family: "Binomic Medium";
+    src: url("fonts/binomic_medium.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
 /* Apply to everything */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: "Binomic Medium", sans-serif;
 }
 
 :root {
@@ -82,10 +90,9 @@
 ***********************/
 /* #region BASIC ELEMENTS */
 body {
-    font-family: "Poppins", sans-serif;
     font-size: 16px;
     line-height: 1.5;
-    padding-bottom: 50px;
+    padding-bottom: 0px;
     background: var(--BODY-BACKGROUND);
 }
 
@@ -125,7 +132,8 @@ img {
 #navbar #title a {
     padding: 5px 0px;
     display: block;
-    font-weight: 600;
+    font-size: large;
+    font-weight: normal;
     transition: 0.15s;
     color: var(--NAVBAR-TEXT);
 }
@@ -150,7 +158,8 @@ img {
 #navbar ul li a {
     padding: 5px 20px;
     display: block;
-    font-weight: 600;
+    font-size: large;
+    font-weight: normal;
     transition: 0.15s;
     color: var(--NAVBAR-TEXT);
 }
@@ -191,7 +200,7 @@ img {
 #list-select-navbar ul li button {
     padding: 0px 40px;
     display: block;
-    font-weight: bold;
+    font-weight: normal;
     font-size: medium;
     transition: color 0.15s;
     border: none;
@@ -208,7 +217,7 @@ img {
 
 /* Styles the ACTIVE list element */
 #list-select-navbar #list-list .active {
-    font-weight: 800;
+    font-weight: bold;
     background: var(--LIST-SELECTED-BUTTON-BACKGROUND);
     color: var(--LIST-SELECTED-TEXT);
 }
@@ -263,7 +272,7 @@ img {
     padding: 2px 18px;
     display: block;
     font-size: medium;
-    font-weight: 500;
+    font-weight: normal;
     transition: 0.15s;
     border: none;
     background: var(--YEAR-BUTTON-BACKGROUND);
@@ -289,8 +298,7 @@ img {
 
 /* Style the selected year */
 #year-navbar #year-list .active {
-    font-weight: 600;
-    
+    font-weight: bold;
     background: var(--YEAR-SELECTED-BUTTON-BACKGROUND);
     color: var(--YEAR-SELECTED-TEXT);
 }
@@ -314,10 +322,6 @@ img {
 }
 
 /* Table column widths */
-#album-list #table-headers {
-    font-weight: 600;
-}
-
 #album-list .song {
     width: 450px;
 }
@@ -342,7 +346,7 @@ img {
     width: 450px;
 }
 
-/* Table colors & states */
+/* Table ordering triangles */
 #album-list #table-headers .header span { /* Order triangles */
     color: var(--TABLE-HEADER-ORDER);
 }
@@ -351,13 +355,13 @@ img {
     color: var(--TABLE-SELECTED-HEADER-ORDER);
 }
 
+/* Table style */
 #album-list #table-headers .header { /* Inner div inside the cell */
-    display: flex;
-    justify-content: space-between;
+    font-size: medium;
+    font-weight: bold;
 }
 
-/* Table style */
-#album-list table, th, td {
+#album-list table, td {
     padding: 5px 5px;
     border: 1px solid var(--TABLE-BORDER);
     border-collapse: collapse;
