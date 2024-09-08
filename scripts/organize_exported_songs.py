@@ -33,8 +33,8 @@ def get_truncated_value(dest_csv_path, value, index):
 if __name__ == "__main__":
     # Get the user command line arguments
     if len(sys.argv) < 3:
-        print("[ERROR] Need to pass in the path to the exported csv and the ")
-        print("Run again as 'python3 organize_exported_songs.py /path/to/exported.csv'")
+        print("[ERROR] Need to pass in 2 arguments: the path to the exported csv and the path to output the results")
+        print("Run again as 'python3 organize_exported_songs.py path/to/exported.csv path/to/output.csv'")
         exit()
 
     source_csv_path = sys.argv[1]
