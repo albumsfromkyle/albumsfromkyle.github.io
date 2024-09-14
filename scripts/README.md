@@ -2,6 +2,20 @@
 This section contains scripts that aid me in organizing my music
 
 
+## organize_exported_albums.py
+The goal of this script is to take the exported CSV from my personal Google Sheets, and re-format it to fit my website's format.
+
+### How to use
+1) Go to the desired year's Google Sheets album tracker
+2) Export the main page as a CSV, and move it into the `csv/` directory
+4) Run the script as `python3 organize_exported_albums.py <path/to/exported.csv>`
+    - For example inside the `scripts/` directory, run `python3 organize_exported_albums.py ../csv/2024.csv`
+
+### Things to note
+* This script should be run right after exporting the Google Sheets
+* It is hard-coded to my current setup, so if that changes in the future the script will need to be adjusted
+
+
 ## organize_exported_songs.py
 The goal of this script is to take the exported CSV from [Exportify](https://exportify.net/), and re-format it into a more readable state, which I can then directly upload to my website.
 

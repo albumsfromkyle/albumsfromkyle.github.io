@@ -1,12 +1,20 @@
+// Years
 const OLDEST_YEAR = 2019;
 const CURRENT_YEAR = parseInt(new Date().getFullYear());
 const NUM_YEARS_TO_SHOW = 5;
 
+// List selectors
 let SELECTED_YEAR = CURRENT_YEAR; // Default year to show
 let SELECTED_LIST = "Favorite Albums"; // Default list to show
 
+// Headers
+const ALBUMS_CSV_HEADERS = ["Artist", "Album", "Genre", "Release Date", "Listened On", "Favorite Songs", "Rating", "Hidden Ranking"]
+let SHOWN_ALBUM_HEADERS = ["Artist", "Album", "Genre", "Favorite Songs", "Rating"]
+
+const SONGS_CSV_HEADERS = ["Song", "Album", "Artist", "Genre", "Hidden Ranking"]
+let SHOWN_SONG_HEADERS = ["Song", "Artist", "Album", "Genre"]
+
 let SORTABLE_HEADERS = [""]
-let HIDDEN_HEADERS = [""]
 
 
 /************************
@@ -118,10 +126,10 @@ function updateTableHeaders() {
 
     // Populate the new header row depending on the selected list
     if (SELECTED_LIST == "Favorite Songs") {
-        addHeadersToRow(newRow, ["Song", "Artist", "Album", "Genre"]);
+        addHeadersToRow(newRow, SHOWN_SONG_HEADERS);
     }
     else if (SELECTED_LIST == "Favorite Albums") {
-        addHeadersToRow(newRow, ["Artist", "Album", "Genre", "Favorite Songs", "Rating"]);
+        addHeadersToRow(newRow, SHOWN_ALBUM_HEADERS);
     }
 }
 
@@ -145,17 +153,23 @@ function highlightRowFromRating(row, rating) {
 
 
 /**
- * Transfers the data in a CSV row object into an HTML row object.
+ * Transfers all the data in a CSV row object into an HTML row object, and hides the columns not in headersToShow.
  * @param {*} htmlRow The HTML row object that will be populated with the new cells containing the CSV data
- * @param {*} headersToInclude The list of column headers you want to include from the CSV data
+ * @param {*} headersToShow The list of column headers you want to include from the CSV data
  * @param {*} csvRow The CSV row object containing the data to transfer
  * @param {*} defaultVal The default value to use if the CSV cell is empty or does not exist (defaultly "-")
  */
-function convertCsvRowToHtmlRow(htmlRow, headersToInclude, csvRow, defaultVal = "-") {
-    headersToInclude.forEach(function(header) {
+function convertCsvRowToHtmlRow(htmlRow, headersToShow, csvRow, defaultVal = "-") {
+    // Add each piece of info in the CSV to the HTML table
+    for (const [key, value] of Object.entries(csvRow)) {
         let cell = htmlRow.insertCell();
-        cell.innerHTML = csvRow[header] ? csvRow[header] : defaultVal;
-    })
+        cell.innerHTML = value ? value : defaultVal;
+
+        // Hide all cells in columns I don't care about (but keep the data accessable)
+        if (!headersToShow.includes(key)) {
+            cell.classList.add("hidden");
+        }
+    }
 }
 
 
@@ -180,10 +194,10 @@ function csvToHtml(data) {
 
         // Populate the row depending on what list is selected
         if (SELECTED_LIST == "Favorite Songs") {
-            convertCsvRowToHtmlRow(newRow, ["Song", "Artist", "Album", "Genre"], csvRow);
+            convertCsvRowToHtmlRow(newRow, SHOWN_SONG_HEADERS, csvRow);
         }
         else if (SELECTED_LIST == "Favorite Albums") {
-            convertCsvRowToHtmlRow(newRow, ["Artist", "Album", "Genre", "Favorite Songs", "Rating"], csvRow);
+            convertCsvRowToHtmlRow(newRow, SHOWN_ALBUM_HEADERS, csvRow);
         }
         
         // Highlight the row gold/silver/bronze if the score is high enough
@@ -213,7 +227,7 @@ function updateTable() {
         // Sort the data in the table (if needed)
         // NOTE: This WONT WORK if it is pasted after the d3.csv() call, and idk why
         if (SELECTED_LIST == "Favorite Albums") {
-            sortTable(4); // 4 == "Rating"
+            sortTable(ALBUMS_CSV_HEADERS.indexOf("Hidden Ranking"));
         }
     });
 }
@@ -301,10 +315,10 @@ function sortTable(headerIndex) {
     // If it is already sorted by this column, get the current order and do the opposite
     // If it is not sorted (or there is no previouys order), default to descending
     if (order == null || order.innerHTML == "▲") { // Short circuit if there is no order (i.e. we are doing the default ordering)
-        tableBubbleSort(headerIndex, "desc");
+        tableBubbleSort(headerIndex, "desc"); // Flip to ▼
     }
     else {
-        tableBubbleSort(headerIndex, "asc");
+        tableBubbleSort(headerIndex, "asc"); // Flip to ▲
     }
 
     // Update the visuals of the order triangle(s)
@@ -484,3 +498,191 @@ document.getElementById("year-decrease").onclick = function() {
     updateYearIncDecButtons();
 };
 
+
+/**************************************
+**** IN-BROWSER EDITING (DEV ONLY) ****
+**************************************/
+// These functions allow me to modify the album table in the web browser, rather than having to manually edit the CSV data
+// ALL editing functionality should be kept to this section, and it should not mingle with any other core functions
+// Because of this (and the fact that this isn't going to ever be active for deployment), this code might be a bit gross (and that's okay with me)
+
+const EDITING = false;
+
+/**
+ * If I am editing in the browser, modify certain elements and adjust the view to allow me to edit.
+ */
+if (EDITING) {
+    SHOWN_ALBUM_HEADERS = SHOWN_ALBUM_HEADERS.concat(["Hidden Ranking", "RANKING UP", "RANKING DOWN", "PRINT TABLE", "RESET RANKINGS"]);
+    SHOWN_SONG_HEADERS = SHOWN_SONG_HEADERS.concat(["Hidden Ranking", "RANKING UP", "RANKING DOWN", "PRINT", "RESET"]);
+    addEditingElements();
+}
+
+if (EDITING) { document.querySelector('#list-select-navbar').addEventListener('click', (ev) => { 
+    addEditingElements();
+});}
+
+
+/**
+ * Adds cells to the table that when clicked on, allow me to move around the rows.
+ */
+function addEditingCells() {
+    let table = document.getElementById("album-table-body");
+    let rows = table.rows;
+
+    for (let i = 0; i < rows.length; i++) {
+        let cell = rows[i].insertCell();
+        cell.innerHTML = "UP";
+        cell = rows[i].insertCell();
+        cell.innerHTML = "DOWN";
+        cell = rows[i].insertCell();
+        cell.innerHTML = "PRINT";
+        cell = rows[i].insertCell();
+        cell.innerHTML = "RESET";
+    }   
+}
+
+
+/**
+ * Wait for all the base data to be loaded in (and sorted), and then add the new editing elements.
+ */
+async function addEditingElements() {
+    await new Promise(r => setTimeout(r, 0.1*1000)); // sleep 0.1 seconds
+    addEditingCells();
+}
+
+/**
+ * Given an HTML tag, find the first HTML element of that tag that contains certain text.
+ * @param {*} tag The HTML tag to search all of (e.g. "p", "div", "td")
+ * @param {*} text The text to search for within the HTML elements
+ * @returns The HTML element if found, otherwise null
+ */
+function findElementByInnerText(tag, text) {
+    const elements = document.getElementsByTagName(tag);
+
+    // Iterate through the elements and check if the innerHTML matches
+    for (let element of elements) {
+        if (element.textContent.toLowerCase().trim() === text.toLowerCase()) {
+            return element;
+        }
+    }
+
+    console.log("ERROR: Could not find <" + tag + "> with text \"" + text + "\"");
+    return null;
+}
+
+
+/**
+ * Given a list of string values, join them together in CSV format (i.e. comma separating all values except the last one, and putting quotes around values with "," in them).
+ * @param {*} values List of string values to join together
+ * @returns The final joined-together string
+ */
+function csv_join(values) {
+    let result = "";
+
+    if (values.length == 0)
+        return result;
+    
+    for (let i = 0; i < values.length - 1; i++) {
+        result += (values[i].includes(",")) ? ("\"" + values[i] + "\",") : (values[i] + ",");
+    }
+    result += (values[values.length - 1].includes(",")) ? "\"" + values[values.length - 1] + "\"," : values[values.length - 1] + ",";
+
+    return result;
+}
+
+
+/**
+ * Reprint the CSV EXACTLY as it is, EXCEPT change the "Hidden Ranking" to match what is in the table.
+ * @param {*} csv_data The D3 CSV data, could be the albums CSV or the songs CSV
+ */
+function printEditedCSV(csv_data) {   
+    let table_string = (SELECTED_LIST == "Favorite Albums") ?
+            "Artist,Album,Genre,Release Date,Listened On,Favorite Songs,Rating,Hidden Ranking\n" :
+            "Song,Album,Artist,Genre,Hidden Ranking\n";
+    let hr_index = (SELECTED_LIST == "Favorite Albums") ? ALBUMS_CSV_HEADERS.indexOf("Hidden Ranking") : SONGS_CSV_HEADERS.indexOf("Hidden Ranking");
+
+    csv_data.forEach(function(csv_row, r) {
+        // Copy all non-header rows, EXCEPT put in the new hidden ranking
+        first_rows = csv_join( Object.values(csv_row).slice(0, hr_index) );
+        hidden_ranking = findElementByInnerText("td", csv_row["Album"]).parentElement.children[hr_index].innerHTML
+        last_rows = csv_join( Object.values(csv_row).slice(hr_index + 1) );
+
+        table_string += first_rows + hidden_ranking + last_rows + "\n"
+    });
+
+    console.log(table_string)
+}
+
+
+/**
+ * Resets all the hidden rankings to the index the album is in the ORDERED list.
+ */
+function resetRankings() {
+    console.log("RESETTING")
+    let table = document.getElementById("album-table-body");
+    let rows = table.rows;
+
+    for (let i = 0; i < rows.length; i++) {
+        rows[i].cells[ALBUMS_CSV_HEADERS.indexOf("Hidden Ranking")].innerHTML = rows.length - i;
+    }
+
+    rankingsAreReset = true;
+}
+
+
+if (EDITING) { document.querySelector('#album-table').addEventListener('click', (ev) => { 
+    // Get the clicked on coordinates
+    [x, y] = [
+        ev.target.cellIndex, 
+        ev.target.parentElement.rowIndex
+    ];
+    if (x === undefined || y === undefined) {
+        return;
+    }
+    y = y - 1;
+
+    // Get table values before acting
+    table = document.getElementById("album-table-body");
+    rows = table.rows;
+
+    hr_index = (SELECTED_LIST == "Favorite Albums") ? ALBUMS_CSV_HEADERS.indexOf("Hidden Ranking") : SONGS_CSV_HEADERS.indexOf("Hidden Ranking");
+
+    // Move row up
+    if (x == hr_index + 1) {
+        // At the top, don't do anything
+        if (y == 0) { 
+            return;
+        }
+
+        // Swap hidden rankings
+        rows[y].cells[hr_index].innerHTML = parseInt(rows[y].cells[hr_index].innerHTML) + 1;
+        rows[y - 1].cells[hr_index].innerHTML = parseInt(rows[y - 1].cells[hr_index].innerHTML) - 1;
+
+        // Swap rows
+        swapAdjacentRows(rows[y - 1], rows[y]);
+    }
+
+    // Move row down
+    else if (x == hr_index + 2) {
+        // Swap hidden rankings
+        rows[y].cells[hr_index].innerHTML = parseInt(rows[y].cells[hr_index].innerHTML) - 1;
+        rows[y + 1].cells[hr_index].innerHTML = parseInt(rows[y + 1].cells[hr_index].innerHTML) + 1;
+
+        // Swap rows
+        swapAdjacentRows(rows[y], rows[y + 1]);
+    }
+
+     // Print the HTML as a CSV (since JS can't edit local files, just copy/paste this print into the CSV file)
+    else if (x == hr_index + 3) {
+        var extension = getExtensionFromList(SELECTED_LIST);
+        var filename = "csv/" + SELECTED_YEAR + extension + ".csv"
+        d3.csv(filename).then(function(data) {
+            printEditedCSV(data);
+        });
+    }
+    
+    // Reset the hidden rankings
+    else if (x == hr_index + 4) {
+        resetRankings();
+    }
+});}

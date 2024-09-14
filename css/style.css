@@ -426,4 +426,9 @@ td.resizable:after {
     -webkit-user-select: none;
     -ms-user-select: none;
 } */
+
+
+.hidden {
+    display: none;
+}
 /* #endregion */
