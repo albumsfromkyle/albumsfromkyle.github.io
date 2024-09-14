@@ -27,6 +27,10 @@ with open(source_csv_path, 'r', newline='') as source_csv:
 
     for row in csvreader:
 
+        release_year = row[3].split("/")[2]
+        if release_year not in source_csv_path:
+            continue
+
         # Only add rows that contain actual data
         empty = True
         for cell in row[0:7]: 
@@ -37,7 +41,7 @@ with open(source_csv_path, 'r', newline='') as source_csv:
         if empty == False:
             new_data.append(row[0:7] + [row[6]]) # Duplicates the ranking
 
-
+        
 # Write all the data at once at the end
 with open(source_csv_path, 'w', newline='') as source_csv:
     csvwriter = csv.writer(source_csv)
