@@ -1,27 +1,40 @@
 const OLDEST_YEAR = 2019;
-const CURRENT_YEAR = 2024;
-const NUM_YEARS = 5;
+const CURRENT_YEAR = parseInt(new Date().getFullYear());
+const NUM_YEARS_TO_SHOW = 5;
 
-var SELECTED_YEAR = CURRENT_YEAR;
-var SELECTED_LIST = "Full Year List";
+let SELECTED_YEAR = CURRENT_YEAR; // Default year to show
+let SELECTED_LIST = "Favorite Albums"; // Default list to show
+
+let SORTABLE_HEADERS = [""]
+let HIDDEN_HEADERS = [""]
 
 
-/***************
-**** HELPER ****
-***************/
+/************************
+**** GENERAL HELPERS ****
+************************/
 
-// Check if a given file (mostly used to check for CSV files) exists
-function checkFileExists(filename) {
+/**
+ * Check if a given file exists.
+ * @param {*} filename The filename to check the existence for
+ * @returns 
+ */
+async function checkFileExists(filename) {
+    // Will cause an error in the console, but nothing breaks so it's okay
     return fetch(filename, { method: 'HEAD' })
         .then(response => response.ok)
         .catch(() => false);
 }
 
 
-// Takes in the list type clicked on, and converts it into a CSV filename extension
+/**
+ * Takes in the list type clicked on, and converts it into a filename extension for CSVs.
+ * NOTE: This is NOT an "extension" as in ".csv", but rather an extension to the filename as in a string to be appended to the filename.
+ * @param {*} list_type The currently selected list type (e.g. "Favorite Albums" or "Favorite Songs")
+ * @returns A string of the filename extension to use
+ */
 function getExtensionFromList(list_type) {
-    var extension = "";
-    if (list_type == "Full Year List")
+    let extension = "";
+    if (list_type == "Favorite Albums")
         extension = "";
     else if (list_type == "Favorite Songs")
         extension = "_songs";
@@ -30,10 +43,94 @@ function getExtensionFromList(list_type) {
 }
 
 
-/********************
-**** CSV LOADING ****
-********************/
-// Highlight the row as gold, silver, or bronze if the rating is high enough
+/**
+ * Imports all the HTML in a file into another file.
+ * This is done by adding the "include-html='<filename.html>'" attribute to a div, where the HTML in <filename.html> will be put into that div.
+ * Copy/pasted straight from https://www.w3schools.com/howto/howto_html_include.asp.
+ */
+function includeHTML() {
+    let z, i, elmnt, file, xhttp;
+
+    /* Loop through a collection of all HTML elements: */
+    z = document.getElementsByTagName("*");
+    for (i = 0; i < z.length; i++) {
+        elmnt = z[i];
+
+        /* Search for elements with a certain atrribute:*/
+        file = elmnt.getAttribute("include-html");
+        if (file) {
+            /* Make an HTTP request using the attribute value as the file name: */
+            xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4) {
+                    if (this.status == 200) { elmnt.innerHTML = this.responseText; }
+                    if (this.status == 404) { elmnt.innerHTML = "Page not found."; }
+
+                    /* Remove the attribute, and call this function once more: */
+                    elmnt.removeAttribute("include-html");
+                    includeHTML();
+                }
+            }
+
+            xhttp.open("GET", file, true);
+            xhttp.send();
+
+            /* Exit the function: */
+            return;
+        }
+    }
+}
+
+
+/***********************************
+**** CSV & TABLE DATA FUNCTIONS ****
+***********************************/
+/**
+ * Add a list of headers to a passed in HTML table row element.
+ * @param {*} row HTML row element to add the header cells to
+ * @param {*} headers A list of header strings
+ */
+function addHeadersToRow(row, headers) {
+    headers.forEach(function(header, i) {
+        let cell = row.insertCell();
+        cell.classList.add(header.replace(" ", "-").toLowerCase());
+        cell.innerHTML = "<div class=\"header\">" + header + "</div>";
+        
+        // Have to do weird wrapping for the order triangle (▲/▼) for reasons I forgot 
+        if (SORTABLE_HEADERS.includes(header)) {
+            cell.innerHTML = "<div class=\"header\">" + header + "<span id=\"header_" + i + "_order\">▲</span> </div>";
+            cell.setAttribute("onclick", "sortTable(" + i + ")");
+        }
+    });
+}
+
+
+/**
+ * Updates the values of the table headers to match the selected list.
+ */
+function updateTableHeaders() {
+    // Clear the current headers
+    let header = document.getElementById("table-headers");
+    header.innerHTML = "";
+
+    // Create the new header row
+    let new_row = header.insertRow();
+
+    // Populate the new header row depending on the selected list
+    if (SELECTED_LIST == "Favorite Songs") {
+        addHeadersToRow(new_row, ["Song", "Artist", "Album", "Genre"]);
+    }
+    else if (SELECTED_LIST == "Favorite Albums") {
+        addHeadersToRow(new_row, ["Artist", "Album", "Genre", "Favorite Songs", "Rating"]);
+    }
+}
+
+
+/**
+ * Highlight an HTML row as gold, silver, or bronze if the rating is high enough.
+ * @param {*} row The HTML row to potentially highligh
+ * @param {*} rating The album's rating used to determine if highlighting is needed
+ */
 function highlight_row_from_rating(row, rating) {
     if (parseInt(rating) >= 9) {
         row.classList.add("gold");
@@ -47,199 +144,172 @@ function highlight_row_from_rating(row, rating) {
 }
 
 
-// Loads passed in CSV data into the album list table 
-function displayCSVData(data) {
-    const table = document.getElementById("album-table-body");
-    
-    updateTableHeaders();
+/**
+ * Transfers the data in a CSV row object into an HTML row object.
+ * @param {*} html_row The HTML row object that will be populated with the new cells containing the CSV data
+ * @param {*} headers_to_include The list of column headers you want to include from the CSV data
+ * @param {*} csv_row The CSV row object containing the data to transfer
+ * @param {*} default_val The default value to use if the CSV cell is empty or does not exist (defaultly "-")
+ */
+function convertCsvRowToHtmlRow(html_row, headers_to_include, csv_row, default_val = "-") {
+    headers_to_include.forEach(function(header) {
+        let cell = html_row.insertCell();
+        cell.innerHTML = csv_row[header] ? csv_row[header] : default_val;
+    })
+}
 
-    // Loop through each entry (which is an album), and copy the data into a new table row
-    data.forEach(function(csv_row, r) {
+
+/**
+ * Loads all the data in the passed in CSV into the HTML albums table.
+ * @param {*} data 
+ */
+function csvToHtml(data) {
+    let table = document.getElementById("album-table-body");
+    
+    // Loop through each row in the CSV data (which is an album entry), and copy the data into the HTML table
+    data.forEach(function(csv_row) {
         // Some previous lists include albums from ANY year
         // I want to exclude those for now, and only include albums release the selected year
-        release_date = Date.parse( csv_row["Release Date"] );
+        let release_date = Date.parse( csv_row["Release Date"] );
         if (release_date < Date.parse("1/1/" + SELECTED_YEAR)) {
             return;
         }
 
-        new_row = table.insertRow(-1);
+        // Insert the new row
+        let new_row = table.insertRow(-1);
 
         // Populate the row depending on what list is selected
         if (SELECTED_LIST == "Favorite Songs") {
-            ["Song", "Artist", "Album", "Genre"].forEach(function(label) {
-                cell = new_row.insertCell();
-                cell.innerHTML = csv_row[label] ? csv_row[label] : "-";;
-            });
+            convertCsvRowToHtmlRow(new_row, ["Song", "Artist", "Album", "Genre"], csv_row);
         }
-        else {
-            ["Artist", "Album", "Genre", "Favorite Songs", "Rating"].forEach(function(label) {
-                cell = new_row.insertCell();
-                cell.innerHTML = csv_row[label] ? csv_row[label] : "-";
-            });
+        else if (SELECTED_LIST == "Favorite Albums") {
+            convertCsvRowToHtmlRow(new_row, ["Artist", "Album", "Genre", "Favorite Songs", "Rating"], csv_row);
         }
         
+        // Highlight the row gold/silver/bronze if the score is high enough
         highlight_row_from_rating(new_row, csv_row["Rating"]);
     });
-
-    // Since this should only be called when loading in a CSV for the first time,
-    // Defaultly sort by the "Rating" if this is NOT the songs list
-    if (SELECTED_LIST != "Favorite Songs") {
-        sortTable(4); // 4 == "Rating"
-    }
 }
 
 
-// Update the table headers to be resizeable
-// function updateHeaderResizable() {
-//     document.querySelectorAll("td.resizable").forEach(function(td) {
-//         let startX, startWidth;
-        
-//         // Add an event listener to each new header cell that listens for a user click
-//         td.addEventListener("mousedown", function(e) {
-//             if (e.offsetX > td.offsetWidth - 5) {
-//                 startX = e.pageX;
-//                 startWidth = td.offsetWidth;
-//                 document.addEventListener("mousemove", onMouseMove);
-//                 document.addEventListener("mouseup", onMouseUp);
-//             }
-//         });
-        
-//         // If the user click is close to the border, allow the column to be resized
-//         function onMouseMove(e) {
-//             let newWidth = startWidth + (e.pageX - startX);
-//             td.style.width = newWidth + "px";
-//             document.body.classList.add('no-select');
-//         }
-        
-//         // Stop resizing
-//         function onMouseUp() {
-//             document.body.classList.remove('no-select');
-//             document.removeEventListener("mousemove", onMouseMove);
-//             document.removeEventListener("mouseup", onMouseUp);
-//         }
-//     });
-// }
-
-
-// Update what values are shown as the table headers
-function updateTableHeaders() {
-    header = document.getElementById("table-headers");
-    header.innerHTML = "";
-
-    if (SELECTED_LIST == "Favorite Songs") {
-        new_row = header.insertRow();
-        
-        ["Song", "Artist", "Album", "Genre"].forEach(function(label, i) {
-            cell = new_row.insertCell();
-            cell.classList.add(label.toLowerCase());
-            // cell.classList.add("resizable");
-            cell.innerHTML = "<div class=\"header\">" + label + "</div>";
-
-            if ([""].includes(label)) { // Add all headers that I want to be sortable to this list
-                cell.innerHTML = "<div class=\"header\">" + label + "<span id=\"header_" + i + "_order\">▲</span> </div>";
-                cell.setAttribute("onclick", "sortTable(" + i + ")");
-            }
-        });
-    }
-    else {
-        new_row = header.insertRow();
-
-        ["Artist", "Album", "Genre", "Favorite Songs", "Rating"].forEach(function(label, i) {
-            cell = new_row.insertCell();
-            cell.classList.add(label.replace(" ", "-").toLowerCase());
-            // cell.classList.add("resizable");
-            cell.innerHTML = "<div class=\"header\">" + label + "</div>";
-            
-            if ([""].includes(label)) { // Add all headers that I want to be sortable to this list
-                cell.innerHTML = "<div class=\"header\">" + label + "<span id=\"header_" + i + "_order\">▲</span> </div>";
-                cell.setAttribute("onclick", "sortTable(" + i + ")");
-            }
-        });
-    }
-
-    // updateHeaderResizable();
-}
-
-
-// Uses the SELECTED_YEAR and SELECTED_LIST to update the table with the correct data
+/**
+ * Uses the SELECTED_YEAR and SELECTED_LIST to update the data in the albums/songs table.
+ * This is called on startup, and whenever the list type (albums/songs) or list year is changed.
+ */
 function updateTable() {
     // Clear the current table
     document.getElementById("album-table-body").innerHTML = "";
 
+    // Update the table headers to match the selected list
+    // This also makes sure there is the appropriate number of columns in the table
+    updateTableHeaders();
+
     // Load in the new CSV and display the new data
-    var extension = getExtensionFromList(SELECTED_LIST);
-    var filename = "csv/" + SELECTED_YEAR + extension + ".csv"
+    let extension = getExtensionFromList(SELECTED_LIST);
+    let filename = "csv/" + SELECTED_YEAR + extension + ".csv";
     d3.csv(filename).then(function(data) {
-        displayCSVData(data);
+        csvToHtml(data);
+
+        // Sort the data in the table (if needed)
+        // NOTE: This WONT WORK if it is pasted after the d3.csv() call, and idk why
+        if (SELECTED_LIST == "Favorite Albums") {
+            sortTable(4); // 4 == "Rating"
+        }
     });
 }
 
 
-/**************************
-**** SORTING FUNCTIONS ****
-***************************/
+/********************************
+**** TABLE SORTING FUNCTIONS ****
+********************************/
+/**
+ * Make all header order arrows grayed out triangles pointing up EXCEPT the active header.
+ * @param {*} active_element The HTML span element of the active header
+ */
 function updateOrderTriangles(active_element) {
-    // Make all order arrows default to grayed out triangles pointing up
     document.querySelectorAll("#album-list #table-headers .header span").forEach(span => {
+        // If this is a column NOT being used for sorting, gray out the order triangle and set it pointing up
         if (span != active_element){
             span.innerHTML = "▲";
             span.classList.remove("active");
         }
+        // If this is the active element, update the triangle and class
         else {
+            (order.innerHTML == "▲") ? (order.innerHTML = "▼") : (order.innerHTML = "▲"); // Flip the triangle
             active_element.classList.add("active");
         }
     });
 }
 
 
-// Sort the table depending on what header is selected, and if in ascending or descending order
-function sortTable(header_index) {
-    // Get if it should be sorting in ascending or descending order
-    // Get current sorting order and do the opposite
-    order = document.getElementById("header_" + header_index + "_order");
-    if (order == null || order.innerHTML == "▲") { // The "order == null" allows the if statement to short circuit for the default sort
-        tableBubbleSort(header_index, "desc");
-        if (order != null) {
-            order.innerHTML = "▼";
-            updateOrderTriangles(order);
-        }
-    }
-    else {
-        tableBubbleSort(header_index, "asc");
-        order.innerHTML = "▲";
-        updateOrderTriangles(order);
-    }
+/**
+ * Swaps two adjacent rows in an HTML table.
+ * @param {*} top_row Top row (of the two adjacent rows to swap)
+ * @param {*} bot_row Bottom row (of the two adjacent rows to swap)
+ */
+function swapAdjacentRows(top_row, bot_row) {
+    top_row.parentNode.insertBefore(bot_row, top_row);
 }
 
 
-// Sort the table depending on what header is selected
+/**
+ * Perform a bubble sort to order the table by the selected header.
+ * @param {*} header_index The header/column to order the table by
+ * @param {*} order The direction to sort in ("asc" or "desc")
+ */
 function tableBubbleSort(header_index, order) {
-    table = document.getElementById("album-table-body");
-    rows = table.rows;
+    let table = document.getElementById("album-table-body");
+    let rows = table.rows;
 
-    // Fine doing a simple bubble sort since n is always small
-    for (i = 0; i < rows.length - 1; i++) {
+    // It's fine doing a simple bubble sort (performance wise) since n is always small for my tables (never going to exceed 365)
+    for (let i = 0; i < rows.length - 1; i++) {
         
         swapped = false;
-        for (j = 0; j < rows.length - i - 1; j++) {
-            cell_j0 = rows[j].cells[header_index].innerHTML
-            cell_j1 = rows[j + 1].cells[header_index].innerHTML
+        
+        for (let j = 0; j < rows.length - i - 1; j++) {
+            let top_cell = rows[j].cells[header_index].innerHTML
+            let bot_cell = rows[j + 1].cells[header_index].innerHTML
 
             // Convert to numbers if the column is numeric
-            if (!isNaN(cell_j0) && !isNaN(cell_j1)) {
-                cell_j0 = Number(cell_j0);
-                cell_j1 = Number(cell_j1);
+            if (!isNaN(top_cell) && !isNaN(bot_cell)) {
+                top_cell = Number(top_cell);
+                bot_cell = Number(bot_cell);
             }
             
             // Perform the swap depending on if we are in increasing or decreasing order
-            if ((order == "desc"  && cell_j1 > cell_j0) || (order == "asc" && cell_j1 < cell_j0)) {
-                rows[j].parentNode.insertBefore(rows[j + 1], rows[j]);
+            if ((order == "desc"  && bot_cell > top_cell) || (order == "asc" && bot_cell < top_cell)) {
+                swapAdjacentRows(rows[j], rows[j + 1]);
                 swapped = true;
             }
         }
 
-        if (swapped == false)
+        if (swapped == false) {
             break;
+        }
+    }
+}
+
+
+/**
+ * Sort the albums table by the column corresponding to header_index.
+ * @param {*} header_index Column index to sort by
+ */
+function sortTable(header_index) {
+    // The current order the table is sorted by (can be null)
+    let order = document.getElementById("header_" + header_index + "_order");
+
+    // If it is already sorted by this column, get the current order and do the opposite
+    // If it is not sorted (or there is no previouys order), default to descending
+    if (order == null || order.innerHTML == "▲") { // Short circuit if there is no order (i.e. we are doing the default ordering)
+        tableBubbleSort(header_index, "desc");
+    }
+    else {
+        tableBubbleSort(header_index, "asc");
+    }
+
+    // Update the visuals of the order triangle(s)
+    if (order != null) {
+        updateOrderTriangles(order);
     }
 }
 
@@ -247,41 +317,50 @@ function tableBubbleSort(header_index, order) {
 /****************************
 **** YEAR/LIST SELECTORS ****
 *****************************/
-// Updates what year is shown as the "active" year
+/**
+ * Updates what year buttom is shown as the "active" year.
+ */
 function updateActiveYear() {
     document.querySelectorAll("#year-list button").forEach(btn => {
         if (btn.innerHTML != SELECTED_YEAR) {
-            btn.classList.remove("active")
+            btn.classList.remove("active");
         }
         else {
-            btn.classList.add("active")
+            btn.classList.add("active");
         }
     });
 }
 
 
-// Updates what list is shown as the "active" list
+/**
+ * Updates what list is shown as the "active" list.
+ */
 function updateActiveList() {
     document.querySelectorAll("#list-list button").forEach(btn => {
         if (btn.innerHTML != SELECTED_LIST) {
-            btn.classList.remove("active")
+            btn.classList.remove("active");
         }
         else {
-            btn.classList.add("active")
+            btn.classList.add("active");
         }
     });
 }
 
 
-// Sets the selected year when a "Year-List" button is clicked
+/**
+ * Updates the table when a new year is selected.
+ */
 document.getElementById("year-list").addEventListener("click", async function(event) {
-    var year = event.target.innerHTML;
+    let year = event.target.innerHTML;
 
     // TODO: If this year does not exist, do nothing (maybe print banner?)
-    var filename = "csv/" + year + ".csv";
-    const exists = await checkFileExists(filename);
+
+    let extension = getExtensionFromList(SELECTED_LIST);
+    let filename = "csv/" + year + extension + ".csv";
+
+    let exists = await checkFileExists(filename);
     if (!exists) {
-        console.log("ERROR: " + filename + " does not exist")
+        console.log("ERROR: " + filename + " does not exist");
         return;
     }
 
@@ -294,16 +373,20 @@ document.getElementById("year-list").addEventListener("click", async function(ev
 });
 
 
-// Sets the selected list when a "List-List" button is clicked
+/**
+ * Updates the table when a new list (e.g. "Favorite Songs" or "Favorite Albums") is selected.
+ */
 document.getElementById("list-list").addEventListener("click", async function(event) {
-    var list_type = event.target.innerHTML;
+    let list_type = event.target.innerHTML;
 
     // TODO: If this year does not exist, do nothing (maybe print banner?)
-    var extension = getExtensionFromList(list_type)
-    var filename = "csv/" + SELECTED_YEAR + extension + ".csv";
-    const exists = await checkFileExists(filename);
+
+    let extension = getExtensionFromList(list_type);
+    let filename = "csv/" + SELECTED_YEAR + extension + ".csv";
+
+    let exists = await checkFileExists(filename);
     if (!exists) {
-        console.log("ERROR: " + filename + " does not exist")
+        console.log("ERROR: " + filename + " does not exist");
         return;
     }    
     
@@ -319,16 +402,36 @@ document.getElementById("list-list").addEventListener("click", async function(ev
 /**************************
 **** YEAR LIST BUTTONS ****
 **************************/
-// Grays out all buttons of years without corresponding CSV files
-async function grayOutMissingYears() {
-    for (let i = 1; i <= NUM_YEARS; i++) {
-        year = document.getElementById("year" + i).innerHTML;
+/**
+ * Updates if the year-increase and year-decrease buttons are enabled or disabled, depending on what years are being displayed.
+ */
+function updateYearIncDecButtons() {
+    document.getElementById("year-decrease").disabled = (document.getElementById("year1").innerHTML <= OLDEST_YEAR);
+    document.getElementById("year-increase").disabled = (document.getElementById("year5").innerHTML >= CURRENT_YEAR);
+}
 
-        var filename = "csv/" + year + ".csv";
-        const exists = await checkFileExists(filename);
+
+/**
+ * Determines which years should be enabled/disabled for the currently shown years.
+ */
+async function grayOutMissingYears() {
+    // Must be async so it can call checkFileExists()
+    
+    for (let i = 1; i <= NUM_YEARS_TO_SHOW; i++) {
+        let year = document.getElementById("year" + i).innerHTML;
         
-        // Disable/enable each button depending on if the CSV file exists
-        if (exists) {
+        // Check if a "Favorite Albums" list exists for this year
+        let extension = getExtensionFromList("Favorite Albums");
+        let filename = "csv/" + year + extension + ".csv";
+        let albums_exists = await checkFileExists(filename);
+        
+        // Check if a "Favorite Songs" list exists for this year
+        extension = getExtensionFromList("Favorite Songs");
+        filename = "csv/" + year + extension + ".csv";
+        let songs_exists = await checkFileExists(filename);
+        
+        // Disable/enable each button depending on if a CSV list file exists
+        if (albums_exists || songs_exists) {
             document.getElementById("year" + i).disabled = false;
         }
         else {
@@ -338,87 +441,46 @@ async function grayOutMissingYears() {
 }
 
 
-// Shift the years shown by the year-list
+/**
+ * Increase the years shown by the year-list.
+ */
 document.getElementById("year-increase").onclick = function() {
     // Don't let the user go into the future
     if (document.getElementById("year5").innerHTML >= CURRENT_YEAR) {
-        return
+        return;
     }
 
     // Increase all year numbers
-    for (let i = 1; i <= NUM_YEARS; i++) {
-        year_element = document.getElementById("year" + i);
-        document.getElementById("year" + i).innerHTML = parseInt(year_element.innerHTML) + NUM_YEARS
+    for (let i = 1; i <= NUM_YEARS_TO_SHOW; i++) {
+        let year_element = document.getElementById("year" + i);
+        document.getElementById("year" + i).innerHTML = parseInt(year_element.innerHTML) + NUM_YEARS_TO_SHOW
     }
 
-    // Gray out all years without a CSV
+    // Update buttons and visuals
     grayOutMissingYears();
-
-    // Update which year is active
     updateActiveYear();
-
-    // If the user is at the end, gray out the button
-    document.getElementById("year-increase").disabled = false;
-    document.getElementById("year-decrease").disabled = false;
-    if (document.getElementById("year5").innerHTML >= CURRENT_YEAR) {
-        document.getElementById("year-increase").disabled = true;
-    }
+    updateYearIncDecButtons();
 };
 
 
-// Shift the years shown by the year-list
+/** 
+ * Decrease the years shown by the year-list.
+ */
 document.getElementById("year-decrease").onclick = function() {
     // Don't let the user go before 2019
     if (document.getElementById("year1").innerHTML <= OLDEST_YEAR) {
-        return
+        return;
     }
 
     // Decrease all year numbers
-    for (let i = 1; i <= NUM_YEARS; i++) {
-        year_element = document.getElementById("year" + i);
-        document.getElementById("year" + i).innerHTML = parseInt(year_element.innerHTML) - NUM_YEARS
+    for (let i = 1; i <= NUM_YEARS_TO_SHOW; i++) {
+        let year_element = document.getElementById("year" + i);
+        document.getElementById("year" + i).innerHTML = parseInt(year_element.innerHTML) - NUM_YEARS_TO_SHOW;
     }
-
-    // Gray out all years without a CSV
+    
+    // Update buttons and visuals
     grayOutMissingYears();
-
-    // Update which year is active
     updateActiveYear();
-
-    // TODO: If the user is at the end, gray out the button
-    document.getElementById("year-increase").disabled = false;
-    document.getElementById("year-decrease").disabled = false;
-    if (document.getElementById("year1").innerHTML <= OLDEST_YEAR) {
-        document.getElementById("year-decrease").disabled = true;
-    }
+    updateYearIncDecButtons();
 };
 
-
-// Copy/pasted straight from https://www.w3schools.com/howto/howto_html_include.asp
-function includeHTML() {
-  var z, i, elmnt, file, xhttp;
-  /* Loop through a collection of all HTML elements: */
-  z = document.getElementsByTagName("*");
-  for (i = 0; i < z.length; i++) {
-    elmnt = z[i];
-    /*search for elements with a certain atrribute:*/
-    file = elmnt.getAttribute("include-html");
-    if (file) {
-      /* Make an HTTP request using the attribute value as the file name: */
-      xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function() {
-        if (this.readyState == 4) {
-          if (this.status == 200) {elmnt.innerHTML = this.responseText;}
-          if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
-          /* Remove the attribute, and call this function once more: */
-          elmnt.removeAttribute("include-html");
-          includeHTML();
-        }
-      }
-      xhttp.open("GET", file, true);
-      xhttp.send();
-      /* Exit the function: */
-      return;
-    }
-  }
-}
