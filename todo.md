@@ -3,6 +3,8 @@
 * Add previous years lists
 * Add links to spotify playlists
 
+* Update github readme
+
 * Make navbar appear whenever you scroll up, but disappear when scrolling down (after you are far down enough)???
 
 # GENERAL
@@ -12,7 +14,6 @@
 * Allow the user to search things (album, artist, genre)
 * Maybe add "Grid Layout" in addition to "Table Layout," which will be a grid of album arts with the artist, album name, genre, and ranking beneath (no favorite songs)
 * Maybe add calendar showing when I listen to certain albums
-* Add link to github
 
 
 # TABLE
