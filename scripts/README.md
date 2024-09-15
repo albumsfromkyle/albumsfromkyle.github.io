@@ -1,5 +1,5 @@
 # Scripts
-This section contains scripts that aid me in organizing my music
+This section contains scripts that aid me in organizing my music. These interface mostly with exported CSV files of my spotify playlists.
 
 
 <!-- ---------------------------------------------------------------------------------------- -->

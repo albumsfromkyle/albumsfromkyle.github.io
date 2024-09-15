@@ -310,12 +310,36 @@ img {
 /* #endregion */
 
 
+/*************************
+**** Spotify Playlist ****
+*************************/
+/* #region SPOTIFY PLAYLIST */
+#spotify-playlist {
+    padding-top: 15px;
+    text-align: center;
+    
+}
+
+#spotify-playlist a {
+    /* padding-left: 1em;
+    padding-right: 1em; */
+    font-style: italic;
+}
+
+#spotify-playlist a:hover {
+    border-bottom: 1px solid black;
+    /* color: var(--DISABLED-COLOR); */
+    font-weight: bold;
+}
+/* #endregion */
+
+
 /**************
 **** Table ****
 **************/
 /* #region TABLE */
 #album-list .container {
-    padding-top: 20px;
+    padding-top: 15px;
     padding-bottom: 50px;
 
     background: var(--CONTAINER-BACKGROUND);
@@ -473,7 +497,8 @@ td.resizable:after {
 
 #site-info-nav li:hover {
     border-bottom: 1px solid black;
-    /* font-weight: bold; */ /* AB */
+    /* v AB v */
+    font-weight: bold;
     transition: 0.15s;
 }
 
@@ -481,8 +506,6 @@ td.resizable:after {
     max-width: 900px;
     margin: 0 auto;
 }
-
-
 /* #endregion */
 
 /************************

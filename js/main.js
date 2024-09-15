@@ -360,6 +360,30 @@ function updateActiveList() {
     });
 }
 
+/**
+ * Updates the text and link to the spotify playlist above the table.
+ */
+playlistLinks = {
+    "Albums 2024" : "https://open.spotify.com/playlist/5Gc046e1S0rptnfVX2TQaT?si=432c76f9d9f042b1",
+    "Songs 2024" : "https://open.spotify.com/playlist/7nzU9D67SJdgd41dLbRwcf?si=18384ce1a1d54f9d",
+    "Albums 2023" : "https://open.spotify.com/playlist/4qVkYlxDRv6gylOjKKcmWm?si=86fa90d3fc5346d2",
+    "Songs 2023" : "https://open.spotify.com/playlist/4SLr4bfpWLHQGyQzKonxjE?si=35409659241941f0",
+    "Albums 2022" : "https://open.spotify.com/playlist/4dMfnqWXigqpj8s2zE3sOS?si=6396c97367a24e69",
+    "Songs 2022" : "https://open.spotify.com/playlist/1JGn9zna2lNdGRklbuOlUX?si=eea92f25e4d44292",
+}
+function updateSpotifyPlaylist() {
+    let playlistLink = document.getElementById("playlist-link");
+
+    // Update the text / name of the playlist
+    playlistName = (SELECTED_LIST == "Favorite Albums") ? "Albums " : "Songs ";
+    playlistName += String(SELECTED_YEAR)
+
+    playlistLink.innerHTML = playlistName;
+
+    // Update the link to the playlist
+    playlistLink.href = playlistLinks[playlistName];
+}
+
 
 /**
  * Updates the table when a new year is selected.
@@ -380,9 +404,9 @@ document.getElementById("year-list").addEventListener("click", async function(ev
 
     // Set the currently selected year and change the active button
     SELECTED_YEAR = year;
-    updateActiveYear();
 
-    // Update the table data
+    updateActiveYear();
+    updateSpotifyPlaylist();
     updateTable();
 });
 
@@ -406,9 +430,9 @@ document.getElementById("list-list").addEventListener("click", async function(ev
     
     // Set the currently selected list and change the active button
     SELECTED_LIST = listType;
-    updateActiveList();
 
-    // Update the table data
+    updateActiveList();
+    updateSpotifyPlaylist();
     updateTable();
 });
 
