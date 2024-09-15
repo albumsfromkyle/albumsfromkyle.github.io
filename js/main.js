@@ -630,6 +630,9 @@ function resetRankings() {
 }
 
 
+/**
+ * Performs the associated actions when the EDITING cells are clicked on
+ */
 if (EDITING) { document.querySelector('#album-table').addEventListener('click', (ev) => { 
     // Get the clicked on coordinates
     [x, y] = [
@@ -642,10 +645,10 @@ if (EDITING) { document.querySelector('#album-table').addEventListener('click', 
     y = y - 1;
 
     // Get table values before acting
-    table = document.getElementById("album-table-body");
-    rows = table.rows;
+    let table = document.getElementById("album-table-body");
+    let rows = table.rows;
 
-    hr_index = (SELECTED_LIST == "Favorite Albums") ? ALBUMS_CSV_HEADERS.indexOf("Hidden Ranking") : SONGS_CSV_HEADERS.indexOf("Hidden Ranking");
+    let hr_index = (SELECTED_LIST == "Favorite Albums") ? ALBUMS_CSV_HEADERS.indexOf("Hidden Ranking") : SONGS_CSV_HEADERS.indexOf("Hidden Ranking");
 
     // Move row up
     if (x == hr_index + 1) {
@@ -674,8 +677,8 @@ if (EDITING) { document.querySelector('#album-table').addEventListener('click', 
 
      // Print the HTML as a CSV (since JS can't edit local files, just copy/paste this print into the CSV file)
     else if (x == hr_index + 3) {
-        var extension = getExtensionFromList(SELECTED_LIST);
-        var filename = "csv/" + SELECTED_YEAR + extension + ".csv"
+        let extension = getExtensionFromList(SELECTED_LIST);
+        let filename = "csv/" + SELECTED_YEAR + extension + ".csv";
         d3.csv(filename).then(function(data) {
             printEditedCSV(data);
         });
