@@ -431,16 +431,18 @@ td.resizable:after {
 /* #endregion */
 
 
-/***********************
-**** Site Info Page ****
-***********************/
-/* #region SITE INFO */
+/***********************************
+**** Site Info / Resources Page ****
+***********************************/
+/* #region SITE / RESOURCES INFO */
 /* Adds padding to top of the page */
-#site-info {
+#site-info, 
+#resources {
     padding-top: 1.5em;
 }
 
-#site-info hr {
+#site-info hr, 
+#resources hr {
     /* border-bottom: 1px solid black; */
     border: 0;
     clear:both;
@@ -451,7 +453,8 @@ td.resizable:after {
 }
 
 /* Styles the bullet points */
-#site-info ul li {
+#site-info ul li, 
+#resources ul li {
     list-style: inside;
     padding-left: 2.5em;
     padding-top: 0.5em;
@@ -460,69 +463,78 @@ td.resizable:after {
 }
 
 /* Acts as a mock <p> element so I can nest other elements inside */
-#site-info .mock-p {
+#site-info .mock-p, 
+#resources .mock-p {
     padding-bottom: 1.5em;
 }
 
-#site-info .section {
+#site-info .section, 
+#resources .section {
     padding-top: 1em;
     padding-bottom: 3em;
 }
 
 /* Allow for finer-detailed spacing */
-#site-info .top-half-pad {
+#site-info .top-half-pad, 
+#resources .top-half-pad {
     padding-top: 0.5em;
 }
-#site-info .top-one-half-pad {
+#site-info .top-one-half-pad, 
+#resources .top-one-half-pad {
     padding-top: 1.5em;
 }
-#site-info .bot-half-pad {
+#site-info .bot-half-pad, 
+#resources .bot-half-pad {
     padding-bottom: 0.5em;
 }
-#site-info .bot-one-half-pad {
+#site-info .bot-one-half-pad, 
+#resources .bot-one-half-pad {
     padding-bottom: 1.5em;
 }
 
 /* Styles the navbar */
-#site-info-nav {
+#site-info-nav, 
+#resources-nav {
     display: inline;
 }
 
-#site-info-nav hr {
+#site-info-nav hr, 
+#resources-nav hr {
     border: 0;
     clear:both;
     display:block;
     width: 96%;               
     background-color: var(--DISABLED-COLOR);
     height: 1px;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
-#site-info-nav .site-info-nav-menu {
+#site-info-nav #site-info-nav-menu, 
+#resources-nav #resources-nav-menu {
     text-align: center;
 }
 
-#site-info-nav ul {
+#site-info-nav ul, 
+#resources-nav ul {
     display: inline-flex;
     padding-top: 8px;
     padding-bottom: 8px;
 }
 
-#site-info-nav li {
+#site-info-nav li, 
+#resources-nav li {
     border-bottom: 1px solid transparent;
     padding-left: 1.5em;
     padding-right: 1.5em;
 }
 
-#site-info-nav li:hover {
+#site-info-nav li:hover, 
+#resources-nav li:hover {
     border-bottom: 1px solid black;
     /* v AB v */
     font-weight: bold;
     transition: 0.15s;
-}
-
-#site-info-nav hr {
-    max-width: 900px;
-    margin: 0 auto;
 }
 /* #endregion */
 
@@ -538,6 +550,12 @@ td.resizable:after {
     /* background: pink; */
 }
 .site-info-container {
+    max-width: 900px;
+    margin: 0 auto; /* top & bottom = 0, left & right = auto */
+    padding: 0 15px;
+    /* background: pink; */
+}
+.resources-container {
     max-width: 900px;
     margin: 0 auto; /* top & bottom = 0, left & right = auto */
     padding: 0 15px;
