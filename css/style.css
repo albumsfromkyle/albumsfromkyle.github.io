@@ -436,13 +436,11 @@ td.resizable:after {
 ***********************************/
 /* #region SITE / RESOURCES INFO */
 /* Adds padding to top of the page */
-#site-info, 
-#resources {
+.text-page {
     padding-top: 1.5em;
 }
 
-#site-info hr, 
-#resources hr {
+.text-page hr {
     /* border-bottom: 1px solid black; */
     border: 0;
     clear:both;
@@ -453,8 +451,7 @@ td.resizable:after {
 }
 
 /* Styles the bullet points */
-#site-info ul li, 
-#resources ul li {
+.text-page ul li {
     list-style: inside;
     padding-left: 2.5em;
     padding-top: 0.5em;
@@ -463,43 +460,36 @@ td.resizable:after {
 }
 
 /* Acts as a mock <p> element so I can nest other elements inside */
-#site-info .mock-p, 
-#resources .mock-p {
+.text-page .mock-p {
     padding-bottom: 1.5em;
 }
 
-#site-info .section, 
-#resources .section {
+.text-page .section {
     padding-top: 1em;
     padding-bottom: 3em;
 }
 
 /* Allow for finer-detailed spacing */
-#site-info .top-half-pad, 
-#resources .top-half-pad {
+.text-page .top-half-pad {
     padding-top: 0.5em;
 }
-#site-info .top-one-half-pad, 
-#resources .top-one-half-pad {
+.text-page .top-one-half-pad {
     padding-top: 1.5em;
 }
-#site-info .bot-half-pad, 
-#resources .bot-half-pad {
+.text-page .bot-half-pad {
     padding-bottom: 0.5em;
 }
-#site-info .bot-one-half-pad, 
-#resources .bot-one-half-pad {
+.text-page .bot-one-half-pad {
     padding-bottom: 1.5em;
 }
 
 /* Styles the navbar */
-#site-info-nav, 
-#resources-nav {
+.text-page-nav {
     display: inline;
+    text-align: center;
 }
 
-#site-info-nav hr, 
-#resources-nav hr {
+.text-page-nav hr {
     border: 0;
     clear:both;
     display:block;
@@ -510,27 +500,19 @@ td.resizable:after {
     margin: 0 auto;
 }
 
-#site-info-nav #site-info-nav-menu, 
-#resources-nav #resources-nav-menu {
-    text-align: center;
-}
-
-#site-info-nav ul, 
-#resources-nav ul {
+.text-page-nav ul {
     display: inline-flex;
     padding-top: 8px;
     padding-bottom: 8px;
 }
 
-#site-info-nav li, 
-#resources-nav li {
+.text-page-nav li {
     border-bottom: 1px solid transparent;
     padding-left: 1.5em;
     padding-right: 1.5em;
 }
 
-#site-info-nav li:hover, 
-#resources-nav li:hover {
+.text-page-nav li:hover {
     border-bottom: 1px solid black;
     /* v AB v */
     font-weight: bold;
