@@ -404,10 +404,86 @@ td.resizable:after {
 #album-list #album-table .bronze {
     background: var(--TABLE-BRONZE);
 }
+/* #endregion */
+
+
+/***********************
+**** Site Info Page ****
+***********************/
+/* #region SITE INFO */
+/* Adds padding to top of the page */
+#site-info {
+    padding-top: 1.5em;
+}
+
+/* Styles the bullet points */
+#site-info ul li {
+    list-style: inside;
+    padding-left: 2.5em;
+    padding-top: 0.5em;
+    text-indent: -1.5em;
+    
+}
+
+/* Acts as a mock <p> element so I can nest other elements inside */
+#site-info .mock-p {
+    padding-bottom: 1.5em;
+}
+
+#site-info .section {
+    padding-bottom: 3em;
+}
+
+/* Allow for finer-detailed spacing */
+#site-info .top-half-pad {
+    padding-top: 0.5em;
+}
+#site-info .bot-half-pad {
+    padding-bottom: 0.5em;
+}
+#site-info .bot-one-half-pad {
+    padding-bottom: 1.5em;
+}
+
+/* Styles lines */
+#site-info .site-info-container hr {
+    display: none;
+}
+
+/* Styles the navbar */
+#site-info-nav {
+    display: inline;
+}
+
+#site-info-nav .site-info-nav-menu {
+    text-align: center;
+}
+
+#site-info-nav ul {
+    display: inline-flex;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+#site-info-nav li {
+    border-bottom: 1px solid transparent;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+}
+
+#site-info-nav li:hover {
+    border-bottom: 1px solid black;
+    /* font-weight: bold; */ /* AB */
+    transition: 0.15s;
+}
+
+#site-info-nav hr {
+    max-width: 900px;
+    margin: 0 auto;
+}
 
 
 /* #endregion */
-
 
 /************************
 **** Utility classes ****
@@ -415,6 +491,12 @@ td.resizable:after {
 /* #region UTILITY */
 .container {
     max-width: 1300px;
+    margin: 0 auto; /* top & bottom = 0, left & right = auto */
+    padding: 0 15px;
+    /* background: pink; */
+}
+.site-info-container {
+    max-width: 900px;
     margin: 0 auto; /* top & bottom = 0, left & right = auto */
     padding: 0 15px;
     /* background: pink; */
