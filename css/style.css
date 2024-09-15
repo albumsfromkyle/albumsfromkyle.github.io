@@ -440,6 +440,16 @@ td.resizable:after {
     padding-top: 1.5em;
 }
 
+#site-info hr {
+    /* border-bottom: 1px solid black; */
+    border: 0;
+    clear:both;
+    display:block;
+    width: 96%;               
+    background-color: var(--DISABLED-COLOR);
+    height: 1px;
+}
+
 /* Styles the bullet points */
 #site-info ul li {
     list-style: inside;
@@ -455,12 +465,16 @@ td.resizable:after {
 }
 
 #site-info .section {
+    padding-top: 1em;
     padding-bottom: 3em;
 }
 
 /* Allow for finer-detailed spacing */
 #site-info .top-half-pad {
     padding-top: 0.5em;
+}
+#site-info .top-one-half-pad {
+    padding-top: 1.5em;
 }
 #site-info .bot-half-pad {
     padding-bottom: 0.5em;
@@ -469,14 +483,18 @@ td.resizable:after {
     padding-bottom: 1.5em;
 }
 
-/* Styles lines */
-#site-info .site-info-container hr {
-    display: none;
-}
-
 /* Styles the navbar */
 #site-info-nav {
     display: inline;
+}
+
+#site-info-nav hr {
+    border: 0;
+    clear:both;
+    display:block;
+    width: 96%;               
+    background-color: var(--DISABLED-COLOR);
+    height: 1px;
 }
 
 #site-info-nav .site-info-nav-menu {
@@ -507,6 +525,7 @@ td.resizable:after {
     margin: 0 auto;
 }
 /* #endregion */
+
 
 /************************
 **** Utility classes ****
