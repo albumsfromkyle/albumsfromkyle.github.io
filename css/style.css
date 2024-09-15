@@ -431,10 +431,10 @@ td.resizable:after {
 /* #endregion */
 
 
-/***********************************
-**** Site Info / Resources Page ****
-***********************************/
-/* #region SITE / RESOURCES INFO */
+/*******************************
+**** Text Pages (Non-Table) ****
+*******************************/
+/* #region TEXT PAGES */
 /* Adds padding to top of the page */
 .text-page {
     padding-top: 1.5em;
@@ -445,7 +445,7 @@ td.resizable:after {
     border: 0;
     clear:both;
     display:block;
-    width: 96%;               
+    width: 100%;               
     background-color: var(--DISABLED-COLOR);
     height: 1px;
 }
@@ -513,6 +513,77 @@ td.resizable:after {
 }
 
 .text-page-nav li:hover {
+    border-bottom: 1px solid black;
+    /* v AB v */
+    font-weight: bold;
+    transition: 0.15s;
+}
+/* #endregion */
+
+
+/***********************
+**** Resources Page ****
+***********************/
+/* #region RESOURCES */
+/* Style the playlists table */
+#resources #playlists-table {
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#resources table { /* Centers the content within each cell */
+    display: flex;
+    text-align: center;
+    border-spacing: 5px;
+}
+
+#resources td { /* Centers the content within each cell */
+    width: 1000px;
+    /* border: none; */
+    padding-bottom: 2em;
+}
+
+#resources .year-title {
+    font-weight: bold;
+    max-width: 60%;
+    margin: 0 auto;
+    border-bottom: 1px solid black;
+}
+#resources .playlist {
+    padding-top: 5px;
+    font-style: italic;
+    border-bottom: 1px solid transparent;
+}
+
+/* Style the playlist links */
+#resources .playlist a {
+    /* color: var(--PRIMARY-COLOR); */
+}
+
+#resources .playlist a:hover {
+    /* border-bottom: 1px solid black; */
+    font-weight: bold;
+    transition: 0.15s;
+    margin: 0 auto;
+}
+
+#resources .playlist a.disabled  {
+    color: var(--DISABLED-COLOR);
+    pointer-events: none;
+    cursor: default;
+}
+
+#resources .playlist a.disabled:hover  {
+    font-weight: normal;
+}
+
+/* Links */
+#resources a {
+    border-bottom: 1px solid transparent;
+}
+
+#resources a:hover {
     border-bottom: 1px solid black;
     /* v AB v */
     font-weight: bold;

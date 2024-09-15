@@ -1,6 +1,10 @@
 # BEFORE RELEASE
-* Zoom in/out (increase/decrease the table size)?
+* Zoom in/out (increase/decrease the table size)???
+
 * Add previous years lists
+* Update order of favorite albums
+* Update all spotify playlists
+* Update style/colors
 
 * Update github readme
 
