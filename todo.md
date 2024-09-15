@@ -3,6 +3,7 @@
 * Add previous years lists
 * Add links to spotify playlists
 
+* Make navbar appear whenever you scroll up, but disappear when scrolling down (after you are far down enough)???
 
 # GENERAL
 * Clean up older album year Excel sheets
