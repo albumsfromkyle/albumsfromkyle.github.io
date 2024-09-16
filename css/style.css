@@ -324,11 +324,11 @@ img {
     /* padding-left: 1em;
     padding-right: 1em; */
     font-style: italic;
+    color: var(--PRIMARY-COLOR);
 }
 
 #spotify-playlist a:hover {
-    border-bottom: 1px solid black;
-    /* color: var(--DISABLED-COLOR); */
+    border-bottom: 1px solid var(--PRIMARY-COLOR);
     font-weight: bold;
 }
 /* #endregion */
@@ -538,7 +538,7 @@ td.resizable:after {
     border-spacing: 5px;
 }
 
-#resources td { /* Centers the content within each cell */
+#resources td { /* Spaces out the cells */
     width: 1000px;
     /* border: none; */
     padding-bottom: 2em;
@@ -556,18 +556,6 @@ td.resizable:after {
     border-bottom: 1px solid transparent;
 }
 
-/* Style the playlist links */
-#resources .playlist a {
-    /* color: var(--PRIMARY-COLOR); */
-}
-
-#resources .playlist a:hover {
-    /* border-bottom: 1px solid black; */
-    font-weight: bold;
-    transition: 0.15s;
-    margin: 0 auto;
-}
-
 #resources .playlist a.disabled  {
     color: var(--DISABLED-COLOR);
     pointer-events: none;
@@ -581,10 +569,11 @@ td.resizable:after {
 /* Links */
 #resources a {
     border-bottom: 1px solid transparent;
+    color: var(--PRIMARY-COLOR);
 }
 
 #resources a:hover {
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid var(--PRIMARY-COLOR);
     /* v AB v */
     font-weight: bold;
     transition: 0.15s;
