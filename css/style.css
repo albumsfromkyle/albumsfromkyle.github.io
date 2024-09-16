@@ -70,7 +70,7 @@
     /* Table Colors */
     --TABLE-HEADER-TEXT: black;
     --TABLE-HEADER-TEXT-HOVER: var(--TABLE-HEADER-TEXT);
-    --TABLE-HEADER-BACKGROUND: #ecf4ff;
+    --TABLE-HEADER-BACKGROUND: #bbdeff;
     --TABLE-HEADER-BACKGROUND-HOVER: var(--TABLE-HEADER-BACKGROUND);
     
     --TABLE-HEADER-ORDER: var(--DISABLED-COLOR);
@@ -397,23 +397,10 @@ img {
     position: relative;
 }
 
-/* td.resizable {
-    position: relative;
-}
-
-td.resizable:after {
-    content: "";
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    width: 5px;
-    cursor: ew-resize;
-} */
-
 #album-list thead td {  /* Entire header cell */
     color: var(--TABLE-HEADER-TEXT);
     background: var(--TABLE-HEADER-BACKGROUND);
+    border-bottom: 2px solid var(--TABLE-BORDER);
 }
 
 #album-list thead td:hover {  /* Entire header cell */
