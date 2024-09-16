@@ -16,8 +16,9 @@
 :root {
     /* Reference Colors */
     --PRIMARY-COLOR: #4891ff;
-    --LIGHT-COLOR: #f4f4f4;
     --DARK-COLOR: #494949;
+
+    --OFFWHITE: #f2f2f2;
 
     --DISABLED-COLOR: rgb(175, 175, 175);
 
@@ -28,45 +29,48 @@
     --NAVBAR-TEXT: black;
     --NAVBAR-TEXT-HOVER: var(--PRIMARY-COLOR);
 
+    /* 
+        Option 1: Darkmode navbar
+    */
 
     /* List Selector Colors */
-    --LIST-BACKGROUND: #ddd;
+    --LIST-BACKGROUND: var(--DARK-COLOR);
 
-    --LIST-TEXT: black;
+    --LIST-TEXT: var(--OFFWHITE);
     --LIST-TEXT-HOVER: var(--PRIMARY-COLOR);
     --LIST-BUTTON-BACKGROUND: var(--LIST-BACKGROUND);
     --LIST-BUTTON-BACKGROUND-HOVER: var(--LIST-BACKGROUND);
 
-    --LIST-SELECTED-TEXT: black;
-    --LIST-SELECTED-TEXT-HOVER: black;
+    --LIST-SELECTED-TEXT: var(--LIST-TEXT);
+    --LIST-SELECTED-TEXT-HOVER: var(--LIST-TEXT);
     --LIST-SELECTED-BUTTON-BACKGROUND: var(--LIST-BACKGROUND);
     --LIST-SELECTED-BUTTON-BACKGROUND-HOVER: var(--LIST-BACKGROUND);
     
     
     /* Year Selector Colors */
     --YEAR-BACKGROUND: var(--LIST-BACKGROUND);
-    --YEAR-BORDER: black;
+    --YEAR-BORDER: rgb(131, 135, 138);
 
-    --YEAR-TEXT: black;
+    --YEAR-TEXT: var(--LIST-TEXT);
     --YEAR-TEXT-HOVER: var(--PRIMARY-COLOR);
     --YEAR-BUTTON-BACKGROUND: var(--YEAR-BACKGROUND);
     --YEAR-BUTTON-BACKGROUND-HOVER: var(--YEAR-BACKGROUND);
     
-    --YEAR-DISABLED-TEXT: var(--DISABLED-COLOR);
-    --YEAR-DISABLED-TEXT-HOVER: var(--DISABLED-COLOR);
+    --YEAR-DISABLED-TEXT: rgb(150, 150, 150);
+    --YEAR-DISABLED-TEXT-HOVER: var(--YEAR-DISABLED-TEXT);
     --YEAR-DISABLED-BUTTON-BACKGROUND: var(--YEAR-BACKGROUND);
     --YEAR-DISABLED-BUTTON-BACKGROUND-HOVER: var(--YEAR-BACKGROUND);
 
-    --YEAR-SELECTED-TEXT: black;
+    --YEAR-SELECTED-TEXT: rgb(255, 255, 255);
     --YEAR-SELECTED-TEXT-HOVER: var(--YEAR-SELECTED-TEXT);
-    --YEAR-SELECTED-BUTTON-BACKGROUND: #c4c4c4;
+    --YEAR-SELECTED-BUTTON-BACKGROUND: #808080;
     --YEAR-SELECTED-BUTTON-BACKGROUND-HOVER: var(--YEAR-SELECTED-BUTTON-BACKGROUND);
 
 
     /* Table Colors */
     --TABLE-HEADER-TEXT: black;
     --TABLE-HEADER-TEXT-HOVER: var(--TABLE-HEADER-TEXT);
-    --TABLE-HEADER-BACKGROUND: rgb(228 240 245);
+    --TABLE-HEADER-BACKGROUND: #ecf4ff;
     --TABLE-HEADER-BACKGROUND-HOVER: var(--TABLE-HEADER-BACKGROUND);
     
     --TABLE-HEADER-ORDER: var(--DISABLED-COLOR);
@@ -298,7 +302,7 @@ img {
 
 /* Style the selected year */
 #year-navbar #year-list .active {
-    font-weight: bold;
+    /* font-weight: bold; */
     background: var(--YEAR-SELECTED-BUTTON-BACKGROUND);
     color: var(--YEAR-SELECTED-TEXT);
 }
@@ -324,10 +328,11 @@ img {
     /* padding-left: 1em;
     padding-right: 1em; */
     font-style: italic;
+    color: var(--PRIMARY-COLOR);
 }
 
 #spotify-playlist a:hover {
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid var(--PRIMARY-COLOR);
     /* color: var(--DISABLED-COLOR); */
     font-weight: bold;
 }
