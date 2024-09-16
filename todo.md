@@ -1,7 +1,6 @@
 # BEFORE RELEASE
+* Organize 2022, 2023 album lists
 
-
-* Add previous years lists
 * Update order of favorite albums
 * Update all spotify playlists
 
