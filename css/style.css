@@ -318,10 +318,14 @@ img {
 **** Spotify Playlist ****
 *************************/
 /* #region SPOTIFY PLAYLIST */
-#spotify-playlist {
+#spotify-playlist .container {
     padding-top: 15px;
     text-align: center;
-    
+    /* padding-left: 70px;
+    padding-right: 70px;
+    background: #eee;
+    border-left: 1px solid var(--DISABLED-COLOR);
+    border-right: 1px solid var(--DISABLED-COLOR); */
 }
 
 #spotify-playlist a {
@@ -346,8 +350,12 @@ img {
 #album-list .container {
     padding-top: 15px;
     padding-bottom: 50px;
-
     background: var(--CONTAINER-BACKGROUND);
+    /* padding-left: 70px;
+    padding-right: 70px;
+    background: #eee;
+    border-left: 1px solid var(--DISABLED-COLOR);
+    border-right: 1px solid var(--DISABLED-COLOR); */
 }
 
 /* Table column widths */

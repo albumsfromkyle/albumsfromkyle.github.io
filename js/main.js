@@ -428,6 +428,9 @@ async function grayOutMissingYears() {
         extension = getExtensionFromList("Favorite Songs");
         filename = "csv/" + year + extension + ".csv";
         let songsExist = await checkFileExists(filename);
+
+        console.log(year + " FILE EXISTS ? " + String(albumsExist));
+        console.log(year + " FILE EXISTS ? " + String(songsExist));
         
         // Disable/enable each button depending on if a CSV list file exists
         if (albumsExist || songsExist) {

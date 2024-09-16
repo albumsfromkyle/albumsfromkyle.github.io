@@ -1,5 +1,6 @@
 import sys
 import csv
+import os.path
 
 # Does two things:
 # 1) Trims the CSV data so that it only includes the "useful" data
@@ -11,13 +12,14 @@ import csv
 
 
 # Sets all breakpoints to be 0
-breakpoints = {k:v for k, v in zip([x/2 for x in range(0, 21, 1)], [1 for x in range(0, 21, 1)])}
+breakpoints = {k:v for k, v in zip([x/2 for x in range(0, 21, 1)], [-1 for x in range(0, 21, 1)])}
 def set_breakpoints():
     with open(dest_csv_path, 'r', newline='') as dest_csv:
         csvreader = csv.reader(dest_csv)
 
         # Skip the header
-        next(csvreader)
+        for row in csvreader:
+            break
 
         # Loop through and record the minimum hidden ranking for each possible rating value
         for row in csvreader: # Can afford to be inefficient since list sizes are small
@@ -27,11 +29,9 @@ def set_breakpoints():
             if (hidden_ranking > breakpoints[rating]):
                 breakpoints[rating] = hidden_ranking
 
-        prev_row = row
-    
     # Fixes any gaps in the breakpoints (in case no album exists with a certain rating)
     for rating in [x/2 for x in range(0, 21, 1)]:
-        if breakpoints[rating] != 1:
+        if breakpoints[rating] != -1:
             continue
 
         copy_rating = rating
@@ -52,7 +52,7 @@ def get_truncated_value(dest_csv_path, album, rating, index):
             if row[1] == album and row[index]: # Check if there is a truncated version of the value in each row
                 return row[index] # If so, use the truncated value
     
-    return breakpoints[float(rating)]
+    return breakpoints[float(rating)] if (breakpoints[float(rating)] != -1) else rating
 
 
 if __name__ == "__main__":
@@ -64,6 +64,11 @@ if __name__ == "__main__":
 
     source_csv_path = sys.argv[1]
     dest_csv_path = sys.argv[2]
+
+    # Create the destination folder if it does not exist
+    if not os.path.isfile(dest_csv_path):
+        file = open(dest_csv_path, 'w', newline='')
+        file.close()
 
     # Operate on the CSV
     new_data = [] # Will store all of the new data to write to the final CSV
