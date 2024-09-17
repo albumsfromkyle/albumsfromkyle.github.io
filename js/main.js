@@ -1,5 +1,5 @@
 // Years
-const OLDEST_YEAR = 2019;
+const OLDEST_YEAR = 2018;
 const CURRENT_YEAR = parseInt(new Date().getFullYear());
 const NUM_YEARS_TO_SHOW = 5;
 
