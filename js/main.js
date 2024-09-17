@@ -322,6 +322,15 @@ function updateActiveList() {
 }
 
 /**
+ * Hides the alert message banner
+ * (This is only here for the setTimeout function)
+ */
+function hideAlertBanner() {
+    let alert = document.getElementById("alert-banner");
+    alert.classList.add("hidden");
+}
+
+/**
  * Updates the text and link to the spotify playlist above the table.
  */
 playlistLinks = {
@@ -394,15 +403,33 @@ document.getElementById("list-list").addEventListener("click", async function(ev
     let exists = await checkFileExists(filename);
     if (!exists) {
         console.log("ERROR: " + filename + " does not exist");
-        return;
+
+        // Switch to the current year's list and display an alert
+        let alert_msg = document.getElementById("alert-msg");
+        alert_msg.innerHTML = "\"" + listType + "\" list does not exist for " + String(SELECTED_YEAR)
+        
+        let alert = document.getElementById("alert-banner");
+        alert.classList.remove("hidden");
+
+        SELECTED_YEAR = CURRENT_YEAR;
     }    
     
     // Set the currently selected list and change the active button
     SELECTED_LIST = listType;
 
     updateActiveList();
+    grayOutMissingYears();
     updateSpotifyPlaylist();
     updateTable();
+
+    // Have to perform more updates if the selected list didn't exist
+    // (Basically mimicing clicking on a new year)
+    if (!exists) {
+        updateActiveYear();
+        updateSpotifyPlaylist();
+        updateTable();
+        setTimeout(hideAlertBanner, 8*1000)
+    }
 });
 
 
@@ -441,7 +468,7 @@ async function grayOutMissingYears() {
         console.log(year + " FILE EXISTS ? " + String(songsExist));
         
         // Disable/enable each button depending on if a CSV list file exists
-        if (albumsExist || songsExist) {
+        if ((SELECTED_LIST == "Favorite Albums" && albumsExist) || (SELECTED_LIST == "Favorite Songs" && songsExist)) {
             document.getElementById("year" + i).disabled = false;
         }
         else {

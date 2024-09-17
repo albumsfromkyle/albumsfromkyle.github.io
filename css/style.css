@@ -314,6 +314,36 @@ img {
 /* #endregion */
 
 
+
+/**************
+**** Alert ****
+**************/
+#alert-banner {
+    padding: 5px 20px;
+    background-color: #f44336; /* Red */
+    color: var(--BODY-BACKGROUND);
+    margin-bottom: 15px;
+    align-items: center;
+    text-align: center;
+}
+
+/* The close button */
+#alertclose {
+    margin-left: 30px;
+    color: var(--BODY-BACKGROUND);
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* When moving the mouse over the close button */
+#alertclose:hover {
+    color: var(--DARK-COLOR);
+}
+
+
 /*************************
 **** Spotify Playlist ****
 *************************/
