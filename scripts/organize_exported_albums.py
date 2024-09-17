@@ -23,6 +23,11 @@ def set_breakpoints():
 
         # Loop through and record the minimum hidden ranking for each possible rating value
         for row in csvreader: # Can afford to be inefficient since list sizes are small
+            # Skip albums that are not from the year being worked on
+            release_year = row[3].split("/")[2] if row[3] != "" else "0000"
+            if release_year not in dest_csv_path:
+                continue
+
             rating = float(row[6])
             hidden_ranking = int(row[7])
 
