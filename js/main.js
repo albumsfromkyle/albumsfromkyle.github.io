@@ -8,14 +8,15 @@ let SELECTED_YEAR = CURRENT_YEAR; // Default year to show
 let SELECTED_LIST = "Favorite Albums"; // Default list to show
 
 // Headers
-const ALBUMS_CSV_HEADERS = ["Artist", "Album", "Genre", "Release Date", "Listened On", "Favorite Songs", "Rating", "Hidden Ranking"]
-let SHOWN_ALBUM_HEADERS = ["Artist", "Album", "Genre", "Favorite Songs", "Rating"]
+const ALBUMS_CSV_HEADERS = ["Artist", "Album", "Genre", "Release Date", "Listened On", "Favorite Songs", "Rating", "Hidden Ranking"];
+let SHOWN_ALBUM_HEADERS = ["Artist", "Album", "Genre", "Favorite Songs"];
 
-const SONGS_CSV_HEADERS = ["Song", "Album", "Artist", "Genre", "Hidden Ranking"]
-let SHOWN_SONG_HEADERS = ["Song", "Artist", "Album", "Genre"]
+const SONGS_CSV_HEADERS = ["Song", "Album", "Artist", "Genre", "Hidden Ranking"];
+let SHOWN_SONG_HEADERS = ["Song", "Artist", "Album", "Genre"];
 
-let SORTABLE_HEADERS = [""]
+let SORTABLE_HEADERS = [""];
 
+const SHOW_RATING = SHOWN_ALBUM_HEADERS.includes("Rating");
 
 /************************
 **** GENERAL HELPERS ****
@@ -148,6 +149,13 @@ function csvToHtml(data) {
         let releaseDate = Date.parse( csvRow["Release Date"] );
         if (releaseDate < Date.parse("1/1/" + SELECTED_YEAR)) {
             return;
+        }
+
+        if (!SHOW_RATING) {
+            console.log("NOT SHOWING RATING")
+            if (csvRow["Rating"] != "" && parseFloat(csvRow["Rating"]) < 6.5) {
+                return;
+            }
         }
 
         // Insert the new row
