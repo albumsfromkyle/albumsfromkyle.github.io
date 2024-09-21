@@ -8,8 +8,8 @@ let SELECTED_YEAR = CURRENT_YEAR; // Default year to show
 let SELECTED_LIST = "Favorite Albums"; // Default list to show
 
 // Headers
-const ALBUMS_CSV_HEADERS = ["Artist", "Album", "Genre", "Release Date", "Listened On", "Favorite Songs", "Rating", "Hidden Ranking"];
-let SHOWN_ALBUM_HEADERS = ["Artist", "Album", "Genre", "Favorite Songs"];
+const ALBUMS_CSV_HEADERS = ["Album", "Artist", "Genre", "Release Date", "Listened On", "Favorite Songs", "Rating", "Hidden Ranking"];
+let SHOWN_ALBUM_HEADERS = ["Album", "Artist", "Genre", "Favorite Songs"];
 
 const SONGS_CSV_HEADERS = ["Song", "Album", "Artist", "Genre", "Hidden Ranking"];
 let SHOWN_SONG_HEADERS = ["Song", "Artist", "Album", "Genre"];

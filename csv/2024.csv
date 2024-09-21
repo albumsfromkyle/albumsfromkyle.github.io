@@ -1,185 +1,185 @@
-Artist,Album,Genre,Release Date,Listened On,Favorite Songs,Rating,Hidden Ranking
-twikipedia,still-life,Indie Pop,1/1/2024,1/2/2024,"i wanna be the guy, killing time, sail",6,109
-"The Game, Big Hit",Paisley Dreams,West Coast Hip Hop,1/1/2024,1/2/2024,"Bang Freestyle, P Fiction, The Game Won't Stop",4,22
-Gumshoes,Cacophony,"Indie, Piano Pop",1/2/2024,1/2/2024,"The Puppet Waltz, Last Living Kennedy, Clair De Lune 2",4.5,35
-umu,new days,"Pop, Indie Rock",1/2/2024,1/2/2024,"Cake, Now, tbfh",5,53
-Into the Deep,Blackfin,"Screamo, Metal",1/3/2024,1/3/2024,"Sandblasted, Blackfin, Spaceshark",3.5,12
-yungatita,Shoelace & A Knot,Indie Rock,1/3/2024,1/3/2024,"Armchair, Reckless, Descenda",5.5,81
-Orkun A.,Archaic,Ambient,1/1/2024,1/3/2024,"White Fades, Lis (Bloom), B.W. II",4,21
-Gupi,glow-zone,Electronic Dance,1/1/2024,1/3/2024,"if we were a movie, hibachi, hyperstop",3.5,11
-Normandie,Sorry,Alternative Rock,1/1/2024,1/4/2024,"Sorry, Blood In The Water, Ritual",5,52
-Dutchmasters,"substaition, my home. melancholy, my bride",Screamo,1/1/2024,1/4/2024,"substation, melancholy, my home",3,7
-Enjoy,Deep Cuts (2011-2016),Bedroom Pop,1/1/2024,1/4/2024,"Cancel And Cut, I'm Sorry, Help!",4,20
-wildkarduno,Still Healing,Gangsta Rap,1/2/2024,1/4/2024,"The Voice, Still Healing, Rokk Out 2",2,2
-Pile,Hot Air Balloon EP,Art Rock,1/5/2024,1/5/2024,"Scaling Walls, The Birds Attacked My Hot Air Balloon, Only For A Reminder",6,108
-BennyBob,REVERBERATIONS,Hip Hop,1/4/2024,1/5/2024,"LONDONS COLD WITH EVERYONE GONE, THIS IS NOT A COINCIDENCE, THANK YOU GOODNIGHT!",4,19
-doefriends,I WANT TO LOVE AGAIN,Noise Pop,1/5/2024,1/8/2024,"how to feel alive, i don't know if you hate or love me, a song about a cartoon",5.5,80
-E66s,Quarters Tape,Ambient,1/6/2024,1/8/2024,"A Beat to Skate to, 303 Joint, Gentle Eyes",3.5,10
-rubyred,business casual,Trap,1/5/2024,1/9/2024,"over here and over there, withstand, bishop",2,1
-pehmoaino,soittorasia,Art Pop,1/5/2024,1/9/2024,"valssi, maasta taivaaseen, mielipide",5.5,79
-SPRINTS,Letter to Self,Post-Punk,1/5/2024,1/9/2024,"Shaking Their Hands, Cathedral, Heavy",6,107
-"eevie echoes, The Locations",The Cons of Being a Wallflower,Ska Punk,1/10/2024,1/10/2024,"24, Apathy, Braindead",4.5,34
-OnlyOneOf,Things I Can't Say LOve,K-Pop,1/10/2024,1/10/2024,"gravity, give me the lOve bitxx, things i can't say lOve",5.5,78
-My Anh,Em,"K-Pop, Vietnamese Pop",1/11/2024,1/11/2024,"Chẳng Thể Né Tránh, Đánh Cược, Ở Đây Lúc Này",7.5,162
-Midi Memory,Far Gone and Out,Alternative,1/11/2024,1/11/2024,"Eternal Dream, Angel Of Death, A Stitch In Time",4,18
-Kali Uchis,ORQUIDEAS,Latin Pop,1/12/2024,1/15/2024,"Igual Que Un Ángel, Pensamientos Intrusivos, Te Mata",6.5,128
-Bill Ryder-Jones,lechyd Da,Chamber Pop,1/12/2024,1/15/2024,"I Know That It's Like This (Baby), If Tomorrow Starts Without Me, This Can't Go On",7,146
-"Hus KingPin, 9th Wonder",The Supergoat,Hip Hop,1/15/2024,1/16/2024,"Rewind, King Is Born, Already",5,51
-Volkan,Lo que no se puede evitar,Post-Metal,1/15/2024,1/16/2024,"Arrebol, Lo que no se puede evitar, Miedo es bueno",4.5,33
-Lake Haze,Ionosphere,Electronic,1/15/2024,1/16/2024,"First Contact, Ionosphere, No Escape",3,6
+Album,Artist,Genre,Release Date,Listened On,Favorite Songs,Rating,Hidden Ranking
+still-life,twikipedia,Indie Pop,1/1/2024,1/2/2024,"i wanna be the guy, killing time, sail",6,109
+Paisley Dreams,"The Game, Big Hit",West Coast Hip Hop,1/1/2024,1/2/2024,"Bang Freestyle, P Fiction, The Game Won't Stop",4,22
+Cacophony,Gumshoes,"Indie, Piano Pop",1/2/2024,1/2/2024,"The Puppet Waltz, Last Living Kennedy, Clair De Lune 2",4.5,35
+new days,umu,"Pop, Indie Rock",1/2/2024,1/2/2024,"Cake, Now, tbfh",5,53
+Blackfin,Into the Deep,"Screamo, Metal",1/3/2024,1/3/2024,"Sandblasted, Blackfin, Spaceshark",3.5,12
+Shoelace & A Knot,yungatita,Indie Rock,1/3/2024,1/3/2024,"Armchair, Reckless, Descenda",5.5,81
+Archaic,Orkun A.,Ambient,1/1/2024,1/3/2024,"White Fades, Lis (Bloom), B.W. II",4,21
+glow-zone,Gupi,Electronic Dance,1/1/2024,1/3/2024,"if we were a movie, hibachi, hyperstop",3.5,11
+Sorry,Normandie,Alternative Rock,1/1/2024,1/4/2024,"Sorry, Blood In The Water, Ritual",5,52
+"substaition, my home. melancholy, my bride",Dutchmasters,Screamo,1/1/2024,1/4/2024,"substation, melancholy, my home",3,7
+Deep Cuts (2011-2016),Enjoy,Bedroom Pop,1/1/2024,1/4/2024,"Cancel And Cut, I'm Sorry, Help!",4,20
+Still Healing,wildkarduno,Gangsta Rap,1/2/2024,1/4/2024,"The Voice, Still Healing, Rokk Out 2",2,2
+Hot Air Balloon EP,Pile,Art Rock,1/5/2024,1/5/2024,"Scaling Walls, The Birds Attacked My Hot Air Balloon, Only For A Reminder",6,108
+REVERBERATIONS,BennyBob,Hip Hop,1/4/2024,1/5/2024,"LONDONS COLD WITH EVERYONE GONE, THIS IS NOT A COINCIDENCE, THANK YOU GOODNIGHT!",4,19
+I WANT TO LOVE AGAIN,doefriends,Noise Pop,1/5/2024,1/8/2024,"how to feel alive, i don't know if you hate or love me, a song about a cartoon",5.5,80
+Quarters Tape,E66s,Ambient,1/6/2024,1/8/2024,"A Beat to Skate to, 303 Joint, Gentle Eyes",3.5,10
+business casual,rubyred,Trap,1/5/2024,1/9/2024,"over here and over there, withstand, bishop",2,1
+soittorasia,pehmoaino,Art Pop,1/5/2024,1/9/2024,"valssi, maasta taivaaseen, mielipide",5.5,79
+Letter to Self,SPRINTS,Post-Punk,1/5/2024,1/9/2024,"Shaking Their Hands, Cathedral, Heavy",6,107
+The Cons of Being a Wallflower,"eevie echoes, The Locations",Ska Punk,1/10/2024,1/10/2024,"24, Apathy, Braindead",4.5,34
+Things I Can't Say LOve,OnlyOneOf,K-Pop,1/10/2024,1/10/2024,"gravity, give me the lOve bitxx, things i can't say lOve",5.5,78
+Em,My Anh,"K-Pop, Vietnamese Pop",1/11/2024,1/11/2024,"Chẳng Thể Né Tránh, Đánh Cược, Ở Đây Lúc Này",7.5,162
+Far Gone and Out,Midi Memory,Alternative,1/11/2024,1/11/2024,"Eternal Dream, Angel Of Death, A Stitch In Time",4,18
+ORQUIDEAS,Kali Uchis,Latin Pop,1/12/2024,1/15/2024,"Igual Que Un Ángel, Pensamientos Intrusivos, Te Mata",6.5,128
+lechyd Da,Bill Ryder-Jones,Chamber Pop,1/12/2024,1/15/2024,"I Know That It's Like This (Baby), If Tomorrow Starts Without Me, This Can't Go On",7,146
+The Supergoat,"Hus KingPin, 9th Wonder",Hip Hop,1/15/2024,1/16/2024,"Rewind, King Is Born, Already",5,51
+Lo que no se puede evitar,Volkan,Post-Metal,1/15/2024,1/16/2024,"Arrebol, Lo que no se puede evitar, Miedo es bueno",4.5,33
+Ionosphere,Lake Haze,Electronic,1/15/2024,1/16/2024,"First Contact, Ionosphere, No Escape",3,6
 RYUJIN,RYUJIN,Power Metal,1/12/2024,1/17/2024,"Raijin & Fujin, Kunnecup, Saigo No Hoshi",5,50
-NMIXX,Fe3O4: BREAK,K-Pop,1/15/2024,1/17/2024,"DASH, Passionfruit, XOXO",5,49
-Hannah Wicklund,The Prize,Blues Rock,1/12/2024,1/18/2024,"Songbird Sing, Witness, Can't Get Enough",4.5,32
-Terry Draper,In The Beginning,Progressive Rock,1/12/2024,1/18/2023,"IN THE BEGINNING, LOST WITHIN YOU, MEMORY LANE",3,5
-Casey,How To Disappear,Emo,1/12/2024,1/19/2024,"Unique Lights, Bite Through My Tongue, I Was Happy When You Died",6,106
-Kid Cudi,INSANO,Hip Hop,1/12/2024,1/19/2024,"PORSCHE TOPLESS, OFTEN I HAVE THESE DREAMZ, GET OFF ME",2.5,3
-Green Day,Saviors,Pop Punk,1/19/2024,1/19/2024,"The American Dream Is Killing Me, 1981, Coma City",4,17
-glass beach,plastic death,Art Rock,1/19/2024,1/20/2024,"coelacanth, motions, commatose",8.5,177
-SLIFT,ILION,Psychedelic Metal,1/19/2024,1/22/2024,"Ilion, Confluence, Nimh",6,105
-ericdoa,DOA,"Pop Rap, Alternative Pop",1/19/2024,1/23/2024,"dancinwithsomebawdy, the cake is a lie, kickstand",5.5,77
-Cheekface,It's Sorted,Indie Rock,1/22/2024,1/23/2024,"Popular 2, Life in a Bag, There Were Changes in the Hardcore Scene",4.5,31
-Mary Halvorson,Cloudward,Avant-Garde Jazz,1/19/2024,1/24/2024,"The Gate, Tailhead, The Tower",4.5,30
-Eliza McLamb,Going Through It,"Indie, Singer-Songwriter",1/19/2024,1/24/2024,"Mythologize Me, Glitter, Before",6.5,126
-Daudi Matsiko,The King of Misery,Acoustic Folk,1/14/2024,1/25/2024,"Hymn, Fool Me As Many Times As You Like, oMo (Man)",5.5,76
+Fe3O4: BREAK,NMIXX,K-Pop,1/15/2024,1/17/2024,"DASH, Passionfruit, XOXO",5,49
+The Prize,Hannah Wicklund,Blues Rock,1/12/2024,1/18/2024,"Songbird Sing, Witness, Can't Get Enough",4.5,32
+In The Beginning,Terry Draper,Progressive Rock,1/12/2024,1/18/2023,"IN THE BEGINNING, LOST WITHIN YOU, MEMORY LANE",3,5
+How To Disappear,Casey,Emo,1/12/2024,1/19/2024,"Unique Lights, Bite Through My Tongue, I Was Happy When You Died",6,106
+INSANO,Kid Cudi,Hip Hop,1/12/2024,1/19/2024,"PORSCHE TOPLESS, OFTEN I HAVE THESE DREAMZ, GET OFF ME",2.5,3
+Saviors,Green Day,Pop Punk,1/19/2024,1/19/2024,"The American Dream Is Killing Me, 1981, Coma City",4,17
+plastic death,glass beach,Art Rock,1/19/2024,1/20/2024,"coelacanth, motions, commatose",8.5,177
+ILION,SLIFT,Psychedelic Metal,1/19/2024,1/22/2024,"Ilion, Confluence, Nimh",6,105
+DOA,ericdoa,"Pop Rap, Alternative Pop",1/19/2024,1/23/2024,"dancinwithsomebawdy, the cake is a lie, kickstand",5.5,77
+It's Sorted,Cheekface,Indie Rock,1/22/2024,1/23/2024,"Popular 2, Life in a Bag, There Were Changes in the Hardcore Scene",4.5,31
+Cloudward,Mary Halvorson,Avant-Garde Jazz,1/19/2024,1/24/2024,"The Gate, Tailhead, The Tower",4.5,30
+Going Through It,Eliza McLamb,"Indie, Singer-Songwriter",1/19/2024,1/24/2024,"Mythologize Me, Glitter, Before",6.5,126
+The King of Misery,Daudi Matsiko,Acoustic Folk,1/14/2024,1/25/2024,"Hymn, Fool Me As Many Times As You Like, oMo (Man)",5.5,76
 Vemod,Vemod,Black Metal,1/19/2024,1/25/2024,"Der guder dør, Inn i lysande natt, Mot oss en ild",5.5,75
-The Smile,Wall Of Eyes,Art Rock,1/26/2024,1/26/2024,"Wall Of Eyes, Bending Hectic, Read The Room",7,145
-Courting,New Last Name,Pop Rock,1/26/2024,1/26/2024,"Emily G, Flex, Babys",7,144
-Katy Kirby,Blue Raspberry,Singer-Songwriter,1/26/2024,1/28/2024,"Cubic Zirconia, Blue Raspberry, Party of the Century",6,104
-Alkaline Trio,"Blood, Hair, and Eyeballs","Power Pop, Pop Punk",1/26/2024,1/29/2024,"Hot For Preacher, Bad Time, Blood Hair And Eyeballs",6,103
-Lego Indiana Jones,Hope All Well,Piano Rock,1/7/2024,1/29/2024,"Extreme Soundclown Megamix, Cloudy w/ a Chance of Meatballs, Mr Worry + Understanding the Linux Kernel",5.5,74
-Future Islands,People Who Aren't There Anymore,Synthpop,1/26/2024,1/30/2024,"King of Sweden, Say Goodbye, The Tower",7,143
-NewDad,MADRA,"Dream Pop, Indie Rock",1/26/2024,1/30/2024,"Angel, Nightmares, Let Go",5,48
-Tapir!,"The Pilgrim, Their God & the King of My Decrepit Mountain",Indie Folk,1/26/2024,1/31/2024,"On A Grassy Knoll (We'll Bow Together), Gymnopédie, My God",7.5,161
-Astrid Sonne,Great Doubt,Art Pop,1/26/2024,2/1/2024,"Staying here, Do you wanna, Light and heavy",5.5,73
-Ty Segall,Three Bells,Psychedelic Rock,1/26/2024,2/4/2024,"Void, The Bell, My Room",5,47
-Froukje,Noodzakelijk Verdriet,Alternative Pop,1/12/2024,2/5/2024,"Houden Van Mij, Kwijt, Naar Het Licht",5.5,72
-"yubiori, Acle",under a cloud,Midwest Emo,1/31/2024,2/6/2024,"radiation cooling, interlude, bird cage",6.5,125
-The Last Dinner Party,Prelude to Ecstasy,Pop Rock,2/2/2024,2/6/2024,"The Feminine Urge, Sinner, Nothing Matters",7,142
-UMI,talking to the wind,Alternative R&B,1/19/2024,2/7/2024,"happy im, why dont we go, SHOW ME OUT",5,46
-Tom Odell,Black Friday,Singer-Songwriter,1/26/2024,2/7/2024,"Black Friday, Parties, The End",6.5,124
-"Vijay Iyer, Linda May Han Oh,Tyshawn Sorey",Compassion,Avant-Garde Jazz,2/2/2024,2/8/2024,"Compassion, Maelstrom, Arch",6,102
-Kali Malone,All Life Long,Drone,2/9/2024,2/11/2024,"All Life Long, Passage Through The Spheres, No Sun To Burn",5,45
-Shygirl,Club Shy,Dance-Pop,2/9/2024,2/12/2024,"thicc, tell me, mr useless",4.5,29
-Declan McKenna,What Happened to the Beach?,Indie Pop,2/9/2024,2/12/2024,"Sympathy, Elevator Hum, Nothing Works",4,16
-Brittany Howard,What Now,Psychadelic Soul,2/9/2024,2/12/2024,"What Now, I Don't, Red Flags",6,101
-Caligula's Horse,Charcoal Grace,Progressive Metal,1/26/2024,2/13/2024,"The World Breathes with Me, Golem, Charcoal Grace I: Prey",6.5,123
-Ducks Ltd.,Harm's Way,Indie Pop,2/9/2024,2/14/2024,"Train Full of Gasoline, On Our Way To The Rave, The Main Thing",5.5,71
-Mk.gee,Two Star & The Dream Police,Alternative R&B,2/9/2024,2/15/2024,"How many miles, Are You Looking Up, Candy",5.5,70
-Little Simz,Drop 7,Hip Hop,2/9/2024,2/15/2024,"Far Away, I Ain't Feelin It, Power",4.5,28
-heylog,eve,"Alternative Pop, Hyperpop",1/17/2024,2/16/2024,"12 gauge, empty roads she's beautiful, into the wind",6,100
-Friko,"Where we've been, Where we go from here",Indie Rock,2/16/2024,2/20/2024,"Where We've Been, Get Numb To It!, For Ella",8,166
-William Doyle,Springs Eternal,Art Pop,2/16/2024,2/22/2024,"Now in Motion, Soft to the Touch, Because of a Dream",6,99
-Quadeca,SCRAPYARD,Experimental Hip Hop,2/16/2024,2/22/2024,"EASIER, TEXAS BLUE, A LA CARTE",7,141
-MGMT,Loss Of Life,Psychedelic Pop,2/23/2024,2/26/2024,"Dancing In Babylon, Bubblegum Dog, Nothing To Declare",7.5,160
-I DONT KNOW HOW BUT THEY FOUND ME,GLOOM DIVISION,Pop Rock,2/23/2024,2/27/2024,"DOWNSIDE, GLOOMTOWN BRATS, INFATUATION",6.5,122
-Hurray For The Riff Raff,The Past Is Still Alive,Alternative Country,2/23/2024,2/28/2024,"Alibi, Buffalo, The World Is Dangerous",7.5,159
-TWICE,With YOU-th,K-Pop,2/23/2024,3/1/2024,"BLOOM, I GOT YOU, YOU GET ME",6.5,121
-Allie X,Girl With No Face,Goth Pop,2/23/2024,3/1/2024,"Black Eye, Galina, Off With Her Tits",7.5,158
-IU,The Winning,K-Pop,2/20/2024,3/2/2024,"Shopper, Love wins all, Shh..",6,98
-glaive,a bit of a mad one,Folk Pop,2/23/2024,3/3/2024,"even when the sun is dead, huh, god is dead",6.5,120
-Faye Webster,Underdressed at the Symphony,"Soft Rock, Singer-Songwriter",3/1/2024,3/3/2024,"Wanna Quit All the Time, Underdressed at the Symphony, Thinking About You",7.5,157
-Pissed Jeans,Half Divorced,"Noise Rock, Hardcore Punk",3/1/2024,3/4/2024,"Moving On, Helicopter Parent, Killing All the Wrong People",5.5,69
-Yard Act,Where's My Utopia?,"Art Punk, Dance-Punk",3/1/2024,3/7/2024,"Dream Job, The Undertow, We Make Hits",8,171
-Mannequin Pussy,I Got Heaven,"Indie Rock, Punk Rock",3/1/2024,3/8/2024,"I Got Heaven, Nothing Like, I Don't Know You",7.5,156
+Wall Of Eyes,The Smile,Art Rock,1/26/2024,1/26/2024,"Wall Of Eyes, Bending Hectic, Read The Room",7,145
+New Last Name,Courting,Pop Rock,1/26/2024,1/26/2024,"Emily G, Flex, Babys",7,144
+Blue Raspberry,Katy Kirby,Singer-Songwriter,1/26/2024,1/28/2024,"Cubic Zirconia, Blue Raspberry, Party of the Century",6,104
+"Blood, Hair, and Eyeballs",Alkaline Trio,"Power Pop, Pop Punk",1/26/2024,1/29/2024,"Hot For Preacher, Bad Time, Blood Hair And Eyeballs",6,103
+Hope All Well,Lego Indiana Jones,Piano Rock,1/7/2024,1/29/2024,"Extreme Soundclown Megamix, Cloudy w/ a Chance of Meatballs, Mr Worry + Understanding the Linux Kernel",5.5,74
+People Who Aren't There Anymore,Future Islands,Synthpop,1/26/2024,1/30/2024,"King of Sweden, Say Goodbye, The Tower",7,143
+MADRA,NewDad,"Dream Pop, Indie Rock",1/26/2024,1/30/2024,"Angel, Nightmares, Let Go",5,48
+"The Pilgrim, Their God & the King of My Decrepit Mountain",Tapir!,Indie Folk,1/26/2024,1/31/2024,"On A Grassy Knoll (We'll Bow Together), Gymnopédie, My God",7.5,161
+Great Doubt,Astrid Sonne,Art Pop,1/26/2024,2/1/2024,"Staying here, Do you wanna, Light and heavy",5.5,73
+Three Bells,Ty Segall,Psychedelic Rock,1/26/2024,2/4/2024,"Void, The Bell, My Room",5,47
+Noodzakelijk Verdriet,Froukje,Alternative Pop,1/12/2024,2/5/2024,"Houden Van Mij, Kwijt, Naar Het Licht",5.5,72
+under a cloud,"yubiori, Acle",Midwest Emo,1/31/2024,2/6/2024,"radiation cooling, interlude, bird cage",6.5,125
+Prelude to Ecstasy,The Last Dinner Party,Pop Rock,2/2/2024,2/6/2024,"The Feminine Urge, Sinner, Nothing Matters",7,142
+talking to the wind,UMI,Alternative R&B,1/19/2024,2/7/2024,"happy im, why dont we go, SHOW ME OUT",5,46
+Black Friday,Tom Odell,Singer-Songwriter,1/26/2024,2/7/2024,"Black Friday, Parties, The End",6.5,124
+Compassion,"Vijay Iyer, Linda May Han Oh,Tyshawn Sorey",Avant-Garde Jazz,2/2/2024,2/8/2024,"Compassion, Maelstrom, Arch",6,102
+All Life Long,Kali Malone,Drone,2/9/2024,2/11/2024,"All Life Long, Passage Through The Spheres, No Sun To Burn",5,45
+Club Shy,Shygirl,Dance-Pop,2/9/2024,2/12/2024,"thicc, tell me, mr useless",4.5,29
+What Happened to the Beach?,Declan McKenna,Indie Pop,2/9/2024,2/12/2024,"Sympathy, Elevator Hum, Nothing Works",4,16
+What Now,Brittany Howard,Psychadelic Soul,2/9/2024,2/12/2024,"What Now, I Don't, Red Flags",6,101
+Charcoal Grace,Caligula's Horse,Progressive Metal,1/26/2024,2/13/2024,"The World Breathes with Me, Golem, Charcoal Grace I: Prey",6.5,123
+Harm's Way,Ducks Ltd.,Indie Pop,2/9/2024,2/14/2024,"Train Full of Gasoline, On Our Way To The Rave, The Main Thing",5.5,71
+Two Star & The Dream Police,Mk.gee,Alternative R&B,2/9/2024,2/15/2024,"How many miles, Are You Looking Up, Candy",5.5,70
+Drop 7,Little Simz,Hip Hop,2/9/2024,2/15/2024,"Far Away, I Ain't Feelin It, Power",4.5,28
+eve,heylog,"Alternative Pop, Hyperpop",1/17/2024,2/16/2024,"12 gauge, empty roads she's beautiful, into the wind",6,100
+"Where we've been, Where we go from here",Friko,Indie Rock,2/16/2024,2/20/2024,"Where We've Been, Get Numb To It!, For Ella",8,166
+Springs Eternal,William Doyle,Art Pop,2/16/2024,2/22/2024,"Now in Motion, Soft to the Touch, Because of a Dream",6,99
+SCRAPYARD,Quadeca,Experimental Hip Hop,2/16/2024,2/22/2024,"EASIER, TEXAS BLUE, A LA CARTE",7,141
+Loss Of Life,MGMT,Psychedelic Pop,2/23/2024,2/26/2024,"Dancing In Babylon, Bubblegum Dog, Nothing To Declare",7.5,160
+GLOOM DIVISION,I DONT KNOW HOW BUT THEY FOUND ME,Pop Rock,2/23/2024,2/27/2024,"DOWNSIDE, GLOOMTOWN BRATS, INFATUATION",6.5,122
+The Past Is Still Alive,Hurray For The Riff Raff,Alternative Country,2/23/2024,2/28/2024,"Alibi, Buffalo, The World Is Dangerous",7.5,159
+With YOU-th,TWICE,K-Pop,2/23/2024,3/1/2024,"BLOOM, I GOT YOU, YOU GET ME",6.5,121
+Girl With No Face,Allie X,Goth Pop,2/23/2024,3/1/2024,"Black Eye, Galina, Off With Her Tits",7.5,158
+The Winning,IU,K-Pop,2/20/2024,3/2/2024,"Shopper, Love wins all, Shh..",6,98
+a bit of a mad one,glaive,Folk Pop,2/23/2024,3/3/2024,"even when the sun is dead, huh, god is dead",6.5,120
+Underdressed at the Symphony,Faye Webster,"Soft Rock, Singer-Songwriter",3/1/2024,3/3/2024,"Wanna Quit All the Time, Underdressed at the Symphony, Thinking About You",7.5,157
+Half Divorced,Pissed Jeans,"Noise Rock, Hardcore Punk",3/1/2024,3/4/2024,"Moving On, Helicopter Parent, Killing All the Wrong People",5.5,69
+Where's My Utopia?,Yard Act,"Art Punk, Dance-Punk",3/1/2024,3/7/2024,"Dream Job, The Undertow, We Make Hits",8,171
+I Got Heaven,Mannequin Pussy,"Indie Rock, Punk Rock",3/1/2024,3/8/2024,"I Got Heaven, Nothing Like, I Don't Know You",7.5,156
 Bleachers,Bleachers,Indie Pop,3/8/2024,3/8/2024,"Modern Girl, Tiny Moves, I Am Right On Time",4.5,27
-Ariana Grande,eternal sunshine,Pop,3/8/2024,3/11/2024,"bye, don't wanna break up again, yes and?",6,97
-Bolis Pupul,Letter To Yu,"Electronic, Synthpop",3/8/2024,3/12/2024,"Spicy Crab, Ma Tau Wai Road, Cosmic Rendez-Vous",5.5,68
-HOMESHAKE,CD Wallet,Bedroom Pop,3/8/2024,3/13/2024,"Mirror, CD Wallet, Frayed",5,44
-Grandaddy,Blu Wav,Indie Pop,2/6/2024,3/13/2024,"Long as I'm Not the One, Cabin in My Mind, Blu Wav",5.5,67
-acloudyskye,There Must Be Something Here,Indie Rock,2/23/2024,3/14/2024,"Flares, Surface, Team",7.5,155
-Kacey Musgraves,Deeper Well,Country Pop,3/15/2024,3/19/2024,"Dinner with Friends, Cardinal, Anime Eyes",6,96
-samlrc,A Lonely Sinner,Post-Rock,3/8/2024,3/21/2024,"Philautia, Sinner, Storge",7,140
-Adrianne Lenker,Bright Future,"Folk, Singer-Songwriter",3/22/2024,3/22/2024,"Sadness As A Gift, No Machine, Free Treasure",9,180
-Elbow,AUDIO VERTIGO,"Art Rock, Indie Rock",3/22/2024,3/25/2024,"Good Blood Mexico City, Things I've Been Telling Myself for Years, Lovers' Leap",6.5,119
-Hannah Frances,Keeper of the Shepherd,"Progressive Folk, Singer-Songwriter",3/1/2024,3/26/2024,"Bronwyn, Vacant Intimacies, Haunted Landscape Echoing Cave",8,164
-Louie Zong,RAT TAXI,"Nu Jazz, Jazz-Funk",2/2/2024,3/27/2024,"CHEEZY STREET, TRAFFIC JAM, RUSH HOUR",6.5,118
-"Yung Lean, Bladee",Psykos,Alternative Pop,3/13/2024,3/27/2024,"Ghosts, Golden God, Things Happen",4,15
-Rosie Tucker,UTOPIA NOW!,Power Pop,3/22/2024,3/29/2024,"All My Exes Live In Vortexes, Paperclip Maximizer, Lightbulb",6,95
-Beyoncé,COWBOY CARTER,Country Pop,3/29/2024,4/1/2024,"JOLENE, AMERIICAN REQUIEM, DAUGHTER",7,139
-Good Kid,Good Kid 4,Indie Rock,3/27/2024,4/3/2024,"From the Start, Summer, Bubbly",7,138
-Vampire Weekend,Only God Was Above Us,Indie Pop,4/5/2024,4/7/2024,"Classical, Ice Cream Piano, Hope",10,184
-Whitelands,Night-bound Eyes Are Blind To The Day,Shoegaze,2/23/2024,4/8/2024,"Tell Me About It, Setting Sun, Now Here's The Weather",5.5,66
-Liquid Mike,Paul Bunyan's Slingshot,Power Pop,2/2/2024,4/11/2024,"K2, Mouse Trap, Drug Dealer",6,94
-English Teacher,This Could Be Texas,Art Rock,4/12/2024,4/14/2024,"The World's Biggest Paving Slab, This Could Be Texas, Albatross",7.5,154
-Kelly Moran,Moves in the Field,Piano,3/29/2024,4/16/2024,"Butterfly Phase, Superhuman, Dancer Polynomials",5.5,65
-ILLIT,SUPER REAL ME,K-Pop,3/25/2024,4/19/2024,"Magnetic, Midnight Fiction, My World",6.5,117
-Taylor Swift,THE TORTURED POETS DEPARTMENT,Pop,4/19/2024,4/20/2024,"Fortnight, Florida!!!, Guilty as Sin?",4,13
-Riley!,Keep Your Cool,Midwest Emo,4/19/2024,4/24/2024,"Keep Your Cool Man, 777, Ego Peek Mid",6.5,93
-Flyovers in patterns,Uncertainty & resilience,"Indie Rock, Shoegaze",4/20/2024,4/29/2024,"Life in IMAX, A great future in plastics, Together on our own",5,43
-wishlane,nobody's listening!,Glitch Pop,2/29/2024,5/1/2024,"String theory, 27 degrees, Burlap scars",8,170
-Ugly,Twice Around The Sun,Art Rock,4/3/2024,5/3/2024,"I'm Happy You're Here, The Wheel, Icy Windy Sky",7.5,153
-Maruja,Connla's Well,"Post-Punk, Post-Rock",4/26/2024,5/1/2024,"The Invisible Man, One Hand Behind The Devil, Resisting Resistance",7,137
-Lucy Rose,This Ain't The Way You Go Out,"Singer-Songwriter, Neo-Soul",4/19/2024,5/2/2024,"Could You Help Me, The Racket, Light As Grass",7,136
-Bladee,Cold Visions,"Experimental Hip Hop, Trap",4/24/2024,5/5/2024,"I DONT LIKE PEOPLE, PARANOIA INTRO, TERRIBLE EXCELLENCE",5,42
-Justice,Hyperdrama,Electro House,4/26/2024,5/6/2024,"Neverender, Mannequin Love, Saturnine",7.5,152
-Eunuchs,Harbour Century,Avant-Garde Progressive Rock,4/5/2024,5/7/2024,"Estuary of Dreams, Siren, Magic Death Sea Nemesis",5.5,64
-WILLOW,empathogen,Art Pop,5/3/2024,5/6/2024,"symptom of life, pain for fun, false self",7,135
-Rachel Chinouriri,What A Devastating Turn of Events,"Pop Rock, Indie Rock",5/3/2024,5/6/2024,"Never Need Me, Garden of Eden, All I Ever Asked",5.5,63
-Apathy,Connecticut Casual: Chapter 2,East Coast Hip Hop,4/12/2024,5/6/2024,"Around The Planet, Connecticut Formal, Never Change",8,169
-Kamasi Washington,Fearless Movement,Jazz Fusion,5/3/2024,5/7/2024,"Prologue, Asha The First, Get Lit",8.5,174
-Dillom,Por cesárea,Experimental Hip Hop,4/26/2024,5/8/2024,"Buenos tiempos, Cirugía, Muñecas",7.5,151
-Juliana Gattas,Maquillada en la Cama,Dance-Pop,3/7/2024,5/9/2024,"Maquillada en la Cama, Borracha en un Baño Ajeno, La Casa del Amor Nocturno",6,92
-twikipedia,for the rest of your life,"Indie Rock, Shoegaze",5/10/2024,5/11/2024,"room for one, figure me out, far apart",8,165
-"death's dynamic shroud, galen tipton",You Like Music,Deconstructed Club,3/13/2024,5/13/2024,"Generate Utopia, Full Body 2 flip, no worries if not",3.5,8
-Home Counties,Exactly As It Seems,Dance-Punk,5/3/2024,5/15/2024,"Wild Guess, Uptight, Dividing Lines",6,91
-Khruangbin,A LA SALA,Neo-Psychedelia,4/5/2024,5/16/2024,"May Ninth, Les Petits Gris, A Love International",5.5,62
-High On Fire,Cometh The Storm,Sludge Metal,4/19/2024,5/17/2024,"Trismegistus, Lambsbread, Burning Down",6,90
-Crumb,AMAMA,Neo-Psychedelia,5/17/2024,5/18/2024,"AMAMA, Dust Bunny, Side By Side",6,89
-Beth Gibbons,Lives Outgrown,Chamber Folk,5/17/2024,5/19/2024,"Floating On A Moment, Beyond The Sun, Whispering Love",5.5,61
-Cage The Elephant,Neon Pill,Indie Pop,5/17/2024,5/20/2024,"Neon Pill, Metaverse, Silent Picture",5,41
-Billie Eilish,HIT ME HARD AND SOFT,Alt-Pop,5/17/2024,5/21/2024,"BIRDS OF A FEATHER, SKINNY, LUNCH",7,134
-Kacy Hill,BUG,Indie Pop,5/3/2024,5/22/2024,"You Know I Love You Still, No One, If I Could Say",7.5,133
-Bnny,One Million Love Songs,Indie Folk,4/1/2024,5/22/2024,"Good Stuff, Get It Right, Something Blue",5.5,60
-potsu,STAR-CROSSED,Lo-Fi Hip Hop,5/17/2024,5/23/2024,"i'll be okay, o pato, fall this hard",6,88
-Twenty One Pilots,Clancy,Alt-Pop,5/24/2024,5/24/2024,"Next Semester, Overcompensate, Paladin Strait",6.5,116
-rous.,God Plays His Piano Drone,"Shoegaze, Dream Pop",5/17/2024,5/29/2024,"Myrtle Beach SC, Don't Leave, God Plays His Piano Drone",8.5,172
+eternal sunshine,Ariana Grande,Pop,3/8/2024,3/11/2024,"bye, don't wanna break up again, yes and?",6,97
+Letter To Yu,Bolis Pupul,"Electronic, Synthpop",3/8/2024,3/12/2024,"Spicy Crab, Ma Tau Wai Road, Cosmic Rendez-Vous",5.5,68
+CD Wallet,HOMESHAKE,Bedroom Pop,3/8/2024,3/13/2024,"Mirror, CD Wallet, Frayed",5,44
+Blu Wav,Grandaddy,Indie Pop,2/6/2024,3/13/2024,"Long as I'm Not the One, Cabin in My Mind, Blu Wav",5.5,67
+There Must Be Something Here,acloudyskye,Indie Rock,2/23/2024,3/14/2024,"Flares, Surface, Team",7.5,155
+Deeper Well,Kacey Musgraves,Country Pop,3/15/2024,3/19/2024,"Dinner with Friends, Cardinal, Anime Eyes",6,96
+A Lonely Sinner,samlrc,Post-Rock,3/8/2024,3/21/2024,"Philautia, Sinner, Storge",7,140
+Bright Future,Adrianne Lenker,"Folk, Singer-Songwriter",3/22/2024,3/22/2024,"Sadness As A Gift, No Machine, Free Treasure",9,180
+AUDIO VERTIGO,Elbow,"Art Rock, Indie Rock",3/22/2024,3/25/2024,"Good Blood Mexico City, Things I've Been Telling Myself for Years, Lovers' Leap",6.5,119
+Keeper of the Shepherd,Hannah Frances,"Progressive Folk, Singer-Songwriter",3/1/2024,3/26/2024,"Bronwyn, Vacant Intimacies, Haunted Landscape Echoing Cave",8,164
+RAT TAXI,Louie Zong,"Nu Jazz, Jazz-Funk",2/2/2024,3/27/2024,"CHEEZY STREET, TRAFFIC JAM, RUSH HOUR",6.5,118
+Psykos,"Yung Lean, Bladee",Alternative Pop,3/13/2024,3/27/2024,"Ghosts, Golden God, Things Happen",4,15
+UTOPIA NOW!,Rosie Tucker,Power Pop,3/22/2024,3/29/2024,"All My Exes Live In Vortexes, Paperclip Maximizer, Lightbulb",6,95
+COWBOY CARTER,Beyoncé,Country Pop,3/29/2024,4/1/2024,"JOLENE, AMERIICAN REQUIEM, DAUGHTER",7,139
+Good Kid 4,Good Kid,Indie Rock,3/27/2024,4/3/2024,"From the Start, Summer, Bubbly",7,138
+Only God Was Above Us,Vampire Weekend,Indie Pop,4/5/2024,4/7/2024,"Classical, Ice Cream Piano, Hope",10,184
+Night-bound Eyes Are Blind To The Day,Whitelands,Shoegaze,2/23/2024,4/8/2024,"Tell Me About It, Setting Sun, Now Here's The Weather",5.5,66
+Paul Bunyan's Slingshot,Liquid Mike,Power Pop,2/2/2024,4/11/2024,"K2, Mouse Trap, Drug Dealer",6,94
+This Could Be Texas,English Teacher,Art Rock,4/12/2024,4/14/2024,"The World's Biggest Paving Slab, This Could Be Texas, Albatross",7.5,154
+Moves in the Field,Kelly Moran,Piano,3/29/2024,4/16/2024,"Butterfly Phase, Superhuman, Dancer Polynomials",5.5,65
+SUPER REAL ME,ILLIT,K-Pop,3/25/2024,4/19/2024,"Magnetic, Midnight Fiction, My World",6.5,117
+THE TORTURED POETS DEPARTMENT,Taylor Swift,Pop,4/19/2024,4/20/2024,"Fortnight, Florida!!!, Guilty as Sin?",4,13
+Keep Your Cool,Riley!,Midwest Emo,4/19/2024,4/24/2024,"Keep Your Cool Man, 777, Ego Peek Mid",6.5,93
+Uncertainty & resilience,Flyovers in patterns,"Indie Rock, Shoegaze",4/20/2024,4/29/2024,"Life in IMAX, A great future in plastics, Together on our own",5,43
+nobody's listening!,wishlane,Glitch Pop,2/29/2024,5/1/2024,"String theory, 27 degrees, Burlap scars",8,170
+Twice Around The Sun,Ugly,Art Rock,4/3/2024,5/3/2024,"I'm Happy You're Here, The Wheel, Icy Windy Sky",7.5,153
+Connla's Well,Maruja,"Post-Punk, Post-Rock",4/26/2024,5/1/2024,"The Invisible Man, One Hand Behind The Devil, Resisting Resistance",7,137
+This Ain't The Way You Go Out,Lucy Rose,"Singer-Songwriter, Neo-Soul",4/19/2024,5/2/2024,"Could You Help Me, The Racket, Light As Grass",7,136
+Cold Visions,Bladee,"Experimental Hip Hop, Trap",4/24/2024,5/5/2024,"I DONT LIKE PEOPLE, PARANOIA INTRO, TERRIBLE EXCELLENCE",5,42
+Hyperdrama,Justice,Electro House,4/26/2024,5/6/2024,"Neverender, Mannequin Love, Saturnine",7.5,152
+Harbour Century,Eunuchs,Avant-Garde Progressive Rock,4/5/2024,5/7/2024,"Estuary of Dreams, Siren, Magic Death Sea Nemesis",5.5,64
+empathogen,WILLOW,Art Pop,5/3/2024,5/6/2024,"symptom of life, pain for fun, false self",7,135
+What A Devastating Turn of Events,Rachel Chinouriri,"Pop Rock, Indie Rock",5/3/2024,5/6/2024,"Never Need Me, Garden of Eden, All I Ever Asked",5.5,63
+Connecticut Casual: Chapter 2,Apathy,East Coast Hip Hop,4/12/2024,5/6/2024,"Around The Planet, Connecticut Formal, Never Change",8,169
+Fearless Movement,Kamasi Washington,Jazz Fusion,5/3/2024,5/7/2024,"Prologue, Asha The First, Get Lit",8.5,174
+Por cesárea,Dillom,Experimental Hip Hop,4/26/2024,5/8/2024,"Buenos tiempos, Cirugía, Muñecas",7.5,151
+Maquillada en la Cama,Juliana Gattas,Dance-Pop,3/7/2024,5/9/2024,"Maquillada en la Cama, Borracha en un Baño Ajeno, La Casa del Amor Nocturno",6,92
+for the rest of your life,twikipedia,"Indie Rock, Shoegaze",5/10/2024,5/11/2024,"room for one, figure me out, far apart",8,165
+You Like Music,"death's dynamic shroud, galen tipton",Deconstructed Club,3/13/2024,5/13/2024,"Generate Utopia, Full Body 2 flip, no worries if not",3.5,8
+Exactly As It Seems,Home Counties,Dance-Punk,5/3/2024,5/15/2024,"Wild Guess, Uptight, Dividing Lines",6,91
+A LA SALA,Khruangbin,Neo-Psychedelia,4/5/2024,5/16/2024,"May Ninth, Les Petits Gris, A Love International",5.5,62
+Cometh The Storm,High On Fire,Sludge Metal,4/19/2024,5/17/2024,"Trismegistus, Lambsbread, Burning Down",6,90
+AMAMA,Crumb,Neo-Psychedelia,5/17/2024,5/18/2024,"AMAMA, Dust Bunny, Side By Side",6,89
+Lives Outgrown,Beth Gibbons,Chamber Folk,5/17/2024,5/19/2024,"Floating On A Moment, Beyond The Sun, Whispering Love",5.5,61
+Neon Pill,Cage The Elephant,Indie Pop,5/17/2024,5/20/2024,"Neon Pill, Metaverse, Silent Picture",5,41
+HIT ME HARD AND SOFT,Billie Eilish,Alt-Pop,5/17/2024,5/21/2024,"BIRDS OF A FEATHER, SKINNY, LUNCH",7,134
+BUG,Kacy Hill,Indie Pop,5/3/2024,5/22/2024,"You Know I Love You Still, No One, If I Could Say",7.5,133
+One Million Love Songs,Bnny,Indie Folk,4/1/2024,5/22/2024,"Good Stuff, Get It Right, Something Blue",5.5,60
+STAR-CROSSED,potsu,Lo-Fi Hip Hop,5/17/2024,5/23/2024,"i'll be okay, o pato, fall this hard",6,88
+Clancy,Twenty One Pilots,Alt-Pop,5/24/2024,5/24/2024,"Next Semester, Overcompensate, Paladin Strait",6.5,116
+God Plays His Piano Drone,rous.,"Shoegaze, Dream Pop",5/17/2024,5/29/2024,"Myrtle Beach SC, Don't Leave, God Plays His Piano Drone",8.5,172
 i will be pretty when i die,i will be pretty when i die,Indie Folk,2/3/2024,6/5/2024,"in fog at night in rain oh my, kite, river",5.5,59
-"Fabiano do Nascimento, Sam Gendel",The Room,Chamber Jazz,1/26/2024,6/6/2024,"Cores, Capricho de Raphael, Foi Boto",6,87
-AURORA,What Happened To The Heart?,Art Pop,6/7/2024,6/12/2024,"Your Blood, To Be Alright, The Blade",6.5,115
-"Sam Gendel, Sam Wilkes",The Doober,Jazz,5/1/2024,6/17/2024,"CIRCLE, MILTON SUITE, BEN HUR",5,40
-Raveena,Where the Butterflies Go in the Rain,"R&B, Soul",6/14/2024,6/18/2024,"Pluto, Lucky, Rise",7.5,150
-"Fax Gang, Parannoul",Scattersun,Shoegaze,6/12/2024,6/18/2024,"Lullaby for a Memory, Quiet, Ascension",5,39
-Joanna Wang,Hotel La Rut,Progressive Pop,5/6/2024,6/19/2024,"Strange Beast, Tina's Hausu, She Had a Habit of Meeting All of the Artists Backstage",4.5,26
-QUEEF JERKY,absolute madness,Comedy Rap,5/3/2024,6/19/2024,"LIVER, WE ROBBED THE BANK, DON'T TALK BACK TO LADIES",5,38
-Gonnn,ZephyrZ1 & Sunset,Electronic,6/15/2024,6/19/2024,"Sugar, Orange, We'll touching the sky - Outro",5.5,58
-GRAY STATE,Under the Wheels of Progress,Metal,1/5/2024,6/20/2024,"Bound to Burn, Outro, The Death of True Love",5.5,57
-LIGHTBREATHER,NOTHING / LIGHT,"Electronic, Experimental",2/2/2024,6/21/2024,"intro to n/l, turn back two., NOTHING",3,4
-@,"Are you There God? It's Me, @",Art Pop,1/12/2024,6/25/2024,"Are You There God? It's Me @, Processional, Soul Hole",5,37
-"Kill Bill: The Rapper, Rav",KEEP THE CHANGE!,Hip Hop,6/20/2024,6/25/2024,"CLUTCH, GOLD & GOLD, TARMAC",4,14
-Red Velvet,Cosmic,K-Pop,6/24/2024,6/30/2024,"Cosmic, Last Drop, Love Arcade",6.5,114
-Charli xcx,BRAT,"Electropop, Dance Pop",6/7/2024,7/1/2024,"Von dutch, 360, Talk talk",8.5,176
-Lupe Fiasco,Samurai,Jazz Rap,6/28/2024,7/2/2024,"Samurai, No. 1 Headband, Til Eternity",9,181
-LE SSERAFIM,EASY,K-Pop,2/19/2024,7/5/2024,"Swan Song, EASY, We got so much",6,86
-June Henry,podium,Midwest Emo,6/30/2024,7/5/2024,"listen to sydney, not much of a car guy, podium",4.5,24
-Conan Gray,Found Heaven,Synthpop,4/5/2024,7/10/2024,"Alley Rose, Killing Me, Found Heaven",6.5,113
-GUPPY,Something is Happening...,Mall Rock,5/17/2024,7/11/2024,"American Cowboy, Don't Choke, Texting & Driving",4.5,25
-Chicano Batman,Notebook Fantasy,Soft Rock,3/29/2024,7/12/2024,"Live Today, Fly, Parallels",4.5,23
-Cosmo Sheldrake,Eye To The Ear,Art Pop,4/12/2024,7/13/2024,"Stop The Music, Gnort Or Gnortle, Interdimensional",5.5,56
-Action Bronson,JOHANN SEBASTIAN BACHLAVA THE DOCTOR,Jazz Rap,7/11/2024,7/14/2024,"NOURISH A THUG, SPLASH (PROVOCATIV), SHADOW REALM",6,85
-Clairo,Charm,Soft Rock,7/12/2024,7/20/2024,"Juna, Nomad, Add Up My Love",9,183
-Childish Gambino,Bando Stone and The New World,"Experimental Hip Hop, Art Pop",7/19/2024,7/24/2024,"Lithonia, Survive, Steps Beach",8,163
-Remi Wolf,Big Ideas,"Pop Rock, Dance Pop",7/12/2024,7/25/2024,"Cinderella, Toro, Soup",8,168
-Louie Zong,AQUARIUM CITY,"City Pop, Jazz",7/26/2024,7/26/2024,"MACKEREL MILE, AQUARIUM CITY, EEL EXPRESS",7,132
-Dana and Alden,"Coyote, You're My Star","Jazz Fusion, Lounge",7/21/2024,7/26/2024,"Family Garden, Coyote You're My Star, Ivan's Theme",6.5,112
-"SUMIN, Slom",MINISERIES 2,"K-Pop, R&B, Synth Funk",7/18/2024,7/31/2024,"NONE OF YOUR BUSINESS, WHY WHY WHY, TIC TOC TIC TOC",9,182
-Kamixlo,DEATHWORK,Deconstructed Club,7/26/2024,8/1/2024,"Pitch Black, Death Forever, Chaos",4,13
-JPEGMAFIA,I LAY DOWN MY LIFE FOR YOU,Experimental Hip Hop,8/1/2024,8/5/2024,"I'll Be Right There, JPEGULTRA!, SIN MIEDO",9,179
-Jonah Yano,Romance ESL / The Heavy Loop,"Ambient, Jazz",7/31/2024,8/7/2024,"Romance ESL, The Heavy Loop",5,36
-Orville Peck,Stampede,"Country, Pop Rock",8/2/2024,8/8/2024,"Death Valley High, The Hurtin' Kind, Back At Your Door",5.5,55
-Peter Cat Recording Co.,BETA,"Jazz Pop, Sophisti Pop",8/9/2024,8/9/2024,"Suddenly, 21c, Flowers R. Blooming",7,131
-Porter Robinson,SMILE! :D,Electropop,7/26/2024,,"Cheerleader, Knock Yourself Out XD, Russian Roulette",8.5,175
-MAVI,shadowbox,Abstract Hip Hop,8/9/2024,8/19/2024,"open waters, the giver, i'm so tired",6.5,111
-King Gizzard & The Lizard Wizard,Flight b741,Blues Rock,8/9/2024,8/21/2024,"Mirage City, Hog Calling Contest, Le Risque",7,130
-Logic,Ultra 85,East Coast Hip Hop,8/9/2024,8/22/2024,"Ghost in the Machine, Paul Rodriguez, LOVE ME",8.5,173
-Magdalena Bay,Imaginal Disk,Synthpop,8/23/2024,8/23/2024,"Killing Time, Death & Romance, Cry for Me",9,178
-Zach Bryan,The Great American Bar Scene,Country,7/4/2024,,"Better Days, 28, Purple Gas",7.5,148
-Sabrina Carpenter,Short n' Sweet,Pop,8/23/2024,8/29/2024,"Please Please Please, Espresso, Taste",6,84
-JAEHYUN,J - The 1st Album,K-Pop,8/26/2024,8/30/2024,"Dandelion, Can't Get You, Roses",6,83
-Wasia Project,Isotope,Indie Pop,8/29/2024,9/3/2024,"Is This What Love Is?, Somebody Come Through, To Get Better",6,82
-Leprous,Melodies Of Atonement,Progressive Metal,8/30/2024,9/4/2024,"Limbo, Faceless, Atonement",5.5,54
-Rex Orange County,The Alexander Technique,Indie Pop,9/6/2024,9/6/2024,"Much Too Much, Sliding Doors, Pure",7,129
-Jimin,MUSE,K-Pop,7/19/2024,9/9/2024,"Who, Rebirth (Intro), Be Mine",6.5,110
-Joey Valence & Brae,NO HANDS,East Coast Hip Hop,6/7/2024,,"BUSSIT, THE BADDEST, DOUGHBOY",7.5,149
-Sarah Kinsley,Escaper,Indie Pop,9/6/2024,9/10/2024,"Last Time We Never Meet Again, Escaper, My Name Is Dancing",8,167
-Luna Li,When a Thought Grows Wings,Indie Pop,8/23/2024,,"That's Life, Confusion Song, I Would Let You",7.5,147
-Melt,If There's a Heaven,Funk-Pop,9/13/2024,9/13/2024,"Plant the Garden, Heaven, The Idiot",6.5,127
+The Room,"Fabiano do Nascimento, Sam Gendel",Chamber Jazz,1/26/2024,6/6/2024,"Cores, Capricho de Raphael, Foi Boto",6,87
+What Happened To The Heart?,AURORA,Art Pop,6/7/2024,6/12/2024,"Your Blood, To Be Alright, The Blade",6.5,115
+The Doober,"Sam Gendel, Sam Wilkes",Jazz,5/1/2024,6/17/2024,"CIRCLE, MILTON SUITE, BEN HUR",5,40
+Where the Butterflies Go in the Rain,Raveena,"R&B, Soul",6/14/2024,6/18/2024,"Pluto, Lucky, Rise",7.5,150
+Scattersun,"Fax Gang, Parannoul",Shoegaze,6/12/2024,6/18/2024,"Lullaby for a Memory, Quiet, Ascension",5,39
+Hotel La Rut,Joanna Wang,Progressive Pop,5/6/2024,6/19/2024,"Strange Beast, Tina's Hausu, She Had a Habit of Meeting All of the Artists Backstage",4.5,26
+absolute madness,QUEEF JERKY,Comedy Rap,5/3/2024,6/19/2024,"LIVER, WE ROBBED THE BANK, DON'T TALK BACK TO LADIES",5,38
+ZephyrZ1 & Sunset,Gonnn,Electronic,6/15/2024,6/19/2024,"Sugar, Orange, We'll touching the sky - Outro",5.5,58
+Under the Wheels of Progress,GRAY STATE,Metal,1/5/2024,6/20/2024,"Bound to Burn, Outro, The Death of True Love",5.5,57
+NOTHING / LIGHT,LIGHTBREATHER,"Electronic, Experimental",2/2/2024,6/21/2024,"intro to n/l, turn back two., NOTHING",3,4
+"Are you There God? It's Me, @",@,Art Pop,1/12/2024,6/25/2024,"Are You There God? It's Me @, Processional, Soul Hole",5,37
+KEEP THE CHANGE!,"Kill Bill: The Rapper, Rav",Hip Hop,6/20/2024,6/25/2024,"CLUTCH, GOLD & GOLD, TARMAC",4,14
+Cosmic,Red Velvet,K-Pop,6/24/2024,6/30/2024,"Cosmic, Last Drop, Love Arcade",6.5,114
+BRAT,Charli xcx,"Electropop, Dance Pop",6/7/2024,7/1/2024,"Von dutch, 360, Talk talk",8.5,176
+Samurai,Lupe Fiasco,Jazz Rap,6/28/2024,7/2/2024,"Samurai, No. 1 Headband, Til Eternity",9,181
+EASY,LE SSERAFIM,K-Pop,2/19/2024,7/5/2024,"Swan Song, EASY, We got so much",6,86
+podium,June Henry,Midwest Emo,6/30/2024,7/5/2024,"listen to sydney, not much of a car guy, podium",4.5,24
+Found Heaven,Conan Gray,Synthpop,4/5/2024,7/10/2024,"Alley Rose, Killing Me, Found Heaven",6.5,113
+Something is Happening...,GUPPY,Mall Rock,5/17/2024,7/11/2024,"American Cowboy, Don't Choke, Texting & Driving",4.5,25
+Notebook Fantasy,Chicano Batman,Soft Rock,3/29/2024,7/12/2024,"Live Today, Fly, Parallels",4.5,23
+Eye To The Ear,Cosmo Sheldrake,Art Pop,4/12/2024,7/13/2024,"Stop The Music, Gnort Or Gnortle, Interdimensional",5.5,56
+JOHANN SEBASTIAN BACHLAVA THE DOCTOR,Action Bronson,Jazz Rap,7/11/2024,7/14/2024,"NOURISH A THUG, SPLASH (PROVOCATIV), SHADOW REALM",6,85
+Charm,Clairo,Soft Rock,7/12/2024,7/20/2024,"Juna, Nomad, Add Up My Love",9,183
+Bando Stone and The New World,Childish Gambino,"Experimental Hip Hop, Art Pop",7/19/2024,7/24/2024,"Lithonia, Survive, Steps Beach",8,163
+Big Ideas,Remi Wolf,"Pop Rock, Dance Pop",7/12/2024,7/25/2024,"Cinderella, Toro, Soup",8,168
+AQUARIUM CITY,Louie Zong,"City Pop, Jazz",7/26/2024,7/26/2024,"MACKEREL MILE, AQUARIUM CITY, EEL EXPRESS",7,132
+"Coyote, You're My Star",Dana and Alden,"Jazz Fusion, Lounge",7/21/2024,7/26/2024,"Family Garden, Coyote You're My Star, Ivan's Theme",6.5,112
+MINISERIES 2,"SUMIN, Slom","K-Pop, R&B, Synth Funk",7/18/2024,7/31/2024,"NONE OF YOUR BUSINESS, WHY WHY WHY, TIC TOC TIC TOC",9,182
+DEATHWORK,Kamixlo,Deconstructed Club,7/26/2024,8/1/2024,"Pitch Black, Death Forever, Chaos",4,13
+I LAY DOWN MY LIFE FOR YOU,JPEGMAFIA,Experimental Hip Hop,8/1/2024,8/5/2024,"I'll Be Right There, JPEGULTRA!, SIN MIEDO",9,179
+Romance ESL / The Heavy Loop,Jonah Yano,"Ambient, Jazz",7/31/2024,8/7/2024,"Romance ESL, The Heavy Loop",5,36
+Stampede,Orville Peck,"Country, Pop Rock",8/2/2024,8/8/2024,"Death Valley High, The Hurtin' Kind, Back At Your Door",5.5,55
+BETA,Peter Cat Recording Co.,"Jazz Pop, Sophisti Pop",8/9/2024,8/9/2024,"Suddenly, 21c, Flowers R. Blooming",7,131
+SMILE! :D,Porter Robinson,Electropop,7/26/2024,,"Cheerleader, Knock Yourself Out XD, Russian Roulette",8.5,175
+shadowbox,MAVI,Abstract Hip Hop,8/9/2024,8/19/2024,"open waters, the giver, i'm so tired",6.5,111
+Flight b741,King Gizzard & The Lizard Wizard,Blues Rock,8/9/2024,8/21/2024,"Mirage City, Hog Calling Contest, Le Risque",7,130
+Ultra 85,Logic,East Coast Hip Hop,8/9/2024,8/22/2024,"Ghost in the Machine, Paul Rodriguez, LOVE ME",8.5,173
+Imaginal Disk,Magdalena Bay,Synthpop,8/23/2024,8/23/2024,"Killing Time, Death & Romance, Cry for Me",9,178
+The Great American Bar Scene,Zach Bryan,Country,7/4/2024,,"Better Days, 28, Purple Gas",7.5,148
+Short n' Sweet,Sabrina Carpenter,Pop,8/23/2024,8/29/2024,"Please Please Please, Espresso, Taste",6,84
+J - The 1st Album,JAEHYUN,K-Pop,8/26/2024,8/30/2024,"Dandelion, Can't Get You, Roses",6,83
+Isotope,Wasia Project,Indie Pop,8/29/2024,9/3/2024,"Is This What Love Is?, Somebody Come Through, To Get Better",6,82
+Melodies Of Atonement,Leprous,Progressive Metal,8/30/2024,9/4/2024,"Limbo, Faceless, Atonement",5.5,54
+The Alexander Technique,Rex Orange County,Indie Pop,9/6/2024,9/6/2024,"Much Too Much, Sliding Doors, Pure",7,129
+MUSE,Jimin,K-Pop,7/19/2024,9/9/2024,"Who, Rebirth (Intro), Be Mine",6.5,110
+NO HANDS,Joey Valence & Brae,East Coast Hip Hop,6/7/2024,,"BUSSIT, THE BADDEST, DOUGHBOY",7.5,149
+Escaper,Sarah Kinsley,Indie Pop,9/6/2024,9/10/2024,"Last Time We Never Meet Again, Escaper, My Name Is Dancing",8,167
+When a Thought Grows Wings,Luna Li,Indie Pop,8/23/2024,,"That's Life, Confusion Song, I Would Let You",7.5,147
+If There's a Heaven,Melt,Funk-Pop,9/13/2024,9/13/2024,"Plant the Garden, Heaven, The Idiot",6.5,127

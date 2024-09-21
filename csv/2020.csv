@@ -1,13 +1,13 @@
-Artist,Album,Genre,Release Date,Listened On,Favorite Songs,Rating,Hidden Ranking
-The Strokes,The New Abnormal,Indie Rock,4/10/2020,N/A,"The Adults Are Talking, Selfless, Ode To The Mets",10,12
-Mac Miller,Circles,Alternative R&B,1/17/2020,N/A,"Good News, Everybody, Hand Me Downs",10,11
-YUKIKA,SOUL LADY,"City Pop / K-Pop",7/21/2020,N/A,"SOUL LADY, Cherries Jubiles, NEON 1989",9.5,10
-Phoebe Bridgers,Punisher,"Indie Folk / Singer-Songwriter",6/18/2020,N/A,"Kyoto, Chinese Satellite, Garden Song",9,9
-Lizzy McAlpine,Give Me A Minute,Singer-Songwriter,8/13/2020,N/A,"Give Me A Minute, To the Mountains, Nothing / Sad N Stuff",8.5,8
-Taylor Swift,folklore,"Singer-Songwriter / Folk Pop",7/24/2020,N/A,"exile, august, the 1",8,7
-Action Bronson,Only For Dolphins,Jazz Rap,9/25/2020,N/A,"C12H16N2, Capoeira, Latin Grammys",8,6
-Bronze,Aquarium,"City Pop / K-Pop",10/9/2020,N/A,"Orange Road, Melody, Submarine",7.5,5
-Taylor Swift,evermore,"Singer-Songwriter / Folk Pop",12/11/2020,N/A,"champagne problems, willow, evermore",7.5,4
-Mustard Service,C'est la Vie,"Indie Pop / Bedroom Pop",3/23/2020,N/A,"Pleasantries (With Your Lover), Need, Daddy Dookie Brown",7.5,3
-Vulfpeck,"The Joy of Music, The Job of Real Estate",Funk,10/23/2020,N/A,"LAX, 3 on E, Test Drive (Instrumental)",7,2
-Shalfi,Third Semester,"Math Rock / Lofi",6/24/2020,N/A,"Opening Theme, Hero's Theme, Ending Theme",7,1
+Album,Artist,Genre,Release Date,Listened On,Favorite Songs,Rating,Hidden Ranking
+The New Abnormal,The Strokes,Indie Rock,4/10/2020,N/A,"The Adults Are Talking, Selfless, Ode To The Mets",10,12
+Circles,Mac Miller,Alternative R&B,1/17/2020,N/A,"Good News, Everybody, Hand Me Downs",10,11
+SOUL LADY,YUKIKA,City Pop / K-Pop,7/21/2020,N/A,"SOUL LADY, Cherries Jubiles, NEON 1989",9.5,10
+Punisher,Phoebe Bridgers,Indie Folk / Singer-Songwriter,6/18/2020,N/A,"Kyoto, Chinese Satellite, Garden Song",9,9
+Give Me A Minute,Lizzy McAlpine,Singer-Songwriter,8/13/2020,N/A,"Give Me A Minute, To the Mountains, Nothing / Sad N Stuff",8.5,8
+folklore,Taylor Swift,Singer-Songwriter / Folk Pop,7/24/2020,N/A,"exile, august, the 1",8,7
+Only For Dolphins,Action Bronson,Jazz Rap,9/25/2020,N/A,"C12H16N2, Capoeira, Latin Grammys",8,6
+Aquarium,Bronze,City Pop / K-Pop,10/9/2020,N/A,"Orange Road, Melody, Submarine",7.5,5
+evermore,Taylor Swift,Singer-Songwriter / Folk Pop,12/11/2020,N/A,"champagne problems, willow, evermore",7.5,4
+C'est la Vie,Mustard Service,Indie Pop / Bedroom Pop,3/23/2020,N/A,"Pleasantries (With Your Lover), Need, Daddy Dookie Brown",7.5,3
+"The Joy of Music, The Job of Real Estate",Vulfpeck,Funk,10/23/2020,N/A,"LAX, 3 on E, Test Drive (Instrumental)",7,2
+Third Semester,Shalfi,Math Rock / Lofi,6/24/2020,N/A,"Opening Theme, Hero's Theme, Ending Theme",7,1
