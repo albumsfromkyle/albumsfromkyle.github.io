@@ -348,7 +348,7 @@ function hideAlertBanner() {
 playlistLinks = {
     "Albums 2024" : "https://open.spotify.com/playlist/5Gc046e1S0rptnfVX2TQaT?si=432c76f9d9f042b1",
     "Songs 2024" : "https://open.spotify.com/playlist/7nzU9D67SJdgd41dLbRwcf?si=18384ce1a1d54f9d",
-    "Albums 2023" : "https://open.spotify.com/playlist/4qVkYlxDRv6gylOjKKcmWm?si=86fa90d3fc5346d2",
+    "Albums 2023" : "https://open.spotify.com/playlist/01jDUCJ4Z4c2No5bijVJKw?si=2e76605284f64e8e",
     "Songs 2023" : "https://open.spotify.com/playlist/4SLr4bfpWLHQGyQzKonxjE?si=35409659241941f0",
     "Albums 2022" : "https://open.spotify.com/playlist/7jwCBOFBCl1BrwmkPrPLBr?si=099649841fa54b03",
     "Songs 2022" : "https://open.spotify.com/playlist/1JGn9zna2lNdGRklbuOlUX?si=eea92f25e4d44292",
