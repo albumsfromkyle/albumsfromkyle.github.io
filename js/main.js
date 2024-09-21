@@ -18,14 +18,31 @@ let SORTABLE_HEADERS = [""];
 
 const SHOW_RATING = SHOWN_ALBUM_HEADERS.includes("Rating");
 
+const PLAYLIST_LINKS = {
+    "Albums 2024" : "https://open.spotify.com/playlist/5Gc046e1S0rptnfVX2TQaT?si=432c76f9d9f042b1",
+    "Songs 2024" : "https://open.spotify.com/playlist/7nzU9D67SJdgd41dLbRwcf?si=18384ce1a1d54f9d",
+    "Albums 2023" : "https://open.spotify.com/playlist/01jDUCJ4Z4c2No5bijVJKw?si=2e76605284f64e8e",
+    "Songs 2023" : "https://open.spotify.com/playlist/4SLr4bfpWLHQGyQzKonxjE?si=35409659241941f0",
+    "Albums 2022" : "https://open.spotify.com/playlist/7jwCBOFBCl1BrwmkPrPLBr?si=099649841fa54b03",
+    "Songs 2022" : "https://open.spotify.com/playlist/1JGn9zna2lNdGRklbuOlUX?si=eea92f25e4d44292",
+    "Albums 2021" : "https://open.spotify.com/playlist/0T0mqDU2EjiHQaDFIJm79V?si=ff7af6c9a10449a9",
+    "Songs 2021" : "",
+    "Albums 2020" : "https://open.spotify.com/playlist/3UXyXqHD527llczssqr3TK?si=6a27492ae6ec4ad1",
+    "Songs 2020" : "",
+    "Albums 2019" : "https://open.spotify.com/playlist/3v253ZQ652keRJmdDJy0Sb?si=edfb8d65f1c342b1",
+    "Songs 2019" : "",
+    "Albums 2018" : "https://open.spotify.com/playlist/2khHeRdQA4tF096H1LNX08?si=f7691f6956294331",
+    "Songs 2018" : "",
+}
+
+
 /************************
 **** GENERAL HELPERS ****
 ************************/
-
 /**
  * Check if a given file exists.
  * @param {*} filename The filename to check the existence for
- * @returns 
+ * @returns A response object of the fetched filename
  */
 async function checkFileExists(filename) {
     // Will cause an error in the console, but nothing breaks so it's okay
@@ -50,6 +67,87 @@ function getExtensionFromList(listType) {
 
     return extension
 }
+
+
+/**
+ * Updates the website URL with the current list and year parameters
+ */
+function updateUrl() {
+    let newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + 
+                 '?list=' + (SELECTED_LIST == "Favorite Albums" ? "albums" : "songs") + '&year=' + SELECTED_YEAR;
+    window.history.pushState({ path: newUrl }, '', newUrl);
+}
+
+
+/**
+ * Determines if the passed in year/list combination is valid (AKA it has a CSV file associated with it)
+ * @param {*} list Which list to test if the CSV exists for ("Favorite Albums" or "Favorite Songs")
+ * @param {*} year Which year to test if the CSV exists for
+ */
+async function isValidListYearCombo(list, year) {
+    let extension = getExtensionFromList(list);
+    let filename = "csv/" + year + extension + ".csv";
+
+    let exists = await checkFileExists(filename);
+    if (!exists) {
+        console.log("ERROR: " + filename + " does not exist");
+        return false;
+    }
+
+    return true;
+}
+
+
+/********************************
+**** STARTUP / ON LOADING IN ****
+********************************/
+/**
+ * Gets the current parameter specified by 'paran' in the website URL
+ * @param {*} param Parameter to get from the URL
+ * @returns String of the value assigned to the parameter (or null if it does not exist)
+ */
+function getQueryParam(param) {
+    let urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+}
+
+
+/**
+ * Function that runs when the website it first loaded in. Sets up the initial view of the website
+ */
+document.addEventListener("DOMContentLoaded", async function() {
+    // Get the parameters to load from the URL
+    // (Or the get the defaults otherwise)
+    let listQuery = getQueryParam('list');
+    let yearQuery = getQueryParam('year');
+
+    SELECTED_LIST = listQuery ? (listQuery == "albums" ? "Favorite Albums" : "Favorite Songs") : "Favorite Albums";
+    SELECTED_YEAR = yearQuery ? yearQuery : CURRENT_YEAR;
+
+    // If the parameters are not valid (there is not list for that year/list combination), then use defaults
+    if (!await isValidListYearCombo(SELECTED_LIST, SELECTED_YEAR)) {
+        showAlertBanner(SELECTED_LIST, SELECTED_YEAR);
+        SELECTED_LIST = "Favorite Albums";
+        SELECTED_YEAR = CURRENT_YEAR;
+    }
+
+    console.log("LOADING LIST " + SELECTED_LIST);
+    console.log("LOADING YEAR " + SELECTED_YEAR);
+
+    // Update the new URL
+    updateUrl();
+
+    // Update the table to display the correct data
+    updateTable();
+
+    // Update the List Selector navbar to display the correct list being selected
+    updateActiveList();
+    
+    // Update the Year Selector navbar to display the correct list being selected
+    updateYearListInRange(SELECTED_YEAR);
+    updateActiveYear();
+    grayOutMissingYears();
+});
 
 
 /***********************************
@@ -102,10 +200,9 @@ function updateTableHeaders() {
  * @param {*} rating The album's rating used to determine if highlighting is needed
  */
 function highlightRowFromRating(row, rating) {
-    if (parseInt(rating) == 10) {
+    if (parseInt(rating) == 10) { // For now, 10s are handled the exact same way as golds, so this doesn't really do anything
         row.classList.add("ten");
     }
-
     else if (parseInt(rating) >= 9) {
         row.classList.add("gold");
     }
@@ -155,8 +252,8 @@ function csvToHtml(data) {
             return;
         }
 
+        // If I am not showing the ratings for the albums, only show the albums I would recommend (which are albums above 6 in their score)
         if (!SHOW_RATING) {
-            console.log("NOT SHOWING RATING")
             if (csvRow["Rating"] != "" && parseFloat(csvRow["Rating"]) < 6) {
                 return;
             }
@@ -166,11 +263,11 @@ function csvToHtml(data) {
         let newRow = table.insertRow(-1);
 
         // Populate the row depending on what list is selected
-        if (SELECTED_LIST == "Favorite Songs") {
-            convertCsvRowToHtmlRow(newRow, SHOWN_SONG_HEADERS, csvRow);
-        }
-        else if (SELECTED_LIST == "Favorite Albums") {
+        if (SELECTED_LIST == "Favorite Albums") {
             convertCsvRowToHtmlRow(newRow, SHOWN_ALBUM_HEADERS, csvRow);
+        }
+        else if (SELECTED_LIST == "Favorite Songs") {
+            convertCsvRowToHtmlRow(newRow, SHOWN_SONG_HEADERS, csvRow);
         }
         
         // Highlight the row gold/silver/bronze if the score is high enough
@@ -186,6 +283,9 @@ function csvToHtml(data) {
 function updateTable() {
     // Clear the current table
     document.getElementById("album-table-body").innerHTML = "";
+
+    // Update the Spotify playlist above the table to link to the data I am displaying
+    updateSpotifyPlaylist();
 
     // Update the table headers to match the selected list
     // This also makes sure there is the appropriate number of columns in the table
@@ -248,7 +348,7 @@ function tableBubbleSort(headerIndex, order) {
     let table = document.getElementById("album-table-body");
     let rows = table.rows;
 
-    // It's fine doing a simple bubble sort (performance wise) since n is always small for my tables (never going to exceed 365)
+    // It's fine doing a simple bubble sort (performance wise) since n is always small for my tables (number of album entries will never exceed 3 digits)
     for (let i = 0; i < rows.length - 1; i++) {
         
         swapped = false;
@@ -288,10 +388,10 @@ function sortTable(headerIndex) {
     // If it is already sorted by this column, get the current order and do the opposite
     // If it is not sorted (or there is no previouys order), default to descending
     if (order == null || order.innerHTML == "▲") { // Short circuit if there is no order (i.e. we are doing the default ordering)
-        tableBubbleSort(headerIndex, "desc"); // Flip to ▼
+        tableBubbleSort(headerIndex, "desc"); // Sort and flip to ▼
     }
     else {
-        tableBubbleSort(headerIndex, "asc"); // Flip to ▲
+        tableBubbleSort(headerIndex, "asc"); // Sort and flip to ▲
     }
 
     // Update the visuals of the order triangle(s)
@@ -333,6 +433,7 @@ function updateActiveList() {
     });
 }
 
+
 /**
  * Hides the alert message banner
  * (This is only here for the setTimeout function)
@@ -342,25 +443,26 @@ function hideAlertBanner() {
     alert.classList.add("hidden");
 }
 
+
+/**
+ * Displays an alert banner displaying the warning that the current year/list combination is invalid
+ * @param {*} list The invalid list
+ * @param {*} year The invalid year
+ */
+function showAlertBanner(list, year) {
+    let alertMsg = document.getElementById("alert-msg");
+    alertMsg.innerHTML = "\"" + list + "\" list does not exist for " + year;
+    
+    let alert = document.getElementById("alert-banner");
+    alert.classList.remove("hidden");
+
+    setTimeout(hideAlertBanner, 8*1000);
+}
+
+
 /**
  * Updates the text and link to the spotify playlist above the table.
  */
-playlistLinks = {
-    "Albums 2024" : "https://open.spotify.com/playlist/5Gc046e1S0rptnfVX2TQaT?si=432c76f9d9f042b1",
-    "Songs 2024" : "https://open.spotify.com/playlist/7nzU9D67SJdgd41dLbRwcf?si=18384ce1a1d54f9d",
-    "Albums 2023" : "https://open.spotify.com/playlist/01jDUCJ4Z4c2No5bijVJKw?si=2e76605284f64e8e",
-    "Songs 2023" : "https://open.spotify.com/playlist/4SLr4bfpWLHQGyQzKonxjE?si=35409659241941f0",
-    "Albums 2022" : "https://open.spotify.com/playlist/7jwCBOFBCl1BrwmkPrPLBr?si=099649841fa54b03",
-    "Songs 2022" : "https://open.spotify.com/playlist/1JGn9zna2lNdGRklbuOlUX?si=eea92f25e4d44292",
-    "Albums 2021" : "https://open.spotify.com/playlist/0T0mqDU2EjiHQaDFIJm79V?si=ff7af6c9a10449a9",
-    "Songs 2021" : "",
-    "Albums 2020" : "https://open.spotify.com/playlist/3UXyXqHD527llczssqr3TK?si=6a27492ae6ec4ad1",
-    "Songs 2020" : "",
-    "Albums 2019" : "https://open.spotify.com/playlist/3v253ZQ652keRJmdDJy0Sb?si=edfb8d65f1c342b1",
-    "Songs 2019" : "",
-    "Albums 2018" : "https://open.spotify.com/playlist/2khHeRdQA4tF096H1LNX08?si=f7691f6956294331",
-    "Songs 2018" : "",
-}
 function updateSpotifyPlaylist() {
     let playlistLink = document.getElementById("playlist-link");
 
@@ -371,7 +473,7 @@ function updateSpotifyPlaylist() {
     playlistLink.innerHTML = playlistName;
 
     // Update the link to the playlist
-    playlistLink.href = playlistLinks[playlistName];
+    playlistLink.href = PLAYLIST_LINKS[playlistName];
 }
 
 
@@ -381,22 +483,11 @@ function updateSpotifyPlaylist() {
 document.getElementById("year-list").addEventListener("click", async function(event) {
     let year = event.target.innerHTML;
 
-    // TODO: If this year does not exist, do nothing (maybe print banner?)
-
-    let extension = getExtensionFromList(SELECTED_LIST);
-    let filename = "csv/" + year + extension + ".csv";
-
-    let exists = await checkFileExists(filename);
-    if (!exists) {
-        console.log("ERROR: " + filename + " does not exist");
-        return;
-    }
-
     // Set the currently selected year and change the active button
     SELECTED_YEAR = year;
-
+    
+    updateUrl();
     updateActiveYear();
-    updateSpotifyPlaylist();
     updateTable();
 });
 
@@ -407,47 +498,28 @@ document.getElementById("year-list").addEventListener("click", async function(ev
 document.getElementById("list-list").addEventListener("click", async function(event) {
     let listType = event.target.innerHTML;
 
-    // TODO: If this year does not exist, do nothing (maybe print banner?)
-
-    let extension = getExtensionFromList(listType);
-    let filename = "csv/" + SELECTED_YEAR + extension + ".csv";
-
-    let exists = await checkFileExists(filename);
-    if (!exists) {
-        console.log("ERROR: " + filename + " does not exist");
-
-        // Switch to the current year's list and display an alert
-        let alert_msg = document.getElementById("alert-msg");
-        alert_msg.innerHTML = "\"" + listType + "\" list does not exist for " + String(SELECTED_YEAR)
-        
-        let alert = document.getElementById("alert-banner");
-        alert.classList.remove("hidden");
-
+    // If a CSV for this year/list does not exist, show an error banner and go back to the default page
+    if (!await isValidListYearCombo(listType, SELECTED_YEAR)) {
+        showAlertBanner(listType, SELECTED_YEAR)
         SELECTED_YEAR = CURRENT_YEAR;
-    }    
+        updateYearListInRange(SELECTED_YEAR);
+        // Do not return, instead send the user to the current year (which should have both lists)
+    }   
     
     // Set the currently selected list and change the active button
     SELECTED_LIST = listType;
 
+    updateUrl();
     updateActiveList();
     grayOutMissingYears();
-    updateSpotifyPlaylist();
+    updateActiveYear();
     updateTable();
-
-    // Have to perform more updates if the selected list didn't exist
-    // (Basically mimicing clicking on a new year)
-    if (!exists) {
-        updateActiveYear();
-        updateSpotifyPlaylist();
-        updateTable();
-        setTimeout(hideAlertBanner, 8*1000)
-    }
 });
 
 
-/**************************
-**** YEAR LIST BUTTONS ****
-**************************/
+/*************************************
+**** YEAR INCREASING / DECREASING ****
+*************************************/
 /**
  * Updates if the year-increase and year-decrease buttons are enabled or disabled, depending on what years are being displayed.
  */
@@ -461,26 +533,11 @@ function updateYearIncDecButtons() {
  * Determines which years should be enabled/disabled for the currently shown years.
  */
 async function grayOutMissingYears() {
-    // Must be async so it can call checkFileExists()
-
     for (let i = 1; i <= NUM_YEARS_TO_SHOW; i++) {
         let year = document.getElementById("year" + i).innerHTML;
-        
-        // Check if a "Favorite Albums" list exists for this year
-        let extension = getExtensionFromList("Favorite Albums");
-        let filename = "csv/" + year + extension + ".csv";
-        let albumsExist = await checkFileExists(filename);
-        
-        // Check if a "Favorite Songs" list exists for this year
-        extension = getExtensionFromList("Favorite Songs");
-        filename = "csv/" + year + extension + ".csv";
-        let songsExist = await checkFileExists(filename);
 
-        console.log(year + " FILE EXISTS ? " + String(albumsExist));
-        console.log(year + " FILE EXISTS ? " + String(songsExist));
-        
         // Disable/enable each button depending on if a CSV list file exists
-        if ((SELECTED_LIST == "Favorite Albums" && albumsExist) || (SELECTED_LIST == "Favorite Songs" && songsExist)) {
+        if (await isValidListYearCombo(SELECTED_LIST, year)) {
             document.getElementById("year" + i).disabled = false;
         }
         else {
@@ -493,7 +550,7 @@ async function grayOutMissingYears() {
 /**
  * Increase the years shown by the year-list.
  */
-document.getElementById("year-increase").onclick = function() {
+function increaseShownYears() {
     // Don't let the user go into the future
     if (document.getElementById("year5").innerHTML >= CURRENT_YEAR) {
         return;
@@ -509,13 +566,16 @@ document.getElementById("year-increase").onclick = function() {
     grayOutMissingYears();
     updateActiveYear();
     updateYearIncDecButtons();
+}
+document.getElementById("year-increase").onclick = function() {
+    increaseShownYears()
 };
 
 
 /** 
  * Decrease the years shown by the year-list.
  */
-document.getElementById("year-decrease").onclick = function() {
+function decreaseShownYears() {
     // Don't let the user go before 2019
     if (document.getElementById("year1").innerHTML <= OLDEST_YEAR) {
         return;
@@ -531,14 +591,49 @@ document.getElementById("year-decrease").onclick = function() {
     grayOutMissingYears();
     updateActiveYear();
     updateYearIncDecButtons();
+}
+document.getElementById("year-decrease").onclick = function() {
+    decreaseShownYears();
 };
+
+
+/**
+ * Will continually update which years are shown in the Year Selector navbar, until they include the target year
+ * NOTE: This will not check if a CSV exists for that year or not
+ * @param {*} targetYear The year you want to be represented in the year list
+ */
+function updateYearListInRange(targetYear) {
+    counter = 0; // Keep counter just in case this continually loop (even though it shouldn't, it did crash my Chrome one time)
+    yearInRange = document.getElementById("year1").innerHTML <= targetYear && targetYear <= document.getElementById("year5").innerHTML;
+    while (!yearInRange) {
+        if (targetYear < document.getElementById("year1").innerHTML) {
+            decreaseShownYears();
+        }
+        else {
+            increaseShownYears();
+        }
+
+        yearInRange = document.getElementById("year1").innerHTML <= targetYear && targetYear <= document.getElementById("year5").innerHTML;
+
+        counter++;
+        if (counter > 100) {
+            break;
+        }
+    }
+}
+
+
+
+
+
+
 
 
 /**************************************
 **** IN-BROWSER EDITING (DEV ONLY) ****
 **************************************/
 // These functions allow me to modify the album table in the web browser, rather than having to manually edit the CSV data
-// ALL editing functionality should be kept to this section, and it should not mingle with any other core functions
+// All editing functionality should be kept to this section, and it should not mingle with any other core functions
 // Because of this (and the fact that this isn't going to ever be active for deployment), this code might be a bit gross (and that's okay with me)
 
 const EDITING = false;
@@ -551,6 +646,7 @@ if (EDITING) {
     SHOWN_SONG_HEADERS = SHOWN_SONG_HEADERS.concat(["Hidden Ranking", "RANKING UP", "RANKING DOWN", "PRINT", "RESET"]);
     addEditingElements();
 }
+
 
 if (EDITING) { document.querySelector('#list-select-navbar').addEventListener('click', (ev) => { 
     addEditingElements();
@@ -653,7 +749,7 @@ function printEditedCSV(csv_data) {
  * Resets all the hidden rankings to the index the album is in the ORDERED list.
  */
 function resetRankings() {
-    console.log("RESETTING")
+    console.log("RESETTING RANKINGS")
     let table = document.getElementById("album-table-body");
     let rows = table.rows;
 
