@@ -19,7 +19,7 @@ let SORTABLE_HEADERS = [""];
 const SHOW_RATING = SHOWN_ALBUM_HEADERS.includes("Rating");
 
 const PLAYLIST_LINKS = {
-    "Albums 2024" : "https://open.spotify.com/playlist/5Gc046e1S0rptnfVX2TQaT?si=432c76f9d9f042b1",
+    "Albums 2024" : "https://open.spotify.com/playlist/47kfriDuaJeMqvROAlXx5E?si=6e877f70535b4eb2",
     "Songs 2024" : "https://open.spotify.com/playlist/7nzU9D67SJdgd41dLbRwcf?si=18384ce1a1d54f9d",
     "Albums 2023" : "https://open.spotify.com/playlist/01jDUCJ4Z4c2No5bijVJKw?si=2e76605284f64e8e",
     "Songs 2023" : "https://open.spotify.com/playlist/4SLr4bfpWLHQGyQzKonxjE?si=35409659241941f0",

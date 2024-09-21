@@ -13,4 +13,4 @@
 * Maybe add "Grid Layout" in addition to "Table Layout," which will be a grid of album arts with the artist, album name, genre, and ranking beneath
 * Maybe add calendar showing when I listen to certain albums
 * Add ability to zoom in/out (increase/decrease the table size)???
-
+* Stop table flickering when loading in (maybe cache the table somehow??)

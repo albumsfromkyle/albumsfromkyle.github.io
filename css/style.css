@@ -231,6 +231,7 @@ img {
     font-weight: bold;
     background: var(--LIST-SELECTED-BUTTON-BACKGROUND);
     color: var(--LIST-SELECTED-TEXT);
+    /* color: var(--PRIMARY-COLOR); */
 }
 
 #list-select-navbar #list-list .active:hover {
