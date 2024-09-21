@@ -79,6 +79,7 @@
     --TABLE-BORDER: black;
 
     
+    --TABLE-10: var(--TABLE-GOLD);
     --TABLE-GOLD: #ffbf00;
     --TABLE-SILVER: silver;
     --TABLE-BRONZE: #cd7f32;
@@ -448,6 +449,9 @@ img {
 
 #album-list #album-table {
     background: var(--TABLE-CELL-BACKGROUND);
+}
+#album-list #album-table .ten {
+    background: var(--TABLE-10);
 }
 #album-list #album-table .gold {
     background: var(--TABLE-GOLD);

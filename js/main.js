@@ -102,7 +102,11 @@ function updateTableHeaders() {
  * @param {*} rating The album's rating used to determine if highlighting is needed
  */
 function highlightRowFromRating(row, rating) {
-    if (parseInt(rating) >= 9) {
+    if (parseInt(rating) == 10) {
+        row.classList.add("ten");
+    }
+
+    else if (parseInt(rating) >= 9) {
         row.classList.add("gold");
     }
     else if (parseInt(rating) >= 8) {
