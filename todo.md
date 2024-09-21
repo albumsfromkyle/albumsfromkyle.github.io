@@ -1,8 +1,6 @@
 # BEFORE RELEASE
-* Organize 2022, 2023 album lists
-
-* Update order of favorite albums
-* Update all spotify playlists
+* Update 2024 lists
+* Update 2024 albums spotify playlist
 
 * Update github readme
 
@@ -16,5 +14,3 @@
 * Maybe add calendar showing when I listen to certain albums
 * Add ability to zoom in/out (increase/decrease the table size)???
 
-
-# TABLE
