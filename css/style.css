@@ -315,10 +315,10 @@ img {
 /* #endregion */
 
 
-
 /**************
 **** Alert ****
 **************/
+/* #region ALERT BANNER */
 #alert-banner {
     padding: 5px 20px;
     background-color: #f44336; /* Red */
@@ -343,6 +343,7 @@ img {
 #alertclose:hover {
     color: var(--DARK-COLOR);
 }
+/* #endregion */
 
 
 /*************************
@@ -390,28 +391,30 @@ img {
 }
 
 /* Table column widths */
+/* By maing everything way too big, it automatically scales down to fit within the container
+   All ratios between sizes are kept! */
 #album-list .song {
-    width: 450px;
+    width: 1000px;
 }
 
 #album-list .artist {
-    width: 450px;
+    width: 8000px;
 }
 
 #album-list .album {
-    width: 450px;
+    width: 8000px;
 }
 
 #album-list .genre {
-    width: 450px;
+    width: 6000px;
 }
 
 #album-list .favorite-songs {
-    width: 450px;
+    width: 18000px;
 }
 
 #album-list .rating {
-    width: 450px;
+    width: 10000px;
 }
 
 /* Table ordering triangles */

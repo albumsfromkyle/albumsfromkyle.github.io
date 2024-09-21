@@ -157,7 +157,7 @@ function csvToHtml(data) {
 
         if (!SHOW_RATING) {
             console.log("NOT SHOWING RATING")
-            if (csvRow["Rating"] != "" && parseFloat(csvRow["Rating"]) < 6.5) {
+            if (csvRow["Rating"] != "" && parseFloat(csvRow["Rating"]) < 6) {
                 return;
             }
         }
@@ -350,7 +350,7 @@ playlistLinks = {
     "Songs 2024" : "https://open.spotify.com/playlist/7nzU9D67SJdgd41dLbRwcf?si=18384ce1a1d54f9d",
     "Albums 2023" : "https://open.spotify.com/playlist/4qVkYlxDRv6gylOjKKcmWm?si=86fa90d3fc5346d2",
     "Songs 2023" : "https://open.spotify.com/playlist/4SLr4bfpWLHQGyQzKonxjE?si=35409659241941f0",
-    "Albums 2022" : "https://open.spotify.com/playlist/4dMfnqWXigqpj8s2zE3sOS?si=6396c97367a24e69",
+    "Albums 2022" : "https://open.spotify.com/playlist/7jwCBOFBCl1BrwmkPrPLBr?si=099649841fa54b03",
     "Songs 2022" : "https://open.spotify.com/playlist/1JGn9zna2lNdGRklbuOlUX?si=eea92f25e4d44292",
     "Albums 2021" : "https://open.spotify.com/playlist/0T0mqDU2EjiHQaDFIJm79V?si=ff7af6c9a10449a9",
     "Songs 2021" : "",
