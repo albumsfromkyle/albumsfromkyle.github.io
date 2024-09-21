@@ -13,6 +13,11 @@
     font-family: "Binomic Medium", sans-serif;
 }
 
+html {
+    overflow: -moz-scrollbars-vertical; 
+    overflow-y: scroll;
+}
+
 :root {
     /* Reference Colors */
     --PRIMARY-COLOR: #4891ff;
@@ -89,6 +94,7 @@
     /* Body Colors */
     --BODY-BACKGROUND: #fdfdfd;
 }
+
 
 /***********************
 **** Basic elements ****
