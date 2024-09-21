@@ -102,7 +102,7 @@ async function isValidListYearCombo(list, year) {
 **** STARTUP / ON LOADING IN ****
 ********************************/
 /**
- * Gets the current parameter specified by 'paran' in the website URL
+ * Gets the current parameter specified by 'param' in the website URL
  * @param {*} param Parameter to get from the URL
  * @returns String of the value assigned to the parameter (or null if it does not exist)
  */
@@ -220,7 +220,7 @@ function highlightRowFromRating(row, rating) {
  * @param {*} htmlRow The HTML row object that will be populated with the new cells containing the CSV data
  * @param {*} headersToShow The list of column headers you want to include from the CSV data
  * @param {*} csvRow The CSV row object containing the data to transfer
- * @param {*} defaultVal The default value to use if the CSV cell is empty or does not exist (defaultly "-")
+ * @param {*} defaultVal The default value to use if the CSV cell is empty or does not exist (default of "-")
  */
 function convertCsvRowToHtmlRow(htmlRow, headersToShow, csvRow, defaultVal = "-") {
     // Add each piece of info in the CSV to the HTML table
@@ -228,7 +228,7 @@ function convertCsvRowToHtmlRow(htmlRow, headersToShow, csvRow, defaultVal = "-"
         let cell = htmlRow.insertCell();
         cell.innerHTML = value ? value : defaultVal;
 
-        // Hide all cells in columns I don't care about (but keep the data accessable)
+        // Hide all cells in columns I don't care about (but keep the data accessible)
         if (!headersToShow.includes(key)) {
             cell.classList.add("hidden");
         }
@@ -386,7 +386,7 @@ function sortTable(headerIndex) {
     let order = document.getElementById("header_" + headerIndex + "_order");
 
     // If it is already sorted by this column, get the current order and do the opposite
-    // If it is not sorted (or there is no previouys order), default to descending
+    // If it is not sorted (or there is no previous order), default to descending
     if (order == null || order.innerHTML == "▲") { // Short circuit if there is no order (i.e. we are doing the default ordering)
         tableBubbleSort(headerIndex, "desc"); // Sort and flip to ▼
     }
@@ -405,7 +405,7 @@ function sortTable(headerIndex) {
 **** YEAR/LIST SELECTORS ****
 *****************************/
 /**
- * Updates what year buttom is shown as the "active" year.
+ * Updates what year button is shown as the "active" year.
  */
 function updateActiveYear() {
     document.querySelectorAll("#year-list button").forEach(btn => {

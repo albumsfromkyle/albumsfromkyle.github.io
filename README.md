@@ -39,7 +39,7 @@ Otherwise, it will just be updated whenever I have enough to share, and whenever
 
 
 ## Repository structure
-The repository structure is pretty self-explanitory, but here is a quick rundown:
+The repository structure is pretty self-explanatory, but here is a quick rundown:
 * `css/` contains the website styling and fonts.
 * `csv/` contains all the CSVs of my year-end album/song lists.
     - My lists of favorite albums for a given year are denoted as `<year>.csv`.

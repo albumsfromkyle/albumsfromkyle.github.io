@@ -23,7 +23,7 @@ This script takes a backed-up CSV of my "Albums <Year>" Spotify playlist, and or
 
 ### Things to note
 * This script **will not** modify or delete the input CSV file. You must delete it manually if that's what you want.
-* This needs to be run in the `scipts/` directory so the file paths work correctly
+* This needs to be run in the `scripts/` directory so the file paths work correctly
 * VERY IMPORTANT: This requires both the `csv/<year>.csv` file, and the exported Spotify playlist to be MATCHING (in terms of the songs listed in the CSV file existing in the Spotify playlist)! The program will error whenever they don't match, but just be aware it may require A LOT of manual fixes. (This also means it acts as a spellchecker for song/album/artist names)
 
 
@@ -62,7 +62,7 @@ The goal of this script is to take the exported CSV from [Exportify](https://exp
 ### Things to note
 * This script **will not** modify or delete the input CSV file. You must delete it manually if that's what you want.
 * This script **preserves** *some* manual edits to the CSV data. If you **remove** data (such as removing a secondary artist, or removing the "feat." from a song title), then those changes **will** be preserved. If you **add** new data (besides adding genre info), then those changes will be **overwritten** (although I cannot think of any cases where you would want to add data).
-* This script **does not** automatically fill in the song genre. Spotify's genre classification is horrible (which is what Exportify uses), so I ignore it when transfering the data. So, genre information must be input manually (although as mentioned previously, that information will be preserved when running the script again, so you will only need to do this once per song).
+* This script **does not** automatically fill in the song genre. Spotify's genre classification is horrible (which is what Exportify uses), so I ignore it when transferring the data. So, genre information must be input manually (although as mentioned previously, that information will be preserved when running the script again, so you will only need to do this once per song).
 
 
 <!-- ---------------------------------------------------------------------------------------- -->

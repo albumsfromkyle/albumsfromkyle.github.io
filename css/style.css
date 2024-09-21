@@ -398,7 +398,7 @@ img {
 }
 
 /* Table column widths */
-/* By maing everything way too big, it automatically scales down to fit within the container
+/* By making everything way too big, it automatically scales down to fit within the container. Probably much better way to do it, but this works so idc
    All ratios between sizes are kept! */
 #album-list .song {
     width: 8000px;
