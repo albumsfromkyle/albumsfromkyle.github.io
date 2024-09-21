@@ -552,6 +552,36 @@ img {
 
 
 /***********************
+**** Site Info Page ****
+***********************/
+/* Text coloring */
+#site-info .gold {
+    border-bottom: 3px solid var(--TABLE-GOLD);
+}
+#site-info .silver {
+    border-bottom: 3px solid var(--TABLE-SILVER);
+}
+#site-info .bronze {
+    border-bottom: 3px solid var(--TABLE-BRONZE);
+}
+#site-info .hon-men {
+    border-bottom: 3px solid var(--TABLE-CELL-BACKGROUND);
+}
+/* Links */
+#site-info .section a {
+    border-bottom: 1px solid transparent;
+    color: var(--PRIMARY-COLOR);
+}
+
+#site-info .section a:hover {
+    border-bottom: 1px solid var(--PRIMARY-COLOR);
+    /* v AB v */
+    font-weight: bold;
+    transition: 0.15s;
+}
+
+
+/***********************
 **** Resources Page ****
 ***********************/
 /* #region RESOURCES */

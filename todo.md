@@ -6,6 +6,8 @@
 
 * Update github readme
 
+* Swap album name and artist name
+
 
 # GENERAL
 * Add a suggestion box
