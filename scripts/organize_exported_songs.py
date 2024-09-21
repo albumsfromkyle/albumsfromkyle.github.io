@@ -45,6 +45,11 @@ if __name__ == "__main__":
     new_data = [] # Will store all of the new data to write to the final CSV
     with open(source_csv_path, 'r', newline='') as source_csv:
         csvreader = csv.reader(source_csv)
+        num_albums = sum(1 for row in csvreader)
+
+        # Reset the reader
+        source_csv.seek(0)
+        csvreader = csv.reader(source_csv)
         
         # Handle header
         next(csvreader)
@@ -52,11 +57,11 @@ if __name__ == "__main__":
         
         # Iterate through the actual data and save the important data
         for r, row in enumerate(csvreader):
-            song = get_truncated_value(dest_csv_path, row[0], 0)
-            album = row[1]
-            artist = get_truncated_value(dest_csv_path, row[2], 2)
+            song = get_truncated_value(dest_csv_path, row[1], 0)
+            album = row[2]
+            artist = get_truncated_value(dest_csv_path, row[3], 2)
             genres = get_genre(dest_csv_path, album)
-            hidden_ranking = r + 1
+            hidden_ranking = num_albums - r
 
             new_data.append([song, artist, album, genres, hidden_ranking])
             
