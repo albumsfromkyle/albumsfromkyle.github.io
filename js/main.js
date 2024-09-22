@@ -241,8 +241,10 @@ function convertCsvRowToHtmlRow(htmlRow, headersToShow, csvRow, defaultVal = "-"
  * @param {*} data 
  */
 function csvToHtml(data) {
-    let table = document.getElementById("album-table-body");
-    
+    // Create a new table element so I can do all the replacing at once and prevent flickering
+    let newTable = document.createElement('tbody');
+    newTable.id = "album-table-body";
+
     // Loop through each row in the CSV data (which is an album entry), and copy the data into the HTML table
     data.forEach(function(csvRow) {
         // Some previous lists include albums from ANY year
@@ -260,7 +262,7 @@ function csvToHtml(data) {
         }
 
         // Insert the new row
-        let newRow = table.insertRow(-1);
+        let newRow = newTable.insertRow(-1);
 
         // Populate the row depending on what list is selected
         if (SELECTED_LIST == "Favorite Albums") {
@@ -269,10 +271,14 @@ function csvToHtml(data) {
         else if (SELECTED_LIST == "Favorite Songs") {
             convertCsvRowToHtmlRow(newRow, SHOWN_SONG_HEADERS, csvRow);
         }
-        
+
         // Highlight the row gold/silver/bronze if the score is high enough
         highlightRowFromRating(newRow, csvRow["Rating"]);
     });
+
+    // Replace the entire old table with the new table
+    let oldTable = document.getElementById("album-table-body");
+    oldTable.parentNode.replaceChild(newTable, oldTable);
 }
 
 
@@ -281,9 +287,6 @@ function csvToHtml(data) {
  * This is called on startup, and whenever the list type (albums/songs) or list year is changed.
  */
 function updateTable() {
-    // Clear the current table
-    document.getElementById("album-table-body").innerHTML = "";
-
     // Update the Spotify playlist above the table to link to the data I am displaying
     updateSpotifyPlaylist();
 
