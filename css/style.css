@@ -34,10 +34,6 @@ html {
     --NAVBAR-TEXT: black;
     --NAVBAR-TEXT-HOVER: var(--PRIMARY-COLOR);
 
-    /* 
-        Option 1: Darkmode navbar
-    */
-
     /* List Selector Colors */
     --LIST-BACKGROUND: var(--DARK-COLOR);
 
@@ -101,9 +97,9 @@ html {
 ***********************/
 /* #region BASIC ELEMENTS */
 body {
-    font-size: 16px;
+    font-size: 1em;
     line-height: 1.5;
-    padding-bottom: 0px;
+    padding-bottom: 0;
     background: var(--BODY-BACKGROUND);
 }
 
@@ -128,7 +124,7 @@ img {
 /* #region NAVBAR */
 #navbar {
     background: var(--NAVBAR-BACKGROUND);
-    padding: 0px;
+    padding: 0;
 }
 
 /* Makes all elements into a flex row */
@@ -136,12 +132,12 @@ img {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 18px;
+    font-size: 1.5rem;
 }
 
 /* Styles the title element */
 #navbar #title a {
-    padding: 5px 0px;
+    padding: 0.3125rem 0;
     display: block;
     font-size: large;
     font-weight: normal;
@@ -162,12 +158,12 @@ img {
 #navbar #main-menu ul {
     display: flex;
     align-items: center;
-    padding: 0px 10px;
+    padding: 0 0.625rem;
 }
 
 /* Styles the list elements */
 #navbar ul li a {
-    padding: 5px 20px;
+    padding: 0.3125rem 1.25rem;
     display: block;
     font-size: large;
     font-weight: normal;
@@ -181,7 +177,7 @@ img {
 
 /* Moves the spotify logo over so it is in line with the rest of the "container" class borders */
 #navbar #main-menu a {
-    padding-right: 25px;
+    padding-right: 1.5625rem;
 }
 /* #endregion */
 
@@ -192,8 +188,8 @@ img {
 /* #region LIST-SELECT NAVBAR */
 #list-select-navbar {
     background: var(--LIST-BACKGROUND);
-    padding-top: 5px;
-    border-top: 1px solid black;
+    padding-top: 0.3125rem;
+    border-top: 0.0625rem solid black;
 }
 
 /* Centers the entire list-selector navbar */
@@ -209,7 +205,7 @@ img {
 
 /* Styles the list elements */
 #list-select-navbar ul li button {
-    padding: 0px 40px;
+    padding: 0 2.5rem;
     display: block;
     font-weight: normal;
     font-size: medium;
@@ -217,7 +213,7 @@ img {
     border: none;
     background: var(--LIST-BUTTON-BACKGROUND);
     color: var(--LIST-TEXT);
-    height: 20px;
+    height: 1.25rem;
     line-height: 1;
 }
 
@@ -231,7 +227,6 @@ img {
     font-weight: bold;
     background: var(--LIST-SELECTED-BUTTON-BACKGROUND);
     color: var(--LIST-SELECTED-TEXT);
-    /* color: var(--PRIMARY-COLOR); */
 }
 
 #list-select-navbar #list-list .active:hover {
@@ -247,9 +242,9 @@ img {
 /* #region YEAR-SELECT NAVBAR */
 #year-navbar {
     background: var(--YEAR-BACKGROUND);
-    padding-top: 5px;
-    padding-bottom: 5px;
-    border-bottom: 1px solid black;
+    padding-top: 0.3125rem;
+    padding-bottom: 0.3125rem;
+    border-bottom: 0.0625rem solid black;
 }
 
 /* Centers the entire year navbar */
@@ -270,18 +265,18 @@ img {
 }
 
 #year-navbar #year-menu li {
-    border-left: 1px solid var(--YEAR-BORDER);
-    border-top: 1px solid var(--YEAR-BORDER);
-    border-bottom: 1px solid var(--YEAR-BORDER);
+    border-left: 0.0625rem solid var(--YEAR-BORDER);
+    border-top: 0.0625rem solid var(--YEAR-BORDER);
+    border-bottom: 0.0625rem solid var(--YEAR-BORDER);
 }
 
 #year-navbar #year-menu li:last-child {
-    border-right: 1px solid var(--YEAR-BORDER);
+    border-right: 0.0625rem solid var(--YEAR-BORDER);
 }
 
 /* Style ALL the buttons */
 #year-navbar button {
-    padding: 2px 18px;
+    padding: 0.125rem 1.125rem;
     display: block;
     font-size: medium;
     font-weight: normal;
@@ -310,7 +305,6 @@ img {
 
 /* Style the selected year */
 #year-navbar #year-list .active {
-    /* font-weight: bold; */
     background: var(--YEAR-SELECTED-BUTTON-BACKGROUND);
     color: var(--YEAR-SELECTED-TEXT);
 }
@@ -327,21 +321,21 @@ img {
 **************/
 /* #region ALERT BANNER */
 #alert-banner {
-    padding: 5px 20px;
-    background-color: #f44336; /* Red */
+    padding: 0.3125rem 1.25rem;
+    background-color: #f44336;
     color: var(--BODY-BACKGROUND);
-    margin-bottom: 15px;
+    margin-bottom: 0.9375rem;
     align-items: center;
     text-align: center;
 }
 
 /* The close button */
 #alertclose {
-    margin-left: 30px;
+    margin-left: 1.875rem;
     color: var(--BODY-BACKGROUND);
     font-weight: bold;
-    font-size: 20px;
-    line-height: 20px;
+    font-size: 1.25rem;
+    line-height: 1.25rem;
     cursor: pointer;
     transition: 0.3s;
 }
@@ -358,25 +352,17 @@ img {
 *************************/
 /* #region SPOTIFY PLAYLIST */
 #spotify-playlist .container {
-    padding-top: 15px;
+    padding-top: 0.9375rem;
     text-align: center;
-    /* padding-left: 70px;
-    padding-right: 70px;
-    background: #eee;
-    border-left: 1px solid var(--DISABLED-COLOR);
-    border-right: 1px solid var(--DISABLED-COLOR); */
 }
 
 #spotify-playlist a {
-    /* padding-left: 1em;
-    padding-right: 1em; */
     font-style: italic;
     color: var(--PRIMARY-COLOR);
 }
 
 #spotify-playlist a:hover {
-    border-bottom: 1px solid var(--PRIMARY-COLOR);
-    /* color: var(--DISABLED-COLOR); */
+    border-bottom: 0.0625rem solid var(--PRIMARY-COLOR);
     font-weight: bold;
 }
 /* #endregion */
@@ -387,41 +373,30 @@ img {
 **************/
 /* #region TABLE */
 #album-list .container {
-    padding-top: 15px;
-    padding-bottom: 50px;
+    padding-top: 0.9375rem;
+    padding-bottom: 3.125rem;
     background: var(--CONTAINER-BACKGROUND);
-    /* padding-left: 70px;
-    padding-right: 70px;
-    background: #eee;
-    border-left: 1px solid var(--DISABLED-COLOR);
-    border-right: 1px solid var(--DISABLED-COLOR); */
 }
 
 /* Table column widths */
-/* By making everything way too big, it automatically scales down to fit within the container. Probably much better way to do it, but this works so idc
-   All ratios between sizes are kept! */
 #album-list .song {
-    width: 8000px;
-}
-
-#album-list .artist {
-    width: 8000px;
+    width: 21.5%;
 }
 
 #album-list .album {
-    width: 8000px;
+    width: 21.5%;
+}
+
+#album-list .artist {
+    width: 21%;
 }
 
 #album-list .genre {
-    width: 6000px;
+    width: 18.5%;
 }
 
 #album-list .favorite-songs {
-    width: 18000px;
-}
-
-#album-list .rating {
-    width: 10000px;
+    width: 39%;
 }
 
 /* Table ordering triangles */
@@ -440,8 +415,8 @@ img {
 }
 
 #album-list table, td {
-    padding: 5px 5px;
-    border: 1px solid var(--TABLE-BORDER);
+    padding: 0.3125rem 0.3125rem;
+    border: 0.0625rem solid var(--TABLE-BORDER);
     border-collapse: collapse;
     position: relative;
 }
@@ -449,7 +424,7 @@ img {
 #album-list thead td {  /* Entire header cell */
     color: var(--TABLE-HEADER-TEXT);
     background: var(--TABLE-HEADER-BACKGROUND);
-    border-bottom: 2px solid var(--TABLE-BORDER);
+    border-bottom: 0.125rem solid var(--TABLE-BORDER);
 }
 
 #album-list thead td:hover {  /* Entire header cell */
@@ -481,17 +456,17 @@ img {
 /* #region TEXT PAGES */
 /* Adds padding to top of the page */
 .text-page {
-    padding-top: 1.5em;
+    padding-top: 1.5rem;
 }
 
 .text-page hr {
-    /* border-bottom: 1px solid black; */
+    /* border-bottom: 0.0625rem solid black; */
     border: 0;
     clear:both;
     display:block;
     width: 100%;               
     background-color: var(--DISABLED-COLOR);
-    height: 1px;
+    height: 0.0625em;
 }
 
 /* Styles the bullet points */
@@ -499,32 +474,32 @@ img {
     list-style: inside;
     padding-left: 2.5em;
     padding-top: 0.5em;
-    text-indent: -1.5em;
+    text-indent: -1.5rem;
     
 }
 
 /* Acts as a mock <p> element so I can nest other elements inside */
 .text-page .mock-p {
-    padding-bottom: 1.5em;
+    padding-bottom: 1.5rem;
 }
 
 .text-page .section {
-    padding-top: 1em;
-    padding-bottom: 3em;
+    padding-top: 1rem;
+    padding-bottom: 3rem;
 }
 
 /* Allow for finer-detailed spacing */
 .text-page .top-half-pad {
-    padding-top: 0.5em;
+    padding-top: 0.5rem;
 }
 .text-page .top-one-half-pad {
-    padding-top: 1.5em;
+    padding-top: 1.5rem;
 }
 .text-page .bot-half-pad {
-    padding-bottom: 0.5em;
+    padding-bottom: 0.5rem;
 }
 .text-page .bot-one-half-pad {
-    padding-bottom: 1.5em;
+    padding-bottom: 1.5rem;
 }
 
 /* Styles the navbar */
@@ -539,25 +514,25 @@ img {
     display:block;
     width: 96%;               
     background-color: var(--DISABLED-COLOR);
-    height: 1px;
-    max-width: 900px;
+    height: 0.0625rem;
+    max-width: 46.875%;
     margin: 0 auto;
 }
 
 .text-page-nav ul {
     display: inline-flex;
-    padding-top: 8px;
-    padding-bottom: 8px;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
 }
 
 .text-page-nav li {
-    border-bottom: 1px solid transparent;
-    padding-left: 1.5em;
-    padding-right: 1.5em;
+    border-bottom: 0.0625rem solid transparent;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
 }
 
 .text-page-nav li:hover {
-    border-bottom: 1px solid black;
+    border-bottom: 0.0625rem solid black;
     /* v AB v */
     font-weight: bold;
     transition: 0.15s;
@@ -570,25 +545,25 @@ img {
 ***********************/
 /* Text coloring */
 #site-info .gold {
-    border-bottom: 3px solid var(--TABLE-GOLD);
+    border-bottom: 0.1875rem solid var(--TABLE-GOLD);
 }
 #site-info .silver {
-    border-bottom: 3px solid var(--TABLE-SILVER);
+    border-bottom: 0.1875rem solid var(--TABLE-SILVER);
 }
 #site-info .bronze {
-    border-bottom: 3px solid var(--TABLE-BRONZE);
+    border-bottom: 0.1875rem solid var(--TABLE-BRONZE);
 }
 #site-info .hon-men {
-    border-bottom: 3px solid var(--TABLE-CELL-BACKGROUND);
+    border-bottom: 0.1875rem solid var(--TABLE-CELL-BACKGROUND);
 }
 /* Links */
 #site-info .section a {
-    border-bottom: 1px solid transparent;
+    border-bottom: 0.0625rem solid transparent;
     color: var(--PRIMARY-COLOR);
 }
 
 #site-info .section a:hover {
-    border-bottom: 1px solid var(--PRIMARY-COLOR);
+    border-bottom: 0.0625rem solid var(--PRIMARY-COLOR);
     /* v AB v */
     font-weight: bold;
     transition: 0.15s;
@@ -602,32 +577,33 @@ img {
 /* Style the playlists table */
 #resources #playlists-table {
     align-items: center;
-    margin-left: auto;
-    margin-right: auto;
 }
 
-#resources table { /* Centers the content within each cell */
-    display: flex;
+#resources table {
     text-align: center;
-    border-spacing: 5px;
+    border-spacing: 0.3125rem;
+    table-layout: auto;
+    width: 100%;
 }
 
-#resources td { /* Spaces out the cells */
-    width: 1000px;
-    /* border: none; */
-    padding-bottom: 2em;
+#resources td {
+    width: 20%;
+    padding-top: 0.5rem;
+    padding-bottom: 2rem;
 }
 
 #resources .year-title {
     font-weight: bold;
     max-width: 60%;
     margin: 0 auto;
-    border-bottom: 1px solid black;
+    border-bottom: 0.0625rem solid black;
+    margin-bottom: 0.5rem;
 }
+
 #resources .playlist {
-    padding-top: 5px;
+    padding-top: 0.3125rem;
     font-style: italic;
-    border-bottom: 1px solid transparent;
+    border-bottom: 0.0625rem solid transparent;
 }
 
 #resources .playlist a.disabled  {
@@ -642,12 +618,12 @@ img {
 
 /* Links */
 #resources a {
-    border-bottom: 1px solid transparent;
+    border-bottom: 0.0625rem solid transparent;
     color: var(--PRIMARY-COLOR);
 }
 
 #resources a:hover {
-    border-bottom: 1px solid var(--PRIMARY-COLOR);
+    border-bottom: 0.0625rem solid var(--PRIMARY-COLOR);
     /* v AB v */
     font-weight: bold;
     transition: 0.15s;
@@ -660,22 +636,19 @@ img {
 ************************/
 /* #region UTILITY */
 .container {
-    max-width: 1300px;
+    max-width: 67.708%;
     margin: 0 auto; /* top & bottom = 0, left & right = auto */
-    padding: 0 15px;
-    /* background: pink; */
+    padding: 0 0.9375rem;
 }
 .site-info-container {
-    max-width: 900px;
+    max-width: 46.875%;
     margin: 0 auto; /* top & bottom = 0, left & right = auto */
-    padding: 0 15px;
-    /* background: pink; */
+    padding: 0 0.9375rem;
 }
 .resources-container {
-    max-width: 900px;
+    max-width: 46.875%;
     margin: 0 auto; /* top & bottom = 0, left & right = auto */
-    padding: 0 15px;
-    /* background: pink; */
+    padding: 0 0.9375rem;
 }
 
 /* .no-select {
