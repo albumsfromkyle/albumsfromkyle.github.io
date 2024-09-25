@@ -175,9 +175,12 @@ img {
     color: var(--NAVBAR-TEXT-HOVER);
 }
 
-/* Moves the spotify logo over so it is in line with the rest of the "container" class borders */
-#navbar #main-menu a {
+/* Styles the Spotify and Github logos */
+#navbar #main-menu .image-link img {
     padding-right: 1.5625rem;
+    display: block;
+    width: 100%;
+    height: 1.75rem; 
 }
 /* #endregion */
 
