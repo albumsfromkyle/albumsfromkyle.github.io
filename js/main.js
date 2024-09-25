@@ -166,7 +166,7 @@ function addHeadersToRow(row, headers) {
         
         // Have to do weird wrapping for the order triangle (▲/▼) for reasons I forgot 
         if (SORTABLE_HEADERS.includes(header)) {
-            cell.innerHTML = "<div class=\"header\">" + header + "<span id=\"header_" + i + "_order\">▲</span> </div>";
+            cell.innerHTML = "<div class=\"header\">" + header + "<span id=\"header_" + i + "_order\">▲&#xFE0E;</span> </div>";
             cell.setAttribute("onclick", "sortTable(" + i + ")");
         }
     });
@@ -320,12 +320,12 @@ function updateOrderTriangles(activeElement) {
     document.querySelectorAll("#album-list #table-headers .header span").forEach(span => {
         // If this is a column NOT being used for sorting, gray out the order triangle and set it pointing up
         if (span != activeElement){
-            span.innerHTML = "▲";
+            span.innerHTML = "▲&#xFE0E;";
             span.classList.remove("active");
         }
         // If this is the active element, update the triangle and class
         else {
-            (order.innerHTML == "▲") ? (order.innerHTML = "▼") : (order.innerHTML = "▲"); // Flip the triangle
+            (order.innerHTML == "▲&#xFE0E;") ? (order.innerHTML = "▼&#xFE0E;") : (order.innerHTML = "▲&#xFE0E;"); // Flip the triangle
             activeElement.classList.add("active");
         }
     });
@@ -390,7 +390,7 @@ function sortTable(headerIndex) {
 
     // If it is already sorted by this column, get the current order and do the opposite
     // If it is not sorted (or there is no previous order), default to descending
-    if (order == null || order.innerHTML == "▲") { // Short circuit if there is no order (i.e. we are doing the default ordering)
+    if (order == null || order.innerHTML == "▲&#xFE0E;") { // Short circuit if there is no order (i.e. we are doing the default ordering)
         tableBubbleSort(headerIndex, "desc"); // Sort and flip to ▼
     }
     else {
