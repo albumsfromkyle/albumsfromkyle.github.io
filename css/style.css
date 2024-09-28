@@ -716,6 +716,7 @@ img {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        padding: 0.2rem 0;
     }
     #navbar #title a {
         padding: 0.3125rem 0.75rem;
@@ -748,6 +749,10 @@ img {
     }
 
     /* Stop list selector from overspilling */
+    #list-select-navbar {
+        padding-top: 0.4rem;
+        padding-bottom: 0.2rem;
+    }
     #list-select-navbar ul li button {
         padding: 0 1.45rem;
     }
@@ -755,6 +760,8 @@ img {
     /* Stop year selector from overspilling */
     #year-navbar {
         width: 100vw;
+        padding-top: 0.4rem;
+        padding-bottom: 0.75rem;
     }
     #year-navbar .container {
         width: 100%;
