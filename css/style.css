@@ -288,6 +288,7 @@ img {
     border: none;
     background: var(--YEAR-BUTTON-BACKGROUND);
     color: var(--YEAR-TEXT);
+    height: 100%;
 }
 
 #year-navbar button:hover {
@@ -479,7 +480,6 @@ img {
     padding-left: 2.5em;
     padding-top: 0.5em;
     text-indent: -1.5rem;
-    
 }
 
 /* Acts as a mock <p> element so I can nest other elements inside */
@@ -540,6 +540,10 @@ img {
     /* v AB v */
     font-weight: bold;
     transition: 0.15s;
+}
+
+.nowrap {
+    white-space: nowrap;
 }
 /* #endregion */
 
@@ -688,27 +692,21 @@ img {
     body {
         font-size: 0.65em;
     }
-
     #navbar #title a {
         font-size: 0.785rem;
     }
-    
     #navbar ul li a {
         font-size: 0.785rem;
     }
-    
     #list-select-navbar ul li button {
         font-size: 0.75rem;
     }
-    
     #year-navbar button {
         font-size: 0.75rem;
     }
-    
     #alertclose {
         font-size: 0.9375rem;
     }
-    
     #album-list #table-headers .header { /* Inner div inside the cell */
         font-size: 0.75rem;
     }
@@ -719,24 +717,22 @@ img {
         justify-content: space-between;
         align-items: center;
     }
-
     #navbar #title a {
-        padding: 0.3125rem 1.25rem;
+        padding: 0.3125rem 0.75rem;
+        /* display: flex; */
     }
-
     #navbar #main-menu ul {
+        /* flex: none; */
         padding: 0;
     }
-
     #navbar ul li a {
-        padding: 0.3125rem 1.25rem;
+        padding: 0.3125rem 0.75rem;
     }
 
     /* Stop table from overspilling */
     #album-list {
         width: 100vw;
     }
-    
     #album-list .container {
         width: 100%;
         margin: 0;
@@ -745,7 +741,6 @@ img {
         padding-top: 0.9375rem;
         padding-bottom: 3.125rem;
     }
-
     #album-list table {
         table-layout: fixed;
         width: 100%;
@@ -761,15 +756,31 @@ img {
     #year-navbar {
         width: 100vw;
     }
-
     #year-navbar .container {
         width: 100%;
         padding: 0;
     }
-    
     #year-navbar button {
         padding: 0.125rem 0.75rem;
         word-wrap: break-word;
+    }
+    
+    /* Style the info page */
+    .text-page ul li {
+        text-indent: -1rem;
+    }
+    
+    .text-page .section {
+        padding-bottom: 1rem;
+    }
+
+    /* Style the resources page */
+    #resources td {
+        padding-bottom: 0.5rem;
+    }
+
+    #resources .playlist {
+        padding-bottom: 0.3125rem;
     }
     
 }
