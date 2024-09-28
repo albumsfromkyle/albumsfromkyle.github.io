@@ -101,6 +101,7 @@ body {
     line-height: 1.5;
     padding-bottom: 0;
     background: var(--BODY-BACKGROUND);
+    width: 100%;
 }
 
 a {
@@ -125,6 +126,7 @@ img {
 #navbar {
     background: var(--NAVBAR-BACKGROUND);
     padding: 0;
+    width: 100%;
 }
 
 /* Makes all elements into a flex row */
@@ -132,14 +134,13 @@ img {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 1.5rem;
 }
 
 /* Styles the title element */
 #navbar #title a {
     padding: 0.3125rem 0;
     display: block;
-    font-size: large;
+    font-size: 1.15rem;
     font-weight: normal;
     transition: 0.15s;
     color: var(--NAVBAR-TEXT);
@@ -165,7 +166,7 @@ img {
 #navbar ul li a {
     padding: 0.3125rem 1.25rem;
     display: block;
-    font-size: large;
+    font-size: 1.15rem;
     font-weight: normal;
     transition: 0.15s;
     color: var(--NAVBAR-TEXT);
@@ -211,7 +212,7 @@ img {
     padding: 0 2.5rem;
     display: block;
     font-weight: normal;
-    font-size: medium;
+    font-size: 1rem;
     transition: color 0.15s;
     border: none;
     background: var(--LIST-BUTTON-BACKGROUND);
@@ -281,7 +282,7 @@ img {
 #year-navbar button {
     padding: 0.125rem 1.125rem;
     display: block;
-    font-size: medium;
+    font-size: 1rem;
     font-weight: normal;
     transition: 0.15s;
     border: none;
@@ -413,7 +414,7 @@ img {
 
 /* Table style */
 #album-list #table-headers .header { /* Inner div inside the cell */
-    font-size: medium;
+    font-size: 1rem;
     font-weight: bold;
 }
 
@@ -668,3 +669,107 @@ img {
     display: none;
 }
 /* #endregion */
+
+
+
+
+
+
+
+
+@media only screen and (max-width: 600px) {
+
+    /* Hide links to spotify and github */
+    #navbar #main-menu .image-link img {
+        display: none;
+    }
+
+    /* Make all fonts 25% smaller */
+    body {
+        font-size: 0.65em;
+    }
+
+    #navbar #title a {
+        font-size: 0.785rem;
+    }
+    
+    #navbar ul li a {
+        font-size: 0.785rem;
+    }
+    
+    #list-select-navbar ul li button {
+        font-size: 0.75rem;
+    }
+    
+    #year-navbar button {
+        font-size: 0.75rem;
+    }
+    
+    #alertclose {
+        font-size: 0.9375rem;
+    }
+    
+    #album-list #table-headers .header { /* Inner div inside the cell */
+        font-size: 0.75rem;
+    }
+
+    /* Make all navbar elements centered */
+    #navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    #navbar #title a {
+        padding: 0.3125rem 1.25rem;
+    }
+
+    #navbar #main-menu ul {
+        padding: 0;
+    }
+
+    #navbar ul li a {
+        padding: 0.3125rem 1.25rem;
+    }
+
+    /* Stop table from overspilling */
+    #album-list {
+        width: 100vw;
+    }
+    
+    #album-list .container {
+        width: 100%;
+        margin: 0;
+        padding-left: 0.9375rem;
+        padding-right: 0.9375rem;
+        padding-top: 0.9375rem;
+        padding-bottom: 3.125rem;
+    }
+
+    #album-list table {
+        table-layout: fixed;
+        width: 100%;
+        word-wrap: break-word;
+    }
+
+    /* Stop list selector from overspilling */
+    #list-select-navbar ul li button {
+        padding: 0 1.45rem;
+    }
+
+    /* Stop year selector from overspilling */
+    #year-navbar {
+        width: 100vw;
+    }
+
+    #year-navbar .container {
+        width: 100%;
+        padding: 0;
+    }
+    
+    #year-navbar button {
+        padding: 0.125rem 0.75rem;
+        word-wrap: break-word;
+    }
+    
+}
