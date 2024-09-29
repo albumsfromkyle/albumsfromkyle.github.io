@@ -24,12 +24,7 @@ This is **not** meant to be professional at all, I am using pure HTML/CSS/JavaSc
 I am putting up with web development so I can achieve my greater goal of sharing music with others.
 Even with that said, feedback/suggestions are always accepted and appreciated if there is anything you would like to see added or changed!
 
-For the time being this website will ONLY be for developed for the desktop experience
-(and will only be tested using Google Chrome on my personal computer with the monitors I have at home).
-I have no idea how this will function on other sized monitors, on other web browsers, or how it will look on a phone.
-Given my skills with web development, my hopes are not high. A phone-friendly version is something that *might* come in the future, but there are no guarantees.
-
-For now, please be patient as I slowly develop this and add functionality. 
+This website was developed on my personal setup with my personal monitors. While I did try to test the layout on different devices, I was not extremely rigorous. It *should* look fine on most other browsers, monitor sizes, and devices (yes, this website is phone-friendly as well). Although with my lack of experience in web development, I'm sure there are many situations I forgot to test. If you find a situation where things look terrible, let me know and I can try to fix it.
 
 
 ## Music updates
