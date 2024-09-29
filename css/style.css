@@ -774,7 +774,8 @@ img {
     
     /* Style the info page */
     .text-page ul li {
-        text-indent: -1rem;
+        text-indent: -0.5rem;
+        /* text-indent: -1rem; */
     }
     
     .text-page .section {
