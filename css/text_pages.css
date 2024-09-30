@@ -1,0 +1,227 @@
+@import url("./common.css");
+
+/*******************************
+**** Text Pages (Non-Table) ****
+*******************************/
+/* #region TEXT PAGES */
+/* Adds padding to top of the page */
+.text-page {
+    padding-top: 1.5rem;
+}
+
+.text-page hr {
+    /* border-bottom: 0.0625rem solid black; */
+    border: 0;
+    clear:both;
+    display:block;
+    width: 100%;               
+    background-color: var(--DISABLED-COLOR);
+    height: 0.0625em;
+}
+
+/* Styles the bullet points */
+.text-page ul li {
+    list-style: inside;
+    padding-left: 2.5em;
+    padding-top: 0.5em;
+    text-indent: -1.5rem;
+}
+
+/* Acts as a mock <p> element so I can nest other elements inside */
+.text-page .mock-p {
+    padding-bottom: 1.5rem;
+}
+
+.text-page .section {
+    padding-top: 1rem;
+    padding-bottom: 3rem;
+}
+
+/* Allow for finer-detailed spacing */
+.text-page .top-half-pad {
+    padding-top: 0.5rem;
+}
+.text-page .top-one-half-pad {
+    padding-top: 1.5rem;
+}
+.text-page .bot-half-pad {
+    padding-bottom: 0.5rem;
+}
+.text-page .bot-one-half-pad {
+    padding-bottom: 1.5rem;
+}
+
+/* Styles the navbar */
+.text-page-nav {
+    display: inline;
+    text-align: center;
+}
+
+.text-page-nav hr {
+    border: 0;
+    clear:both;
+    display:block;
+    width: 96%;               
+    background-color: var(--DISABLED-COLOR);
+    height: 0.0625rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.text-page-nav ul {
+    display: inline-flex;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.text-page-nav li {
+    border-bottom: 0.0625rem solid transparent;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+.text-page-nav li:hover {
+    border-bottom: 0.0625rem solid black;
+    /* v AB v */
+    font-weight: bold;
+    transition: 0.15s;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+/* #endregion */
+
+
+/***********************
+**** Site Info Page ****
+***********************/
+/* #region SITE INFO */
+/* Text coloring */
+#site-info .gold {
+    border-bottom: 0.1875rem solid var(--TABLE-GOLD);
+}
+#site-info .silver {
+    border-bottom: 0.1875rem solid var(--TABLE-SILVER);
+}
+#site-info .bronze {
+    border-bottom: 0.1875rem solid var(--TABLE-BRONZE);
+}
+#site-info .hon-men {
+    border-bottom: 0.1875rem solid var(--TABLE-CELL-BACKGROUND);
+}
+/* Links */
+#site-info .section a {
+    border-bottom: 0.0625rem solid transparent;
+    color: var(--PRIMARY-COLOR);
+}
+
+#site-info .section a:hover {
+    border-bottom: 0.0625rem solid var(--PRIMARY-COLOR);
+    /* v AB v */
+    font-weight: bold;
+    transition: 0.15s;
+}
+/* #endregion */
+
+
+/***********************
+**** Resources Page ****
+***********************/
+/* #region RESOURCES */
+/* Style the playlists table */
+#resources #playlists-table {
+    align-items: center;
+}
+
+#resources table {
+    text-align: center;
+    border-spacing: 0.3125rem;
+    table-layout: auto;
+    width: 100%;
+}
+
+#resources td {
+    width: 20%;
+    padding-top: 0.5rem;
+    padding-bottom: 2rem;
+    border: 0.0625rem solid var(--TABLE-BORDER);
+}
+
+#resources .year-title {
+    font-weight: bold;
+    max-width: 60%;
+    margin: 0 auto;
+    border-bottom: 0.0625rem solid black;
+    margin-bottom: 0.5rem;
+}
+
+#resources .playlist {
+    padding-top: 0.3125rem;
+    font-style: italic;
+    border-bottom: 0.0625rem solid transparent;
+}
+
+#resources .playlist a.disabled  {
+    color: var(--DISABLED-COLOR);
+    pointer-events: none;
+    cursor: default;
+}
+
+#resources .playlist a.disabled:hover  {
+    font-weight: normal;
+}
+
+/* Links */
+#resources a {
+    border-bottom: 0.0625rem solid transparent;
+    color: var(--PRIMARY-COLOR);
+}
+
+#resources a:hover {
+    border-bottom: 0.0625rem solid var(--PRIMARY-COLOR);
+    /* v AB v */
+    font-weight: bold;
+    transition: 0.15s;
+}
+/* #endregion */
+
+
+/************************
+**** Utility classes ****
+************************/
+/* #region UTILITY */
+.site-info-container {
+    max-width: 900px;
+    margin: 0 auto; /* top & bottom = 0, left & right = auto */
+    padding: 0 0.9375rem;
+}
+.resources-container {
+    max-width: 900px;
+    margin: 0 auto; /* top & bottom = 0, left & right = auto */
+    padding: 0 0.9375rem;
+}
+/* #endregion */
+
+
+@media only screen and (max-width: 600px) {
+    /* Style the info page */
+    .text-page ul li {
+        text-indent: -0.5rem;
+        /* text-indent: -1rem; */
+    }
+    
+    .text-page .section {
+        padding-bottom: 1rem;
+    }
+
+    /* Style the resources page */
+    #resources td {
+        padding-bottom: 0.5rem;
+    }
+
+    #resources .playlist {
+        padding-bottom: 0.3125rem;
+    }
+    
+}
