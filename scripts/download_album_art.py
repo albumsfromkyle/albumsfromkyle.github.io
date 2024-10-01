@@ -93,8 +93,8 @@ if __name__ == "__main__":
         year = response["album"]["release_date"][0:4]
 
         # Sanitize album/artist
-        artist_name = ''.join(c for c in artist_name if c.isalnum())
-        album_name = ''.join(c for c in album_name if c.isalnum())
+        artist_name = ''.join(c for c in artist_name if c.isalnum()).lower()
+        album_name = ''.join(c for c in album_name if c.isalnum()).lower()
         if len(year) < 4:
             continue
 
