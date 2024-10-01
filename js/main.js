@@ -150,6 +150,105 @@ document.addEventListener("DOMContentLoaded", async function() {
 });
 
 
+/*********************
+ **** GRID LAYOUT ****
+ ********************/
+ let LAYOUT = "TABLE"
+ document.getElementById("layout-button").addEventListener("click", function(event) {
+    console.log(LAYOUT)
+    if (LAYOUT == "TABLE") {
+        console.log("CHANGING LAYOUT TO GRID");
+        updateGrid();
+        LAYOUT = "GRID";
+    }
+    else {
+        console.log("CHANGING LAYOUT TO TABLE");
+        updateTable();
+        LAYOUT = "TABLE";
+    }
+});
+
+
+function updateGridHeaders() {
+    // Clear the current headers
+    let header = document.getElementById("table-headers");
+    header.innerHTML = "";
+}
+
+function csvToGrid(data) {
+    // Create a new table element so I can do all the replacing at once and prevent flickering
+    let newTable = document.createElement('tbody');
+    newTable.id = "album-table-body";
+
+    // TODO: Eventually make these dependant on screen size
+    let albumsPerRow = 5;
+    let imageSize = 300;
+
+    let index = 0; // TODO: Maybe convert this to a regualr for loop if I am allowed to
+    data.forEach(async function(csvRow) {
+        // Some previous lists include albums from ANY year. I want to exclude those for now, and only include albums release the selected year
+        let releaseDate = Date.parse( csvRow["Release Date"] );
+        if (releaseDate < Date.parse("1/1/" + SELECTED_YEAR)) {
+            return;
+        }
+
+        // If I am not showing the ratings for the albums, only show the albums I would recommend (which are albums above 6 in their score)
+        if (!SHOW_RATING) {
+            if (csvRow["Rating"] != "" && parseFloat(csvRow["Rating"]) < 6) {
+                return;
+            }
+        }
+
+        // If this is the start of a new row, insert it. Otherwise, get the last row
+        console.log(index);
+        let workingRow = (index % albumsPerRow == 0) ? newTable.insertRow(-1) : newTable.rows[newTable.rows.length - 1];
+        index = index + 1;
+        console.log(index);
+
+        // Get the image name to use
+        let releaseYear = csvRow["Release Date"].slice(-4).toLowerCase();
+        let albumName = csvRow["Album"].replace(/[^\p{L}\p{N}]+/gu,"").toLowerCase();
+        let artistName = csvRow["Artist"].split(",")[0].replace(/[^\p{L}\p{N}]+/gu,"").toLowerCase();
+        let imageFilename = "images/albums/" + releaseYear + "/" + artistName + "_" + albumName + "_" + imageSize + ".jpg";
+
+        // Make sure the image exists
+        let exists = await checkFileExists(imageFilename);
+        if (!exists) {
+            console.log("[ERROR] Image does not exist for filename " + imageFilename);
+            
+            return;
+        }
+
+        // Insert the image
+        let cell = workingRow.insertCell();
+        cell.innerHTML = "<img src=\"" + imageFilename + "\" width=\"" + imageSize.toString() + "px\" height=\"" + imageSize.toString() + "px\">";
+    });
+
+    // Replace the entire old table with the new table
+    let oldTable = document.getElementById("album-table-body");
+    oldTable.parentNode.replaceChild(newTable, oldTable);
+}
+
+
+function updateGrid() {
+    // Update the Spotify playlist above the table to link to the data I am displaying
+    updateSpotifyPlaylist();
+
+    // Update the headers (by removing them)
+    updateGridHeaders();
+
+    // Load in the new CSV and display the new data
+    let extension = getExtensionFromList(SELECTED_LIST);
+    let filename = "csv/" + SELECTED_YEAR + extension + ".csv";
+    d3.csv(filename).then(function(data) {
+        csvToGrid(data);
+    });
+
+    // Do sorting
+    // TODO
+} 
+
+
 /***********************************
 **** CSV & TABLE DATA FUNCTIONS ****
 ***********************************/
