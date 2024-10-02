@@ -269,6 +269,30 @@
 /* #endregion */
 
 
+/************
+**** Art ****
+************/
+
+
+.art-cell {
+    width: 20%;
+    text-align: center;
+    border: none;
+}
+
+
+.grid-container {
+    max-width: 1500px;
+    margin: 0 auto; /* top & bottom = 0, left & right = auto */
+    padding: 0 0.9375rem;
+}
+
+#album-list .grid-container table, .grid-container td {
+    border: none;
+    background: var(--BODY-BACKGROUND);
+}
+
+
 @media only screen and (max-width: 600px) {
     /* Make all fonts 25% smaller */
     #list-select-navbar ul li button {

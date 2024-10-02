@@ -3,9 +3,10 @@ const OLDEST_YEAR = 2018;
 const CURRENT_YEAR = parseInt(new Date().getFullYear());
 const NUM_YEARS_TO_SHOW = 5;
 
-// List selectors
+// Selectors
 let SELECTED_YEAR = CURRENT_YEAR; // Default year to show
 let SELECTED_LIST = "Favorite Albums"; // Default list to show
+let LAYOUT = "TABLE"; // Default layout to show
 
 // Headers
 const ALBUMS_CSV_HEADERS = ["Album", "Artist", "Genre", "Release Date", "Listened On", "Favorite Songs", "Rating", "Hidden Ranking"];
@@ -68,7 +69,7 @@ function getExtensionFromList(listType) {
     return extension
 }
 
-
+// TODO: add layout to url
 /**
  * Updates the website URL with the current list and year parameters
  */
@@ -150,19 +151,24 @@ document.addEventListener("DOMContentLoaded", async function() {
 });
 
 
-/*********************
- **** GRID LAYOUT ****
- ********************/
- let LAYOUT = "TABLE"
- document.getElementById("layout-button").addEventListener("click", function(event) {
+/********************
+**** GRID LAYOUT ****
+********************/
+// TODO add function documentation
+
+document.getElementById("layout-button").addEventListener("click", function(event) {
     console.log(LAYOUT)
     if (LAYOUT == "TABLE") {
         console.log("CHANGING LAYOUT TO GRID");
+        document.getElementById("table-container").classList.remove("container");
+        document.getElementById("table-container").classList.add("grid-container");
         updateGrid();
         LAYOUT = "GRID";
     }
     else {
         console.log("CHANGING LAYOUT TO TABLE");
+        document.getElementById("table-container").classList.remove("grid-container");
+        document.getElementById("table-container").classList.add("container");
         updateTable();
         LAYOUT = "TABLE";
     }
@@ -200,10 +206,8 @@ function csvToGrid(data) {
         }
 
         // If this is the start of a new row, insert it. Otherwise, get the last row
-        console.log(index);
         let workingRow = (index % albumsPerRow == 0) ? newTable.insertRow(-1) : newTable.rows[newTable.rows.length - 1];
         index = index + 1;
-        console.log(index);
 
         // Get the image name to use
         let releaseYear = csvRow["Release Date"].slice(-4).toLowerCase();
@@ -221,7 +225,14 @@ function csvToGrid(data) {
 
         // Insert the image
         let cell = workingRow.insertCell();
-        cell.innerHTML = "<img src=\"" + imageFilename + "\" width=\"" + imageSize.toString() + "px\" height=\"" + imageSize.toString() + "px\">";
+        cell.classList.add("art-cell");
+
+        cell.innerHTML  = "<img class=\"art-art\" src=\"" + imageFilename + "\" width=\"200px\" height=\"200px\">";
+        cell.innerHTML += "<div class=\"art-album\">" + csvRow["Album"] + "<\div>";
+        cell.innerHTML += "<div class=\"art-artist\"> by: " + csvRow["Artist"] + "<\div>";
+        cell.innerHTML += "<div class=\"art-genre\">" + csvRow["Genre"] + "<\div>";
+        
+        highlightElementFromRating(cell, csvRow["Rating"]);
     });
 
     // Replace the entire old table with the new table
@@ -298,18 +309,18 @@ function updateTableHeaders() {
  * @param {*} row The HTML row to potentially highligh
  * @param {*} rating The album's rating used to determine if highlighting is needed
  */
-function highlightRowFromRating(row, rating) {
+function highlightElementFromRating(elem, rating) {
     if (parseInt(rating) == 10) { // For now, 10s are handled the exact same way as golds, so this doesn't really do anything
-        row.classList.add("ten");
+        elem.classList.add("ten");
     }
     else if (parseInt(rating) >= 9) {
-        row.classList.add("gold");
+        elem.classList.add("gold");
     }
     else if (parseInt(rating) >= 8) {
-        row.classList.add("silver");
+        elem.classList.add("silver");
     }
     else if (parseInt(rating) >= 7) {
-        row.classList.add("bronze");
+        elem.classList.add("bronze");
     }
 }
 
@@ -372,7 +383,7 @@ function csvToHtml(data) {
         }
 
         // Highlight the row gold/silver/bronze if the score is high enough
-        highlightRowFromRating(newRow, csvRow["Rating"]);
+        highlightElementFromRating(newRow, csvRow["Rating"]);
     });
 
     // Replace the entire old table with the new table
