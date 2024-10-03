@@ -181,43 +181,36 @@ document.addEventListener("DOMContentLoaded", async function() {
  * Updates the class of the container element (in order to change the display styling) to match the current layout
  */
 function updateLayout() {
+    // If switching to the songs list, remove the layout button
+    if (SELECTED_LIST == "Favorite Songs") {
+        document.getElementById("layout-button").classList.add("hidden");
+    }
+    else {
+        document.getElementById("layout-button").classList.remove("hidden");
+    }
+
+    // Update the actual display
     if (SELECTED_LAYOUT == "TABLE") {
         // Update the icon
-        document.getElementById("layout-button").classList.remove("fa-grid-2");
-        document.getElementById("layout-button").classList.add("fa-bars");
+        document.getElementById("layout-button").classList.remove("fa-bars");
+        document.getElementById("layout-button").classList.add("fa-grid-2");
         
         // Update the table container styling
         document.getElementById("table-container").classList.remove("grid-container");
         document.getElementById("table-container").classList.add("container");
         
-        // Update the playlist/layout container styling
-        // document.getElementById("spotify-layout-container").classList.remove("grid-container");
-        // document.getElementById("spotify-layout-container").classList.add("container");
-
         // Update the display
         updateTable();
     }
     else if (SELECTED_LAYOUT == "GRID") {
-        // Update the icon
-        document.getElementById("layout-button").classList.remove("fa-bars");
-        document.getElementById("layout-button").classList.add("fa-grid-2");
-
-        // Update the table container styling
-        document.getElementById("table-container").classList.remove("container");
-        document.getElementById("table-container").classList.add("grid-container");
-
-        // Update the playlist/layout container styling
-        // document.getElementById("spotify-layout-container").classList.remove("container");
-        // document.getElementById("spotify-layout-container").classList.add("grid-container");
-
-        // Update the display
+        // Update all the containers within the updateGrid() function
         updateGrid();
     }
 
     updateUrl();
 }
 
-//TODO: Change this to a button that shows a list image and a grid image
+
 /**
  * Handles when the change layout button is clicked
  */
@@ -313,9 +306,7 @@ function csvToGrid(data) {
         highlightElementFromRating(newCell, csvRow["Rating"]);
     });
 
-    // Replace the entire old table with the new table
-    let oldTable = document.getElementById("album-table-body");
-    oldTable.parentNode.replaceChild(newTable, oldTable);
+    return newTable;
 }
 
 
@@ -323,22 +314,45 @@ function csvToGrid(data) {
  * Handles all the updates necessary to display the currently select year album list in grid form.
  */
 function updateGrid() {
-    // Update the Spotify playlist above the table to link to the data I am displaying
-    updateSpotifyPlaylist();
-
-    // Update the headers (by removing them)
-    updateGridHeaders();
-
     // Load in the new CSV and display the new data
     let extension = getExtensionFromList(SELECTED_LIST);
     let filename = "csv/" + SELECTED_YEAR + extension + ".csv";
     d3.csv(filename).then(async function(data) {
-        csvToGrid(data);
-        // TODO: Optimize something to make this delay shorter (or none)
-        await sleep(150); // Wait for the grid to be updated
-        sortGrid();
-    });
+        // Create the new grid
+        let newTable = csvToGrid(data);
 
+        // Wait for the grid to be fully updated
+        await sleep(200);
+
+        // Hide the grid and insert it into the HTML
+        newTable.classList.add("hidden");
+        let oldTable = document.getElementById("album-table-body");
+        oldTable.parentNode.insertBefore(newTable, oldTable);
+
+        // Sort the grid while it is hidden
+        sortGrid();
+
+        // Remove the old table for good
+        newTable.classList.remove("hidden");
+        oldTable.parentNode.replaceChild(newTable, oldTable);
+
+        // I want to do all of this at the END, because creating the grid itself is so slow, and 
+        // editing the display before the grid is done will cause flickering
+
+        // Update the Spotify playlist above the table to link to the data I am displaying
+        updateSpotifyPlaylist();
+
+        // Update the headers (by removing them)
+        updateGridHeaders();
+
+        // Update the icon
+        document.getElementById("layout-button").classList.remove("fa-grid-2");
+        document.getElementById("layout-button").classList.add("fa-bars");
+
+        // Update the table container styling
+        document.getElementById("table-container").classList.remove("container");
+        document.getElementById("table-container").classList.add("grid-container");
+    });
 }
 
 
@@ -785,6 +799,7 @@ document.getElementById("list-list").addEventListener("click", async function(ev
         document.getElementById("table-container").classList.add("container");
         SELECTED_LAYOUT = "TABLE";
     }
+    updateLayout();
 
     // If switching to the songs list, remove the layout button
     if (listType == "Favorite Songs") {
