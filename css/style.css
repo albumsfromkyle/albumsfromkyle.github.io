@@ -272,8 +272,6 @@
 /************
 **** Art ****
 ************/
-
-
 .art-cell {
     width: 20%;
     text-align: center;
@@ -288,7 +286,15 @@
 }
 
 #album-list .grid-container table, .grid-container td {
-    border: none;
+    padding-top: 2rem;
+    border: 0.75rem solid transparent;
+}
+
+#album-list .grid-container td {
+    border-radius: 10%;
+}
+
+#album-list .grid-container #album-table {
     background: var(--BODY-BACKGROUND);
 }
 

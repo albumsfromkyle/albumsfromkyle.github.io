@@ -19,6 +19,9 @@ let SORTABLE_HEADERS = [""];
 
 const SHOW_RATING = SHOWN_ALBUM_HEADERS.includes("Rating");
 
+// Grid layout
+let NUM_ALBUMS_PER_ROW = 5; // TODO: Eventually make this dependant on screen size
+
 const PLAYLIST_LINKS = {
     "Albums 2024" : "https://open.spotify.com/playlist/47kfriDuaJeMqvROAlXx5E?si=6e877f70535b4eb2",
     "Songs 2024" : "https://open.spotify.com/playlist/7nzU9D67SJdgd41dLbRwcf?si=18384ce1a1d54f9d",
@@ -96,6 +99,10 @@ async function isValidListYearCombo(list, year) {
     }
 
     return true;
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 
@@ -181,13 +188,13 @@ function updateGridHeaders() {
     header.innerHTML = "";
 }
 
+
 function csvToGrid(data) {
     // Create a new table element so I can do all the replacing at once and prevent flickering
     let newTable = document.createElement('tbody');
     newTable.id = "album-table-body";
 
     // TODO: Eventually make these dependant on screen size
-    let albumsPerRow = 5;
     let imageSize = 300;
 
     let index = 0; // TODO: Maybe convert this to a regualr for loop if I am allowed to
@@ -206,7 +213,7 @@ function csvToGrid(data) {
         }
 
         // If this is the start of a new row, insert it. Otherwise, get the last row
-        let workingRow = (index % albumsPerRow == 0) ? newTable.insertRow(-1) : newTable.rows[newTable.rows.length - 1];
+        let workingRow = (index % NUM_ALBUMS_PER_ROW == 0) ? newTable.insertRow(-1) : newTable.rows[newTable.rows.length - 1];
         index = index + 1;
 
         // Get the image name to use
@@ -219,18 +226,20 @@ function csvToGrid(data) {
         let exists = await checkFileExists(imageFilename);
         if (!exists) {
             console.log("[ERROR] Image does not exist for filename " + imageFilename);
-            
+
             return;
         }
 
         // Insert the image
         let cell = workingRow.insertCell();
         cell.classList.add("art-cell");
-
         cell.innerHTML  = "<img class=\"art-art\" src=\"" + imageFilename + "\" width=\"200px\" height=\"200px\">";
-        cell.innerHTML += "<div class=\"art-album\">" + csvRow["Album"] + "<\div>";
-        cell.innerHTML += "<div class=\"art-artist\"> by: " + csvRow["Artist"] + "<\div>";
-        cell.innerHTML += "<div class=\"art-genre\">" + csvRow["Genre"] + "<\div>";
+
+        // Insert all the other album info
+        cell.innerHTML += "<div class=\"art-album\"><u>" + csvRow["Album"] + "</u></div>";
+        cell.innerHTML += "<div class=\"art-artist\"><i>By: " + csvRow["Artist"] + "</i></div>";
+        cell.innerHTML += "<div class=\"art-genre\">Genre: " + csvRow["Genre"] + "</div>";
+        cell.innerHTML += "<div class=\"art-hidden-ranking hidden\">" + csvRow["Hidden Ranking"] + "</div>";
         
         highlightElementFromRating(cell, csvRow["Rating"]);
     });
@@ -251,13 +260,71 @@ function updateGrid() {
     // Load in the new CSV and display the new data
     let extension = getExtensionFromList(SELECTED_LIST);
     let filename = "csv/" + SELECTED_YEAR + extension + ".csv";
-    d3.csv(filename).then(function(data) {
+    d3.csv(filename).then(async function(data) {
         csvToGrid(data);
+        // TODO: Optimize something to make this delay shorter (or none)
+        await sleep(100); // Wait for the grid to be updated
+        sortGrid();
     });
 
-    // Do sorting
-    // TODO
-} 
+}
+
+
+function swapAdjacentCells(topRow, botRow, topElemIndex, botElemIndex) {
+    if (topRow != botRow) {
+        // Case swapping between different rows
+        topRow.insertBefore(botRow.children[botElemIndex], topRow.children[topElemIndex]); // Move the bottom element into the top row
+        botRow.insertBefore(topRow.children[topElemIndex + 1], botRow.children[botElemIndex]); // Move the top element into the bottom row
+    }
+    else {
+        // Case swapping within the same row
+        topRow.insertBefore(topRow.children[botElemIndex], topRow.children[topElemIndex]);
+    }
+}
+
+
+function gridBubbleSort() {
+    // TODO: This is hard coded to sort by hidden ranking in descending order right now
+    let table = document.getElementById("album-table-body");
+    let numAlbums = table.getElementsByTagName("td").length; // TODO make global variable for # albums per row
+
+    // It's fine doing a simple bubble sort (performance wise) since n is always small for my tables (number of album entries will never exceed 3 digits)
+    for (let i = 0; i < numAlbums - 1; i++) {
+        
+        swapped = false;
+        
+        for (let j = 0; j < numAlbums - i - 1; j++) {
+            let topRanking = table.rows[Math.floor(j / NUM_ALBUMS_PER_ROW)].cells[j % NUM_ALBUMS_PER_ROW].querySelector(".art-hidden-ranking").innerHTML;
+            let botRanking = table.rows[Math.floor((j + 1) / NUM_ALBUMS_PER_ROW)].cells[(j + 1) % NUM_ALBUMS_PER_ROW].querySelector(".art-hidden-ranking").innerHTML;
+
+            // Convert to numbers if the column is numeric
+            if (!isNaN(topRanking) && !isNaN(botRanking)) {
+                topRanking = Number(topRanking);
+                botRanking = Number(botRanking);
+            }
+            
+            // Perform the swap depending on if we are in increasing or decreasing order
+            if (botRanking > topRanking) {
+                swapAdjacentCells(
+                    table.rows[Math.floor(j / NUM_ALBUMS_PER_ROW)],         // topRow
+                    table.rows[Math.floor((j + 1) / NUM_ALBUMS_PER_ROW)],   // botRow
+                    (j % NUM_ALBUMS_PER_ROW),                               // topIndex
+                    ((j + 1) % NUM_ALBUMS_PER_ROW)                          // botIndex
+                );
+                swapped = true;
+            }
+        }
+
+        if (swapped == false) {
+            break;
+        }
+    }
+}
+
+
+function sortGrid() {
+    gridBubbleSort();
+}
 
 
 /***********************************
@@ -790,7 +857,7 @@ function addEditingCells() {
  * Wait for all the base data to be loaded in (and sorted), and then add the new editing elements.
  */
 async function addEditingElements() {
-    await new Promise(r => setTimeout(r, 0.1*1000)); // sleep 0.1 seconds
+    await sleep(0.1*1000);
     addEditingCells();
 }
 
