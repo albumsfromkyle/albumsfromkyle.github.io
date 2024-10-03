@@ -76,7 +76,7 @@ function getExtensionFromList(listType) {
 
 
 /**
- * Updates the website URL with the current list and year parameters
+ * Updates the website URL with the current list, year, and layout parameters
  */
 function updateUrl() {
     let newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + 
@@ -106,6 +106,11 @@ async function isValidListYearCombo(list, year) {
 }
 
 
+/**
+ * Sleeps, and then returns.
+ * @param {*} ms Number of milliseconds to sleep.
+ * @returns Promise indicating the sleep is done.
+ */
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -172,7 +177,9 @@ document.addEventListener("DOMContentLoaded", async function() {
 /******************************
 **** GRID LAYOUT FUNCTIONS ****
 ******************************/
-// TODO add function documentation
+/**
+ * Updates the class of the container element (in order to change the display styling) to match the current layout
+ */
 function updateLayout() {
     if (SELECTED_LAYOUT == "TABLE") {
         document.getElementById("table-container").classList.remove("grid-container");
@@ -188,7 +195,10 @@ function updateLayout() {
     updateUrl();
 }
 
-
+//TODO: Change this to a button that shows a list image and a grid image
+/**
+ * Handles when the change layout button is clicked
+ */
 document.getElementById("layout-button").addEventListener("click", function(event) {
     if (SELECTED_LAYOUT == "TABLE") {
         SELECTED_LAYOUT = "GRID";
@@ -201,6 +211,9 @@ document.getElementById("layout-button").addEventListener("click", function(even
 });
 
 
+/**
+ * Updates the headers of the display table to the grid style (AKA it removes the headers)
+ */
 function updateGridHeaders() {
     // Clear the current headers
     let header = document.getElementById("table-headers");
@@ -208,6 +221,13 @@ function updateGridHeaders() {
 }
 
 
+/**
+ * Converts a CSV row (which represents an album), and turns it into an image element along with supporting info.
+ * The result is a single album "grid block."
+ * @param {*} csvRow The row of CSV data to convert into an album "grid block."
+ * @param {*} workingRow The HTML row to insert the HTML album "grid block" into.
+ * @returns The HTML element of the album "grid block" created.
+ */
 async function csvRowToGridImage(csvRow, workingRow) {
     let releaseYear = csvRow["Release Date"].slice(-4).toLowerCase();
     let albumName = csvRow["Album"].replace(/[^\p{L}\p{N}]+/gu,"").toLowerCase();
@@ -237,6 +257,10 @@ async function csvRowToGridImage(csvRow, workingRow) {
 }
 
 
+/**
+ * Converts the album list CSV data into a grid of albums (along with their title, artist, and genre).
+ * @param {*} data 
+ */
 function csvToGrid(data) {
     // Create a new table element so I can do all the replacing at once and prevent flickering
     let newTable = document.createElement('tbody');
@@ -273,6 +297,9 @@ function csvToGrid(data) {
 }
 
 
+/**
+ * Handles all the updates necessary to display the currently select year album list in grid form.
+ */
 function updateGrid() {
     // Update the Spotify playlist above the table to link to the data I am displaying
     updateSpotifyPlaylist();
@@ -296,6 +323,13 @@ function updateGrid() {
 /*******************************
 **** GRID SORTING FUNCTIONS ****
 *******************************/
+/**
+ * Swaps two "adjacent" cells in the grid table. Is capable of swapping cells spanning different rows.
+ * @param {*} topRow Top row HTML element (of the two adjacent rows to swap).
+ * @param {*} botRow Bottom row HTML element (of the two adjacent rows to swap).
+ * @param {*} topElemIndex Index of top cell within the topRow to swap.
+ * @param {*} botElemIndex  Index of bottom cell within the botRow to swap.
+ */
 function swapAdjacentCells(topRow, botRow, topElemIndex, botElemIndex) {
     if (topRow != botRow) {
         // Case swapping between different rows
@@ -309,6 +343,9 @@ function swapAdjacentCells(topRow, botRow, topElemIndex, botElemIndex) {
 }
 
 
+/**
+ * Sorts the album grid blocks in order of highest hidden ranking to lowest.
+ */
 function gridBubbleSort() {
     // NOTE: This is hard coded to sort by hidden ranking in descending order right now
     let table = document.getElementById("album-table-body");
@@ -348,6 +385,9 @@ function gridBubbleSort() {
 }
 
 
+/**
+ * gridBubbleSort() wrapper
+ */
 function sortGrid() {
     gridBubbleSort();
 }
@@ -512,6 +552,9 @@ function updateTable() {
 }
 
 
+/**
+ * Update the display being shown, depending on what layout is selected (table or grid).
+ */
 function updateDisplay() {
     if (SELECTED_LAYOUT == "TABLE") {
         updateTable();
