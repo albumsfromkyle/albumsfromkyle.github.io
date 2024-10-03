@@ -21,7 +21,7 @@ const SHOW_RATING = SHOWN_ALBUM_HEADERS.includes("Rating");
 
 // Grid layout
 let NUM_ALBUMS_PER_ROW = 5; // TODO: Eventually make this dependant on screen size
-let IMAGE_SIZE = 300;
+let IMAGE_SIZE = 300; // TODO: Eventually make this dependant on screen size
 
 // Helper constants
 const PLAYLIST_LINKS = {
@@ -74,13 +74,15 @@ function getExtensionFromList(listType) {
     return extension
 }
 
-// TODO: add layout to url
+
 /**
  * Updates the website URL with the current list and year parameters
  */
 function updateUrl() {
     let newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + 
-                 '?list=' + (SELECTED_LIST == "Favorite Albums" ? "albums" : "songs") + '&year=' + SELECTED_YEAR;
+                 "?list=" + (SELECTED_LIST == "Favorite Albums" ? "albums" : "songs") + 
+                 "&year=" + SELECTED_YEAR +
+                 "&layout=" + SELECTED_LAYOUT.toLowerCase();
     window.history.pushState({ path: newUrl }, '', newUrl);
 }
 
@@ -129,11 +131,13 @@ function getQueryParam(param) {
 document.addEventListener("DOMContentLoaded", async function() {
     // Get the parameters to load from the URL
     // (Or the get the defaults otherwise)
-    let listQuery = getQueryParam('list');
-    let yearQuery = getQueryParam('year');
+    let listQuery = getQueryParam("list");
+    let yearQuery = getQueryParam("year");
+    let layoutQuery = getQueryParam("layout");
 
     SELECTED_LIST = listQuery ? (listQuery == "albums" ? "Favorite Albums" : "Favorite Songs") : "Favorite Albums";
     SELECTED_YEAR = yearQuery ? yearQuery : CURRENT_YEAR;
+    SELECTED_LAYOUT = layoutQuery ? layoutQuery.toUpperCase() : SELECTED_LAYOUT;
 
     // If the parameters are not valid (there is not list for that year/list combination), then use defaults
     if (!await isValidListYearCombo(SELECTED_LIST, SELECTED_YEAR)) {
@@ -144,9 +148,13 @@ document.addEventListener("DOMContentLoaded", async function() {
 
     console.log("LOADING LIST " + SELECTED_LIST);
     console.log("LOADING YEAR " + SELECTED_YEAR);
+    console.log("LOADING LAYOUT " + SELECTED_LAYOUT);
 
     // Update the new URL
     updateUrl();
+
+    // Update the current layout design
+    updateLayout();
 
     // Update the table to display the correct data
     updateDisplay();
@@ -165,19 +173,30 @@ document.addEventListener("DOMContentLoaded", async function() {
 **** GRID LAYOUT FUNCTIONS ****
 ******************************/
 // TODO add function documentation
-
-document.getElementById("layout-button").addEventListener("click", function(event) {
+function updateLayout() {
     if (SELECTED_LAYOUT == "TABLE") {
-        document.getElementById("table-container").classList.remove("container"); // TODO refactor
-        document.getElementById("table-container").classList.add("grid-container");
-        updateGrid();
-        SELECTED_LAYOUT = "GRID";
-    }
-    else {
         document.getElementById("table-container").classList.remove("grid-container");
         document.getElementById("table-container").classList.add("container");
         updateTable();
+    }
+    else if (SELECTED_LAYOUT == "GRID") {
+        document.getElementById("table-container").classList.remove("container");
+        document.getElementById("table-container").classList.add("grid-container");
+        updateGrid();
+    }
+
+    updateUrl();
+}
+
+
+document.getElementById("layout-button").addEventListener("click", function(event) {
+    if (SELECTED_LAYOUT == "TABLE") {
+        SELECTED_LAYOUT = "GRID";
+        updateLayout();
+    }
+    else {
         SELECTED_LAYOUT = "TABLE";
+        updateLayout();
     }
 });
 
@@ -291,7 +310,7 @@ function swapAdjacentCells(topRow, botRow, topElemIndex, botElemIndex) {
 
 
 function gridBubbleSort() {
-    // TODO: This is hard coded to sort by hidden ranking in descending order right now
+    // NOTE: This is hard coded to sort by hidden ranking in descending order right now
     let table = document.getElementById("album-table-body");
     let numAlbums = table.getElementsByTagName("td").length;
 
