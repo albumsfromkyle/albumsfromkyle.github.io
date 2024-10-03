@@ -39,7 +39,8 @@ def send_spotify_art_GET(track_id):
 def download_image_from_url(url, year, artist_name, album_name, size):
     # If this URL has already been seen, skip downloading
     if url in seen:
-        return False
+        print("Already seen")
+        return True
     seen.append(url)
 
     Path("../images/albums/" + year + "/").mkdir(parents=True, exist_ok=True)
@@ -47,7 +48,8 @@ def download_image_from_url(url, year, artist_name, album_name, size):
 
     # Skip if this image is already downloaded
     if Path(filename).is_file():
-        return False
+        print("Already downloaded")
+        return True
 
     # Otherwise, download the image
     response = requests.get(url)
@@ -58,7 +60,9 @@ def download_image_from_url(url, year, artist_name, album_name, size):
             file.write(response.content)
         return True
     
-    return False
+    # Return false if the download failed
+    else:
+        return False
 
 
 if __name__ == "__main__":
@@ -98,7 +102,12 @@ if __name__ == "__main__":
         if len(year) < 4:
             continue
 
-        download_image_from_url(url_640, year, artist_name, album_name, 640)
-        download_image_from_url(url_300, year, artist_name, album_name, 300)
-        download_image_from_url(url_64, year, artist_name, album_name, 64)
+        print("download_image_from_url(" + url_300 + ", " + year + ", " + artist_name + ", " + album_name + ", 640)")
+
+        if not download_image_from_url(url_640, year, artist_name, album_name, 640):
+            print("[ERROR] Downloading 640px image")
+        if not download_image_from_url(url_300, year, artist_name, album_name, 300):
+            print("[ERROR] Downloading 3px image")
+        if not download_image_from_url(url_64, year, artist_name, album_name, 64):
+            print("[ERROR] Downloading 64px image")
 
