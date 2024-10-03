@@ -182,13 +182,35 @@ document.addEventListener("DOMContentLoaded", async function() {
  */
 function updateLayout() {
     if (SELECTED_LAYOUT == "TABLE") {
+        // Update the icon
+        document.getElementById("layout-button").classList.remove("fa-grid-2");
+        document.getElementById("layout-button").classList.add("fa-bars");
+        
+        // Update the table container styling
         document.getElementById("table-container").classList.remove("grid-container");
         document.getElementById("table-container").classList.add("container");
+        
+        // Update the playlist/layout container styling
+        // document.getElementById("spotify-layout-container").classList.remove("grid-container");
+        // document.getElementById("spotify-layout-container").classList.add("container");
+
+        // Update the display
         updateTable();
     }
     else if (SELECTED_LAYOUT == "GRID") {
+        // Update the icon
+        document.getElementById("layout-button").classList.remove("fa-bars");
+        document.getElementById("layout-button").classList.add("fa-grid-2");
+
+        // Update the table container styling
         document.getElementById("table-container").classList.remove("container");
         document.getElementById("table-container").classList.add("grid-container");
+
+        // Update the playlist/layout container styling
+        // document.getElementById("spotify-layout-container").classList.remove("container");
+        // document.getElementById("spotify-layout-container").classList.add("grid-container");
+
+        // Update the display
         updateGrid();
     }
 
@@ -313,7 +335,7 @@ function updateGrid() {
     d3.csv(filename).then(async function(data) {
         csvToGrid(data);
         // TODO: Optimize something to make this delay shorter (or none)
-        await sleep(100); // Wait for the grid to be updated
+        await sleep(150); // Wait for the grid to be updated
         sortGrid();
     });
 
