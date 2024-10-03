@@ -103,6 +103,7 @@ async function isValidListYearCombo(list, year) {
     return true;
 }
 
+
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -148,7 +149,7 @@ document.addEventListener("DOMContentLoaded", async function() {
     updateUrl();
 
     // Update the table to display the correct data
-    updateTable();
+    updateDisplay();
 
     // Update the List Selector navbar to display the correct list being selected
     updateActiveList();
@@ -160,9 +161,9 @@ document.addEventListener("DOMContentLoaded", async function() {
 });
 
 
-/********************
-**** GRID LAYOUT ****
-********************/
+/******************************
+**** GRID LAYOUT FUNCTIONS ****
+******************************/
 // TODO add function documentation
 
 document.getElementById("layout-button").addEventListener("click", function(event) {
@@ -185,6 +186,35 @@ function updateGridHeaders() {
     // Clear the current headers
     let header = document.getElementById("table-headers");
     header.innerHTML = "";
+}
+
+
+async function csvRowToGridImage(csvRow, workingRow) {
+    let releaseYear = csvRow["Release Date"].slice(-4).toLowerCase();
+    let albumName = csvRow["Album"].replace(/[^\p{L}\p{N}]+/gu,"").toLowerCase();
+    let artistName = csvRow["Artist"].split(",")[0].replace(/[^\p{L}\p{N}]+/gu,"").toLowerCase();
+    let imageFilename = "images/albums/" + releaseYear + "/" + artistName + "_" + albumName + "_" + IMAGE_SIZE + ".jpg";
+
+    // Make sure the image exists
+    let exists = await checkFileExists(imageFilename);
+    if (!exists) {
+        console.log("[ERROR] Image does not exist for filename " + imageFilename);
+
+        return;
+    }
+
+    // Insert the image
+    let cell = workingRow.insertCell();
+    cell.classList.add("art-cell");
+    cell.innerHTML  = "<img class=\"art-art\" src=\"" + imageFilename + "\" width=\"200px\" height=\"200px\">";
+
+    // Insert all the other album info
+    cell.innerHTML += "<div class=\"art-album\"><u>" + csvRow["Album"] + "</u></div>";
+    cell.innerHTML += "<div class=\"art-artist\"><i>By: " + csvRow["Artist"] + "</i></div>";
+    cell.innerHTML += "<div class=\"art-genre\">Genre: " + csvRow["Genre"] + "</div>";
+    cell.innerHTML += "<div class=\"art-hidden-ranking hidden\">" + csvRow["Hidden Ranking"] + "</div>";
+
+    return cell;
 }
 
 
@@ -212,32 +242,10 @@ function csvToGrid(data) {
         let workingRow = (index % NUM_ALBUMS_PER_ROW == 0) ? newTable.insertRow(-1) : newTable.rows[newTable.rows.length - 1];
         index = index + 1;
 
-        // Get the image name to use
-        let releaseYear = csvRow["Release Date"].slice(-4).toLowerCase();
-        let albumName = csvRow["Album"].replace(/[^\p{L}\p{N}]+/gu,"").toLowerCase();
-        let artistName = csvRow["Artist"].split(",")[0].replace(/[^\p{L}\p{N}]+/gu,"").toLowerCase();
-        let imageFilename = "images/albums/" + releaseYear + "/" + artistName + "_" + albumName + "_" + IMAGE_SIZE + ".jpg";
-
-        // Make sure the image exists
-        let exists = await checkFileExists(imageFilename);
-        if (!exists) {
-            console.log("[ERROR] Image does not exist for filename " + imageFilename);
-
-            return;
-        }
-
-        // Insert the image
-        let cell = workingRow.insertCell();
-        cell.classList.add("art-cell");
-        cell.innerHTML  = "<img class=\"art-art\" src=\"" + imageFilename + "\" width=\"200px\" height=\"200px\">";
-
-        // Insert all the other album info
-        cell.innerHTML += "<div class=\"art-album\"><u>" + csvRow["Album"] + "</u></div>";
-        cell.innerHTML += "<div class=\"art-artist\"><i>By: " + csvRow["Artist"] + "</i></div>";
-        cell.innerHTML += "<div class=\"art-genre\">Genre: " + csvRow["Genre"] + "</div>";
-        cell.innerHTML += "<div class=\"art-hidden-ranking hidden\">" + csvRow["Hidden Ranking"] + "</div>";
+        // Insert the new image grid element
+        let newCell = await csvRowToGridImage(csvRow, workingRow);
         
-        highlightElementFromRating(cell, csvRow["Rating"]);
+        highlightElementFromRating(newCell, csvRow["Rating"]);
     });
 
     // Replace the entire old table with the new table
@@ -266,6 +274,9 @@ function updateGrid() {
 }
 
 
+/*******************************
+**** GRID SORTING FUNCTIONS ****
+*******************************/
 function swapAdjacentCells(topRow, botRow, topElemIndex, botElemIndex) {
     if (topRow != botRow) {
         // Case swapping between different rows
@@ -395,7 +406,7 @@ function highlightElementFromRating(elem, rating) {
  * @param {*} csvRow The CSV row object containing the data to transfer
  * @param {*} defaultVal The default value to use if the CSV cell is empty or does not exist (default of "-")
  */
-function convertCsvRowToHtmlRow(htmlRow, headersToShow, csvRow, defaultVal = "-") {
+function csvRowToTableRow(htmlRow, headersToShow, csvRow, defaultVal = "-") {
     // Add each piece of info in the CSV to the HTML table
     for (const [key, value] of Object.entries(csvRow)) {
         let cell = htmlRow.insertCell();
@@ -413,7 +424,7 @@ function convertCsvRowToHtmlRow(htmlRow, headersToShow, csvRow, defaultVal = "-"
  * Loads all the data in the passed in CSV into the HTML albums table.
  * @param {*} data 
  */
-function csvToHtml(data) {
+function csvToTable(data) {
     // Create a new table element so I can do all the replacing at once and prevent flickering
     let newTable = document.createElement('tbody');
     newTable.id = "album-table-body";
@@ -439,10 +450,10 @@ function csvToHtml(data) {
 
         // Populate the row depending on what list is selected
         if (SELECTED_LIST == "Favorite Albums") {
-            convertCsvRowToHtmlRow(newRow, SHOWN_ALBUM_HEADERS, csvRow);
+            csvRowToTableRow(newRow, SHOWN_ALBUM_HEADERS, csvRow);
         }
         else if (SELECTED_LIST == "Favorite Songs") {
-            convertCsvRowToHtmlRow(newRow, SHOWN_SONG_HEADERS, csvRow);
+            csvRowToTableRow(newRow, SHOWN_SONG_HEADERS, csvRow);
         }
 
         // Highlight the row gold/silver/bronze if the score is high enough
@@ -471,7 +482,7 @@ function updateTable() {
     let extension = getExtensionFromList(SELECTED_LIST);
     let filename = "csv/" + SELECTED_YEAR + extension + ".csv";
     d3.csv(filename).then(function(data) {
-        csvToHtml(data);
+        csvToTable(data);
 
         // Sort the data in the table (if needed)
         // NOTE: This WONT WORK if it is pasted after the d3.csv() call, and idk why
@@ -479,6 +490,16 @@ function updateTable() {
             sortTable(ALBUMS_CSV_HEADERS.indexOf("Hidden Ranking"));
         }
     });
+}
+
+
+function updateDisplay() {
+    if (SELECTED_LAYOUT == "TABLE") {
+        updateTable();
+    }
+    else {
+        updateGrid();
+    }
 }
 
 
@@ -625,9 +646,9 @@ function hideAlertBanner() {
  * @param {*} list The invalid list
  * @param {*} year The invalid year
  */
-function showAlertBanner(list, year) {
+function showAlertBanner(msg) {
     let alertMsg = document.getElementById("alert-msg");
-    alertMsg.innerHTML = "\"" + list + "\" list does not exist for " + year;
+    alertMsg.innerHTML = msg;
     
     let alert = document.getElementById("alert-banner");
     alert.classList.remove("hidden");
@@ -664,7 +685,7 @@ document.getElementById("year-list").addEventListener("click", async function(ev
     
     updateUrl();
     updateActiveYear();
-    updateTable();
+    updateDisplay();
 });
 
 
@@ -674,13 +695,28 @@ document.getElementById("year-list").addEventListener("click", async function(ev
 document.getElementById("list-list").addEventListener("click", async function(event) {
     let listType = event.target.innerHTML;
 
+    // Always default to grid layout when switching lists
+    if (SELECTED_LAYOUT == "GRID") {
+        document.getElementById("table-container").classList.remove("grid-container");
+        document.getElementById("table-container").classList.add("container");
+        SELECTED_LAYOUT = "TABLE";
+    }
+
+    // If switching to the songs list, remove the layout button
+    if (listType == "Favorite Songs") {
+        document.getElementById("layout-button").classList.add("hidden");
+    }
+    else {
+        document.getElementById("layout-button").classList.remove("hidden");
+    }
+
     // If a CSV for this year/list does not exist, show an error banner and go back to the default page
     if (!await isValidListYearCombo(listType, SELECTED_YEAR)) {
-        showAlertBanner(listType, SELECTED_YEAR)
+        showAlertBanner("\"" + listType + "\" list does not exist for " + SELECTED_YEAR);
         SELECTED_YEAR = CURRENT_YEAR;
         updateYearListInRange(SELECTED_YEAR);
         // Do not return, instead send the user to the current year (which should have both lists)
-    }   
+    }
     
     // Set the currently selected list and change the active button
     SELECTED_LIST = listType;
@@ -689,7 +725,7 @@ document.getElementById("list-list").addEventListener("click", async function(ev
     updateActiveList();
     grayOutMissingYears();
     updateActiveYear();
-    updateTable();
+    updateDisplay();
 });
 
 
