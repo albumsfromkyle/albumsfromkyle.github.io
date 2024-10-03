@@ -6,9 +6,9 @@ const NUM_YEARS_TO_SHOW = 5;
 // Selectors
 let SELECTED_YEAR = CURRENT_YEAR; // Default year to show
 let SELECTED_LIST = "Favorite Albums"; // Default list to show
-let LAYOUT = "TABLE"; // Default layout to show
+let SELECTED_LAYOUT = "TABLE"; // Default layout to show
 
-// Headers
+// Table headers
 const ALBUMS_CSV_HEADERS = ["Album", "Artist", "Genre", "Release Date", "Listened On", "Favorite Songs", "Rating", "Hidden Ranking"];
 let SHOWN_ALBUM_HEADERS = ["Album", "Artist", "Genre", "Favorite Songs"];
 
@@ -21,7 +21,9 @@ const SHOW_RATING = SHOWN_ALBUM_HEADERS.includes("Rating");
 
 // Grid layout
 let NUM_ALBUMS_PER_ROW = 5; // TODO: Eventually make this dependant on screen size
+let IMAGE_SIZE = 300;
 
+// Helper constants
 const PLAYLIST_LINKS = {
     "Albums 2024" : "https://open.spotify.com/playlist/47kfriDuaJeMqvROAlXx5E?si=6e877f70535b4eb2",
     "Songs 2024" : "https://open.spotify.com/playlist/7nzU9D67SJdgd41dLbRwcf?si=18384ce1a1d54f9d",
@@ -164,20 +166,17 @@ document.addEventListener("DOMContentLoaded", async function() {
 // TODO add function documentation
 
 document.getElementById("layout-button").addEventListener("click", function(event) {
-    console.log(LAYOUT)
-    if (LAYOUT == "TABLE") {
-        console.log("CHANGING LAYOUT TO GRID");
-        document.getElementById("table-container").classList.remove("container");
+    if (SELECTED_LAYOUT == "TABLE") {
+        document.getElementById("table-container").classList.remove("container"); // TODO refactor
         document.getElementById("table-container").classList.add("grid-container");
         updateGrid();
-        LAYOUT = "GRID";
+        SELECTED_LAYOUT = "GRID";
     }
     else {
-        console.log("CHANGING LAYOUT TO TABLE");
         document.getElementById("table-container").classList.remove("grid-container");
         document.getElementById("table-container").classList.add("container");
         updateTable();
-        LAYOUT = "TABLE";
+        SELECTED_LAYOUT = "TABLE";
     }
 });
 
@@ -194,10 +193,7 @@ function csvToGrid(data) {
     let newTable = document.createElement('tbody');
     newTable.id = "album-table-body";
 
-    // TODO: Eventually make these dependant on screen size
-    let imageSize = 300;
-
-    let index = 0; // TODO: Maybe convert this to a regualr for loop if I am allowed to
+    let index = 0;
     data.forEach(async function(csvRow) {
         // Some previous lists include albums from ANY year. I want to exclude those for now, and only include albums release the selected year
         let releaseDate = Date.parse( csvRow["Release Date"] );
@@ -220,7 +216,7 @@ function csvToGrid(data) {
         let releaseYear = csvRow["Release Date"].slice(-4).toLowerCase();
         let albumName = csvRow["Album"].replace(/[^\p{L}\p{N}]+/gu,"").toLowerCase();
         let artistName = csvRow["Artist"].split(",")[0].replace(/[^\p{L}\p{N}]+/gu,"").toLowerCase();
-        let imageFilename = "images/albums/" + releaseYear + "/" + artistName + "_" + albumName + "_" + imageSize + ".jpg";
+        let imageFilename = "images/albums/" + releaseYear + "/" + artistName + "_" + albumName + "_" + IMAGE_SIZE + ".jpg";
 
         // Make sure the image exists
         let exists = await checkFileExists(imageFilename);
@@ -286,7 +282,7 @@ function swapAdjacentCells(topRow, botRow, topElemIndex, botElemIndex) {
 function gridBubbleSort() {
     // TODO: This is hard coded to sort by hidden ranking in descending order right now
     let table = document.getElementById("album-table-body");
-    let numAlbums = table.getElementsByTagName("td").length; // TODO make global variable for # albums per row
+    let numAlbums = table.getElementsByTagName("td").length;
 
     // It's fine doing a simple bubble sort (performance wise) since n is always small for my tables (number of album entries will never exceed 3 digits)
     for (let i = 0; i < numAlbums - 1; i++) {
