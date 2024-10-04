@@ -135,10 +135,7 @@ function getQueryParam(param) {
  */
 document.addEventListener("DOMContentLoaded", async function() {
     // Preload all the images by created a grid for each year
-    for (let year = OLDEST_YEAR; year <= CURRENT_YEAR; year++) {
-        await createGrid(year);
-    }
-
+    createAllGrids()
 
     // Get the parameters to load from the URL
     // (Or the get the defaults otherwise)
@@ -184,6 +181,13 @@ document.addEventListener("DOMContentLoaded", async function() {
 /******************************
 **** GRID LAYOUT FUNCTIONS ****
 ******************************/
+function createAllGrids() {
+    for (let year = OLDEST_YEAR; year <= CURRENT_YEAR; year++) {
+        createGrid(year);
+    }
+}
+
+
 /**
  * Determines how many albums are displayed per row in the grid layout, depending on the screen width
  */
@@ -210,57 +214,52 @@ let resizeTimeout;
 window.addEventListener('resize', function() {
     // Clear the timeout every time resize is triggered
     clearTimeout(resizeTimeout);
-  
+
     // Set a timeout to run after resizing stops (e.g., 200ms delay)
     resizeTimeout = setTimeout(function() {
         if (SELECTED_LAYOUT != "GRID") {
             return;
         }
-    
+
         let prev = NUM_ALBUMS_PER_ROW;
         setGridAlbumsPerRow();
-    
+
         if (NUM_ALBUMS_PER_ROW != prev) {
-            updateGrid();
-            
+            createAllGrids();
+            updateLayout();
         }
     }, 200);
-  });
+});
+
+
+function updateLayoutButton() {
+    let layout_button =  document.getElementById("layout-button");
+
+    // Remove the layout button for the songs list
+    (SELECTED_LIST == "Favorite Songs") ? layout_button.classList.add("hidden") : layout_button.classList.remove("hidden");
+
+    // Update the icon to match the layout
+    (SELECTED_LAYOUT == "TABLE") ? layout_button.classList.replace("fa-bars", "fa-grid-2") : layout_button.classList.replace("fa-grid-2", "fa-bars");
+}
 
 
 /**
  * Updates the class of the container element (in order to change the display styling) to match the current layout
  */
 function updateLayout() {
-    // If switching to the songs list, remove the layout button
-    if (SELECTED_LIST == "Favorite Songs") {
-        document.getElementById("layout-button").classList.add("hidden");
-    }
-    else {
-        document.getElementById("layout-button").classList.remove("hidden");
-    }
+    updateLayoutButton();
 
     // Update the actual display
     if (SELECTED_LAYOUT == "TABLE") {
-        // Update the icon
-        document.getElementById("layout-button").classList.remove("fa-bars");
-        document.getElementById("layout-button").classList.add("fa-grid-2");
-        
         // Update the table container styling
-        document.getElementById("table-container").classList.remove("grid-container");
-        document.getElementById("table-container").classList.add("container");
+        document.getElementById("table-container").classList.replace("grid-container", "container");
 
         // Update the display
         updateTable();
     }
     else if (SELECTED_LAYOUT == "GRID") {
-        // Update the icon
-        document.getElementById("layout-button").classList.remove("fa-grid-2");
-        document.getElementById("layout-button").classList.add("fa-bars");
-
         // Update the table container styling
-        document.getElementById("table-container").classList.remove("container");
-        document.getElementById("table-container").classList.add("grid-container");
+        document.getElementById("table-container").classList.replace("container", "grid-container");
 
         // Update all the containers within the updateGrid() function
         updateGrid();
@@ -400,8 +399,6 @@ function csvToSortedCsvList(data, year) {
  * Handles all the updates necessary to display the currently select year album list in grid form.
  */
 async function createGrid(year) {
-    console.log("Creating grid for year " + year);
-
     // Load in the new CSV and display the new data
     let extension = getExtensionFromList("Favorite Albums");
     let filename = "csv/" + year + extension + ".csv";
@@ -426,8 +423,15 @@ async function createGrid(year) {
 
         // Hide the grid and insert it into the HTML
         newTable.classList.add("hidden");
-        let oldTable = document.getElementById("album-table-body");
-        oldTable.parentNode.appendChild(newTable);
+
+        // If this grid already exists, replace it
+        if (document.getElementById(newTable.id)) {
+            document.getElementById(newTable.id).innerHTML = newTable.innerHTML;
+        }
+        // Otherwise, add it
+        else {
+            document.getElementById("album-table-body").parentNode.appendChild(newTable);
+        }
     });
 }
 
@@ -442,13 +446,16 @@ function updateGrid() {
     // Update the headers (by removing them)
     updateGridHeaders();
 
-    // Hide the main table, and show the gird
+    // Hide the main table,
     document.getElementById("album-table-body").classList.add("hidden");
     
+    // Hide each year's grid
     for (let year = OLDEST_YEAR; year <= CURRENT_YEAR; year++) {
         let grid = document.getElementById("album-grid-" + year);
         grid ? grid.classList.add("hidden") : null;
     }
+    
+    // Show the selected years grid (or default to showing the table if there is none)
     let grid = document.getElementById("album-grid-" + SELECTED_YEAR);
     if (grid != null) {
         grid.classList.remove("hidden");
