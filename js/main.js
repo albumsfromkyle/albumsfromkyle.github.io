@@ -182,7 +182,6 @@ document.addEventListener("DOMContentLoaded", async function() {
  * Determines how many albums are displayed per row in the grid layout, depending on the screen width
  */
 function setGridAlbumsPerRow() {
-    console.log(window.innerWidth);
     if (window.innerWidth < 600) {
         NUM_ALBUMS_PER_ROW = 2;
         IMAGE_SIZE = 135;
@@ -319,16 +318,51 @@ async function csvRowToGridImage(csvRow, workingRow) {
 
 
 /**
- * Converts the album list CSV data into a grid of albums (along with their title, artist, and genre).
- * @param {*} data 
+ * Sort a list of values in descending order by hidden ranking.
+ * @param {*} listToSort The list to sort, where each element is a dictionary with a "Hidden Ranking" value.
+ * @returns The sorted list.
  */
-function csvToGrid(data) {
-    // Create a new table element so I can do all the replacing at once and prevent flickering
-    let newTable = document.createElement('tbody');
-    newTable.id = "album-table-body";
+function listBubbleSort(listToSort) {
+    // It's fine doing a simple bubble sort (performance wise) since n is always small for my tables (number of album entries will never exceed 3 digits)
+    for (let i = 0; i < listToSort.length - 1; i++) {
+        
+        swapped = false;
+        
+        for (let j = 0; j < listToSort.length - i - 1; j++) {
+            let topRanking = listToSort[j]["Hidden Ranking"];
+            let botRanking = listToSort[j + 1]["Hidden Ranking"];
 
-    let index = 0;
-    data.forEach(async function(csvRow) {
+            // Convert to numbers if the column is numeric
+            if (!isNaN(topRanking) && !isNaN(botRanking)) {
+                topRanking = Number(topRanking);
+                botRanking = Number(botRanking);
+            }
+            
+            // Perform the swap depending on if we are in increasing or decreasing order
+            if (botRanking > topRanking) {
+                let temp = listToSort[j];
+                listToSort[j] = listToSort[j + 1];
+                listToSort[j + 1] = temp;
+                swapped = true;
+            }
+        }
+
+        if (swapped == false) {
+            break;
+        }
+    }
+
+    return listToSort;
+}
+
+
+/**
+ * Converts the album list CSV data into a sorted list of the same CSV data.
+ * @param {*} data The CSV data.
+ */
+function csvToSortedCsvList(data) {
+    let listToSort = [];
+    data.forEach(function(csvRow) {
         // Some previous lists include albums from ANY year. I want to exclude those for now, and only include albums release the selected year
         let releaseDate = Date.parse( csvRow["Release Date"] );
         if (releaseDate < Date.parse("1/1/" + SELECTED_YEAR)) {
@@ -342,17 +376,10 @@ function csvToGrid(data) {
             }
         }
 
-        // If this is the start of a new row, insert it. Otherwise, get the last row
-        let workingRow = (index % NUM_ALBUMS_PER_ROW == 0) ? newTable.insertRow(-1) : newTable.rows[newTable.rows.length - 1];
-        index = index + 1;
-
-        // Insert the new image grid element
-        let newCell = await csvRowToGridImage(csvRow, workingRow);
-        
-        highlightElementFromRating(newCell, csvRow["Rating"]);
+        listToSort.push(csvRow);
     });
 
-    return newTable;
+    return listBubbleSort(listToSort);
 }
 
 
@@ -364,27 +391,27 @@ function updateGrid() {
     let extension = getExtensionFromList(SELECTED_LIST);
     let filename = "csv/" + SELECTED_YEAR + extension + ".csv";
     d3.csv(filename).then(async function(data) {
-        // Create the new grid
-        let newTable = csvToGrid(data);
+        // Create the list of CSV data
+        let sortedCsvList = csvToSortedCsvList(data);
 
-        // Wait for the grid to be fully updated
-        await sleep(300);
+        // Convert the list into the grid
+        let newTable = document.createElement('tbody');
+        newTable.id = "album-table-body";
+        let index = 0;
+        for (csvRow of sortedCsvList) {
+            // If this is the start of a new row, insert it. Otherwise, get the last row
+            let workingRow = (index % NUM_ALBUMS_PER_ROW == 0) ? newTable.insertRow(-1) : newTable.rows[newTable.rows.length - 1];
+            index = index + 1;
+
+            // Insert the new image grid element
+            let newCell = await csvRowToGridImage(csvRow, workingRow);
+            
+            highlightElementFromRating(newCell, csvRow["Rating"]);
+        }
 
         // Hide the grid and insert it into the HTML
-        newTable.classList.add("hidden");
         let oldTable = document.getElementById("album-table-body");
-        oldTable.parentNode.insertBefore(newTable, oldTable);
-
-        // Sort the grid while it is hidden
-        sortGrid();
-
-        // Remove the old table for good
-        newTable.classList.remove("hidden");
         oldTable.parentNode.replaceChild(newTable, oldTable);
-        oldTable.remove();
-
-        // I want to do all of this at the END, because creating the grid itself is so slow, and 
-        // editing the display before the grid is done will cause flickering
 
         // Update the Spotify playlist above the table to link to the data I am displaying
         updateSpotifyPlaylist();
