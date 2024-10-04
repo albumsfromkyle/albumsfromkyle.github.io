@@ -20,8 +20,8 @@ let SORTABLE_HEADERS = [""];
 const SHOW_RATING = SHOWN_ALBUM_HEADERS.includes("Rating");
 
 // Grid layout
-let NUM_ALBUMS_PER_ROW = 5; // TODO: Eventually make this dependant on screen size
-let IMAGE_SIZE = 300; // TODO: Eventually make this dependant on screen size
+let NUM_ALBUMS_PER_ROW = 5; // Updated when window is loaded
+let IMAGE_SIZE = 200;
 
 // Helper constants
 const PLAYLIST_LINKS = {
@@ -159,6 +159,7 @@ document.addEventListener("DOMContentLoaded", async function() {
     updateUrl();
 
     // Update the current layout design
+    setGridAlbumsPerRow();
     updateLayout();
 
     // Update the table to display the correct data
@@ -177,6 +178,47 @@ document.addEventListener("DOMContentLoaded", async function() {
 /******************************
 **** GRID LAYOUT FUNCTIONS ****
 ******************************/
+/**
+ * Determines how many albums are displayed per row in the grid layout, depending on the screen width
+ */
+function setGridAlbumsPerRow() {
+    if (window.innerWidth < 400) {
+        NUM_ALBUMS_PER_ROW = 1;
+    }
+    else if (window.innerWidth < 1500) {
+        NUM_ALBUMS_PER_ROW = Math.floor(window.innerWidth / 300);
+    }
+    else {
+        NUM_ALBUMS_PER_ROW = 5;
+    }
+}
+
+
+/**
+ * Adjusts the grid layout whenever the user starts and then stops resizing the window
+ */
+let resizeTimeout;
+window.addEventListener('resize', function() {
+    // Clear the timeout every time resize is triggered
+    clearTimeout(resizeTimeout);
+  
+    // Set a timeout to run after resizing stops (e.g., 200ms delay)
+    resizeTimeout = setTimeout(function() {
+        if (SELECTED_LAYOUT != "GRID") {
+            return;
+        }
+    
+        let prev = NUM_ALBUMS_PER_ROW;
+        setGridAlbumsPerRow();
+    
+        if (NUM_ALBUMS_PER_ROW != prev) {
+            updateGrid();
+            
+        }
+    }, 200);
+  });
+
+
 /**
  * Updates the class of the container element (in order to change the display styling) to match the current layout
  */
@@ -247,7 +289,7 @@ async function csvRowToGridImage(csvRow, workingRow) {
     let releaseYear = csvRow["Release Date"].slice(-4).toLowerCase();
     let albumName = csvRow["Album"].replace(/[^\p{L}\p{N}]+/gu,"").toLowerCase();
     let artistName = csvRow["Artist"].split(",")[0].replace(/[^\p{L}\p{N}]+/gu,"").toLowerCase();
-    let imageFilename = "images/albums/" + releaseYear + "/" + artistName + "_" + albumName + "_" + IMAGE_SIZE + ".jpg";
+    let imageFilename = "images/albums/" + releaseYear + "/" + artistName + "_" + albumName + "_" + 640 + ".jpg";
 
     // Make sure the image exists
     let exists = await checkFileExists(imageFilename);
@@ -260,7 +302,7 @@ async function csvRowToGridImage(csvRow, workingRow) {
     // Insert the image
     let cell = workingRow.insertCell();
     cell.classList.add("art-cell");
-    cell.innerHTML  = "<img class=\"art-art\" src=\"" + imageFilename + "\" width=\"200px\" height=\"200px\">";
+    cell.innerHTML  = "<img class=\"art-art\" src=\"" + imageFilename + "\" width=\"" + IMAGE_SIZE + "px\" height=\"" + IMAGE_SIZE + "px\">";
 
     // Insert all the other album info
     cell.innerHTML += "<div class=\"art-album\"><u>" + csvRow["Album"] + "</u></div>";
@@ -322,7 +364,7 @@ function updateGrid() {
         let newTable = csvToGrid(data);
 
         // Wait for the grid to be fully updated
-        await sleep(200);
+        await sleep(300);
 
         // Hide the grid and insert it into the HTML
         newTable.classList.add("hidden");
@@ -335,6 +377,7 @@ function updateGrid() {
         // Remove the old table for good
         newTable.classList.remove("hidden");
         oldTable.parentNode.replaceChild(newTable, oldTable);
+        oldTable.remove();
 
         // I want to do all of this at the END, because creating the grid itself is so slow, and 
         // editing the display before the grid is done will cause flickering
