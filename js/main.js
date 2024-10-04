@@ -1,5 +1,3 @@
-import { imageUrls } from "./all_images.js";
-
 // Years
 const OLDEST_YEAR = 2018;
 const CURRENT_YEAR = parseInt(new Date().getFullYear());
@@ -136,7 +134,11 @@ function getQueryParam(param) {
  * Function that runs when the website it first loaded in. Sets up the initial view of the website
  */
 document.addEventListener("DOMContentLoaded", async function() {
-    preloadImages();
+    // Preload all the images by created a grid for each year
+    for (let year = OLDEST_YEAR; year <= CURRENT_YEAR; year++) {
+        await createGrid(year);
+    }
+
 
     // Get the parameters to load from the URL
     // (Or the get the defaults otherwise)
@@ -178,16 +180,6 @@ document.addEventListener("DOMContentLoaded", async function() {
     grayOutMissingYears();
 });
 
-
-/**
- * Loads in all the images right on load in, to hopefully prevent stuttering when loading them for the first time
- */
-function preloadImages() {
-    imageUrls.forEach((url) => {
-        const img = new Image();
-        img.src = url;
-    });
-}
 
 /******************************
 **** GRID LAYOUT FUNCTIONS ****
@@ -257,11 +249,19 @@ function updateLayout() {
         // Update the table container styling
         document.getElementById("table-container").classList.remove("grid-container");
         document.getElementById("table-container").classList.add("container");
-        
+
         // Update the display
         updateTable();
     }
     else if (SELECTED_LAYOUT == "GRID") {
+        // Update the icon
+        document.getElementById("layout-button").classList.remove("fa-grid-2");
+        document.getElementById("layout-button").classList.add("fa-bars");
+
+        // Update the table container styling
+        document.getElementById("table-container").classList.remove("container");
+        document.getElementById("table-container").classList.add("grid-container");
+
         // Update all the containers within the updateGrid() function
         updateGrid();
     }
@@ -312,7 +312,6 @@ async function csvRowToGridImage(csvRow, workingRow) {
     let exists = await checkFileExists(imageFilename);
     if (!exists) {
         console.log("[ERROR] Image does not exist for filename " + imageFilename);
-
         return;
     }
 
@@ -374,12 +373,12 @@ function listBubbleSort(listToSort) {
  * Converts the album list CSV data into a sorted list of the same CSV data.
  * @param {*} data The CSV data.
  */
-function csvToSortedCsvList(data) {
+function csvToSortedCsvList(data, year) {
     let listToSort = [];
     data.forEach(function(csvRow) {
         // Some previous lists include albums from ANY year. I want to exclude those for now, and only include albums release the selected year
         let releaseDate = Date.parse( csvRow["Release Date"] );
-        if (releaseDate < Date.parse("1/1/" + SELECTED_YEAR)) {
+        if (releaseDate < Date.parse("1/1/" + year)) {
             return;
         }
 
@@ -400,17 +399,19 @@ function csvToSortedCsvList(data) {
 /**
  * Handles all the updates necessary to display the currently select year album list in grid form.
  */
-function updateGrid() {
+async function createGrid(year) {
+    console.log("Creating grid for year " + year);
+
     // Load in the new CSV and display the new data
-    let extension = getExtensionFromList(SELECTED_LIST);
-    let filename = "csv/" + SELECTED_YEAR + extension + ".csv";
+    let extension = getExtensionFromList("Favorite Albums");
+    let filename = "csv/" + year + extension + ".csv";
     d3.csv(filename).then(async function(data) {
         // Create the list of CSV data
-        let sortedCsvList = csvToSortedCsvList(data);
+        let sortedCsvList = csvToSortedCsvList(data, year);
 
         // Convert the list into the grid
         let newTable = document.createElement('tbody');
-        newTable.id = "album-table-body";
+        newTable.id = "album-grid-" + year;
         let index = 0;
         for (let csvRow of sortedCsvList) {
             // If this is the start of a new row, insert it. Otherwise, get the last row
@@ -424,96 +425,38 @@ function updateGrid() {
         }
 
         // Hide the grid and insert it into the HTML
+        newTable.classList.add("hidden");
         let oldTable = document.getElementById("album-table-body");
-        oldTable.parentNode.replaceChild(newTable, oldTable);
-
-        // Update the Spotify playlist above the table to link to the data I am displaying
-        updateSpotifyPlaylist();
-
-        // Update the headers (by removing them)
-        updateGridHeaders();
-
-        // Update the icon
-        document.getElementById("layout-button").classList.remove("fa-grid-2");
-        document.getElementById("layout-button").classList.add("fa-bars");
-
-        // Update the table container styling
-        document.getElementById("table-container").classList.remove("container");
-        document.getElementById("table-container").classList.add("grid-container");
+        oldTable.parentNode.appendChild(newTable);
     });
 }
 
 
-/*******************************
-**** GRID SORTING FUNCTIONS ****
-*******************************/
 /**
- * Swaps two "adjacent" cells in the grid table. Is capable of swapping cells spanning different rows.
- * @param {*} topRow Top row HTML element (of the two adjacent rows to swap).
- * @param {*} botRow Bottom row HTML element (of the two adjacent rows to swap).
- * @param {*} topElemIndex Index of top cell within the topRow to swap.
- * @param {*} botElemIndex  Index of bottom cell within the botRow to swap.
+ * Updates which grid is visible
  */
-function swapAdjacentCells(topRow, botRow, topElemIndex, botElemIndex) {
-    if (topRow != botRow) {
-        // Case swapping between different rows
-        topRow.insertBefore(botRow.children[botElemIndex], topRow.children[topElemIndex]); // Move the bottom element into the top row
-        botRow.insertBefore(topRow.children[topElemIndex + 1], botRow.children[botElemIndex]); // Move the top element into the bottom row
+function updateGrid() {
+    // Update the Spotify playlist above the table to link to the data I am displaying
+    updateSpotifyPlaylist();
+
+    // Update the headers (by removing them)
+    updateGridHeaders();
+
+    // Hide the main table, and show the gird
+    document.getElementById("album-table-body").classList.add("hidden");
+    
+    for (let year = OLDEST_YEAR; year <= CURRENT_YEAR; year++) {
+        let grid = document.getElementById("album-grid-" + year);
+        grid ? grid.classList.add("hidden") : null;
+    }
+    let grid = document.getElementById("album-grid-" + SELECTED_YEAR);
+    if (grid != null) {
+        grid.classList.remove("hidden");
     }
     else {
-        // Case swapping within the same row
-        topRow.insertBefore(topRow.children[botElemIndex], topRow.children[topElemIndex]);
+        SELECTED_LAYOUT = "TABLE";
+        updateLayout();
     }
-}
-
-
-/**
- * Sorts the album grid blocks in order of highest hidden ranking to lowest.
- */
-function gridBubbleSort() {
-    // NOTE: This is hard coded to sort by hidden ranking in descending order right now
-    let table = document.getElementById("album-table-body");
-    let numAlbums = table.getElementsByTagName("td").length;
-
-    // It's fine doing a simple bubble sort (performance wise) since n is always small for my tables (number of album entries will never exceed 3 digits)
-    for (let i = 0; i < numAlbums - 1; i++) {
-        
-        let swapped = false;
-        
-        for (let j = 0; j < numAlbums - i - 1; j++) {
-            let topRanking = table.rows[Math.floor(j / NUM_ALBUMS_PER_ROW)].cells[j % NUM_ALBUMS_PER_ROW].querySelector(".art-hidden-ranking").innerHTML;
-            let botRanking = table.rows[Math.floor((j + 1) / NUM_ALBUMS_PER_ROW)].cells[(j + 1) % NUM_ALBUMS_PER_ROW].querySelector(".art-hidden-ranking").innerHTML;
-
-            // Convert to numbers if the column is numeric
-            if (!isNaN(topRanking) && !isNaN(botRanking)) {
-                topRanking = Number(topRanking);
-                botRanking = Number(botRanking);
-            }
-            
-            // Perform the swap depending on if we are in increasing or decreasing order
-            if (botRanking > topRanking) {
-                swapAdjacentCells(
-                    table.rows[Math.floor(j / NUM_ALBUMS_PER_ROW)],         // topRow
-                    table.rows[Math.floor((j + 1) / NUM_ALBUMS_PER_ROW)],   // botRow
-                    (j % NUM_ALBUMS_PER_ROW),                               // topIndex
-                    ((j + 1) % NUM_ALBUMS_PER_ROW)                          // botIndex
-                );
-                swapped = true;
-            }
-        }
-
-        if (swapped == false) {
-            break;
-        }
-    }
-}
-
-
-/**
- * gridBubbleSort() wrapper
- */
-function sortGrid() {
-    gridBubbleSort();
 }
 
 
@@ -673,6 +616,12 @@ function updateTable() {
             sortTable(ALBUMS_CSV_HEADERS.indexOf("Hidden Ranking"));
         }
     });
+
+    // Hide all the grids
+    for (let year = OLDEST_YEAR; year <= CURRENT_YEAR; year++) {
+        let grid = document.getElementById("album-grid-" + year);
+        grid ? grid.classList.add("hidden") : null;
+    }
 }
 
 
