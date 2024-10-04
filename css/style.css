@@ -291,6 +291,7 @@
 /************
 **** Art ****
 ************/
+/* #region art */
 .art-cell {
     width: 20%;
     text-align: center;
@@ -320,6 +321,7 @@
 #album-list .grid-container #album-table {
     background: var(--BODY-BACKGROUND);
 }
+/* #endregion */
 
 
 @media only screen and (max-width: 600px) {

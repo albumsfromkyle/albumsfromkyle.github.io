@@ -97,7 +97,7 @@ html {
 ***********************/
 /* #region BASIC ELEMENTS */
 body {
-    font-size: 1em;
+    font-size: 1rem;
     line-height: 1.5;
     padding-bottom: 0;
     background: var(--BODY-BACKGROUND);
@@ -178,10 +178,12 @@ img {
 
 /* Styles the Spotify and Github logos */
 #navbar #main-menu .image-link img {
-    padding-right: 1.5625rem;
     display: block;
-    width: 100%;
+    width: 1.75rem; 
     height: 1.75rem; 
+}
+#navbar #main-menu .image-link:last-child img  {
+    margin-left: 1.5625rem;
 }
 /* #endregion */
 
@@ -217,7 +219,7 @@ img {
 
     /* Make all fonts 25% smaller */
     body {
-        font-size: 0.65em;
+        font-size: 0.75em;
     }
     #navbar #title a {
         font-size: 0.785rem;
