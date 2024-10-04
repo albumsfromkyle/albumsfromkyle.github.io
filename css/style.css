@@ -338,6 +338,9 @@
     #album-list #table-headers .header { /* Inner div inside the cell */
         font-size: 0.75rem;
     }
+    #spotify-playlist {
+        font-size: 0.75rem;
+    }
 
     /* Stop table from overspilling */
     #album-list {

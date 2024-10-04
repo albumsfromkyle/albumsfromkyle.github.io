@@ -219,7 +219,7 @@ img {
 
     /* Make all fonts 25% smaller */
     body {
-        font-size: 0.75em;
+        font-size: 0.65em;
     }
     #navbar #title a {
         font-size: 0.785rem;
