@@ -478,7 +478,7 @@ function gridBubbleSort() {
     // It's fine doing a simple bubble sort (performance wise) since n is always small for my tables (number of album entries will never exceed 3 digits)
     for (let i = 0; i < numAlbums - 1; i++) {
         
-        swapped = false;
+        let swapped = false;
         
         for (let j = 0; j < numAlbums - i - 1; j++) {
             let topRanking = table.rows[Math.floor(j / NUM_ALBUMS_PER_ROW)].cells[j % NUM_ALBUMS_PER_ROW].querySelector(".art-hidden-ranking").innerHTML;
@@ -734,7 +734,7 @@ function tableBubbleSort(headerIndex, order) {
     // It's fine doing a simple bubble sort (performance wise) since n is always small for my tables (number of album entries will never exceed 3 digits)
     for (let i = 0; i < rows.length - 1; i++) {
         
-        swapped = false;
+        let swapped = false;
         
         for (let j = 0; j < rows.length - i - 1; j++) {
             let topCell = rows[j].cells[headerIndex].innerHTML
