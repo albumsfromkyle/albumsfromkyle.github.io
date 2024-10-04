@@ -182,14 +182,18 @@ document.addEventListener("DOMContentLoaded", async function() {
  * Determines how many albums are displayed per row in the grid layout, depending on the screen width
  */
 function setGridAlbumsPerRow() {
-    if (window.innerWidth < 400) {
-        NUM_ALBUMS_PER_ROW = 1;
+    console.log(window.innerWidth);
+    if (window.innerWidth < 600) {
+        NUM_ALBUMS_PER_ROW = 2;
+        IMAGE_SIZE = 135;
     }
     else if (window.innerWidth < 1500) {
         NUM_ALBUMS_PER_ROW = Math.floor(window.innerWidth / 300);
+        IMAGE_SIZE = 200;
     }
     else {
         NUM_ALBUMS_PER_ROW = 5;
+        IMAGE_SIZE = 200;
     }
 }
 

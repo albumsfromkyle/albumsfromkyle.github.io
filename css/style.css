@@ -311,6 +311,11 @@
 #album-list .grid-container td {
     border-radius: 10%;
 }
+@media only screen and (max-width: 600px) {
+    #album-list .grid-container td {
+        border-radius: 15%;
+    }
+}
 
 #album-list .grid-container #album-table {
     background: var(--BODY-BACKGROUND);
