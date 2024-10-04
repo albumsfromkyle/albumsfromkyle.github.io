@@ -76,18 +76,6 @@ function getExtensionFromList(listType) {
 
 
 /**
- * Updates the website URL with the current list, year, and layout parameters
- */
-function updateUrl() {
-    let newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + 
-                 "?list=" + (SELECTED_LIST == "Favorite Albums" ? "albums" : "songs") + 
-                 "&year=" + SELECTED_YEAR +
-                 "&layout=" + SELECTED_LAYOUT.toLowerCase();
-    window.history.pushState({ path: newUrl }, '', newUrl);
-}
-
-
-/**
  * Determines if the passed in year/list combination is valid (AKA it has a CSV file associated with it)
  * @param {*} list Which list to test if the CSV exists for ("Favorite Albums" or "Favorite Songs")
  * @param {*} year Which year to test if the CSV exists for
@@ -103,6 +91,27 @@ async function isValidListYearCombo(list, year) {
     }
 
     return true;
+}
+
+
+/**
+ * Highlight an HTML row as gold, silver, or bronze if the rating is high enough.
+ * @param {*} row The HTML row to potentially highligh
+ * @param {*} rating The album's rating used to determine if highlighting is needed
+ */
+function highlightElementFromRating(elem, rating) {
+    if (parseInt(rating) == 10) { // For now, 10s are handled the exact same way as golds, so this doesn't really do anything
+        elem.classList.add("ten");
+    }
+    else if (parseInt(rating) >= 9) {
+        elem.classList.add("gold");
+    }
+    else if (parseInt(rating) >= 8) {
+        elem.classList.add("silver");
+    }
+    else if (parseInt(rating) >= 7) {
+        elem.classList.add("bronze");
+    }
 }
 
 
@@ -135,10 +144,9 @@ function getQueryParam(param) {
  */
 document.addEventListener("DOMContentLoaded", async function() {
     // Preload all the images by created a grid for each year
-    createAllGrids()
+    createAllGrids();
 
-    // Get the parameters to load from the URL
-    // (Or the get the defaults otherwise)
+    // Get the parameters to load from the URL (or the get the defaults otherwise)
     let listQuery = getQueryParam("list");
     let yearQuery = getQueryParam("year");
     let layoutQuery = getQueryParam("layout");
@@ -152,42 +160,103 @@ document.addEventListener("DOMContentLoaded", async function() {
         showAlertBanner(SELECTED_LIST, SELECTED_YEAR);
         SELECTED_LIST = "Favorite Albums";
         SELECTED_YEAR = CURRENT_YEAR;
+        SELECTED_LAYOUT = "TABLE";
     }
-
-    console.log("LOADING LIST " + SELECTED_LIST);
-    console.log("LOADING YEAR " + SELECTED_YEAR);
-    console.log("LOADING LAYOUT " + SELECTED_LAYOUT);
-
-    // Update the new URL
-    updateUrl();
 
     // Update the current layout design
     setGridAlbumsPerRow();
-    updateLayout();
-
-    // Update the table to display the correct data
     updateDisplay();
 
     // Update the List Selector navbar to display the correct list being selected
     updateActiveList();
     
     // Update the Year Selector navbar to display the correct list being selected
-    updateYearListInRange(SELECTED_YEAR);
+    updateYearsShownInList(SELECTED_YEAR);
     updateActiveYear();
     grayOutMissingYears();
 });
 
 
-/******************************
-**** GRID LAYOUT FUNCTIONS ****
-******************************/
-function createAllGrids() {
-    for (let year = OLDEST_YEAR; year <= CURRENT_YEAR; year++) {
-        createGrid(year);
+/*************************
+**** GENERAL UPDATERS ****
+*************************/
+/**
+ * Updates the visuals of the lyaout button, depending on the selected list and layout
+ */
+function updateLayoutButton() {
+    let layout_button =  document.getElementById("layout-button");
+
+    // Remove the layout button for the songs list
+    (SELECTED_LIST == "Favorite Songs") ? layout_button.classList.add("hidden") : layout_button.classList.remove("hidden");
+
+    // Update the icon to match the layout
+    (SELECTED_LAYOUT == "TABLE") ? layout_button.classList.replace("fa-bars", "fa-grid-2") : layout_button.classList.replace("fa-grid-2", "fa-bars");
+}
+
+
+/**
+ * Updates the text and link to the spotify playlist above the table.
+ */
+function updateSpotifyPlaylist() {
+    let playlistLink = document.getElementById("playlist-link");
+
+    // Update the text / name of the playlist
+    let playlistName = (SELECTED_LIST == "Favorite Albums") ? "Albums " : "Songs ";
+    playlistName += String(SELECTED_YEAR)
+
+    playlistLink.innerHTML = playlistName;
+
+    // Update the link to the playlist
+    playlistLink.href = PLAYLIST_LINKS[playlistName];
+}
+
+
+/**
+ * Updates the classes of the album table to match the current layout
+ */
+function updateContainerStyle() {
+    if (SELECTED_LAYOUT == "TABLE")
+        document.getElementById("table-container").classList.replace("grid-container", "container");
+    else if (SELECTED_LAYOUT == "GRID")
+        document.getElementById("table-container").classList.replace("container", "grid-container");
+}
+
+
+/**
+ * Updates the website URL with the current list, year, and layout parameters
+ */
+function updateUrl() {
+    let newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + 
+                 "?list=" + (SELECTED_LIST == "Favorite Albums" ? "albums" : "songs") + 
+                 "&year=" + SELECTED_YEAR +
+                 "&layout=" + SELECTED_LAYOUT.toLowerCase();
+    window.history.pushState({ path: newUrl }, '', newUrl);
+}
+
+
+/**
+ * Updates everything within the main display (which is the album list/grid)
+ */
+function updateDisplay() {
+    // Update the small stuff
+    updateLayoutButton();
+    updateSpotifyPlaylist();
+    updateContainerStyle();
+    updateUrl();
+
+    // Update the actual display
+    if (SELECTED_LAYOUT == "TABLE") {
+        updateTable();
+    }
+    else if (SELECTED_LAYOUT == "GRID") {
+        updateGrid();
     }
 }
 
 
+/**********************
+**** GRID RESIZING ****
+**********************/
 /**
  * Determines how many albums are displayed per row in the grid layout, depending on the screen width
  */
@@ -225,63 +294,40 @@ window.addEventListener('resize', function() {
         setGridAlbumsPerRow();
 
         if (NUM_ALBUMS_PER_ROW != prev) {
-            createAllGrids();
-            updateLayout();
+            createAllGrids(); // Re-create the grids with the new number of albums per row
+            updateDisplay();
         }
     }, 200);
 });
 
 
-function updateLayoutButton() {
-    let layout_button =  document.getElementById("layout-button");
-
-    // Remove the layout button for the songs list
-    (SELECTED_LIST == "Favorite Songs") ? layout_button.classList.add("hidden") : layout_button.classList.remove("hidden");
-
-    // Update the icon to match the layout
-    (SELECTED_LAYOUT == "TABLE") ? layout_button.classList.replace("fa-bars", "fa-grid-2") : layout_button.classList.replace("fa-grid-2", "fa-bars");
-}
-
-
-/**
- * Updates the class of the container element (in order to change the display styling) to match the current layout
- */
-function updateLayout() {
-    updateLayoutButton();
-
-    // Update the actual display
-    if (SELECTED_LAYOUT == "TABLE") {
-        // Update the table container styling
-        document.getElementById("table-container").classList.replace("grid-container", "container");
-
-        // Update the display
-        updateTable();
-    }
-    else if (SELECTED_LAYOUT == "GRID") {
-        // Update the table container styling
-        document.getElementById("table-container").classList.replace("container", "grid-container");
-
-        // Update all the containers within the updateGrid() function
-        updateGrid();
-    }
-
-    updateUrl();
-}
-
-
+/********************
+**** GRID LAYOUT ****
+********************/
 /**
  * Handles when the change layout button is clicked
  */
 document.getElementById("layout-button").addEventListener("click", function(event) {
     if (SELECTED_LAYOUT == "TABLE") {
         SELECTED_LAYOUT = "GRID";
-        updateLayout();
+        updateDisplay();
     }
     else {
         SELECTED_LAYOUT = "TABLE";
-        updateLayout();
+        updateDisplay();
     }
 });
+
+
+/**
+ * Creates a hidden HTML element containing the album grid for each year.
+ * Used to "preload" all the grids to make it more responsive to the user.
+ */
+function createAllGrids() {
+    for (let year = OLDEST_YEAR; year <= CURRENT_YEAR; year++) {
+        createGrid(year);
+    }
+}
 
 
 /**
@@ -329,6 +375,90 @@ async function csvRowToGridImage(csvRow, workingRow) {
 }
 
 
+/**
+ * Converts a list of CSV rows into an HTML element containing the grid of albums
+ * @param {*} csvRowList The CSV list of rows to convert into the grid
+ * @param {*} year The year this CSV list is associated with
+ * @returns The HTML element containing the grid of albums
+ */
+async function listToGrid(csvRowList, year) {
+    // Actually create the grid element
+    let newTable = document.createElement('tbody');
+    newTable.id = "album-grid-" + year;
+    newTable.classList.add("hidden");
+
+    // Convert each list row into an element on the grid
+    let index = 0;
+    for (let csvRow of csvRowList) {
+        // If this is the start of a new row, insert it. Otherwise, get the last row
+        let workingRow = (index % NUM_ALBUMS_PER_ROW == 0) ? newTable.insertRow(-1) : newTable.rows[newTable.rows.length - 1];
+        index = index + 1;
+
+        // Insert the new image grid element
+        let newCell = await csvRowToGridImage(csvRow, workingRow);
+        
+        // Color the element appropriately
+        highlightElementFromRating(newCell, csvRow["Rating"]);
+    }
+    
+    return newTable;
+}
+
+
+/**
+ * Creates the album grid HTML element for the given year.
+ * @param {*} year the year to create the grid for.
+ */
+async function createGrid(year) {
+    // Load in the new CSV and display the new data
+    let extension = getExtensionFromList("Favorite Albums");
+    let filename = "csv/" + year + extension + ".csv";
+
+    d3.csv(filename).then(async function(data) {
+        // Create the list of CSV data
+        let sortedCsvList = csvToSortedCsvList(data, year);
+
+        // Convert the list into the grid
+        let grid = await listToGrid(sortedCsvList, year);
+
+        // If this grid already exists, replace it
+        (document.getElementById(grid.id)) 
+            ? (document.getElementById(grid.id).innerHTML = grid.innerHTML) 
+            : document.getElementById("album-table-body").parentNode.appendChild(grid);
+    });
+}
+
+
+/**
+ * Updates which grid is visible
+ */
+function updateGrid() {
+    // Update the headers (by removing them)
+    updateGridHeaders();
+
+    // Hide the main table
+    document.getElementById("album-table-body").classList.add("hidden");
+    
+    // Hide each year's grid (in case the user is simply switching years)
+    for (let year = OLDEST_YEAR; year <= CURRENT_YEAR; year++) {
+        document.getElementById("album-grid-" + year) ? document.getElementById("album-grid-" + year).classList.add("hidden") : null;
+    }
+    
+    // Display the selected years grid (or switch to the table if it does not exist)
+    let grid = document.getElementById("album-grid-" + SELECTED_YEAR);
+    if (grid != null) {
+        grid.classList.remove("hidden");
+    }
+    else {
+        SELECTED_LAYOUT = "TABLE";
+        updateDisplay();
+    }
+}
+
+
+/*********************
+**** GRID SORTING ****
+*********************/
 /**
  * Sort a list of values in descending order by hidden ranking.
  * @param {*} listToSort The list to sort, where each element is a dictionary with a "Hidden Ranking" value.
@@ -395,81 +525,9 @@ function csvToSortedCsvList(data, year) {
 }
 
 
-/**
- * Handles all the updates necessary to display the currently select year album list in grid form.
- */
-async function createGrid(year) {
-    // Load in the new CSV and display the new data
-    let extension = getExtensionFromList("Favorite Albums");
-    let filename = "csv/" + year + extension + ".csv";
-    d3.csv(filename).then(async function(data) {
-        // Create the list of CSV data
-        let sortedCsvList = csvToSortedCsvList(data, year);
-
-        // Convert the list into the grid
-        let newTable = document.createElement('tbody');
-        newTable.id = "album-grid-" + year;
-        let index = 0;
-        for (let csvRow of sortedCsvList) {
-            // If this is the start of a new row, insert it. Otherwise, get the last row
-            let workingRow = (index % NUM_ALBUMS_PER_ROW == 0) ? newTable.insertRow(-1) : newTable.rows[newTable.rows.length - 1];
-            index = index + 1;
-
-            // Insert the new image grid element
-            let newCell = await csvRowToGridImage(csvRow, workingRow);
-            
-            highlightElementFromRating(newCell, csvRow["Rating"]);
-        }
-
-        // Hide the grid and insert it into the HTML
-        newTable.classList.add("hidden");
-
-        // If this grid already exists, replace it
-        if (document.getElementById(newTable.id)) {
-            document.getElementById(newTable.id).innerHTML = newTable.innerHTML;
-        }
-        // Otherwise, add it
-        else {
-            document.getElementById("album-table-body").parentNode.appendChild(newTable);
-        }
-    });
-}
-
-
-/**
- * Updates which grid is visible
- */
-function updateGrid() {
-    // Update the Spotify playlist above the table to link to the data I am displaying
-    updateSpotifyPlaylist();
-
-    // Update the headers (by removing them)
-    updateGridHeaders();
-
-    // Hide the main table,
-    document.getElementById("album-table-body").classList.add("hidden");
-    
-    // Hide each year's grid
-    for (let year = OLDEST_YEAR; year <= CURRENT_YEAR; year++) {
-        let grid = document.getElementById("album-grid-" + year);
-        grid ? grid.classList.add("hidden") : null;
-    }
-    
-    // Show the selected years grid (or default to showing the table if there is none)
-    let grid = document.getElementById("album-grid-" + SELECTED_YEAR);
-    if (grid != null) {
-        grid.classList.remove("hidden");
-    }
-    else {
-        SELECTED_LAYOUT = "TABLE";
-        updateLayout();
-    }
-}
-
-
-/***********************************
-**** CSV & TABLE DATA FUNCTIONS ****
-***********************************/
+/*********************
+**** TABLE LAYOUT ****
+*********************/
 /**
  * Add a list of headers to a passed in HTML table row element.
  * @param {*} row HTML row element to add the header cells to
@@ -507,27 +565,6 @@ function updateTableHeaders() {
     }
     else if (SELECTED_LIST == "Favorite Albums") {
         addHeadersToRow(newRow, SHOWN_ALBUM_HEADERS);
-    }
-}
-
-
-/**
- * Highlight an HTML row as gold, silver, or bronze if the rating is high enough.
- * @param {*} row The HTML row to potentially highligh
- * @param {*} rating The album's rating used to determine if highlighting is needed
- */
-function highlightElementFromRating(elem, rating) {
-    if (parseInt(rating) == 10) { // For now, 10s are handled the exact same way as golds, so this doesn't really do anything
-        elem.classList.add("ten");
-    }
-    else if (parseInt(rating) >= 9) {
-        elem.classList.add("gold");
-    }
-    else if (parseInt(rating) >= 8) {
-        elem.classList.add("silver");
-    }
-    else if (parseInt(rating) >= 7) {
-        elem.classList.add("bronze");
     }
 }
 
@@ -604,9 +641,6 @@ function csvToTable(data) {
  * This is called on startup, and whenever the list type (albums/songs) or list year is changed.
  */
 function updateTable() {
-    // Update the Spotify playlist above the table to link to the data I am displaying
-    updateSpotifyPlaylist();
-
     // Update the table headers to match the selected list
     // This also makes sure there is the appropriate number of columns in the table
     updateTableHeaders();
@@ -632,22 +666,9 @@ function updateTable() {
 }
 
 
-/**
- * Update the display being shown, depending on what layout is selected (table or grid).
- */
-function updateDisplay() {
-    if (SELECTED_LAYOUT == "TABLE") {
-        updateTable();
-    }
-    else {
-        updateGrid();
-    }
-}
-
-
-/********************************
-**** TABLE SORTING FUNCTIONS ****
-********************************/
+/**********************
+**** TABLE SORTING ****
+**********************/
 /**
  * Make all header order arrows grayed out triangles pointing up EXCEPT the active header.
  * @param {*} activeElement The HTML span element of the active header
@@ -740,9 +761,38 @@ function sortTable(headerIndex) {
 }
 
 
-/****************************
-**** YEAR/LIST SELECTORS ****
-*****************************/
+/*********************
+**** ALERT BANNER ****
+*********************/
+/**
+ * Hides the alert message banner
+ * (This is only here for the setTimeout function)
+ */
+function hideAlertBanner() {
+    let alert = document.getElementById("alert-banner");
+    alert.classList.add("hidden");
+}
+
+
+/**
+ * Displays an alert banner displaying the warning that the current year/list combination is invalid
+ * @param {*} list The invalid list
+ * @param {*} year The invalid year
+ */
+function showAlertBanner(msg) {
+    let alertMsg = document.getElementById("alert-msg");
+    alertMsg.innerHTML = msg;
+    
+    let alert = document.getElementById("alert-banner");
+    alert.classList.remove("hidden");
+
+    setTimeout(hideAlertBanner, 8*1000);
+}
+
+
+/******************************
+**** YEAR / LIST SELECTORS ****
+******************************/
 /**
  * Updates what year button is shown as the "active" year.
  */
@@ -774,49 +824,6 @@ function updateActiveList() {
 
 
 /**
- * Hides the alert message banner
- * (This is only here for the setTimeout function)
- */
-function hideAlertBanner() {
-    let alert = document.getElementById("alert-banner");
-    alert.classList.add("hidden");
-}
-
-
-/**
- * Displays an alert banner displaying the warning that the current year/list combination is invalid
- * @param {*} list The invalid list
- * @param {*} year The invalid year
- */
-function showAlertBanner(msg) {
-    let alertMsg = document.getElementById("alert-msg");
-    alertMsg.innerHTML = msg;
-    
-    let alert = document.getElementById("alert-banner");
-    alert.classList.remove("hidden");
-
-    setTimeout(hideAlertBanner, 8*1000);
-}
-
-
-/**
- * Updates the text and link to the spotify playlist above the table.
- */
-function updateSpotifyPlaylist() {
-    let playlistLink = document.getElementById("playlist-link");
-
-    // Update the text / name of the playlist
-    let playlistName = (SELECTED_LIST == "Favorite Albums") ? "Albums " : "Songs ";
-    playlistName += String(SELECTED_YEAR)
-
-    playlistLink.innerHTML = playlistName;
-
-    // Update the link to the playlist
-    playlistLink.href = PLAYLIST_LINKS[playlistName];
-}
-
-
-/**
  * Updates the table when a new year is selected.
  */
 document.getElementById("year-list").addEventListener("click", async function(event) {
@@ -827,7 +834,7 @@ document.getElementById("year-list").addEventListener("click", async function(ev
     
     updateUrl();
     updateActiveYear();
-    updateDisplay();
+    updateDisplay(); 
 });
 
 
@@ -837,38 +844,24 @@ document.getElementById("year-list").addEventListener("click", async function(ev
 document.getElementById("list-list").addEventListener("click", async function(event) {
     let listType = event.target.innerHTML;
 
-    // Always default to grid layout when switching lists
-    if (SELECTED_LAYOUT == "GRID") {
-        document.getElementById("table-container").classList.remove("grid-container");
-        document.getElementById("table-container").classList.add("container");
-        SELECTED_LAYOUT = "TABLE";
-    }
-    updateLayout();
-
-    // If switching to the songs list, remove the layout button
-    if (listType == "Favorite Songs") {
-        document.getElementById("layout-button").classList.add("hidden");
-    }
-    else {
-        document.getElementById("layout-button").classList.remove("hidden");
-    }
-
     // If a CSV for this year/list does not exist, show an error banner and go back to the default page
     if (!await isValidListYearCombo(listType, SELECTED_YEAR)) {
         showAlertBanner("\"" + listType + "\" list does not exist for " + SELECTED_YEAR);
         SELECTED_YEAR = CURRENT_YEAR;
-        updateYearListInRange(SELECTED_YEAR);
+        updateYearsShownInList(SELECTED_YEAR);
         // Do not return, instead send the user to the current year (which should have both lists)
     }
     
     // Set the currently selected list and change the active button
     SELECTED_LIST = listType;
 
-    updateUrl();
+    // Always default to grid layout when switching lists (because songs list does not have a grid option)
+    SELECTED_LAYOUT = "TABLE";
+    
+    updateDisplay();
     updateActiveList();
     grayOutMissingYears();
     updateActiveYear();
-    updateDisplay();
 });
 
 
@@ -957,7 +950,7 @@ document.getElementById("year-decrease").onclick = function() {
  * NOTE: This will not check if a CSV exists for that year or not
  * @param {*} targetYear The year you want to be represented in the year list
  */
-function updateYearListInRange(targetYear) {
+function updateYearsShownInList(targetYear) {
     let counter = 0; // Keep counter just in case this continually loop (even though it shouldn't, it did crash my Chrome one time)
     let yearInRange = document.getElementById("year1").innerHTML <= targetYear && targetYear <= document.getElementById("year5").innerHTML;
     while (!yearInRange) {
@@ -990,6 +983,8 @@ function updateYearListInRange(targetYear) {
 // These functions allow me to modify the album table in the web browser, rather than having to manually edit the CSV data
 // All editing functionality should be kept to this section, and it should not mingle with any other core functions
 // Because of this (and the fact that this isn't going to ever be active for deployment), this code might be a bit gross (and that's okay with me)
+
+// As of adding the grid layout, I am really not sure if this will work anymore
 
 const EDITING = false;
 
