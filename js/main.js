@@ -144,6 +144,7 @@ function getQueryParam(param) {
  */
 document.addEventListener("DOMContentLoaded", async function() {
     // Preload all the images by created a grid for each year
+    setGridAlbumsPerRow();
     createAllGrids();
 
     // Get the parameters to load from the URL (or the get the defaults otherwise)
@@ -164,7 +165,6 @@ document.addEventListener("DOMContentLoaded", async function() {
     }
 
     // Update the current layout design
-    setGridAlbumsPerRow();
     updateDisplay();
 
     // Update the List Selector navbar to display the correct list being selected
