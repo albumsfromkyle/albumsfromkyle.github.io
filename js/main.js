@@ -1,3 +1,5 @@
+import { imageUrls } from "./all_images.js";
+
 // Years
 const OLDEST_YEAR = 2018;
 const CURRENT_YEAR = parseInt(new Date().getFullYear());
@@ -134,6 +136,8 @@ function getQueryParam(param) {
  * Function that runs when the website it first loaded in. Sets up the initial view of the website
  */
 document.addEventListener("DOMContentLoaded", async function() {
+    preloadImages();
+
     // Get the parameters to load from the URL
     // (Or the get the defaults otherwise)
     let listQuery = getQueryParam("list");
@@ -174,6 +178,16 @@ document.addEventListener("DOMContentLoaded", async function() {
     grayOutMissingYears();
 });
 
+
+/**
+ * Loads in all the images right on load in, to hopefully prevent stuttering when loading them for the first time
+ */
+function preloadImages() {
+    imageUrls.forEach((url) => {
+        const img = new Image();
+        img.src = url;
+    });
+}
 
 /******************************
 **** GRID LAYOUT FUNCTIONS ****
@@ -292,7 +306,7 @@ async function csvRowToGridImage(csvRow, workingRow) {
     let releaseYear = csvRow["Release Date"].slice(-4).toLowerCase();
     let albumName = csvRow["Album"].replace(/[^\p{L}\p{N}]+/gu,"").toLowerCase();
     let artistName = csvRow["Artist"].split(",")[0].replace(/[^\p{L}\p{N}]+/gu,"").toLowerCase();
-    let imageFilename = "images/albums/" + releaseYear + "/" + artistName + "_" + albumName + "_" + 640 + ".jpg";
+    let imageFilename = "images/albums/" + releaseYear + "/" + artistName + "_" + albumName + "_" + 300 + ".jpg";
 
     // Make sure the image exists
     let exists = await checkFileExists(imageFilename);
@@ -326,7 +340,7 @@ function listBubbleSort(listToSort) {
     // It's fine doing a simple bubble sort (performance wise) since n is always small for my tables (number of album entries will never exceed 3 digits)
     for (let i = 0; i < listToSort.length - 1; i++) {
         
-        swapped = false;
+        let swapped = false;
         
         for (let j = 0; j < listToSort.length - i - 1; j++) {
             let topRanking = listToSort[j]["Hidden Ranking"];
@@ -398,7 +412,7 @@ function updateGrid() {
         let newTable = document.createElement('tbody');
         newTable.id = "album-table-body";
         let index = 0;
-        for (csvRow of sortedCsvList) {
+        for (let csvRow of sortedCsvList) {
             // If this is the start of a new row, insert it. Otherwise, get the last row
             let workingRow = (index % NUM_ALBUMS_PER_ROW == 0) ? newTable.insertRow(-1) : newTable.rows[newTable.rows.length - 1];
             index = index + 1;
@@ -836,7 +850,7 @@ function updateSpotifyPlaylist() {
     let playlistLink = document.getElementById("playlist-link");
 
     // Update the text / name of the playlist
-    playlistName = (SELECTED_LIST == "Favorite Albums") ? "Albums " : "Songs ";
+    let playlistName = (SELECTED_LIST == "Favorite Albums") ? "Albums " : "Songs ";
     playlistName += String(SELECTED_YEAR)
 
     playlistLink.innerHTML = playlistName;
@@ -988,8 +1002,8 @@ document.getElementById("year-decrease").onclick = function() {
  * @param {*} targetYear The year you want to be represented in the year list
  */
 function updateYearListInRange(targetYear) {
-    counter = 0; // Keep counter just in case this continually loop (even though it shouldn't, it did crash my Chrome one time)
-    yearInRange = document.getElementById("year1").innerHTML <= targetYear && targetYear <= document.getElementById("year5").innerHTML;
+    let counter = 0; // Keep counter just in case this continually loop (even though it shouldn't, it did crash my Chrome one time)
+    let yearInRange = document.getElementById("year1").innerHTML <= targetYear && targetYear <= document.getElementById("year5").innerHTML;
     while (!yearInRange) {
         if (targetYear < document.getElementById("year1").innerHTML) {
             decreaseShownYears();
