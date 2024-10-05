@@ -174,6 +174,13 @@ document.addEventListener("DOMContentLoaded", async function() {
     updateYearsShownInList(SELECTED_YEAR);
     updateActiveYear();
     grayOutMissingYears();
+
+    // Update the favicon depending on light/dark mode
+    let favicon = document.getElementById("favicon");
+    let darkModeMediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    if (darkModeMediaQuery.matches) {
+        favicon.href = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAADoUlEQVR4nO2aW29MURTHT4iSuDSkiAc8ShAfQeLa0tQb5YEXL6Q3fAUPqg8axINXX0C1yjeQNjzpVStKi3Y6+/+f4zRRim5Z7Elq7Lmcs8/MoelKVjKZOWft/dtr7XXWWXs8b0WWqZCsJtlAsgNAD8kRAGmS86Lm8zCAbpI35Vql1CbvXxCtdRWAcySfAPhOUodRAN9I9gI4K7a8SsvExMS6TCZzheRU2MkXULHVqrVeWxEIALUAxmMEyNVXSqljZQOQlQJwu4wAuXo/du/Mzc1tA/C8ghDaaF8QBFtjgSC5G8BYAhA6G2oyBycIWQ2SowlCaFEAr2dmZra77IkkwkmT9C3f9UfaMwDuJbT6L3zf3wzggeW3O2EhahOCeDs7O7tD5iAwuZ4BsFhyahb3JbQvPpE8IHMQGPFMHtgxeSAXBTFP7Ep74msmkzlkomEfyXdF7mkp5o01JRiJG2KR5AWziIcBZEq4b6pgbWYKwEqH1C0Zm+R58UyIBWjMC0LyaUyTe0myTcJkenp6vagJmTaSAznXfhQY4xkdQh/ng6g2ZbVLmHwheVlrvapA+K4m2RRm9WkfayGdTm+0gZxyhchu2FLE7AcnGJL1NpAOR5BLpUIsGbPZEaT9L6Pm9TTynigUTkXCbNBh8R7ZVsflIdjmRRSl1FWHcYdtHpmNalAptdc2SYlhku8l7wM4YbsGwH4Hj6Rsg85HNWjNHr9tLn2nn7RdI/c6eOTz8gVBGUJLwsnATAKoq1RojfyHm33ItjLdDgYHJJVGTL9DDh7psnnkpgOIaFNYEGnIOY55w2a0IYZ3iiOlQiiljkq95DjmyXIVjVI7NRcKMxNOrTFALOTLlgLTG9LYDwDXAbzJ+W1QNrFkpFQqtUFUPgO45rIn+OfYPXndLV3xEMbkqOC0ua8zjskxHMgZ51ddACB50MT6xUpDkJwsegxRLJNI1y+dTu8xnqhz3Vdly5Ba66oClXB/tnVpnsh+AiE1VnLHUSl13GIgJZvWQOwk+SEBiMUwKf6XSHvSYuiu7/tbLA2ESoF0hoJY0nHssxhjEhAkn0U+ZwyCoMaxmIzLE+Ny2OS5iByymMOWpEBGSe5ygsg58OlPIpyCIKjx4hTzsGyP0BF0OQyt8solcj5R5lAbCZ1io4rJaC1SKsQIIKVRcyL/gDB/4WiUhnKUUkVKcalipQBMBKBAN6Te7KMu8wealHQ6RM1n+e6hvNnJtdlKYUWWo/wEMpHbC2795DwAAAAASUVORK5CYII=";
+    }
 });
 
 
