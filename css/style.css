@@ -183,6 +183,7 @@
 #spotify-playlist a {
     font-style: italic;
     color: var(--PRIMARY-COLOR);
+    border-bottom: 0.0625rem solid transparent;
 }
 
 #spotify-playlist a:hover {
