@@ -82,7 +82,7 @@ if __name__ == "__main__":
 
         # Skip the header
         next(csvreader)
-        new_data.append(["Artist", "Album", "Genre", "Release Date", "Listened On", "Favorite Songs", "Rating", "Hidden Ranking"])
+        new_data.append(["Album", "Artist", "Genre", "Release Date", "Listened On", "Favorite Songs", "Rating", "Hidden Ranking"])
 
         set_breakpoints()
 

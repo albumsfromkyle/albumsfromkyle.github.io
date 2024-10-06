@@ -45,6 +45,26 @@ The goal of this script is to take the exported CSV from my personal Google Shee
 * It is hard-coded to my current setup, so if that changes in the future the script will need to be adjusted
 * The output CSV path **NEEDS** to be one of the `csv/` albums files with a year in its name
 
+
+<!-- ---------------------------------------------------------------------------------------- -->
+
+
+## set_new_rankings.py
+This script will set new hidden rankings for a list.
+The goal is for me to be able to copy over my manual lists made in my Google Sheets, and have that list be converted into the hidden rankings in a CSV.
+
+### How to use
+1) Go to my Google Sheets list, and copy the list I am wanting to use as reference.
+    - If using the albums list, only copy the album names (so each row in the CSV only has one column, the album name)
+    - If using the songs list, only copy the song names (so each row in the CSV only has one column, the song name)
+2) Paste the list into a new csv file
+3) Run the script as `python3 set_new_rankings.py <path/to/source.csv> <path/to/list.csv> <path/to/output.csv>`
+    - For example inside the `scripts/` directory, run `python3 set_new_rankings.py ../csv/2024.csv list.csv ../csv/2024.csv`
+
+### Things to note
+* ...
+
+
 <!-- ---------------------------------------------------------------------------------------- -->
 
 
@@ -85,3 +105,26 @@ This downloads 3 images of the album art in different sizes (64x64, 300x300, and
 * This script will **take some time** to complete, especially if you are downloading a lot of album arts at once. Just give it time.
 * This script will output all the images to `images/albums/<year>/`, and titles the images as `<artist>_<albums>_<size>.jpg`.
 * This script **will not** re-download existing images.
+* Some manual edits may need to be made to the images. To check if this is needed, go onto the website with the console open, and check for errors when loading the grid.
+    - These edits will almost always be for albums that either (1) have multiple artists, or (2) are made by artists with a comma in their name (e.g. Tyler, the Creator). For those cases, the HTML will always cut off at the first comma of the first artist. So, abbreviate "Tyler, the Creator" to just "Tyler". Just to double check, look for the path that is in the console error message to see what it should be.
+    - Another possible error case is when the actual year an album came out differs from the year Spotify thinks the album came out.
+
+
+
+
+<!-- ---------------------------------------------------------------------------------------- -->
+
+
+
+
+# Common things to do
+## Adding new albums to a year CSV list
+1) Export the Google Sheets as a CSV
+2) Copy over that CSV into the scripts folder for ease of access
+3) Run `organize_exported_albums.py`. This will trim the excess data off the sheet and add in the hidden ranking values
+    - After doing this, double check the diff to make sure no formatting or spelling mistakes were copied over
+
+## Updating the album ordering in a year CSV list
+1) If I am also adding new albums, then follow the above directions for `Adding new albums to a year CSV list` first.
+2) Follow the directions for `set_new_rankings/py`.
+    - If updating a list for an older year (before 2022), it might just be faster to update it manually

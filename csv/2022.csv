@@ -1,8 +1,8 @@
 Album,Artist,Genre,Release Date,Listened On,Favorite Songs,Rating,Hidden Ranking
-Water Your Garden,Magic City Hippies,Psychadelic Funk / Alternative Pop,1/21/2022,1/30/2022,"Ghost On The Mend, Queen, Champagne On The Rider",6,16
+Water Your Garden,Magic City Hippies,Psychadelic Funk / Alternative Pop,1/21/2022,1/30/2022,"Ghost On The Mend, Queen, Champagne On The Rider",6.5,16
 Apocalypse Whenever,Bad Suns,Alternative / Indie Pop,1/28/2022,1/31/2022,"Apocalypse Whenever, Baby Blue Shades, Life Was Easier When I Only Cared About Me",5.5,9
 LP3,Hippo Campus,Indie Pop,2/4/2022,2/4/2022,"Semi Pro, Ashtray, Blew Its",7,23
-Look Alive!,Early Eyes,Alternative / Indie,2/25/2022,2/28/2022,"Parestesia, Chemicals, Halloween '18",6,17
+Look Alive!,Early Eyes,Alternative / Indie,2/25/2022,2/28/2022,"Parestesia, Chemicals, Halloween '18",6.5,17
 From 2 to 3,Peach Pit,Indie Pop,3/4/2022,3/6/2022,"Look Out!, Up Granville, Vickie",8,43
 deception falls,exociety,Hip Hop,3/10/2022,3/10/2022,"The Lodge, Astasis, Blunts & Clementines",4,2
 WHO CARES?,Rex Orange County,Indie Pop,3/11/2022,3/14/2022,"OPEN A WINDOW, KEEP IT UP, AMAZING",7,27
@@ -11,7 +11,7 @@ Chloë and the Next 20th Century,Father John Misty,Alternative / Chamber Pop,4/8
 five seconds flat,Lizzy McAlpine,Singer-Songwriter / Indie,4/8/2022,4/8/2022,"ceilings, doomsday, all my ghosts",8,45
 Dawn FM,The Weeknd,Pop / Synthpop,1/7/2022,4/24/2022,"Out of Time, Sacrifice, Gasoline",9,53
 Omnium Gatherum,King Gizzard & The Lizard Wizard,Psychadelic Rock,4/22/2022,4/26/2022,"Magenta Mountain, Presumptuous, The Dripping Tap",7.5,37
-Cocodrillo Turbo,Action Bronson,Hip Hop,4/29/2022,5/25/2022,"Estaciones, Subzero, Jaguar",6,15
+Cocodrillo Turbo,Action Bronson,Hip Hop,4/29/2022,5/25/2022,"Estaciones, Subzero, Jaguar",6.5,15
 Crest,"Bladee, Ecco2k",Hyperpop / Cloud Rap,3/17/2022,5/26/2022,"White Meadow, Desire is a Trap, Girls Just Want to Have Fun",7.5,38
 Mr. Morale & the Big Steppers,Kendrick Lamar,Conscious Hip Hop,5/13/2022,5/27/2022,"Father Time, The Heart Part 5, United In Grief",7.5,34
 Inside Problems,Andrew Bird,Chamber Pop,6/3/2022,6/17/2022,"Inside Problems, Underlands, Fixed Positions",5.5,14
@@ -19,14 +19,14 @@ I've Seen Better Days,amaii,Hyperpop,5/20/2022,6/20/2022,"Dust, Supermarket cali
 Hellfire,black midi,Experimental Rock,7/15/2022,7/18/2022,"Sugar/Tzu, The Defense, Welcome To Hell",8.5,49
 Gemini Rights,Steve Lacy,R&B,7/15/2022,7/19/2022,"Mercury, Sunshine, Bad Habit",8,46
 Ugly Season,Perfume Genius,Art Pop,6/17/2022,7/19/2022,"Photograph, Pop Song, Teeth",7,28
-Skyline,Bronze,K-Pop / City Pop,7/8/2022,8/12/2022,"Time Slip, Touch, Ondo",6,19
+Skyline,Bronze,K-Pop / City Pop,7/8/2022,8/12/2022,"Time Slip, Touch, Ondo",6.5,19
 Melt My Eyez See Your Future,Denzel Curry,Conscious Hip Hop,3/25/2022,8/27/2022,"Melt Session #1, Walkin, Troubles",9.5,55
 Harry's House,Harry Styles,Pop,5/20/2022,9/1/2022,"Late Night Talking, As It Was, Music For a Sushi Restaurant",7,25
 Everything I Know About Love,Laufey,Jazz / Indie,8/26/2022,9/2/2022,"Valentine, Night Light, Beautiful Stranger",7,26
 how can i pretend?,Wasia Project,Singer-Songwriter / Indie,5/10/2022,9/3/2022,"ur so pretty, impossible, why don't u love me? ",7,30
-I Love You Jennifer B,Jockstrap,Glitch Pop,9/9/2022,9/13/2022,"Concrete Over Water, Glasgow, Neon",6,22
+I Love You Jennifer B,Jockstrap,Glitch Pop,9/9/2022,9/13/2022,"Concrete Over Water, Glasgow, Neon",6.5,22
 DECIDE,Djo,Psychadelic Pop,9/16/2022,9/16/2022,"Change, On and On, Runner",8.5,47
-Dragon New Warm Mountain I Believe In You,Big Thief,Indie Folk,2/11/2022,9/18/2022,"Change, Simulation Swarm, Certainty",6,18
+Dragon New Warm Mountain I Believe In You,Big Thief,Indie Folk,2/11/2022,9/18/2022,"Change, Simulation Swarm, Certainty",6.5,18
 Duality,Luna Li,Alternative / Indie,2/25/2022,9/24/2022,"Afterglow, Cherry Pit, Magic",5,8
 INTO THE BLUE,Broken Bells,Alternative / Indie,10/7/2022,10/7/2022,"Love On The Run, Invisible Exit, We're Not In Orbit Yet",7.5,35
 "Ice, Death, Planets, Lungs, Mushrooms And Lava",King Gizzard & The Lizard Wizard,Psychadelic / Jazz Rock,10/7/2022,10/7/2022,"Ice V, Magma, Hell's Itch",8,40
@@ -41,11 +41,11 @@ Midnights,Taylor Swift,Pop,10/21/2022,10/31/2022,"You're On Your Own Kid, Karma,
 SMITHEREENS,Joji,R&B/Pop,11/4/2022,11/4/2022,"Glimpse of Us, 1AM FREESTYLE, Feeling Like The End",5,7
 Alpha Zulu,Phoenix,Indie Pop / Alternative,11/4/2022,11/4/2022,"After Midnight, Tonight, The Only One",4.5,3
 Darklife,death's dynamic shroud,Glitch Pop,9/23/2022,11/5/2022,"Neon Memories, Judgement Bolt, Stay",8.5,48
-Big Time,Angel Olsen,Country,6/3/2022,11/6/2022,"Big Time, All The Good times, Ghost On",6,21
+Big Time,Angel Olsen,Country,6/3/2022,11/6/2022,"Big Time, All The Good times, Ghost On",6.5,21
 "And In The Darkness, Hearts Aglow",Weyes Blood,Dream pop / Art pop,11/18/2022,11/18/2022,"It's Not Just Me It's Everybody, Grapevine, God Turn Me Into a Flower, ",8,41
 NOT TiGHT,DOMi & JD BECK,Jazz Fusion,7/15/2022,11/21/2022,"BOWLiNG, SMiLE, PiLOT",5.5,13
 Wet Leg,Wet Leg,Indie Rock,4/8/2022,12/6/2022,"Too Late Now, Wet Dream, Ur Mom",7.5,39
-hugo,Loyle Carner,Conscious Hip Hop,10/21/2022,12/8/2022,"Nobody Knows, Speed of Plight, HGU",6,20
+hugo,Loyle Carner,Conscious Hip Hop,10/21/2022,12/8/2022,"Nobody Knows, Speed of Plight, HGU",6.5,20
 The Ruby Cord,Richard Dawson,Progressive Folk,11/18/2022,12/9/2022,"The Hermit, Thicker Than Water, Horse and Rider",5.5,10
 I Didn't Mean To Haunt You,Quadeca,Alternative R&B,11/11/2022,12/13/2022,"dont mind me, tell me a joke, sorry4dying",9,51
 SOS,SZA,R&B,12/9/2022,12/14/2022,"Good Days, Kill Bill, Gone Girl",7,29

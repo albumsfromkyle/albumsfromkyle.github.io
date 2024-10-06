@@ -519,10 +519,8 @@ function csvToSortedCsvList(data, year) {
         }
 
         // If I am not showing the ratings for the albums, only show the albums I would recommend (which are albums above 6 in their score)
-        if (!SHOW_RATING) {
-            if (csvRow["Rating"] != "" && parseFloat(csvRow["Rating"]) < 6) {
-                return;
-            }
+        if (!shouldShowAlbum(csvRow["Rating"])) {
+            return;
         }
 
         listToSort.push(csvRow);
@@ -597,6 +595,19 @@ function csvRowToTableRow(htmlRow, headersToShow, csvRow, defaultVal = "-") {
 }
 
 
+function shouldShowAlbum(rating) {
+    // Current settings:
+    // If showing the ratings, then show everything
+    // Otherwise, only show albums at or above 6.5 ratings
+    if (!SHOW_RATING) {
+        if (rating != "" && parseFloat(rating) < 6.5) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 /**
  * Loads all the data in the passed in CSV into the HTML albums table.
  * @param {*} data 
@@ -616,10 +627,8 @@ function csvToTable(data) {
         }
 
         // If I am not showing the ratings for the albums, only show the albums I would recommend (which are albums above 6 in their score)
-        if (!SHOW_RATING) {
-            if (csvRow["Rating"] != "" && parseFloat(csvRow["Rating"]) < 6) {
-                return;
-            }
+        if (!shouldShowAlbum(csvRow["Rating"])) {
+            return;
         }
 
         // Insert the new row
