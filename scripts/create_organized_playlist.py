@@ -32,7 +32,7 @@ if __name__ == "__main__":
     # Get the user command line arguments
     if len(sys.argv) < 4:
         print("[ERROR] Need to pass in 3 arguments: the year you are organizing, the path to the exported csv, and the path to output the organized results")
-        print("Run again as 'python3 organize_albums_playlist.py <year> <path/to/exported.csv> <path/to/output.csv>'")
+        print("Run again as 'python3 create_organized_playlist.py <year> <path/to/exported.csv> <path/to/output.csv>'")
         exit()
 
     year = sys.argv[1]

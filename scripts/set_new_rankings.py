@@ -7,7 +7,7 @@ if __name__ == "__main__":
     # Get the user command line arguments
     if len(sys.argv) < 3:
         print("[ERROR] Need to pass in 2 argument: the path to the exported csv and the path to output the results")
-        print("Run again as 'python3 organize_exported_songs.py path/to/exported.csv path/to/output.csv'")
+        print("Run again as 'python3 set_new_rankings.py <path/to/source.csv> <path/to/list.csv> <path/to/output.csv>'")
         exit()
 
     source_csv_path = sys.argv[1] # CSV file with all the albums and hidden rankings in it

@@ -5,14 +5,14 @@ This section contains scripts that aid me in organizing my music. These interfac
 <!-- ---------------------------------------------------------------------------------------- -->
 
 
-## organize_albums_playlist.py
+## create_organized_playlist.py
 This script takes a backed-up CSV of my "Albums <Year>" Spotify playlist, and organizes it to match the ordering of the HTML table on the website (organized by hidden ranking). This can then be imported back into Spotify to have as the "Organized Albums <Year>" playlist.
 
 ### How to use
 1) Go to the playlist you want to download the album arts from in Spotify. Click `Share` and `Copy Link to Playlist`
 2) Go to [Spotify Backup](https://www.spotify-backup.com/), paste in the playlist link, and click `Generate Backup`. This will download a CSV of your playlist. Move this file to a known location that can be accessed by the script.
 3) Cd into the `scrips/` directory, and run the script as `python3 download_album_art.py <year you are organizing> <path/to/exported.csv> <path/to/organized.csv>`
-    - For example, `python3 organize_albums_playlist.py 2024 backup.csv organized_2024_albums.csv`
+    - For example, `python3 create_organized_playlist.py 2024 backup.csv organized_2024_albums.csv`
 4) Go back to [Spotify Backup](https://www.spotify-backup.com/) and click `Import` at the top
 5) Type in the name of the playlist you want to create
 6) Click `Upload Your Playlist`, navigate to the outputted CSV file, and select it
@@ -30,14 +30,14 @@ This script takes a backed-up CSV of my "Albums <Year>" Spotify playlist, and or
 <!-- ---------------------------------------------------------------------------------------- -->
 
 
-## organize_exported_albums.py
+## format_sheets_albums.py
 The goal of this script is to take the exported CSV from my personal Google Sheets, and re-format it to fit my website's format.
 
 ### How to use
 1) Go to the desired year's Google Sheets album tracker
 2) Export the main page as a CSV, and move it into the `csv/` directory
-4) Run the script as `python3 organize_exported_albums.py <path/to/exported.csv> <path/to/output.csv>`
-    - For example inside the `scripts/` directory, run `python3 organize_exported_albums.py exported.csv ../csv/2024.csv`
+4) Run the script as `python3 format_sheets_albums.py <path/to/exported.csv> <path/to/output.csv>`
+    - For example inside the `scripts/` directory, run `python3 format_sheets_albums.py exported.csv ../csv/2024.csv`
 
 ### Things to note
 * This script **will** modify the input CSV file, so make a backup if you do not want the data to potentially be lost.
@@ -68,7 +68,7 @@ The goal is for me to be able to copy over my manual lists made in my Google She
 <!-- ---------------------------------------------------------------------------------------- -->
 
 
-## organize_exported_songs.py
+## format_sheets_songs.py
 The goal of this script is to take the exported CSV from [Exportify](https://exportify.net/), and re-format it into a more readable state, which I can then directly upload to my website.
 
 ### How to use
@@ -76,8 +76,8 @@ The goal of this script is to take the exported CSV from [Exportify](https://exp
 2) Allow Exportify to link to your Spotify playlist. Exportify should then take you to a list of all your spotify playlists
     - If you want to unlink it, login to your Spotify account on the **INTERNET** (this cannot be done through the Spotify app), and go to "Manage Apps". (You can click here to go there: https://www.spotify.com/us/account/apps/). Then find `Exportify`, and hit `Remove Access`.
 3) Find the playlist you want to export and select `Export`. This will download a CSV file titled the same thing as your playlist, which will contain all the songs' information in that playlist. Move this file to a known location that can be accessed by the script.
-4) Run the script as `python3 organize_exported_songs.py <path/to/exported.csv> <path/to/output.csv>`
-    - For example inside the `scripts/` directory, run `python3 organize_exported_songs.py songs_2024.csv ../csv/2024_songs.csv`
+4) Run the script as `python3 format_sheets_songs.py <path/to/exported.csv> <path/to/output.csv>`
+    - For example inside the `scripts/` directory, run `python3 format_sheets_songs.py songs_2024.csv ../csv/2024_songs.csv`
 
 ### Things to note
 * This script **will not** modify or delete the input CSV file. You must delete it manually if that's what you want.
@@ -121,7 +121,7 @@ This downloads 3 images of the album art in different sizes (64x64, 300x300, and
 ## Adding new albums to a year CSV list
 1) Export the Google Sheets as a CSV
 2) Copy over that CSV into the scripts folder for ease of access
-3) Run `organize_exported_albums.py`. This will trim the excess data off the sheet and add in the hidden ranking values
+3) Run `format_sheets_albums.py`. This will trim the excess data off the sheet and add in the hidden ranking values
     - After doing this, double check the diff to make sure no formatting or spelling mistakes were copied over
 
 ## Updating the album ordering in a year CSV list

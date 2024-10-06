@@ -64,7 +64,7 @@ if __name__ == "__main__":
     # Get the user command line arguments
     if len(sys.argv) < 3:
         print("[ERROR] Need to pass in 2 argument: the path to the exported csv and the path to output the results")
-        print("Run again as 'python3 organize_exported_songs.py path/to/exported.csv path/to/output.csv'")
+        print("Run again as 'python3 format_sheets_albums.py path/to/exported.csv path/to/output.csv'")
         exit()
 
     source_csv_path = sys.argv[1]
