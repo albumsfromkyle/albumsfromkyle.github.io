@@ -9,9 +9,10 @@ This section contains scripts that aid me in organizing my music. These interfac
 This script takes a backed-up CSV of my "Albums <Year>" Spotify playlist, and organizes it to match the ordering of the HTML table on the website (organized by hidden ranking). This can then be imported back into Spotify to have as the "Organized Albums <Year>" playlist.
 
 ### How to use
-1) Go to the playlist you want to download the album arts from in Spotify. Click `Share` and `Copy Link to Playlist`
+0) Make sure the file at `csv/<year>.csv` matches the overall albums Spotify playlist.
+1) Go to the overall albums playlist for the desired year. Click `Share` and `Copy Link to Playlist`.
 2) Go to [Spotify Backup](https://www.spotify-backup.com/), paste in the playlist link, and click `Generate Backup`. This will download a CSV of your playlist. Move this file to a known location that can be accessed by the script.
-3) Cd into the `scrips/` directory, and run the script as `python3 download_album_art.py <year you are organizing> <path/to/exported.csv> <path/to/organized.csv>`
+3) Cd into the `scrips/` directory, and run the script as `python3 create_organized_playlist.py <year you are organizing> <path/to/exported.csv> <path/to/organized.csv>`
     - For example, `python3 create_organized_playlist.py 2024 backup.csv organized_2024_albums.csv`
 4) Go back to [Spotify Backup](https://www.spotify-backup.com/) and click `Import` at the top
 5) Type in the name of the playlist you want to create
@@ -123,8 +124,6 @@ This downloads 3 images of the album art in different sizes (64x64, 300x300, and
 2) Copy over that CSV into the scripts folder for ease of access
 3) Run `format_sheets_albums.py`. This will trim the excess data off the sheet and add in the hidden ranking values
     - After doing this, double check the diff to make sure no formatting or spelling mistakes were copied over
-
-## Updating the album ordering in a year CSV list
-1) If I am also adding new albums, then follow the above directions for `Adding new albums to a year CSV list` first.
-2) Follow the directions for `set_new_rankings/py`.
+4) If wanting to also update the order of hidden rankings, follow the directions for `set_new_rankings/py`.
     - If updating a list for an older year (before 2022), it might just be faster to update it manually
+5) Afterwards, run

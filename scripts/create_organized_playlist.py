@@ -56,8 +56,8 @@ if __name__ == "__main__":
 
         # Want to loop through the WEBSITE's csv album list so we can organize the "favorite songs" as well
         for r, row in enumerate(web_reader):
-            artist = row[0]
-            album = row[1]
+            artist = row[1]
+            album = row[0]
             fav_songs = row[5].split(", ")
             hidden_ranking = row[7]
 

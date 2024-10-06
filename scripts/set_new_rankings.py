@@ -27,8 +27,8 @@ if __name__ == "__main__":
 
         # Get the number of albums to accurate set the hidden rankings
         num_albums = sum(1 for row in source_csv)
-        ist_csv.seek(0)
-            list_reader = csv.reader(list_csv)
+        source_csv.seek(0)
+        source_reader = csv.reader(source_csv)
 
         # Loop through the source list, and check if each album is in the list
         # If so, update it's hidden ranking
@@ -43,7 +43,6 @@ if __name__ == "__main__":
             for index, list_row in enumerate(list_reader):
                 if list_row[0] == current_album:
                     hidden_ranking = num_albums - index
-                    print("Got hidden ranking", hidden_ranking, "for " + current_album)
             
             new_data.append(source_row[0:7] + [hidden_ranking])
     
