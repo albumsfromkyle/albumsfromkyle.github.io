@@ -142,6 +142,7 @@ function getQueryParam(param) {
 /**
  * Function that runs when the website it first loaded in. Sets up the initial view of the website
  */
+let INITIAL_GRID_LOADED = false;
 document.addEventListener("DOMContentLoaded", async function() {
     // Preload all the images by created a grid for each year
     setGridAlbumsPerRow();
@@ -194,7 +195,7 @@ function updateLayoutButton() {
     let layout_button =  document.getElementById("layout-button");
 
     // Remove the layout button for the songs list
-    (SELECTED_LIST == "Favorite Songs") ? layout_button.classList.add("hidden") : layout_button.classList.remove("hidden");
+    (SELECTED_LIST == "Favorite Songs" || !INITIAL_GRID_LOADED) ? layout_button.classList.add("hidden") : layout_button.classList.remove("hidden");
 
     // Update the icon to match the layout
     (SELECTED_LAYOUT == "TABLE") ? layout_button.classList.replace("fa-bars", "fa-grid-2") : layout_button.classList.replace("fa-grid-2", "fa-bars");
@@ -331,9 +332,10 @@ document.getElementById("layout-button").addEventListener("click", function(even
  * Used to "preload" all the grids to make it more responsive to the user.
  */
 function createAllGrids() {
-    for (let year = OLDEST_YEAR; year <= CURRENT_YEAR; year++) {
+    for (let year = CURRENT_YEAR; year >= OLDEST_YEAR; year--) {
         createGrid(year);
     }
+    INITIAL_GRID_LOADED = true;
 }
 
 
@@ -457,6 +459,7 @@ function updateGrid() {
         grid.classList.remove("hidden");
     }
     else {
+        console.log("Grid doesn't exist yet!");
         SELECTED_LAYOUT = "TABLE";
         updateDisplay();
     }
