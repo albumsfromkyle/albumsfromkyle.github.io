@@ -313,6 +313,22 @@ window.addEventListener('resize', function() {
 **** GRID LAYOUT ****
 ********************/
 /**
+ * Monitor whenever new elements are created.
+ * Looks for the last grid element to exist, sets the global variable indicating it's okay to go into grid mode, then stops observing.
+ */
+var observer = new MutationObserver(function(mutations) {
+   if (document.getElementById("album-grid-" + CURRENT_YEAR)) {
+        console.log("Initial grid loaded!");
+        observer.disconnect();
+        INITIAL_GRID_LOADED = true;
+        updateLayoutButton();
+    }
+});
+observer.observe(document, {attributes: false, childList: true, characterData: false, subtree:true});
+
+
+
+/**
  * Handles when the change layout button is clicked
  */
 document.getElementById("layout-button").addEventListener("click", function(event) {
@@ -332,10 +348,9 @@ document.getElementById("layout-button").addEventListener("click", function(even
  * Used to "preload" all the grids to make it more responsive to the user.
  */
 function createAllGrids() {
-    for (let year = CURRENT_YEAR; year >= OLDEST_YEAR; year--) {
+    for (let year = OLDEST_YEAR; year <= CURRENT_YEAR; year++) {
         createGrid(year);
     }
-    INITIAL_GRID_LOADED = true;
 }
 
 
