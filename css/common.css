@@ -240,6 +240,11 @@ img {
         padding: 0;
     }
     #navbar ul li a {
-        padding: 0.3125rem 0.75rem;
+        padding: 0.3125rem 0.5715rem;
+    }
+    #navbar #main-menu img {
+        display: block;
+        width: 1.333rem; 
+        height: 1.333rem; 
     }
 }

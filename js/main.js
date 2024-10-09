@@ -327,7 +327,6 @@ var observer = new MutationObserver(function(mutations) {
 observer.observe(document, {attributes: false, childList: true, characterData: false, subtree:true});
 
 
-
 /**
  * Handles when the change layout button is clicked
  */
