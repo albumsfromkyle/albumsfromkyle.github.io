@@ -259,8 +259,15 @@
     border-collapse: collapse;
     position: relative;
 }
+#album-list .container table {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+#album-list td {
+    padding: 0.625rem 1rem;
+}
 
 #album-list thead td {  /* Entire header cell */
+    padding: 0.3125rem 1rem;
     color: var(--TABLE-HEADER-TEXT);
     background: var(--TABLE-HEADER-BACKGROUND);
     border-bottom: 0.125rem solid var(--TABLE-BORDER);

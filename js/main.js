@@ -389,8 +389,8 @@ async function csvRowToGridImage(csvRow, workingRow) {
     cell.innerHTML  = "<img class=\"art-art\" src=\"" + imageFilename + "\" width=\"" + IMAGE_SIZE + "px\" height=\"" + IMAGE_SIZE + "px\">";
 
     // Insert all the other album info
-    cell.innerHTML += "<div class=\"art-album\"><u>" + csvRow["Album"] + "</u></div>";
-    cell.innerHTML += "<div class=\"art-artist\"><i>By: " + csvRow["Artist"] + "</i></div>";
+    cell.innerHTML += "<div class=\"art-album\"><i>" + csvRow["Album"] + "</i></div>";
+    cell.innerHTML += "<div class=\"art-artist\">By: <u>" + csvRow["Artist"] + "</u></div>";
     cell.innerHTML += "<div class=\"art-genre\">Genre: " + csvRow["Genre"] + "</div>";
     cell.innerHTML += "<div class=\"art-hidden-ranking hidden\">" + csvRow["Hidden Ranking"] + "</div>";
 
@@ -624,6 +624,7 @@ function shouldShowAlbum(rating) {
 
     return true;
 }
+
 
 /**
  * Loads all the data in the passed in CSV into the HTML albums table.
