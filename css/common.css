@@ -159,7 +159,6 @@ img {
 #navbar #main-menu ul {
     display: flex;
     align-items: center;
-    padding: 0 0.625rem;
 }
 
 /* Styles the list elements */
@@ -177,13 +176,10 @@ img {
 }
 
 /* Styles the Spotify and Github logos */
-#navbar #main-menu .image-link img {
+#navbar #main-menu img {
     display: block;
     width: 1.75rem; 
     height: 1.75rem; 
-}
-#navbar #main-menu .image-link:last-child img  {
-    margin-left: 1.5625rem;
 }
 /* #endregion */
 
