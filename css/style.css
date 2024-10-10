@@ -367,6 +367,9 @@
         width: 100%;
         word-wrap: break-word;
     }
+    #album-list td, #album-list thead td {
+        padding: 0.3125rem 0.3125rem;
+    }
 
     /* Stop list selector from overspilling */
     #list-select-navbar {
