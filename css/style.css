@@ -280,6 +280,7 @@
 
 #album-list #album-table {
     background: var(--TABLE-CELL-BACKGROUND);
+    margin-bottom: 8rem;
 }
 #album-list #album-table .ten {
     background: var(--TABLE-10);
