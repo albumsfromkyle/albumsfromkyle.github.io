@@ -262,6 +262,76 @@ function updateDisplay() {
 }
 
 
+
+
+
+// TODO: Make the search website-wide, rather than year/list specific
+// TODO: Display how many results there are
+// TODO: Mark on the scroll bar where the results are
+//       OR
+//       Give a list of all the results ***
+
+function clearHighlights() {
+    let table = document.getElementById("album-table-body");
+    let highlightedSpans = table.querySelectorAll('.highlight');
+    highlightedSpans.forEach(span => {
+        let parent = span.parentNode;
+        parent.replaceChild(document.createTextNode(span.textContent), span);
+        parent.normalize();
+    });
+}
+
+
+function getElementsToSearch() {
+    if (SELECTED_LAYOUT == "TABLE") {
+        return document.getElementById("album-table-body").getElementsByTagName('td');
+    }
+    else if (SELECTED_LAYOUT == "GRID") {
+        return document.getElementById("album-grid-" + SELECTED_YEAR).querySelectorAll(".art-album, .art-artist, .art-genre");
+    }
+}
+
+
+function searchText(whatToSearch) {
+    let elementsToSearch = getElementsToSearch();
+    Array.from(elementsToSearch).forEach(elem => {
+        let text = elem.textContent.toLowerCase();
+        
+        if (text.includes(whatToSearch)) {
+            let regex = new RegExp(whatToSearch, 'gi');
+            let highlightedText = elem.textContent.replace(regex, (match) => `<span class="highlight">${match}</span>`);
+            elem.innerHTML = highlightedText;
+        }
+    });
+}
+
+
+let searchTimer;
+function handleSearch() {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => {
+        clearHighlights();
+
+        let whatToSearch = document.getElementById("search-input").value.toLowerCase();
+        if (whatToSearch) {
+            searchText(whatToSearch);
+        }
+
+    }, 500); // 500ms delay before searching
+}
+document.getElementById("search-input").addEventListener("input", function(event){
+    handleSearch();
+});
+document.getElementById("search-button").addEventListener("click", function(event){
+    handleSearch();
+});
+
+
+
+
+
+
+
 /**********************
 **** GRID RESIZING ****
 **********************/

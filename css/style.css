@@ -299,7 +299,7 @@
 /************
 **** Art ****
 ************/
-/* #region art */
+/* #region ART */
 .art-cell {
     width: 20%;
     text-align: center;
@@ -330,6 +330,30 @@
     background: var(--BODY-BACKGROUND);
 }
 /* #endregion */
+
+
+/***************
+**** SEARCH ****
+***************/
+/* #region SEARCH  */
+.search-bar {
+    margin: 20px;
+}
+
+.search-bar input {
+    padding: 10px;
+    font-size: 16px;
+}
+
+.search-bar button {
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.highlight {
+    background-color: yellow;
+}
+/* #endregion  */
 
 
 @media only screen and (max-width: 600px) {
