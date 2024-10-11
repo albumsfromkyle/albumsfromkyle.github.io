@@ -24,3 +24,17 @@
 + Maybe bolder text or bolder lines for table?
 - Maybe break up grid/table into section ("gold", "silver", "bronze")
 - Grid as default view!
+
+
+# SEARCH
+* How to search albums and songs at the same time?
+    - Albums can be in grid, songs cannot
+    - Albums and songs have different table headers
+    - Maybe just allow for EITHER albums or songs to be searched, but not both
+* Easy option would be just to search the page, but that's not very useful
+* Other option would be to just have the drop down menu that displays the results
+    - Clicking a result would bring you to that year/list
+    - Not great in the case where someone wants to just search by genre, or search by artist, etc. rather than finding one specific album/song
+* Should I just remove the songs list entirely?
+    - Doesn't look very good unless I add grid view
+    - Maybe just display the albums list, but give TWO spotify playlist links: one to albums, one to songs
