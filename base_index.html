@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Albums From Kyle</title>
+    <link rel="stylesheet" href="css/style.css"> <!-- STYLE -->
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.6.0/css/all.css">
+    <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAADFklEQVR4nO2ay04UQRSGvzhhxkTRaECjibI0EeIjmDiKiog7ERbGhRuNiOgruFBYYMS4cOsTOID6BsZbXAgyOKiJ4yVxjLeNyKC0KXMWk051z1RXd5cQ/uQkk57q/9Tfdar61KmGVaxcbAR6gBFgAigCn4F5MfV7BhgHhqXtBv4TZIF+4B7wG/AMbRG4C/QJV+pYCwwB7yJ0PsgU1yCQS0vEIWAuRgF+ewl0JilAPanrCQrw260kRmcL8CRFEZ7YQ6A1LhFtQMmBCK8m1FQfrKCexqxDEZ7YK2BrVBE5R+HkAT801x5FnTM3HYl4BmwCbmv+G4uyxLoQ8RbYLn3YDHz3/b9ksjTnHM0LFU57pA/bgKcB7UryQq6LIQciFoC8+G+XkQlrf76eiKYGSOI2FS6nxH8e+NZgOhOam/U7GI1R8X1SRqbR+06ECbkfU+eeAxckTNaJtcu1KV/bjyJGjYyJj8mw/cSipYBfwFlgTcjDygDnDJ++p7Eq0KxzcCwGEftoHPkYxHTriEcsSc9gjgFLn1d1pBOWcyIsnMLCbNrCb0FHavMSVJM4Ki5a+J3REVYsCHcHdFLF8HtZ97sC2nRY+P2kI5y3INSuHr49fTmgTbOF358rWkglgdDqEjFKxOG0Qqu4DCf7Cx3huAXhlCylpshIZ6L6vaMjHbYg9CTtMMWgpc8rOtIeS1KVbuw3EHFA8iUbn0eSShoXJO0IC7OMjEQ1qaQRKSibkP0BLgNvfNenZRKrFWm9mPp9yXJOeDWmUqpA9BkQqffOcblvNKbOeQbWG8dW9wuwV+457UBEuZFjiHoryWtgV03ZyHZeJbZCZkMy4cc1pcsOTd0pDSuZVBwPaggqMmkVdgAfHIhYMlzi/2FMQ3RDKoD+AkJado0IyMn5hJ/sqyMRD2zOGVssk8m4bE4Om6zQJoctrkTMAjuJCa1yPuEinFqIGU1SfjGtCNochmZJEJ0Jh1oxyhIbFTkp7ZdjFKBSowFXX0BkpSo+GTFVqUoW2+tKgA5qb3BUdpoFKZ7pPqopyFzrDttPrIJljr98MZoB9CgjBAAAAABJRU5ErkJggg==" id="favicon"> <!-- Black favicon-->
+    <script src="https://d3js.org/d3.v5.min.js"></script> <!-- D3 For CSV data manipulation -->
+</head>
+<body>
+    <!-- ------------------------ MAIN NAVBARS ------------------------ -->
+    <nav id="navbar">
+        <div class="container"> <!-- Stops the nav bar from going all the way to the edge of the window-->
+            <div id="title"><a href="index.html">Albums From Kyle</a></div>
+            
+            <div id="main-menu">
+                <ul>
+                    <li><a href="siteinfo.html">Site Info</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                    <li><a href="https://open.spotify.com/user/8f68w4pvrs06luetrjbgrxyu5?si=213c3c527c354ad3" target="_blank">
+                            <img src="images/spotify_logo_green.png" alt="Spotify" 
+                            onmouseover='this.src="images/spotify_logo_dark_green.png";' 
+                            onmouseout='this.src="images/spotify_logo_green.png";'>
+                        </a>
+                    </li>
+                </ul> 
+            </div>
+
+        </div>
+    </nav>
+
+    <!-- ------------------------ LIST-NAVBAR ------------------------ -->
+    <nav id="list-select-navbar">
+        <div class="container">
+            <div id="list-menu">
+                <ul id = "list-list">
+                    <li><button class="active">Favorite Albums</button></li>
+                    <li><button>Favorite Songs</button></li>
+                    <!-- <li><button>Current Obsessions</button></li> -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- ------------------------ YEAR NAVBAR ------------------------ -->
+    <nav id="year-navbar">
+        <div class="container">
+            <div id="year-menu">
+                <button id="year-decrease">◀&#xFE0E;</button>
+                <ul id="year-list">
+                    <li><button id="year1">2020</button></li>
+                    <li><button id="year2">2021</button></li>
+                    <li><button id="year3">2022</button></li>
+                    <li><button id="year4">2023</button></li>
+                    <li><button id="year5" class="active">2024</button></li>
+                </ul>
+                <button id="year-increase", disabled="true">▶&#xFE0E;</button>
+            </div>
+
+        </div>
+    </nav>
+
+    <!-- ------------------------ ALERT BANNER ------------------------ -->
+    <div id="alert-banner" class="hidden">
+        <div class="container">
+            <span id="alert-msg">Alert goes here</span>
+            <span id="alertclose" onclick="this.parentElement.parentElement.classList.add('hidden')">x</span>
+        </div>
+    </div>
+
+    <!-- ------------------------ SPOTIFY PLAYLIST / LAYOUT ------------------------ -->
+    <div id="spotify-playlist">
+        <div class="grid-container" id="spotify-layout-container">
+            Spotify playlist: &nbsp;
+            <a id="playlist-link" href="https://open.spotify.com/playlist/5Gc046e1S0rptnfVX2TQaT?si=df565cec7adf47c0" target="_blank">Albums 2024</a> 
+            <i id="layout-button" class="fa-solid fa-grid-2 fa-2xl hidden"></i>
+        </div>
+    </div>
+
+    <!-- ------------------------ TABLE ------------------------ -->
+    <div id="album-list">
+        <div id="table-container" class="container">
+            <table id="album-table">
+                <!-- Headers-->
+                <thead id="table-headers">
+                    <!-- Headers are auto-generating by updateTableHeaders() JS function, these are just for reference -->
+                    <tr>
+                        <th scope="col" class="album">Album</th>
+                        <th scope="col" class="artist">Artist</th>
+                        <th scope="col" class="genre">Genre</th>
+                        <th scope="col" class="favorite-songs">Favorite Songs</th>
+                        <th scope="col" class="rating">Rating</th>
+                    </tr>
+                </thead>
+                <!-- Body -->
+                <tbody id="album-table-body">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>

@@ -6,7 +6,7 @@ const NUM_YEARS_TO_SHOW = 5;
 // Selectors
 let SELECTED_YEAR = CURRENT_YEAR; // Default year to show
 let SELECTED_LIST = "Favorite Albums"; // Default list to show
-let SELECTED_LAYOUT = "TABLE"; // Default layout to show
+let SELECTED_LAYOUT = "GRID"; // Default layout to show
 
 // Table headers
 const ALBUMS_CSV_HEADERS = ["Album", "Artist", "Genre", "Release Date", "Listened On", "Favorite Songs", "Rating", "Hidden Ranking"];
@@ -266,6 +266,39 @@ function updateDisplay() {
 **** GRID RESIZING ****
 **********************/
 /**
+ * Hides all the grid elements
+ */
+function hideAllGrids() {
+    for (let year = OLDEST_YEAR; year <= CURRENT_YEAR; year++) {
+        for (let albumsPerRow = 2; albumsPerRow <= 5; albumsPerRow++) {
+            document.getElementById("album-grid-" + year + "-" + albumsPerRow).classList.add("hidden");
+        }
+    }
+}
+
+
+/**
+ * Uses the global variables to determine which grid should be shown, and hides all other grids
+ */
+function updateShownGrid() {
+    // Hide each year's grid
+    hideAllGrids();
+    console.log("UPDATING TO SHOW GRID album-grid-" + SELECTED_YEAR + "-" + NUM_ALBUMS_PER_ROW)
+    
+    // Display the correct grid
+    let grid = document.getElementById("album-grid-" + SELECTED_YEAR + "-" + NUM_ALBUMS_PER_ROW);
+    if (grid != null) {
+        grid.classList.remove("hidden");
+    }
+    else {
+        console.log("Grid doesn't exist yet!");
+        SELECTED_LAYOUT = "TABLE";
+        updateDisplay();
+    }
+}
+
+
+/**
  * Determines how many albums are displayed per row in the grid layout, depending on the screen width
  */
 function setGridAlbumsPerRow() {
@@ -298,12 +331,13 @@ window.addEventListener('resize', function() {
             return;
         }
 
+        // Get how many albums can be shown per row
         let prev = NUM_ALBUMS_PER_ROW;
         setGridAlbumsPerRow();
 
+        // If that value is different from what is currently displayed, update which grid is shown
         if (NUM_ALBUMS_PER_ROW != prev) {
-            createAllGrids(); // Re-create the grids with the new number of albums per row
-            updateDisplay();
+            updateShownGrid();
         }
     }, 200);
 });
@@ -317,8 +351,7 @@ window.addEventListener('resize', function() {
  * Looks for the last grid element to exist, sets the global variable indicating it's okay to go into grid mode, then stops observing.
  */
 var observer = new MutationObserver(function(mutations) {
-   if (document.getElementById("album-grid-" + CURRENT_YEAR)) {
-        console.log("Initial grid loaded!");
+   if (document.getElementById("album-grid-" + CURRENT_YEAR + "-" + NUM_ALBUMS_PER_ROW)) {
         observer.disconnect();
         INITIAL_GRID_LOADED = true;
         updateLayoutButton();
@@ -348,7 +381,9 @@ document.getElementById("layout-button").addEventListener("click", function(even
  */
 function createAllGrids() {
     for (let year = OLDEST_YEAR; year <= CURRENT_YEAR; year++) {
-        createGrid(year);
+        for (let albumsPerRow = 2; albumsPerRow <= 5; albumsPerRow++) {
+            createGrid(year, albumsPerRow);
+        }
     }
 }
 
@@ -404,17 +439,17 @@ async function csvRowToGridImage(csvRow, workingRow) {
  * @param {*} year The year this CSV list is associated with
  * @returns The HTML element containing the grid of albums
  */
-async function listToGrid(csvRowList, year) {
+async function listToGrid(csvRowList, year, albumsPerRow) {
     // Actually create the grid element
     let newTable = document.createElement('tbody');
-    newTable.id = "album-grid-" + year;
+    newTable.id = "album-grid-" + year + "-" + albumsPerRow;
     newTable.classList.add("hidden");
 
     // Convert each list row into an element on the grid
     let index = 0;
     for (let csvRow of csvRowList) {
         // If this is the start of a new row, insert it. Otherwise, get the last row
-        let workingRow = (index % NUM_ALBUMS_PER_ROW == 0) ? newTable.insertRow(-1) : newTable.rows[newTable.rows.length - 1];
+        let workingRow = (index % albumsPerRow == 0) ? newTable.insertRow(-1) : newTable.rows[newTable.rows.length - 1];
         index = index + 1;
 
         // Insert the new image grid element
@@ -432,7 +467,7 @@ async function listToGrid(csvRowList, year) {
  * Creates the album grid HTML element for the given year.
  * @param {*} year the year to create the grid for.
  */
-async function createGrid(year) {
+async function createGrid(year, albumsPerRow) {
     // Load in the new CSV and display the new data
     let extension = getExtensionFromList("Favorite Albums");
     let filename = "csv/" + year + extension + ".csv";
@@ -442,7 +477,7 @@ async function createGrid(year) {
         let sortedCsvList = csvToSortedCsvList(data, year);
 
         // Convert the list into the grid
-        let grid = await listToGrid(sortedCsvList, year);
+        let grid = await listToGrid(sortedCsvList, year, albumsPerRow);
 
         // If this grid already exists, replace it
         (document.getElementById(grid.id)) 
@@ -462,21 +497,8 @@ function updateGrid() {
     // Hide the main table
     document.getElementById("album-table-body").classList.add("hidden");
     
-    // Hide each year's grid (in case the user is simply switching years)
-    for (let year = OLDEST_YEAR; year <= CURRENT_YEAR; year++) {
-        document.getElementById("album-grid-" + year) ? document.getElementById("album-grid-" + year).classList.add("hidden") : null;
-    }
-    
-    // Display the selected years grid (or switch to the table if it does not exist)
-    let grid = document.getElementById("album-grid-" + SELECTED_YEAR);
-    if (grid != null) {
-        grid.classList.remove("hidden");
-    }
-    else {
-        console.log("Grid doesn't exist yet!");
-        SELECTED_LAYOUT = "TABLE";
-        updateDisplay();
-    }
+    // Update which grids are hidden / shown
+    updateShownGrid();
 }
 
 
@@ -692,11 +714,7 @@ function updateTable() {
         }
     });
 
-    // Hide all the grids
-    for (let year = OLDEST_YEAR; year <= CURRENT_YEAR; year++) {
-        let grid = document.getElementById("album-grid-" + year);
-        grid ? grid.classList.add("hidden") : null;
-    }
+    hideAllGrids();
 }
 
 
