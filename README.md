@@ -44,6 +44,7 @@ The repository structure is pretty self-explanatory, but here is a quick rundown
 * `scripts/` contains python scripts which are used only to aid in my organization of albums/songs data (and as such are not used by the website).
 * The actual HTML files for the website are located in the root directory.
     - `index.html` is the main homepage containing the album/song lists.
+    - `base_index.html` is the main homepage without any of the lists in it.
     - `site-info.html` contains information about the website and its purpose.
     - `resources.html` contains links to my Spotify playlists and websites I use to help me find music.
 

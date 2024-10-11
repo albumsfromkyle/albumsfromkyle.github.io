@@ -263,6 +263,21 @@ function updateUrl() {
 
 
 /**
+ * Handles when the change layout button is clicked
+ */
+document.getElementById("layout-button").addEventListener("click", function(event) {
+    if (SELECTED_LAYOUT == "TABLE") {
+        SELECTED_LAYOUT = "GRID";
+        updateDisplay();
+    }
+    else if (SELECTED_LAYOUT == "GRID"){
+        SELECTED_LAYOUT = "TABLE";
+        updateDisplay();
+    }
+});
+
+
+/**
  * Updates everything within the main display (which is the album list/grid)
  */
 function updateDisplay() {
@@ -328,7 +343,6 @@ window.addEventListener('resize', function() {
         }
     }, 200);
 });
-
 
 
 /*********************
@@ -507,21 +521,6 @@ async function createGrid(year, albumsPerRow) {
 **** UPDATING GRID LAYOUT ****
 *****************************/
 /**
- * Handles when the change layout button is clicked
- */
-document.getElementById("layout-button").addEventListener("click", function(event) {
-    if (SELECTED_LAYOUT == "TABLE") {
-        SELECTED_LAYOUT = "GRID";
-        updateDisplay();
-    }
-    else {
-        SELECTED_LAYOUT = "TABLE";
-        updateDisplay();
-    }
-});
-
-
-/**
  * Hides all the grid elements
  */
 function hideAllGrids() {
@@ -539,7 +538,6 @@ function hideAllGrids() {
 function updateShownGrid() {
     // Hide each year's grid
     hideAllGrids();
-    console.log("UPDATING TO SHOW GRID album-grid-" + SELECTED_YEAR + "-" + NUM_ALBUMS_PER_ROW)
     
     // Display the correct grid
     let grid = document.getElementById("album-grid-" + SELECTED_YEAR + "-" + NUM_ALBUMS_PER_ROW);
@@ -548,6 +546,7 @@ function updateShownGrid() {
     }
     else {
         console.log("Grid doesn't exist yet!");
+        showAlertBanner("Grid layout for year " + SELECTED_YEAR + " does not exist!");
         SELECTED_LAYOUT = "TABLE";
         updateDisplay();
     }
@@ -830,14 +829,16 @@ function hideAlertBanner() {
  * @param {*} list The invalid list
  * @param {*} year The invalid year
  */
-function showAlertBanner(msg) {
+function showAlertBanner(msg, permanent = false) {
     let alertMsg = document.getElementById("alert-msg");
     alertMsg.innerHTML = msg;
     
     let alert = document.getElementById("alert-banner");
     alert.classList.remove("hidden");
 
-    setTimeout(hideAlertBanner, 8*1000);
+    if (!permanent) {
+        setTimeout(hideAlertBanner, 8*1000);
+    }
 }
 
 

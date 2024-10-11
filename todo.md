@@ -23,7 +23,7 @@
 + Make icons on phone?
 + Maybe bolder text or bolder lines for table?
 - Maybe break up grid/table into section ("gold", "silver", "bronze")
-- Grid as default view!
++ Grid as default view!
 
 
 # SEARCH
