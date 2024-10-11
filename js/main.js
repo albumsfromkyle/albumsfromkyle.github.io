@@ -10,12 +10,12 @@ let SELECTED_LAYOUT = "GRID"; // Default layout to show
 
 // Table headers
 const ALBUMS_CSV_HEADERS = ["Album", "Artist", "Genre", "Release Date", "Listened On", "Favorite Songs", "Rating", "Hidden Ranking"];
-let SHOWN_ALBUM_HEADERS = ["Album", "Artist", "Genre", "Favorite Songs"];
+const SHOWN_ALBUM_HEADERS = ["Album", "Artist", "Genre", "Favorite Songs"];
 
 const SONGS_CSV_HEADERS = ["Song", "Album", "Artist", "Genre", "Hidden Ranking"];
-let SHOWN_SONG_HEADERS = ["Song", "Artist", "Album", "Genre"];
+const SHOWN_SONG_HEADERS = ["Song", "Artist", "Album", "Genre"];
 
-let SORTABLE_HEADERS = [""];
+const SORTABLE_HEADERS = [""];
 
 const SHOW_RATING = SHOWN_ALBUM_HEADERS.includes("Rating");
 
@@ -125,6 +125,25 @@ function sleep(ms) {
 }
 
 
+/**
+ * Given a rating value, uses the global variables to decide if that album should be shown or not.
+ * @param {*} rating The numberical value (out of 10) of the rating of the album to show or not.
+ * @returns Boolean of whether to show the album or not.
+ */
+function shouldShowAlbum(rating) {
+    // Current settings:
+    // If showing the ratings, then show everything
+    // Otherwise, only show albums at or above 6.5 ratings
+    if (!SHOW_RATING) {
+        if (rating != "" && parseFloat(rating) < 6.5) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+
 /********************************
 **** STARTUP / ON LOADING IN ****
 ********************************/
@@ -142,11 +161,12 @@ function getQueryParam(param) {
 /**
  * Function that runs when the website it first loaded in. Sets up the initial view of the website
  */
-let INITIAL_GRID_LOADED = false;
 document.addEventListener("DOMContentLoaded", async function() {
     // Preload all the images by created a grid for each year
     setGridAlbumsPerRow();
-    createAllGrids();
+    
+    // UNCOMMENT TO RECREATE ALL THE GRIDS TO COPY OVER INTO INDEX.HTML
+    // createAllGrids();
 
     // Get the parameters to load from the URL (or the get the defaults otherwise)
     let listQuery = getQueryParam("list");
@@ -195,7 +215,7 @@ function updateLayoutButton() {
     let layout_button =  document.getElementById("layout-button");
 
     // Remove the layout button for the songs list
-    (SELECTED_LIST == "Favorite Songs" || !INITIAL_GRID_LOADED) ? layout_button.classList.add("hidden") : layout_button.classList.remove("hidden");
+    (SELECTED_LIST == "Favorite Songs") ? layout_button.classList.add("hidden") : layout_button.classList.remove("hidden");
 
     // Update the icon to match the layout
     (SELECTED_LAYOUT == "TABLE") ? layout_button.classList.replace("fa-bars", "fa-grid-2") : layout_button.classList.replace("fa-grid-2", "fa-bars");
@@ -262,42 +282,9 @@ function updateDisplay() {
 }
 
 
-/**********************
-**** GRID RESIZING ****
-**********************/
-/**
- * Hides all the grid elements
- */
-function hideAllGrids() {
-    for (let year = OLDEST_YEAR; year <= CURRENT_YEAR; year++) {
-        for (let albumsPerRow = 2; albumsPerRow <= 5; albumsPerRow++) {
-            document.getElementById("album-grid-" + year + "-" + albumsPerRow).classList.add("hidden");
-        }
-    }
-}
-
-
-/**
- * Uses the global variables to determine which grid should be shown, and hides all other grids
- */
-function updateShownGrid() {
-    // Hide each year's grid
-    hideAllGrids();
-    console.log("UPDATING TO SHOW GRID album-grid-" + SELECTED_YEAR + "-" + NUM_ALBUMS_PER_ROW)
-    
-    // Display the correct grid
-    let grid = document.getElementById("album-grid-" + SELECTED_YEAR + "-" + NUM_ALBUMS_PER_ROW);
-    if (grid != null) {
-        grid.classList.remove("hidden");
-    }
-    else {
-        console.log("Grid doesn't exist yet!");
-        SELECTED_LAYOUT = "TABLE";
-        updateDisplay();
-    }
-}
-
-
+/*****************************
+**** GRID WINDOW RESIZING ****
+*****************************/
 /**
  * Determines how many albums are displayed per row in the grid layout, depending on the screen width
  */
@@ -343,38 +330,77 @@ window.addEventListener('resize', function() {
 });
 
 
-/********************
-**** GRID LAYOUT ****
-********************/
+
+/*********************
+**** GRID SORTING ****
+*********************/
 /**
- * Monitor whenever new elements are created.
- * Looks for the last grid element to exist, sets the global variable indicating it's okay to go into grid mode, then stops observing.
+ * Sort a list of values in descending order by hidden ranking.
+ * @param {*} listToSort The list to sort, where each element is a dictionary with a "Hidden Ranking" value.
+ * @returns The sorted list.
  */
-var observer = new MutationObserver(function(mutations) {
-   if (document.getElementById("album-grid-" + CURRENT_YEAR + "-" + NUM_ALBUMS_PER_ROW)) {
-        observer.disconnect();
-        INITIAL_GRID_LOADED = true;
-        updateLayoutButton();
+function listBubbleSort(listToSort) {
+    // It's fine doing a simple bubble sort (performance wise) since n is always small for my tables (number of album entries will never exceed 3 digits)
+    for (let i = 0; i < listToSort.length - 1; i++) {
+        
+        let swapped = false;
+        
+        for (let j = 0; j < listToSort.length - i - 1; j++) {
+            let topRanking = listToSort[j]["Hidden Ranking"];
+            let botRanking = listToSort[j + 1]["Hidden Ranking"];
+
+            // Convert to numbers if the column is numeric
+            if (!isNaN(topRanking) && !isNaN(botRanking)) {
+                topRanking = Number(topRanking);
+                botRanking = Number(botRanking);
+            }
+            
+            // Perform the swap depending on if we are in increasing or decreasing order
+            if (botRanking > topRanking) {
+                let temp = listToSort[j];
+                listToSort[j] = listToSort[j + 1];
+                listToSort[j + 1] = temp;
+                swapped = true;
+            }
+        }
+
+        if (swapped == false) {
+            break;
+        }
     }
-});
-observer.observe(document, {attributes: false, childList: true, characterData: false, subtree:true});
+
+    return listToSort;
+}
 
 
 /**
- * Handles when the change layout button is clicked
+ * Converts the album list CSV data into a sorted list of the same CSV data.
+ * @param {*} data The CSV data.
  */
-document.getElementById("layout-button").addEventListener("click", function(event) {
-    if (SELECTED_LAYOUT == "TABLE") {
-        SELECTED_LAYOUT = "GRID";
-        updateDisplay();
-    }
-    else {
-        SELECTED_LAYOUT = "TABLE";
-        updateDisplay();
-    }
-});
+function csvToSortedCsvList(data, year) {
+    let listToSort = [];
+    data.forEach(function(csvRow) {
+        // Some previous lists include albums from ANY year. I want to exclude those for now, and only include albums release the selected year
+        let releaseDate = Date.parse( csvRow["Release Date"] );
+        if (releaseDate < Date.parse("1/1/" + year)) {
+            return;
+        }
+
+        // If I am not showing the ratings for the albums, only show the albums I would recommend (which are albums above 6 in their score)
+        if (!shouldShowAlbum(csvRow["Rating"])) {
+            return;
+        }
+
+        listToSort.push(csvRow);
+    });
+
+    return listBubbleSort(listToSort);
+}
 
 
+/*************************
+**** CREATING GRID(S) ****
+*************************/
 /**
  * Creates a hidden HTML element containing the album grid for each year.
  * Used to "preload" all the grids to make it more responsive to the user.
@@ -385,16 +411,6 @@ function createAllGrids() {
             createGrid(year, albumsPerRow);
         }
     }
-}
-
-
-/**
- * Updates the headers of the display table to the grid style (AKA it removes the headers)
- */
-function updateGridHeaders() {
-    // Clear the current headers
-    let header = document.getElementById("table-headers");
-    header.innerHTML = "";
 }
 
 
@@ -487,6 +503,67 @@ async function createGrid(year, albumsPerRow) {
 }
 
 
+/*****************************
+**** UPDATING GRID LAYOUT ****
+*****************************/
+/**
+ * Handles when the change layout button is clicked
+ */
+document.getElementById("layout-button").addEventListener("click", function(event) {
+    if (SELECTED_LAYOUT == "TABLE") {
+        SELECTED_LAYOUT = "GRID";
+        updateDisplay();
+    }
+    else {
+        SELECTED_LAYOUT = "TABLE";
+        updateDisplay();
+    }
+});
+
+
+/**
+ * Hides all the grid elements
+ */
+function hideAllGrids() {
+    for (let year = OLDEST_YEAR; year <= CURRENT_YEAR; year++) {
+        for (let albumsPerRow = 2; albumsPerRow <= 5; albumsPerRow++) {
+            document.getElementById("album-grid-" + year + "-" + albumsPerRow).classList.add("hidden");
+        }
+    }
+}
+
+
+/**
+ * Uses the global variables to determine which grid should be shown, and hides all other grids
+ */
+function updateShownGrid() {
+    // Hide each year's grid
+    hideAllGrids();
+    console.log("UPDATING TO SHOW GRID album-grid-" + SELECTED_YEAR + "-" + NUM_ALBUMS_PER_ROW)
+    
+    // Display the correct grid
+    let grid = document.getElementById("album-grid-" + SELECTED_YEAR + "-" + NUM_ALBUMS_PER_ROW);
+    if (grid != null) {
+        grid.classList.remove("hidden");
+    }
+    else {
+        console.log("Grid doesn't exist yet!");
+        SELECTED_LAYOUT = "TABLE";
+        updateDisplay();
+    }
+}
+
+
+/**
+ * Updates the headers of the display table to the grid style (AKA it removes the headers)
+ */
+function updateGridHeaders() {
+    // Clear the current headers
+    let header = document.getElementById("table-headers");
+    header.innerHTML = "";
+}
+
+
 /**
  * Updates which grid is visible
  */
@@ -502,76 +579,9 @@ function updateGrid() {
 }
 
 
-/*********************
-**** GRID SORTING ****
-*********************/
-/**
- * Sort a list of values in descending order by hidden ranking.
- * @param {*} listToSort The list to sort, where each element is a dictionary with a "Hidden Ranking" value.
- * @returns The sorted list.
- */
-function listBubbleSort(listToSort) {
-    // It's fine doing a simple bubble sort (performance wise) since n is always small for my tables (number of album entries will never exceed 3 digits)
-    for (let i = 0; i < listToSort.length - 1; i++) {
-        
-        let swapped = false;
-        
-        for (let j = 0; j < listToSort.length - i - 1; j++) {
-            let topRanking = listToSort[j]["Hidden Ranking"];
-            let botRanking = listToSort[j + 1]["Hidden Ranking"];
-
-            // Convert to numbers if the column is numeric
-            if (!isNaN(topRanking) && !isNaN(botRanking)) {
-                topRanking = Number(topRanking);
-                botRanking = Number(botRanking);
-            }
-            
-            // Perform the swap depending on if we are in increasing or decreasing order
-            if (botRanking > topRanking) {
-                let temp = listToSort[j];
-                listToSort[j] = listToSort[j + 1];
-                listToSort[j + 1] = temp;
-                swapped = true;
-            }
-        }
-
-        if (swapped == false) {
-            break;
-        }
-    }
-
-    return listToSort;
-}
-
-
-/**
- * Converts the album list CSV data into a sorted list of the same CSV data.
- * @param {*} data The CSV data.
- */
-function csvToSortedCsvList(data, year) {
-    let listToSort = [];
-    data.forEach(function(csvRow) {
-        // Some previous lists include albums from ANY year. I want to exclude those for now, and only include albums release the selected year
-        let releaseDate = Date.parse( csvRow["Release Date"] );
-        if (releaseDate < Date.parse("1/1/" + year)) {
-            return;
-        }
-
-        // If I am not showing the ratings for the albums, only show the albums I would recommend (which are albums above 6 in their score)
-        if (!shouldShowAlbum(csvRow["Rating"])) {
-            return;
-        }
-
-        listToSort.push(csvRow);
-    });
-
-    return listBubbleSort(listToSort);
-}
-
-
-/*********************
-**** TABLE LAYOUT ****
-*********************/
+/***********************
+**** CREATING TABLE ****
+***********************/
 /**
  * Add a list of headers to a passed in HTML table row element.
  * @param {*} row HTML row element to add the header cells to
@@ -593,27 +603,6 @@ function addHeadersToRow(row, headers) {
 
 
 /**
- * Updates the values of the table headers to match the selected list.
- */
-function updateTableHeaders() {
-    // Clear the current headers
-    let header = document.getElementById("table-headers");
-    header.innerHTML = "";
-
-    // Create the new header row
-    let newRow = header.insertRow();
-
-    // Populate the new header row depending on the selected list
-    if (SELECTED_LIST == "Favorite Songs") {
-        addHeadersToRow(newRow, SHOWN_SONG_HEADERS);
-    }
-    else if (SELECTED_LIST == "Favorite Albums") {
-        addHeadersToRow(newRow, SHOWN_ALBUM_HEADERS);
-    }
-}
-
-
-/**
  * Transfers all the data in a CSV row object into an HTML row object, and hides the columns not in headersToShow.
  * @param {*} htmlRow The HTML row object that will be populated with the new cells containing the CSV data
  * @param {*} headersToShow The list of column headers you want to include from the CSV data
@@ -631,20 +620,6 @@ function csvRowToTableRow(htmlRow, headersToShow, csvRow, defaultVal = "-") {
             cell.classList.add("hidden");
         }
     }
-}
-
-
-function shouldShowAlbum(rating) {
-    // Current settings:
-    // If showing the ratings, then show everything
-    // Otherwise, only show albums at or above 6.5 ratings
-    if (!SHOW_RATING) {
-        if (rating != "" && parseFloat(rating) < 6.5) {
-            return false;
-        }
-    }
-
-    return true;
 }
 
 
@@ -689,32 +664,6 @@ function csvToTable(data) {
     // Replace the entire old table with the new table
     let oldTable = document.getElementById("album-table-body");
     oldTable.parentNode.replaceChild(newTable, oldTable);
-}
-
-
-/**
- * Uses the SELECTED_YEAR and SELECTED_LIST to update the data in the albums/songs table.
- * This is called on startup, and whenever the list type (albums/songs) or list year is changed.
- */
-function updateTable() {
-    // Update the table headers to match the selected list
-    // This also makes sure there is the appropriate number of columns in the table
-    updateTableHeaders();
-
-    // Load in the new CSV and display the new data
-    let extension = getExtensionFromList(SELECTED_LIST);
-    let filename = "csv/" + SELECTED_YEAR + extension + ".csv";
-    d3.csv(filename).then(function(data) {
-        csvToTable(data);
-
-        // Sort the data in the table (if needed)
-        // NOTE: This WONT WORK if it is pasted after the d3.csv() call, and idk why
-        if (SELECTED_LIST == "Favorite Albums") {
-            sortTable(ALBUMS_CSV_HEADERS.indexOf("Hidden Ranking"));
-        }
-    });
-
-    hideAllGrids();
 }
 
 
@@ -810,6 +759,56 @@ function sortTable(headerIndex) {
     if (order != null) {
         updateOrderTriangles(order);
     }
+}
+
+
+/******************************
+**** UPDATING TABLE LAYOUT ****
+******************************/
+/**
+ * Updates the values of the table headers to match the selected list.
+ */
+function updateTableHeaders() {
+    // Clear the current headers
+    let header = document.getElementById("table-headers");
+    header.innerHTML = "";
+
+    // Create the new header row
+    let newRow = header.insertRow();
+
+    // Populate the new header row depending on the selected list
+    if (SELECTED_LIST == "Favorite Songs") {
+        addHeadersToRow(newRow, SHOWN_SONG_HEADERS);
+    }
+    else if (SELECTED_LIST == "Favorite Albums") {
+        addHeadersToRow(newRow, SHOWN_ALBUM_HEADERS);
+    }
+}
+
+
+/**
+ * Uses the SELECTED_YEAR and SELECTED_LIST to update the data in the albums/songs table.
+ * This is called on startup, and whenever the list type (albums/songs) or list year is changed.
+ */
+function updateTable() {
+    // Update the table headers to match the selected list
+    // This also makes sure there is the appropriate number of columns in the table
+    updateTableHeaders();
+
+    // Load in the new CSV and display the new data
+    let extension = getExtensionFromList(SELECTED_LIST);
+    let filename = "csv/" + SELECTED_YEAR + extension + ".csv";
+    d3.csv(filename).then(function(data) {
+        csvToTable(data);
+
+        // Sort the data in the table (if needed)
+        // NOTE: This WONT WORK if it is pasted after the d3.csv() call, and idk why
+        if (SELECTED_LIST == "Favorite Albums") {
+            sortTable(ALBUMS_CSV_HEADERS.indexOf("Hidden Ranking"));
+        }
+    });
+
+    hideAllGrids();
 }
 
 
@@ -917,9 +916,9 @@ document.getElementById("list-list").addEventListener("click", async function(ev
 });
 
 
-/*************************************
-**** YEAR INCREASING / DECREASING ****
-*************************************/
+/*****************************
+**** CHANGING YEARS SHOWN ****
+*****************************/
 /**
  * Updates if the year-increase and year-decrease buttons are enabled or disabled, depending on what years are being displayed.
  */
