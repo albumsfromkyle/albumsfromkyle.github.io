@@ -170,7 +170,8 @@
 **** Spotify Playlist ****
 *************************/
 /* #region SPOTIFY PLAYLIST */
-#spotify-playlist .container, #spotify-playlist .grid-container {
+#playlist-and-layout .container, 
+#playlist-and-layout .grid-container {
     padding-top: 0.9375rem;
     padding-bottom: 0.2rem;
     text-align: center;
@@ -180,13 +181,13 @@
     position: relative;
 }
 
-#spotify-playlist a {
+#playlist-and-layout a {
     font-style: italic;
     color: var(--PRIMARY-COLOR);
     border-bottom: 0.0625rem solid transparent;
 }
 
-#spotify-playlist a:hover {
+#playlist-and-layout a:hover {
     border-bottom: 0.0625rem solid var(--PRIMARY-COLOR);
     font-weight: bold;
 }
@@ -197,8 +198,6 @@
     transition: 0.15s;
     position: absolute;
     right: 0.938rem;
-    /* top: 50%;
-    transform: translateY(-50%); */
 }
 
 #layout-button:hover {
@@ -372,7 +371,7 @@
     #list-display .header {
         font-size: 0.75rem;
     }
-    #spotify-playlist {
+    #playlist-and-layout {
         font-size: 0.75rem;
     }
 

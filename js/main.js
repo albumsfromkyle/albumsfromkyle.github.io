@@ -211,7 +211,7 @@ function updateLayoutButton() {
     let layout_button =  document.getElementById("layout-button");
 
     // Remove the layout button for the songs list
-    (SELECTED_LIST == "Favorite Albums") ? layout_button.classList.remove("hidden") : layout_button.classList.add("hidden");
+    (SELECTED_LIST == "Favorite Songs") ? layout_button.classList.add("hidden") : layout_button.classList.remove("hidden");
 
     // Update the icon to match the layout
     (SELECTED_LAYOUT == "TABLE") ? layout_button.classList.replace("fa-bars", "fa-grid-2") : layout_button.classList.replace("fa-grid-2", "fa-bars");
@@ -227,9 +227,11 @@ function updateSpotifyPlaylist() {
     // If in a search list, remove the spotify playlist
     if (SELECTED_LIST == "Search") {
         playlistLink.parentElement.classList.add("hidden");
+        playlistLink.parentElement.parentElement.style.minHeight = "34px";
         return;
     }
     playlistLink.parentElement.classList.remove("hidden");
+    playlistLink.parentElement.parentElement.style.minHeight = "0px";
 
     // Update the text / name of the playlist
     let playlistName = (SELECTED_LIST == "Favorite Albums") ? "Albums " : "Songs ";
@@ -317,7 +319,7 @@ function updateDisplay() {
     if (SELECTED_LIST == "Search") {
         // TODO
     }
-    
+
     // Otherwise the albums/songs list is being shown
     // So, update the display to match the current year and list, depending on the layout
     else if (SELECTED_LAYOUT == "TABLE") {
@@ -1176,16 +1178,19 @@ function performSearch(whatToSearch) {
  */
 let searchTimer;
 function handleSearch() {
+    // Get the search text
+    let whatToSearch = document.getElementById("search-input").value.toLowerCase();
+    if (!whatToSearch) {
+        return;
+    }
+
     // Set the global variables
     SELECTED_YEAR = -1;
     SELECTED_LIST = "Search";
     SELECTED_LAYOUT = "GRID";
 
     // Perform the actual search
-    let whatToSearch = document.getElementById("search-input").value.toLowerCase();
-    if (whatToSearch) {
-        performSearch(whatToSearch);
-    }
+    performSearch(whatToSearch);
 
     // Update the display
     updateDisplay();
