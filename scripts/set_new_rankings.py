@@ -5,8 +5,8 @@ import os.path
 
 if __name__ == "__main__":
     # Get the user command line arguments
-    if len(sys.argv) < 3:
-        print("[ERROR] Need to pass in 2 argument: the path to the exported csv and the path to output the results")
+    if len(sys.argv) < 4:
+        print("[ERROR] Need to pass in 3 argument: the path to the exported csv and the path to output the results")
         print("Run again as 'python3 set_new_rankings.py <path/to/source.csv> <path/to/list.csv> <path/to/output.csv>'")
         exit()
 
