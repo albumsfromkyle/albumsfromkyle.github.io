@@ -92,12 +92,21 @@
         </div>
     </div>
 
-    <!-- ------------------------ TABLE ------------------------ -->
-    <div id="album-list">
+    <!-- ------------------------ MAIN DISPLAY ------------------------ -->
+    <div id="list-display">
+        <!-- ------------------------ SEARCH TABLE/GRID ------------------------ -->
+        <div id="search-container" class="grid-container">
+            <table id="search-table">
+                <tbody id="search-results-albums">
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- ------------------------ ALBUMS/SONGS TABLE ------------------------ -->
         <div id="table-container" class="container">
-            <table id="album-table">
+            <table id="display-table">
                 <!-- Headers-->
-                <thead id="table-headers">
+                <thead id="display-headers">
                     <!-- Headers are auto-generating by updateTableHeaders() JS function, these are just for reference -->
                     <tr>
                         <th scope="col" class="album">Album</th>
@@ -109,10 +118,15 @@
                 </thead>
 
                 <!-- Body -->
-                <tbody id="search-results-albums" class="hidden">
+                <tbody id="display-table-body" class="hidden">
                 </tbody>
-                <tbody id="album-table-body" class="hidden">
-                </tbody>
+            </table>
+        </div>
+
+        <!-- ------------------------ ALBUMS GRID TABLE ------------------------ -->
+        <div id="grid-container" class="grid-container">
+            <table id="album-grids">
+                <!-- Body -->
                 <tbody id="album-grid-2020-2" class="hidden">
                     <tr>
                         <td class="art-cell ten"><img class="art-art"
@@ -6937,7 +6951,7 @@
                         </td>
                     </tr>
                 </tbody>
-                <tbody id="album-grid-2024-4" class="">
+                <tbody id="album-grid-2024-4" class="hidden">
                     <tr>
                         <td class="art-cell ten"><img class="art-art"
                                 src="images/albums/2024/vampireweekend_onlygodwasaboveus_300.jpg" width="200px"

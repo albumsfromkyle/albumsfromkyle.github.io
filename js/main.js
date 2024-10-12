@@ -243,17 +243,6 @@ function updateSpotifyPlaylist() {
 
 
 /**
- * Updates the classes of the album table to match the current layout
- */
-function updateContainerStyle() {
-    if (SELECTED_LAYOUT == "TABLE")
-        document.getElementById("table-container").classList.replace("grid-container", "container");
-    else if (SELECTED_LAYOUT == "GRID")
-        document.getElementById("table-container").classList.replace("container", "grid-container");
-}
-
-
-/**
  * Updates the website URL with the current list, year, and layout parameters
  */
 function updateUrl() {
@@ -287,6 +276,31 @@ document.getElementById("layout-button").addEventListener("click", function(even
 });
 
 
+function updateShownDisplay() {
+    // Special case for searches
+    if (SELECTED_LIST == "Search") {
+        document.getElementById("table-container").classList.add("hidden");
+        document.getElementById("grid-container").classList.add("hidden");
+        document.getElementById("search-container").classList.remove("hidden");
+        return;
+    }
+
+    // Hide the search elements
+    document.getElementById("search-input").value = "";
+    document.getElementById("search-container").classList.add("hidden");
+
+    // Update the display to match the current year and list, depending on the layout
+    if (SELECTED_LAYOUT == "TABLE") {
+        document.getElementById("table-container").classList.remove("hidden");
+        document.getElementById("grid-container").classList.add("hidden");
+    }
+    else if (SELECTED_LAYOUT == "GRID") {
+        document.getElementById("table-container").classList.add("hidden");
+        document.getElementById("grid-container").classList.remove("hidden");
+    }
+}
+
+
 /**
  * Updates everything within the main display (which is the album list/grid)
  */
@@ -294,19 +308,19 @@ function updateDisplay() {
     // Update the small stuff
     updateLayoutButton();
     updateSpotifyPlaylist();
-    updateContainerStyle();
     updateUrl();
     updateActiveList();
     updateActiveYear();
+    updateShownDisplay();
 
-    // If not searching, update the search bar and results to be empty
-    if (SELECTED_LIST != "Search") {
-        document.getElementById("search-input").value = "";
-        document.getElementById("search-results-albums").classList.add("hidden");
+    // If searching, handle it's display separately
+    if (SELECTED_LIST == "Search") {
+        // TODO
     }
-
-    // Update the display to match the current year and list, depending on the layout
-    if (SELECTED_LAYOUT == "TABLE") {
+    
+    // Otherwise the albums/songs list is being shown
+    // So, update the display to match the current year and list, depending on the layout
+    else if (SELECTED_LAYOUT == "TABLE") {
         updateTable();
     }
     else if (SELECTED_LAYOUT == "GRID") {
@@ -530,7 +544,7 @@ async function createGrid(year, albumsPerRow) {
         // If this grid already exists, replace it
         (document.getElementById(grid.id)) 
             ? (document.getElementById(grid.id).innerHTML = grid.innerHTML) 
-            : document.getElementById("album-table-body").parentNode.appendChild(grid);
+            : document.getElementById("album-grids").appendChild(grid);
     });
 }
 
@@ -551,45 +565,11 @@ function hideAllGrids() {
 
 
 /**
- * Uses the global variables to determine which grid should be shown, and hides all other grids
- */
-function updateShownGrid() {
-    // Hide each year's grid
-    hideAllGrids();
-
-    // If showing the search grid, simply unhide it
-    if (SELECTED_LIST == "Search") {
-        document.getElementById("search-results-albums").classList.remove("hidden");
-        return;
-    }
-    
-    // Otherwise, display the correct grid for the selected year
-    document.getElementById("album-grid-" + SELECTED_YEAR + "-" + NUM_ALBUMS_PER_ROW).classList.remove("hidden");
-}
-
-
-/**
- * Updates the headers of the display table to the grid style (AKA it removes the headers)
- */
-function updateGridHeaders() {
-    // Clear the current headers
-    let header = document.getElementById("table-headers");
-    header.innerHTML = "";
-}
-
-
-/**
  * Updates which grid is visible
  */
 function updateGrid() {
-    // Update the headers (by removing them)
-    updateGridHeaders();
-
-    // Hide the main table
-    document.getElementById("album-table-body").classList.add("hidden");
-    
-    // Update which grids are hidden / shown
-    updateShownGrid();
+    hideAllGrids();
+    document.getElementById("album-grid-" + SELECTED_YEAR + "-" + NUM_ALBUMS_PER_ROW).classList.remove("hidden");
 }
 
 
@@ -644,7 +624,7 @@ function csvRowToTableRow(htmlRow, headersToShow, csvRow, defaultVal = "-") {
 function csvToTable(data) {
     // Create a new table element so I can do all the replacing at once and prevent flickering
     let newTable = document.createElement('tbody');
-    newTable.id = "album-table-body";
+    newTable.id = "display-table-body";
 
     // Loop through each row in the CSV data (which is an album entry), and copy the data into the HTML table
     data.forEach(function(csvRow) {
@@ -676,7 +656,7 @@ function csvToTable(data) {
     });
 
     // Replace the entire old table with the new table
-    let oldTable = document.getElementById("album-table-body");
+    let oldTable = document.getElementById("display-table-body");
     oldTable.parentNode.replaceChild(newTable, oldTable);
 }
 
@@ -689,7 +669,7 @@ function csvToTable(data) {
  * @param {*} activeElement The HTML span element of the active header
  */
 function updateOrderTriangles(activeElement) {
-    document.querySelectorAll("#album-list #table-headers .header span").forEach(span => {
+    document.querySelectorAll("#list-display #table-headers .header span").forEach(span => {
         // If this is a column NOT being used for sorting, gray out the order triangle and set it pointing up
         if (span != activeElement){
             span.innerHTML = "▲&#xFE0E;";
@@ -720,7 +700,7 @@ function swapAdjacentRows(topRow, botRow) {
  * @param {*} order The direction to sort in ("asc" or "desc")
  */
 function tableBubbleSort(headerIndex, order) {
-    let table = document.getElementById("album-table-body");
+    let table = document.getElementById("display-table-body");
     let rows = table.rows;
 
     // It's fine doing a simple bubble sort (performance wise) since n is always small for my tables (number of album entries will never exceed 3 digits)
@@ -784,7 +764,7 @@ function sortTable(headerIndex) {
  */
 function updateTableHeaders() {
     // Clear the current headers
-    let header = document.getElementById("table-headers");
+    let header = document.getElementById("display-headers");
     header.innerHTML = "";
 
     // Create the new header row
@@ -821,8 +801,6 @@ function updateTable() {
             sortTable(ALBUMS_CSV_HEADERS.indexOf("Hidden Ranking"));
         }
     });
-
-    hideAllGrids();
 }
 
 
@@ -1049,11 +1027,9 @@ function updateYearsShownInList(targetYear) {
 }
 
 
-
-
-/*************************
-**** SEARCHING ALBUMS ****
-*************************/
+/************************
+**** ALBUM SEARCHING ****
+************************/
 /**
  * Formats a given list of album grid square elements into a single tbody element.
  * @param {*} squareList List of album grid square HTML elements.
@@ -1218,207 +1194,3 @@ document.getElementById("search-button").addEventListener("click", function(even
     handleSearch();
 });
 
-
-
-
-
-
-
-
-
-
-
-
-/**************************************
-**** IN-BROWSER EDITING (DEV ONLY) ****
-**************************************/
-// These functions allow me to modify the album table in the web browser, rather than having to manually edit the CSV data
-// All editing functionality should be kept to this section, and it should not mingle with any other core functions
-// Because of this (and the fact that this isn't going to ever be active for deployment), this code might be a bit gross (and that's okay with me)
-
-// As of adding the grid layout, I am really not sure if this will work anymore
-
-const EDITING = false;
-
-/**
- * If I am editing in the browser, modify certain elements and adjust the view to allow me to edit.
- */
-if (EDITING) {
-    SHOWN_ALBUM_HEADERS = SHOWN_ALBUM_HEADERS.concat(["Hidden Ranking", "RANKING UP", "RANKING DOWN", "PRINT TABLE", "RESET RANKINGS"]);
-    SHOWN_SONG_HEADERS = SHOWN_SONG_HEADERS.concat(["Hidden Ranking", "RANKING UP", "RANKING DOWN", "PRINT", "RESET"]);
-    addEditingElements();
-}
-
-
-if (EDITING) { document.querySelector('#list-select-navbar').addEventListener('click', (ev) => { 
-    addEditingElements();
-});}
-
-
-/**
- * Adds cells to the table that when clicked on, allow me to move around the rows.
- */
-function addEditingCells() {
-    let table = document.getElementById("album-table-body");
-    let rows = table.rows;
-
-    for (let i = 0; i < rows.length; i++) {
-        let cell = rows[i].insertCell();
-        cell.innerHTML = "UP";
-        cell = rows[i].insertCell();
-        cell.innerHTML = "DOWN";
-        cell = rows[i].insertCell();
-        cell.innerHTML = "PRINT";
-        cell = rows[i].insertCell();
-        cell.innerHTML = "RESET";
-    }   
-}
-
-
-/**
- * Wait for all the base data to be loaded in (and sorted), and then add the new editing elements.
- */
-async function addEditingElements() {
-    await sleep(0.1*1000);
-    addEditingCells();
-}
-
-/**
- * Given an HTML tag, find the first HTML element of that tag that contains certain text.
- * @param {*} tag The HTML tag to search all of (e.g. "p", "div", "td")
- * @param {*} text The text to search for within the HTML elements
- * @returns The HTML element if found, otherwise null
- */
-function findElementByInnerText(tag, text) {
-    const elements = document.getElementsByTagName(tag);
-
-    // Iterate through the elements and check if the innerHTML matches
-    for (let element of elements) {
-        if (element.textContent.toLowerCase().trim() === text.toLowerCase()) {
-            return element;
-        }
-    }
-
-    console.log("ERROR: Could not find <" + tag + "> with text \"" + text + "\"");
-    return null;
-}
-
-
-/**
- * Given a list of string values, join them together in CSV format (i.e. comma separating all values except the last one, and putting quotes around values with "," in them).
- * @param {*} values List of string values to join together
- * @returns The final joined-together string
- */
-function csv_join(values) {
-    let result = "";
-
-    if (values.length == 0)
-        return result;
-    
-    for (let i = 0; i < values.length - 1; i++) {
-        result += (values[i].includes(",")) ? ("\"" + values[i] + "\",") : (values[i] + ",");
-    }
-    result += (values[values.length - 1].includes(",")) ? "\"" + values[values.length - 1] + "\"," : values[values.length - 1] + ",";
-
-    return result;
-}
-
-
-/**
- * Reprint the CSV EXACTLY as it is, EXCEPT change the "Hidden Ranking" to match what is in the table.
- * @param {*} csv_data The D3 CSV data, could be the albums CSV or the songs CSV
- */
-function printEditedCSV(csv_data) {   
-    let table_string = (SELECTED_LIST == "Favorite Albums") ?
-            "Artist,Album,Genre,Release Date,Listened On,Favorite Songs,Rating,Hidden Ranking\n" :
-            "Song,Album,Artist,Genre,Hidden Ranking\n";
-    let hr_index = (SELECTED_LIST == "Favorite Albums") ? ALBUMS_CSV_HEADERS.indexOf("Hidden Ranking") : SONGS_CSV_HEADERS.indexOf("Hidden Ranking");
-
-    csv_data.forEach(function(csv_row, r) {
-        // Copy all non-header rows, EXCEPT put in the new hidden ranking
-        first_rows = csv_join( Object.values(csv_row).slice(0, hr_index) );
-        hidden_ranking = findElementByInnerText("td", csv_row["Album"]).parentElement.children[hr_index].innerHTML
-        last_rows = csv_join( Object.values(csv_row).slice(hr_index + 1) );
-
-        table_string += first_rows + hidden_ranking + last_rows + "\n"
-    });
-
-    console.log(table_string)
-}
-
-
-/**
- * Resets all the hidden rankings to the index the album is in the ORDERED list.
- */
-function resetRankings() {
-    console.log("RESETTING RANKINGS")
-    let table = document.getElementById("album-table-body");
-    let rows = table.rows;
-
-    for (let i = 0; i < rows.length; i++) {
-        rows[i].cells[ALBUMS_CSV_HEADERS.indexOf("Hidden Ranking")].innerHTML = rows.length - i;
-    }
-
-    rankingsAreReset = true;
-}
-
-
-/**
- * Performs the associated actions when the EDITING cells are clicked on
- */
-if (EDITING) { document.querySelector('#album-table').addEventListener('click', (ev) => { 
-    // Get the clicked on coordinates
-    [x, y] = [
-        ev.target.cellIndex, 
-        ev.target.parentElement.rowIndex
-    ];
-    if (x === undefined || y === undefined) {
-        return;
-    }
-    y = y - 1;
-
-    // Get table values before acting
-    let table = document.getElementById("album-table-body");
-    let rows = table.rows;
-
-    let hr_index = (SELECTED_LIST == "Favorite Albums") ? ALBUMS_CSV_HEADERS.indexOf("Hidden Ranking") : SONGS_CSV_HEADERS.indexOf("Hidden Ranking");
-
-    // Move row up
-    if (x == hr_index + 1) {
-        // At the top, don't do anything
-        if (y == 0) { 
-            return;
-        }
-
-        // Swap hidden rankings
-        rows[y].cells[hr_index].innerHTML = parseInt(rows[y].cells[hr_index].innerHTML) + 1;
-        rows[y - 1].cells[hr_index].innerHTML = parseInt(rows[y - 1].cells[hr_index].innerHTML) - 1;
-
-        // Swap rows
-        swapAdjacentRows(rows[y - 1], rows[y]);
-    }
-
-    // Move row down
-    else if (x == hr_index + 2) {
-        // Swap hidden rankings
-        rows[y].cells[hr_index].innerHTML = parseInt(rows[y].cells[hr_index].innerHTML) - 1;
-        rows[y + 1].cells[hr_index].innerHTML = parseInt(rows[y + 1].cells[hr_index].innerHTML) + 1;
-
-        // Swap rows
-        swapAdjacentRows(rows[y], rows[y + 1]);
-    }
-
-     // Print the HTML as a CSV (since JS can't edit local files, just copy/paste this print into the CSV file)
-    else if (x == hr_index + 3) {
-        let extension = getExtensionFromList(SELECTED_LIST);
-        let filename = "csv/" + SELECTED_YEAR + extension + ".csv";
-        d3.csv(filename).then(function(data) {
-            printEditedCSV(data);
-        });
-    }
-    
-    // Reset the hidden rankings
-    else if (x == hr_index + 4) {
-        resetRankings();
-    }
-});}

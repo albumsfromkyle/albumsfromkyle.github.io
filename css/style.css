@@ -211,87 +211,88 @@
 **** Table ****
 **************/
 /* #region TABLE */
-#album-list .container {
+#list-display .container {
     padding-top: 0.9375rem;
     padding-bottom: 3.125rem;
     background: var(--CONTAINER-BACKGROUND);
 }
 
 /* Table column widths */
-#album-list .song {
+#list-display .song {
     width: 21.5%;
 }
 
-#album-list .album {
+#list-display .album {
     width: 21.5%;
 }
 
-#album-list .artist {
+#list-display .artist {
     width: 21%;
 }
 
-#album-list .genre {
+#list-display .genre {
     width: 18.5%;
 }
 
-#album-list .favorite-songs {
+#list-display .favorite-songs {
     width: 39%;
 }
 
 /* Table ordering triangles */
-#album-list #table-headers .header span { /* Order triangles */
+#list-display #display-headers .header span { /* Order triangles */
     color: var(--TABLE-HEADER-ORDER);
 }
 
-#album-list #table-headers .header .active {
+#list-display #display-headers .header .active {
     color: var(--TABLE-SELECTED-HEADER-ORDER);
 }
 
 /* Table style */
-#album-list #table-headers .header { /* Inner div inside the cell */
+#list-display .header {
     font-size: 1rem;
     font-weight: bold;
 }
 
-#album-list table, td {
+#list-display table, td {
     padding: 0.3125rem 0.3125rem;
     border: 0.0625rem solid var(--TABLE-BORDER);
     border-collapse: collapse;
     position: relative;
 }
-#album-list .container table {
+#list-display .container table {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
 }
-#album-list td {
+#list-display td {
     padding: 0.625rem 1rem;
 }
 
-#album-list thead td {  /* Entire header cell */
+#list-display thead td {  /* Entire header cell */
     padding: 0.3125rem 1rem;
     color: var(--TABLE-HEADER-TEXT);
     background: var(--TABLE-HEADER-BACKGROUND);
     border-bottom: 0.125rem solid var(--TABLE-BORDER);
 }
 
-#album-list thead td:hover {  /* Entire header cell */
+#list-display thead td:hover {  /* Entire header cell */
     color: var(--TABLE-HEADER-TEXT-HOVER);
     background: var(--TABLE-HEADER-BACKGROUND-HOVER);
 }
 
-#album-list #album-table {
+#list-display #display-table {
     background: var(--TABLE-CELL-BACKGROUND);
     margin-bottom: 8rem;
 }
-#album-list #album-table .ten {
+
+#list-display .ten {
     background: var(--TABLE-10);
 }
-#album-list #album-table .gold {
+#list-display .gold {
     background: var(--TABLE-GOLD);
 }
-#album-list #album-table .silver {
+#list-display .silver {
     background: var(--TABLE-SILVER);
 }
-#album-list #album-table .bronze {
+#list-display .bronze {
     background: var(--TABLE-BRONZE);
 }
 /* #endregion */
@@ -313,21 +314,21 @@
     padding: 0 0.9375rem;
 }
 
-#album-list .grid-container table, .grid-container td {
+#list-display .grid-container table, .grid-container td {
     padding-top: 2rem;
     border: 0.75rem solid transparent;
 }
 
-#album-list .grid-container td {
+#list-display .grid-container td {
     border-radius: 10%;
 }
 @media only screen and (max-width: 600px) {
-    #album-list .grid-container td {
+    #list-display .grid-container td {
         border-radius: 15%;
     }
 }
 
-#album-list .grid-container #album-table {
+#list-display .grid-container #display-table {
     background: var(--BODY-BACKGROUND);
 }
 /* #endregion */
@@ -368,7 +369,7 @@
     #alertclose {
         font-size: 0.9375rem;
     }
-    #album-list #table-headers .header { /* Inner div inside the cell */
+    #list-display .header {
         font-size: 0.75rem;
     }
     #spotify-playlist {
@@ -376,10 +377,10 @@
     }
 
     /* Stop table from overspilling */
-    #album-list {
+    #list-display {
         width: 100vw;
     }
-    #album-list .container {
+    #list-display .container {
         width: 100%;
         margin: 0;
         padding-left: 0.9375rem;
@@ -387,12 +388,12 @@
         padding-top: 0.9375rem;
         padding-bottom: 3.125rem;
     }
-    #album-list table {
+    #list-display table {
         table-layout: fixed;
         width: 100%;
         word-wrap: break-word;
     }
-    #album-list td, #album-list thead td {
+    #list-display td, #list-display thead td {
         padding: 0.3125rem 0.3125rem;
     }
 
