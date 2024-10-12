@@ -1029,9 +1029,9 @@ function updateYearsShownInList(targetYear) {
 }
 
 
-/*****************************
-**** ALBUM GRID SEARCHING ****
-*****************************/
+/************************
+**** ALBUM SEARCHING ****
+************************/
 /**
  * Formats a given list of album grid square elements into a single tbody element.
  * @param {*} squareList List of album grid square HTML elements.
@@ -1176,11 +1176,9 @@ function searchAllGrids(whatToSearch) {
 }
 
 
-
-
-
-
-
+/**
+ * Uses the existing HTML element containing the search results in grid form, and converts it into a table format.
+ */
 function gridResultsToTable() {
     let newTable = document.createElement("tbody");
     newTable.id = "search-results-albums-table";
@@ -1222,6 +1220,77 @@ function gridResultsToTable() {
 }
 
 
+/***********************
+**** SONG SEARCHING ****
+***********************/
+
+function searchAndHighlightRow(row, whatToSearch) {
+    let found = false;
+
+    // Search the 3 text components of the grid square
+    let parts = Array.from(row.querySelectorAll("td")).slice(0, -1);
+    parts.forEach(elem => {
+        // If this grid square component contains the searched text, highlight the text and add the parent square
+        let text = elem.textContent.toLowerCase();
+        if (text.includes(whatToSearch)) {
+            found = true;
+            let regex = new RegExp(whatToSearch, 'gi');
+            let highlightedText = elem.innerHTML.replace(regex, (match) => `<span class="highlight">${match}</span>`);
+            elem.innerHTML = highlightedText;
+        }
+    });
+
+    return found;
+}
+
+function searchCSV(data, whatToSearch) {
+    let results = [];
+
+    data.forEach(function(csvRow) {
+        // Some previous lists include albums from ANY year
+        // I want to exclude those for now, and only include albums release the selected year
+        let releaseDate = Date.parse( csvRow["Release Date"] );
+        if (releaseDate < Date.parse("1/1/" + SELECTED_YEAR)) {
+            return;
+        }
+
+        // If I am not showing the ratings for the albums, only show the albums I would recommend (which are albums above 6 in their score)
+        if (!shouldShowAlbum(csvRow["Rating"])) {
+            return;
+        }
+
+        let newRow = document.createElement("tr");
+        csvRowToTableRow(newRow, SHOWN_SONG_HEADERS, csvRow);
+        
+        if(searchAndHighlightRow(newRow, whatToSearch)) {
+            results.push(newRow.cloneNode(true));
+        }
+    });
+
+    return results;
+}
+
+function searchAllSongs(whatToSearch) {
+    let resultsTable = document.getElementById("search-results-songs-table");
+
+    for (let year = OLDEST_YEAR; year <= CURRENT_YEAR; year++) {
+        let filename = "csv/" + year + getExtensionFromList("Favorite Songs") + ".csv";
+        d3.csv(filename).then(function(data) {
+            let results = searchCSV(data, whatToSearch);
+
+            for (let i = 0; i < results.length; i++) {
+                let newRow = resultsTable.insertRow(-1);
+                newRow.replaceWith(results[i]);
+            }
+            document.getElementById("search-results-songs-table").replaceWith(resultsTable);
+        });
+    }
+}
+
+
+/******************
+**** SEARCHING ****
+******************/
 /**
  * Handles when the search button is presses
  */
@@ -1238,9 +1307,13 @@ function handleSearch() {
     SELECTED_LIST = "Search";
     SELECTED_LAYOUT = "GRID";
 
-    // Perform the actual search
+    // Search the albums
     searchAllGrids(whatToSearch);
     gridResultsToTable();
+
+    // Search the songs
+    document.getElementById("search-results-songs-table").innerHTML = "";
+    searchAllSongs(whatToSearch);
 
     // Update the display
     console.log(SELECTED_LAYOUT)
