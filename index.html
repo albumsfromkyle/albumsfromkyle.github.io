@@ -77,7 +77,7 @@
 
     <!-- ------------------------ SEARCH BAR ------------------------ -->
     <div class="search-bar">
-        <input type="text" id="search-input" placeholder="Search...">
+        <input type="text" id="search-input" placeholder="Search..." autocomplete="off">
         <button id="search-button">Search</button>
         <!-- TODO: put the button inside the input bar, and make the button an image of a search icon  -->
     </div>
@@ -109,6 +109,8 @@
                 </thead>
 
                 <!-- Body -->
+                <tbody id="search-results-albums" class="hidden">
+                </tbody>
                 <tbody id="album-table-body" class="hidden">
                 </tbody>
                 <tbody id="album-grid-2020-2" class="hidden">

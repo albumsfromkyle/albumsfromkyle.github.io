@@ -299,8 +299,13 @@ function updateDisplay() {
     updateActiveList();
     updateActiveYear();
 
+    // If not searching, update the search bar and results to be empty
+    if (SELECTED_LIST != "Search") {
+        document.getElementById("search-input").value = "";
+        document.getElementById("search-results-albums").classList.add("hidden");
+    }
 
-    // Update the actual display
+    // Update the display to match the current year and list, depending on the layout
     if (SELECTED_LAYOUT == "TABLE") {
         updateTable();
     }
@@ -551,18 +556,15 @@ function hideAllGrids() {
 function updateShownGrid() {
     // Hide each year's grid
     hideAllGrids();
+
+    // If showing the search grid, simply unhide it
+    if (SELECTED_LIST == "Search") {
+        document.getElementById("search-results-albums").classList.remove("hidden");
+        return;
+    }
     
-    // Display the correct grid
-    let grid = document.getElementById("album-grid-" + SELECTED_YEAR + "-" + NUM_ALBUMS_PER_ROW);
-    if (grid != null) {
-        grid.classList.remove("hidden");
-    }
-    else {
-        console.log("Grid doesn't exist yet!");
-        showAlertBanner("Grid layout for year " + SELECTED_YEAR + " does not exist!");
-        SELECTED_LAYOUT = "TABLE";
-        updateDisplay();
-    }
+    // Otherwise, display the correct grid for the selected year
+    document.getElementById("album-grid-" + SELECTED_YEAR + "-" + NUM_ALBUMS_PER_ROW).classList.remove("hidden");
 }
 
 
@@ -838,9 +840,9 @@ function hideAlertBanner() {
 
 
 /**
- * Displays an alert banner displaying the warning that the current year/list combination is invalid
- * @param {*} list The invalid list
- * @param {*} year The invalid year
+ * Shows the alert banner with the given message.
+ * @param {*} msg The message to display in the alert.
+ * @param {*} permanent Optional boolean of if the banner should be permanent (true), or time out after 8 seconds (false - default).
  */
 function showAlertBanner(msg, permanent = false) {
     let alertMsg = document.getElementById("alert-msg");
@@ -1052,19 +1054,144 @@ function updateYearsShownInList(targetYear) {
 /*************************
 **** SEARCHING ALBUMS ****
 *************************/
+/**
+ * Formats a given list of album grid square elements into a single tbody element.
+ * @param {*} squareList List of album grid square HTML elements.
+ * @returns The tbody element with the formatted album grid squares.
+ */
+function createGridFromHtmlSquareList(squareList) {
+    let newTable = document.createElement('tbody');
+    newTable.id = "search-results-albums";
 
+    // If the list is less than the NUM_ALBUMS_PER_ROW, must fill the row with empty cells to make the spacing correct
+    if (squareList.length < NUM_ALBUMS_PER_ROW) {
+        for (let i = squareList.length; i < NUM_ALBUMS_PER_ROW; i++) {
+            let td = document.createElement("td");
+            td.classList.add("art-cell");
+            squareList.push(td);
+        }
+    }
+
+    // Format the list of squares into the appropriately sized grid
+    let index = 0;
+    for (let square of squareList) {
+        let workingRow = (index % NUM_ALBUMS_PER_ROW == 0) ? newTable.insertRow(-1) : newTable.rows[newTable.rows.length - 1];
+        index = index + 1;
+
+        let cell = workingRow.insertCell();
+        cell.replaceWith(square);
+    }
+
+    return newTable;
+}
+
+
+/**
+ * Removes the info text to the square content. (The "By: " and "Genre: " indicators.)
+ * @param {*} square The square to remove the text from.
+ */
+function stripSquareElemContent(square) {
+    if (square.classList.contains("art-artist"))
+        square.innerHTML = square.innerHTML.substring(4); // Removes the "By: "
+    else if (square.classList.contains("art-genre"))
+        square.innerHTML = square.innerHTML.substring(7); // Removes the "Genre: "
+}
+
+
+/**
+ * Adds back the info text to the square content. (The "By: " and "Genre: " indicators.)
+ * @param {*} square The square to add the text back to.
+ */
+function resetSquareElemContent(square) {
+    if (square.classList.contains("art-artist"))
+        square.innerHTML = "By: " + square.innerHTML;
+    else if (square.classList.contains("art-genre"))
+        square.innerHTML = "Genre: " + square.innerHTML;
+}
+
+
+/**
+ * Searches a given album grid square for the given text, and highlights the matching text if found. (THIS ALTERS THE HTML ELEMENT!)
+ * @param {*} square The HTML album square to search/highlight.
+ * @param {*} whatToSearch The text to search for.
+ * @returns Boolean of if the text was found (and the square was highlighted) or not
+ */
+function searchAndHighlightSquare(square, whatToSearch) {
+    let found = false;
+
+    // Search the 3 text components of the grid square
+    let parts = square.querySelectorAll(".art-album, .art-artist, .art-genre");
+    Array.from(parts).forEach(elem => {
+        // Strip the inner text of the cell
+        stripSquareElemContent(elem);
+        
+        // If this grid square component contains the searched text, highlight the text and add the parent square
+        let text = elem.textContent.toLowerCase();
+        if (text.includes(whatToSearch)) {
+            found = true;
+            let regex = new RegExp(whatToSearch, 'gi');
+            let highlightedText = elem.innerHTML.replace(regex, (match) => `<span class="highlight">${match}</span>`);
+            elem.innerHTML = highlightedText;
+        }
+
+        // Add back the removed text
+        resetSquareElemContent(elem);
+    });
+
+    return found;
+}
+
+
+/**
+ * Searches all albums in a given grid to the searched for text.
+ * @param {*} gridElem The HTML tbody element of the grid to search within.
+ * @param {*} whatToSearch The text to search for.
+ * @returns A list of HTML album grid elements that contained the searched for text.
+ */
+function searchGrid(gridElem, whatToSearch) {
+    let results = [];
+
+    // For each square in the grid, search all its components for matches
+    let allGridSquares = gridElem.querySelectorAll(".art-cell");
+    Array.from(allGridSquares).forEach(square => {
+        // Save the original state of the square, since it WILL be altered (by highlighting) during the search
+        let oldSquare = square.innerHTML;
+
+        // If the search text is found in the square, add a copy of the (highlighted) square to the results
+        if (searchAndHighlightSquare(square, whatToSearch)) {
+            results.push(square.cloneNode(true))
+        }
+
+        // Reset the square in the grid to its original state
+        square.innerHTML = oldSquare;
+    });
+
+    return results;
+}
+
+
+/**
+ * Searches all the album grids for the searched for text.
+ * @param {*} whatToSearch The text to search for.
+ */
 function performSearch(whatToSearch) {
-    console.log("SEARCHING FOR TEXT: " + whatToSearch);
+    // Search the albums grid for each year
+    // NOTE: Since I am NOT searching the album table, this search will not work for my favorite tracks, release date, listen date, ect.
+    //       It will ONLY work for the artist name, album name, and genre
+    let searchResults = []; // Holds a list of album grid squares that contain the searched text
+    for (let year = OLDEST_YEAR; year <= CURRENT_YEAR; year++) {
+        let foundElements = searchGrid(document.getElementById("album-grid-" + year + "-" + "5"), whatToSearch);
+        searchResults = searchResults.concat(foundElements);
+    }
 
-    SELECTED_YEAR = -1;
-    SELECTED_LIST = "Search";
+    // If there were no results, display
+    if (searchResults.length == 0) {
+        showAlertBanner("No search results found for \"" + whatToSearch + "\"")
+    }
 
-    // do the search
-    // ...
-
-    // Hide all the grid/displays
-    updateDisplay();
-    hideAllGrids();
+    // Update the result grid
+    let resultsGrid = createGridFromHtmlSquareList(searchResults);
+    document.getElementById(resultsGrid.id).innerHTML = resultsGrid.innerHTML;
 }
 
 
@@ -1073,14 +1200,30 @@ function performSearch(whatToSearch) {
  */
 let searchTimer;
 function handleSearch() {
+    // Set the global variables
+    SELECTED_YEAR = -1;
+    SELECTED_LIST = "Search";
+    SELECTED_LAYOUT = "GRID";
+
+    // Perform the actual search
     let whatToSearch = document.getElementById("search-input").value.toLowerCase();
     if (whatToSearch) {
         performSearch(whatToSearch);
     }
+
+    // Update the display
+    updateDisplay();
 }
 document.getElementById("search-button").addEventListener("click", function(event){
     handleSearch();
 });
+
+
+
+
+
+
+
 
 
 
