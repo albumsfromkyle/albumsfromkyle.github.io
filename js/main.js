@@ -166,7 +166,7 @@ document.addEventListener("DOMContentLoaded", async function() {
     setGridAlbumsPerRow();
     
     // UNCOMMENT TO RECREATE ALL THE GRIDS TO COPY OVER INTO INDEX.HTML
-    createAllGrids();
+    // createAllGrids();
 
     // Get the parameters to load from the URL (or the get the defaults otherwise)
     let listQuery = getQueryParam("list");
@@ -1039,7 +1039,7 @@ function updateYearsShownInList(targetYear) {
  */
 function createGridFromHtmlSquareList(squareList) {
     let newTable = document.createElement('tbody');
-    newTable.id = "search-results-albums";
+    newTable.id = "search-results-albums-grid";
 
     // If the list is less than the NUM_ALBUMS_PER_ROW, must fill the row with empty cells to make the spacing correct
     if (squareList.length < NUM_ALBUMS_PER_ROW) {
@@ -1176,6 +1176,52 @@ function searchAllGrids(whatToSearch) {
 }
 
 
+
+
+
+
+
+function gridResultsToTable() {
+    let newTable = document.createElement("tbody");
+    newTable.id = "search-results-albums-table";
+
+    let gridResults = document.getElementById("search-results-albums-grid");
+    for (let r = 0; r <  gridResults.rows.length; r++) { // Loops through rows of the grid
+        for (let i = 0; i <  gridResults.rows[r].cells.length; i++) { // Loops through cells in the row
+            let square = gridResults.rows[r].cells[i];
+
+            // Skip placeholder (empty) squares
+            if (square.innerHTML == "") {
+                continue;
+            }
+
+            // Convert the square to a table row (stripping the extra html formatting)
+            let newRow = newTable.insertRow();
+            let cell = newRow.insertCell();
+            cell.innerHTML = square.children[1].innerHTML.slice(square.children[1].innerHTML.indexOf("<i>") + 3); // Album
+            cell = newRow.insertCell();
+            cell.innerHTML = square.children[2].innerHTML.slice(square.children[2].innerHTML.indexOf("<b>By:</b> <u>") + 14); // Artist
+            cell = newRow.insertCell();
+            cell.innerHTML = square.children[3].innerHTML.slice(square.children[3].innerHTML.indexOf("<b>Genre:</b> ") + 14); // Genre
+            cell = newRow.insertCell();
+            cell.innerHTML = square.innerHTML.slice(square.innerHTML.indexOf("<b>Release year:</b> ") + 21); // Release Year
+            
+            // Color the row the same as the grid
+            if (square.classList.contains("ten"))
+                highlightElementFromRating(newRow, 10);
+            if (square.classList.contains("gold"))
+                highlightElementFromRating(newRow, 9);
+            if (square.classList.contains("silver"))
+                highlightElementFromRating(newRow, 8);
+            if (square.classList.contains("bronze"))
+                highlightElementFromRating(newRow, 7);
+        }
+    }
+
+    document.getElementById("search-results-albums-table").replaceWith(newTable);
+}
+
+
 /**
  * Handles when the search button is presses
  */
@@ -1194,9 +1240,10 @@ function handleSearch() {
 
     // Perform the actual search
     searchAllGrids(whatToSearch);
-    // searchAllTables(whatToSearch);
+    gridResultsToTable();
 
     // Update the display
+    console.log(SELECTED_LAYOUT)
     updateDisplay();
 }
 document.getElementById("search-button").addEventListener("click", function(event){
@@ -1206,6 +1253,14 @@ document.getElementById("search-button").addEventListener("click", function(even
 
 function updateSearch() {
     // If in GRID layout, convert to table
+    if (SELECTED_LAYOUT == "GRID") {
+        document.getElementById("search-albums-grid-container").classList.remove("hidden");
+        document.getElementById("search-albums-table-container").classList.add("hidden");
+    }
     // If in TABLE layout, convert to grid
+    else if (SELECTED_LAYOUT == "TABLE") {
+        document.getElementById("search-albums-grid-container").classList.add("hidden");
+        document.getElementById("search-albums-table-container").classList.remove("hidden");
+    }
 }
 

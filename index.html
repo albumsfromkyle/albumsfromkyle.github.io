@@ -101,11 +101,43 @@
     <!-- ------------------------ MAIN DISPLAY ------------------------ -->
     <div id="list-display">
         <!-- ------------------------ SEARCH TABLE/GRID ------------------------ -->
-        <div id="search-container" class="grid-container">
-            <table id="search-table">
-                <tbody id="search-results-albums">
-                </tbody>
-            </table>
+        <div id="search-container" >
+
+            <div id="search-albums-title" class="grid-container">
+                Matching Albums:
+            </div>
+
+            <div id="search-albums-grid-container" class="grid-container">
+                <table>
+                    <tbody id="search-results-albums-grid">
+                    </tbody>
+                </table>
+            </div>
+            
+            <div id="search-albums-table-container" class="container hidden">
+                <table>
+                    <thead>
+                        <tr>
+                            <td class="album">
+                                <div class="header">Album</div>
+                            </td>
+                            <td class="artist">
+                                <div class="header">Artist</div>
+                            </td>
+                            <td class="genre">
+                                <div class="header">Genre</div>
+                            </td>
+                            <td class="favorite-songs">
+                                <div class="header">Favorite Songs</div>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody id="search-results-albums-table">
+                    </tbody>
+                </table>
+            </div>
+
+            
         </div>
 
         <!-- ------------------------ ALBUMS/SONGS TABLE ------------------------ -->

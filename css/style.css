@@ -237,6 +237,10 @@
     width: 39%;
 }
 
+#list-display .release-year {
+    width: 20%;
+}
+
 /* Table ordering triangles */
 #list-display #display-headers .header span { /* Order triangles */
     color: var(--TABLE-HEADER-ORDER);
