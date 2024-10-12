@@ -166,7 +166,7 @@ document.addEventListener("DOMContentLoaded", async function() {
     setGridAlbumsPerRow();
     
     // UNCOMMENT TO RECREATE ALL THE GRIDS TO COPY OVER INTO INDEX.HTML
-    // createAllGrids();
+    createAllGrids();
 
     // Get the parameters to load from the URL (or the get the defaults otherwise)
     let listQuery = getQueryParam("list");
@@ -269,12 +269,12 @@ function updateUrl() {
 document.getElementById("layout-button").addEventListener("click", function(event) {
     if (SELECTED_LAYOUT == "TABLE") {
         SELECTED_LAYOUT = "GRID";
-        updateDisplay();
     }
     else if (SELECTED_LAYOUT == "GRID"){
         SELECTED_LAYOUT = "TABLE";
-        updateDisplay();
     }
+
+    updateDisplay();
 });
 
 
@@ -317,7 +317,7 @@ function updateDisplay() {
 
     // If searching, handle it's display separately
     if (SELECTED_LIST == "Search") {
-        // TODO
+        updateSearch();
     }
 
     // Otherwise the albums/songs list is being shown
@@ -373,7 +373,7 @@ window.addEventListener('resize', function() {
 
         // If that value is different from what is currently displayed, update which grid is shown
         if (NUM_ALBUMS_PER_ROW != prev) {
-            updateShownGrid();
+            updateGrid();
         }
     }, 200);
 });
@@ -489,8 +489,8 @@ async function csvRowToGridImage(csvRow, workingRow) {
 
     // Insert all the other album info
     cell.innerHTML += "<div class=\"art-album\"><i>" + csvRow["Album"] + "</i></div>";
-    cell.innerHTML += "<div class=\"art-artist\">By: <u>" + csvRow["Artist"] + "</u></div>";
-    cell.innerHTML += "<div class=\"art-genre\">Genre: " + csvRow["Genre"] + "</div>";
+    cell.innerHTML += "<div class=\"art-artist\"><b>By:</b> <u>" + csvRow["Artist"] + "</u></div>";
+    cell.innerHTML += "<div class=\"art-genre\"><b>Genre:</b> " + csvRow["Genre"] + "</div>";
     cell.innerHTML += "<div class=\"art-hidden-ranking hidden\">" + csvRow["Hidden Ranking"] + "</div>";
 
     return cell;
@@ -1029,9 +1029,9 @@ function updateYearsShownInList(targetYear) {
 }
 
 
-/************************
-**** ALBUM SEARCHING ****
-************************/
+/*****************************
+**** ALBUM GRID SEARCHING ****
+*****************************/
 /**
  * Formats a given list of album grid square elements into a single tbody element.
  * @param {*} squareList List of album grid square HTML elements.
@@ -1070,9 +1070,9 @@ function createGridFromHtmlSquareList(squareList) {
  */
 function stripSquareElemContent(square) {
     if (square.classList.contains("art-artist"))
-        square.innerHTML = square.innerHTML.substring(4); // Removes the "By: "
+        square.innerHTML = square.innerHTML.substring(11); // Removes the "<b>By:</b> "
     else if (square.classList.contains("art-genre"))
-        square.innerHTML = square.innerHTML.substring(7); // Removes the "Genre: "
+        square.innerHTML = square.innerHTML.substring(14); // Removes the "<b>Genre:</b> "
 }
 
 
@@ -1082,9 +1082,9 @@ function stripSquareElemContent(square) {
  */
 function resetSquareElemContent(square) {
     if (square.classList.contains("art-artist"))
-        square.innerHTML = "By: " + square.innerHTML;
+        square.innerHTML = "<b>By:</b> " + square.innerHTML;
     else if (square.classList.contains("art-genre"))
-        square.innerHTML = "Genre: " + square.innerHTML;
+        square.innerHTML = "<b>Genre:</b> " + square.innerHTML;
 }
 
 
@@ -1122,22 +1122,25 @@ function searchAndHighlightSquare(square, whatToSearch) {
 
 /**
  * Searches all albums in a given grid to the searched for text.
- * @param {*} gridElem The HTML tbody element of the grid to search within.
+ * @param {*} year The year of the grid to search within.
  * @param {*} whatToSearch The text to search for.
  * @returns A list of HTML album grid elements that contained the searched for text.
  */
-function searchGrid(gridElem, whatToSearch) {
+function searchGrid(year, whatToSearch) {
+    let grid = document.getElementById("album-grid-" + year + "-" + "5");
     let results = [];
 
     // For each square in the grid, search all its components for matches
-    let allGridSquares = gridElem.querySelectorAll(".art-cell");
+    let allGridSquares = grid.querySelectorAll(".art-cell");
     Array.from(allGridSquares).forEach(square => {
         // Save the original state of the square, since it WILL be altered (by highlighting) during the search
         let oldSquare = square.innerHTML;
 
         // If the search text is found in the square, add a copy of the (highlighted) square to the results
         if (searchAndHighlightSquare(square, whatToSearch)) {
-            results.push(square.cloneNode(true))
+            let clone = square.cloneNode(true);
+            clone.innerHTML += "<b>Release year:</b> " + year + "";
+            results.push(clone);
         }
 
         // Reset the square in the grid to its original state
@@ -1152,13 +1155,13 @@ function searchGrid(gridElem, whatToSearch) {
  * Searches all the album grids for the searched for text.
  * @param {*} whatToSearch The text to search for.
  */
-function performSearch(whatToSearch) {
+function searchAllGrids(whatToSearch) {
     // Search the albums grid for each year
     // NOTE: Since I am NOT searching the album table, this search will not work for my favorite tracks, release date, listen date, ect.
     //       It will ONLY work for the artist name, album name, and genre
     let searchResults = []; // Holds a list of album grid squares that contain the searched text
     for (let year = OLDEST_YEAR; year <= CURRENT_YEAR; year++) {
-        let foundElements = searchGrid(document.getElementById("album-grid-" + year + "-" + "5"), whatToSearch);
+        let foundElements = searchGrid(year, whatToSearch);
         searchResults = searchResults.concat(foundElements);
     }
 
@@ -1190,7 +1193,8 @@ function handleSearch() {
     SELECTED_LAYOUT = "GRID";
 
     // Perform the actual search
-    performSearch(whatToSearch);
+    searchAllGrids(whatToSearch);
+    // searchAllTables(whatToSearch);
 
     // Update the display
     updateDisplay();
@@ -1198,4 +1202,10 @@ function handleSearch() {
 document.getElementById("search-button").addEventListener("click", function(event){
     handleSearch();
 });
+
+
+function updateSearch() {
+    // If in GRID layout, convert to table
+    // If in TABLE layout, convert to grid
+}
 
