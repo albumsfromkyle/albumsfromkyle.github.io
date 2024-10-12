@@ -333,6 +333,30 @@
 /* #endregion */
 
 
+/***************
+**** SEARCH ****
+***************/
+/* #region SEARCH  */
+.search-bar {
+    margin: 20px;
+}
+
+.search-bar input {
+    padding: 10px;
+    font-size: 16px;
+}
+
+.search-bar button {
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.highlight {
+    background-color: yellow;
+}
+/* #endregion  */
+
+
 @media only screen and (max-width: 600px) {
     /* Make all fonts 25% smaller */
     #list-select-navbar ul li button {
