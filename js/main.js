@@ -1224,11 +1224,44 @@ function gridResultsToTable() {
 **** SONG SEARCHING ****
 ***********************/
 
-function searchAndHighlightRow(row, whatToSearch) {
+function searchAlbumTables(whatToSearch) {
+    let resultsTable = document.getElementById("search-results-albums-table");
+
+    for (let year = OLDEST_YEAR; year <= CURRENT_YEAR; year++) {
+        let filename = "csv/" + year + getExtensionFromList("Favorite Albums") + ".csv";
+        d3.csv(filename).then(function(data) {
+            let results = searchCSV(data, whatToSearch, "Albums");
+
+            for (let i = 0; i < results.length; i++) {
+                // Add the release year
+                let cell = results[i].insertCell();
+                cell.innerHTML = year;
+
+                // Add the row to the results table
+                let newRow = resultsTable.insertRow(-1);
+                newRow.replaceWith(results[i]);
+                
+            }
+            document.getElementById("search-results-albums-table").replaceWith(resultsTable);
+        });
+    }
+}
+
+
+/************************
+**** ALBUM SEARCHING ****
+************************/
+
+function searchAndHighlightRow(row, whatToSearch, list) {
     let found = false;
 
     // Search the 3 text components of the grid square
-    let parts = Array.from(row.querySelectorAll("td")).slice(0, -1);
+    let parts = [];
+    if (list == "Songs")
+        parts = Array.from(row.querySelectorAll("td")).slice(0, -1);
+    else if (list == "Albums")
+        parts = Array.from(row.querySelectorAll("td")).slice(0, 4).concat([Array.from(row.querySelectorAll("td"))[5]]);
+
     parts.forEach(elem => {
         // If this grid square component contains the searched text, highlight the text and add the parent square
         let text = elem.textContent.toLowerCase();
@@ -1243,7 +1276,8 @@ function searchAndHighlightRow(row, whatToSearch) {
     return found;
 }
 
-function searchCSV(data, whatToSearch) {
+
+function searchCSV(data, whatToSearch, list) {
     let results = [];
 
     data.forEach(function(csvRow) {
@@ -1260,9 +1294,16 @@ function searchCSV(data, whatToSearch) {
         }
 
         let newRow = document.createElement("tr");
-        csvRowToTableRow(newRow, SHOWN_SONG_HEADERS, csvRow);
+        if (list == "Songs")
+            csvRowToTableRow(newRow, SHOWN_SONG_HEADERS, csvRow);
+        else if (list == "Albums")
+            csvRowToTableRow(newRow, SHOWN_ALBUM_HEADERS, csvRow);
         
-        if(searchAndHighlightRow(newRow, whatToSearch)) {
+        // Highlight the row depending on its rating
+        highlightElementFromRating(newRow, csvRow["Rating"]);
+
+        // Actually search for the text within the row, and highlight any occurances of it
+        if(searchAndHighlightRow(newRow, whatToSearch, list)) {
             results.push(newRow.cloneNode(true));
         }
     });
@@ -1270,13 +1311,14 @@ function searchCSV(data, whatToSearch) {
     return results;
 }
 
+
 function searchAllSongs(whatToSearch) {
     let resultsTable = document.getElementById("search-results-songs-table");
 
     for (let year = OLDEST_YEAR; year <= CURRENT_YEAR; year++) {
         let filename = "csv/" + year + getExtensionFromList("Favorite Songs") + ".csv";
         d3.csv(filename).then(function(data) {
-            let results = searchCSV(data, whatToSearch);
+            let results = searchCSV(data, whatToSearch, "Songs");
 
             for (let i = 0; i < results.length; i++) {
                 let newRow = resultsTable.insertRow(-1);
@@ -1308,11 +1350,10 @@ function handleSearch() {
     SELECTED_LAYOUT = "GRID";
 
     // Search the albums
-    searchAllGrids(whatToSearch);
-    gridResultsToTable();
-
-    // Search the songs
+    document.getElementById("search-results-albums-table").innerHTML = "";
     document.getElementById("search-results-songs-table").innerHTML = "";
+    searchAllGrids(whatToSearch);
+    searchAlbumTables(whatToSearch);
     searchAllSongs(whatToSearch);
 
     // Update the display
