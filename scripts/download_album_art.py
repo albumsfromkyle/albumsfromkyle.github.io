@@ -104,10 +104,10 @@ if __name__ == "__main__":
 
         print("download_image_from_url(" + url_300 + ", " + year + ", " + artist_name + ", " + album_name + ", 640)")
 
-        if not download_image_from_url(url_640, year, artist_name, album_name, 640):
-            print("[ERROR] Downloading 640px image")
+        # if not download_image_from_url(url_640, year, artist_name, album_name, 640):
+        #     print("[ERROR] Downloading 640px image")
         if not download_image_from_url(url_300, year, artist_name, album_name, 300):
             print("[ERROR] Downloading 3px image")
-        if not download_image_from_url(url_64, year, artist_name, album_name, 64):
-            print("[ERROR] Downloading 64px image")
+        # if not download_image_from_url(url_64, year, artist_name, album_name, 64):
+        #     print("[ERROR] Downloading 64px image")
 

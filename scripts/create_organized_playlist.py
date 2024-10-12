@@ -63,6 +63,7 @@ if __name__ == "__main__":
 
             # Find all the songs associated with this artist
             unorg_songs_rows = get_all_artist_songs(source_csv_path, artist)
+            
 
             # Quick error checking
             # Note some albums can have less than 3 favorite songs, making things more complicated
@@ -87,7 +88,12 @@ if __name__ == "__main__":
 
             # Place the songs into the new CSV in the order listed in "Favorite Songs"
             # Unoptimal, but list size is only 3 so don't care
+            print("unorg_songs_rows")
+            [print(s) for s in unorg_songs_rows]
+
+            print("For", artist, "found:")
             for i, song_name in enumerate(fav_songs):
+                print("\t" + song_name)
                 
                 found = False
 
@@ -100,7 +106,7 @@ if __name__ == "__main__":
                         # 3 * (...)   ==>   Accounts for the fact that every album has 3 indices reserved for it
                         # ... + i   ==>   Indexes the song correctly among the album's 3 reserved indices
                         # ... - 1   ==>   Makes the entire indexing process start at 0 rather than 1
-                        new_data[3 * (num_albums - int(hidden_ranking)) + i - 1] = unorg_song_row
+                        new_data[3 * (num_albums - int(hidden_ranking)) + i] = unorg_song_row
                         unorg_songs_rows.remove(unorg_song_row)
                         found = True
                         break
@@ -112,11 +118,10 @@ if __name__ == "__main__":
                     print("Common reasons for this error are: 1) spelling mistake, 2) missing special character, 3) Mismatch between favorite songs (changed in one place but not the other).")
                     print("Check/fix this and run again...")
                     exit()
-                
         
         # Remove all leftover 'None' entries (since not all albums will have 3 favorite songs)
         new_data = [row for row in new_data if row != None]
-    
+        
 
     # Write all the data at once at the end
     with open(dest_csv_path, 'w', newline='') as dest_csv:

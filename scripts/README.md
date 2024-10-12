@@ -69,6 +69,20 @@ The goal is for me to be able to copy over my manual lists made in my Google She
 <!-- ---------------------------------------------------------------------------------------- -->
 
 
+## put_csv_in_hidden_order.py
+This script reorganizes a CSV by the by putting it in order of values of the hidden ranking.
+
+### How to use
+1) Run the script as `python3 put_csv_in_hidden_order.py <path/to/source.csv>`
+    - For example inside the `scripts/` directory, run `python3 put_csv_in_hidden_order.py ../csv/2024.csv`
+
+### Things to note
+* This will output the results to "output.csv"
+
+
+<!-- ---------------------------------------------------------------------------------------- -->
+
+
 ## format_sheets_songs.py
 The goal of this script is to take the exported CSV from [Exportify](https://exportify.net/), and re-format it into a more readable state, which I can then directly upload to my website.
 
@@ -119,11 +133,17 @@ This downloads 3 images of the album art in different sizes (64x64, 300x300, and
 
 
 # Common things to do
-## Adding new albums to a year CSV list
+## Updating the albums list
 1) Export the Google Sheets as a CSV
 2) Copy over that CSV into the scripts folder for ease of access
 3) Run `format_sheets_albums.py`. This will trim the excess data off the sheet and add in the hidden ranking values
     - After doing this, double check the diff to make sure no formatting or spelling mistakes were copied over
-4) If wanting to also update the order of hidden rankings, follow the directions for `set_new_rankings/py`.
+4) If wanting to also update the order of hidden rankings, follow the directions for `set_new_rankings.py`.
     - If updating a list for an older year (before 2022), it might just be faster to update it manually
-5) Afterwards, run
+5) If desired, follow the directions for `put_csv_in_hidden_order.py` to put the new CSV in order of the hidden rankings
+6) Afterwards, follow the directions for `run download_album_art.py`
+    - If the file is really long, you may want to manually edit it to only include the new albums you are wanting to add
+7) Finally, follow the directions for `create_organized_playlist.py` to create the Spotify playlist of the new albums list
+
+## Updating the songs list
+1) ...
