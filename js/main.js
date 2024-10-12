@@ -881,6 +881,11 @@ function updateActiveList() {
 document.getElementById("year-list").addEventListener("click", async function(event) {
     let year = event.target.innerHTML;
 
+    // Prevent bug where the user can click on the table cell the button is inside
+    if (year.includes("<button")) {
+        return;
+    }
+
     // Set the currently selected year and change the active button
     SELECTED_YEAR = year;
     
