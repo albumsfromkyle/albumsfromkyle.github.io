@@ -188,12 +188,8 @@ document.addEventListener("DOMContentLoaded", async function() {
     // Update the current layout design
     updateDisplay();
 
-    // Update the List Selector navbar to display the correct list being selected
-    updateActiveList();
-    
     // Update the Year Selector navbar to display the correct list being selected
     updateYearsShownInList(SELECTED_YEAR);
-    updateActiveYear();
     grayOutMissingYears();
 
     // Update the favicon depending on light/dark mode
@@ -215,7 +211,7 @@ function updateLayoutButton() {
     let layout_button =  document.getElementById("layout-button");
 
     // Remove the layout button for the songs list
-    (SELECTED_LIST == "Favorite Songs") ? layout_button.classList.add("hidden") : layout_button.classList.remove("hidden");
+    (SELECTED_LIST == "Favorite Albums") ? layout_button.classList.remove("hidden") : layout_button.classList.add("hidden");
 
     // Update the icon to match the layout
     (SELECTED_LAYOUT == "TABLE") ? layout_button.classList.replace("fa-bars", "fa-grid-2") : layout_button.classList.replace("fa-grid-2", "fa-bars");
@@ -227,6 +223,13 @@ function updateLayoutButton() {
  */
 function updateSpotifyPlaylist() {
     let playlistLink = document.getElementById("playlist-link");
+
+    // If in a search list, remove the spotify playlist
+    if (SELECTED_LIST == "Search") {
+        playlistLink.parentElement.classList.add("hidden");
+        return;
+    }
+    playlistLink.parentElement.classList.remove("hidden");
 
     // Update the text / name of the playlist
     let playlistName = (SELECTED_LIST == "Favorite Albums") ? "Albums " : "Songs ";
@@ -254,10 +257,17 @@ function updateContainerStyle() {
  * Updates the website URL with the current list, year, and layout parameters
  */
 function updateUrl() {
+    // Build the new URL with all the website display info
     let newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + 
                  "?list=" + (SELECTED_LIST == "Favorite Albums" ? "albums" : "songs") + 
                  "&year=" + SELECTED_YEAR +
                  "&layout=" + SELECTED_LAYOUT.toLowerCase();
+    
+    // If in the search list, use a different URL
+    if (SELECTED_LIST == "Search") {
+        newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + "?search=?"
+    }
+    
     window.history.pushState({ path: newUrl }, '', newUrl);
 }
 
@@ -286,6 +296,9 @@ function updateDisplay() {
     updateSpotifyPlaylist();
     updateContainerStyle();
     updateUrl();
+    updateActiveList();
+    updateActiveYear();
+
 
     // Update the actual display
     if (SELECTED_LAYOUT == "TABLE") {
@@ -889,8 +902,11 @@ document.getElementById("year-list").addEventListener("click", async function(ev
     // Set the currently selected year and change the active button
     SELECTED_YEAR = year;
     
-    updateUrl();
-    updateActiveYear();
+    // If the user is coming from a search result, then default back to the albums list
+    if (SELECTED_LIST == "Search") {
+        SELECTED_LIST = "Favorite Albums";
+    } 
+
     updateDisplay(); 
 });
 
@@ -900,6 +916,11 @@ document.getElementById("year-list").addEventListener("click", async function(ev
  */
 document.getElementById("list-list").addEventListener("click", async function(event) {
     let listType = event.target.innerHTML;
+
+    // If coming from a search menu, default to the current year
+    if (SELECTED_LIST == "Search") {
+        SELECTED_YEAR = CURRENT_YEAR;
+    }
 
     // If a CSV for this year/list does not exist, show an error banner and go back to the default page
     if (!await isValidListYearCombo(listType, SELECTED_YEAR)) {
@@ -916,9 +937,7 @@ document.getElementById("list-list").addEventListener("click", async function(ev
     SELECTED_LAYOUT = "TABLE";
     
     updateDisplay();
-    updateActiveList();
     grayOutMissingYears();
-    updateActiveYear();
 });
 
 
@@ -1029,6 +1048,39 @@ function updateYearsShownInList(targetYear) {
 
 
 
+
+/*************************
+**** SEARCHING ALBUMS ****
+*************************/
+
+function performSearch(whatToSearch) {
+    console.log("SEARCHING FOR TEXT: " + whatToSearch);
+
+    SELECTED_YEAR = -1;
+    SELECTED_LIST = "Search";
+
+    // do the search
+    // ...
+
+    // Hide all the grid/displays
+    updateDisplay();
+    hideAllGrids();
+}
+
+
+/**
+ * Handles when the search button is presses
+ */
+let searchTimer;
+function handleSearch() {
+    let whatToSearch = document.getElementById("search-input").value.toLowerCase();
+    if (whatToSearch) {
+        performSearch(whatToSearch);
+    }
+}
+document.getElementById("search-button").addEventListener("click", function(event){
+    handleSearch();
+});
 
 
 
