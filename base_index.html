@@ -79,12 +79,21 @@
         </div>
     </div>
 
-    <!-- ------------------------ TABLE ------------------------ -->
-    <div id="album-list">
+    <!-- ------------------------ MAIN DISPLAY ------------------------ -->
+    <div id="list-display">
+        <!-- ------------------------ SEARCH TABLE/GRID ------------------------ -->
+        <div id="search-container" class="grid-container">
+            <table id="search-table">
+                <tbody id="search-results-albums">
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- ------------------------ ALBUMS/SONGS TABLE ------------------------ -->
         <div id="table-container" class="container">
-            <table id="album-table">
+            <table id="display-table">
                 <!-- Headers-->
-                <thead id="table-headers">
+                <thead id="display-headers">
                     <!-- Headers are auto-generating by updateTableHeaders() JS function, these are just for reference -->
                     <tr>
                         <th scope="col" class="album">Album</th>
@@ -94,9 +103,16 @@
                         <th scope="col" class="rating">Rating</th>
                     </tr>
                 </thead>
+
                 <!-- Body -->
-                <tbody id="album-table-body">
+                <tbody id="display-table-body" class="hidden">
                 </tbody>
+            </table>
+        </div>
+
+        <!-- ------------------------ ALBUMS GRID TABLE ------------------------ -->
+        <div id="grid-container" class="grid-container">
+            <table id="album-grids">
             </table>
         </div>
     </div>
