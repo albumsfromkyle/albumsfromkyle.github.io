@@ -479,6 +479,7 @@ async function listToGrid(csvRowList, year, albumsPerRow) {
     let index = 0;
     for (let csvRow of csvRowList) {
         // If this is the start of a new row, insert it. Otherwise, get the last row
+        (albumsPerRow == 2) ? IMAGE_SIZE = 135 : IMAGE_SIZE = 200;
         let workingRow = (index % albumsPerRow == 0) ? newTable.insertRow(-1) : newTable.rows[newTable.rows.length - 1];
         index = index + 1;
 
