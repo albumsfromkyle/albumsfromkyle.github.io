@@ -384,12 +384,25 @@
 }
 
 .search-title {
-    font-size: 1.75rem;
+    font-size: 2rem;
     padding-left: 1.375rem;
-    font-weight: 600;
+    font-weight: bold;
 }
 #matching-songs {
     padding-top: 3rem;
+}
+hr {
+    border: 0;
+    clear: both;
+    display: block;
+    width: 100%;               
+    background-color: var(--DISABLED-COLOR);
+    height: 0.0625em;
+}
+#main-search-title {
+    text-align: center;
+    /* color: var(--DARK-COLOR); */
+    padding-bottom: 1rem;
 }
 /* #endregion  */
 

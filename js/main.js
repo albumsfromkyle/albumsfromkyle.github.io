@@ -1170,14 +1170,17 @@ function searchAllGrids(whatToSearch) {
         searchResults = searchResults.concat(foundElements);
     }
 
-    // If there were no results, display
+    // If there were no results, display message
     if (searchResults.length == 0) {
-        showAlertBanner("No search results found for \"" + whatToSearch + "\"")
+        document.getElementById("search-results-albums-grid").innerHTML = "<div class=table-msg>No matching albums...</div>";
+        return false;
     }
 
     // Update the result grid
     let resultsGrid = createGridFromHtmlSquareList(searchResults);
     document.getElementById(resultsGrid.id).innerHTML = resultsGrid.innerHTML;
+
+    return true;
 }
 
 
@@ -1234,6 +1237,9 @@ function gridResultsToTable() {
  */
 function searchAlbumTables(whatToSearch) {
     let resultsTable = document.getElementById("search-results-albums-table");
+    resultsTable.innerHTML = "<div class=table-msg>No matching songs...</div>";
+
+    let firstMatch = true;
 
     for (let year = OLDEST_YEAR; year <= CURRENT_YEAR; year++) {
         let filename = "csv/" + year + getExtensionFromList("Favorite Albums") + ".csv";
@@ -1241,6 +1247,11 @@ function searchAlbumTables(whatToSearch) {
             let results = searchCSV(data, whatToSearch, "Albums");
 
             for (let i = 0; i < results.length; i++) {
+                if (firstMatch) {
+                    resultsTable.innerHTML = "";
+                    firstMatch = false;
+                }
+
                 // Add the release year
                 let cell = results[i].insertCell();
                 cell.innerHTML = year;
@@ -1253,6 +1264,8 @@ function searchAlbumTables(whatToSearch) {
             document.getElementById("search-results-albums-table").replaceWith(resultsTable);
         });
     }
+
+    return !firstMatch;
 }
 
 
@@ -1332,6 +1345,9 @@ function searchCSV(data, whatToSearch, list) {
  */
 function searchAllSongs(whatToSearch) {
     let resultsTable = document.getElementById("search-results-songs-table");
+    resultsTable.innerHTML = "<div class=table-msg>No matching songs...</div>";
+
+    let firstMatch = true;
 
     for (let year = OLDEST_YEAR; year <= CURRENT_YEAR; year++) {
         let filename = "csv/" + year + getExtensionFromList("Favorite Songs") + ".csv";
@@ -1339,6 +1355,11 @@ function searchAllSongs(whatToSearch) {
             let results = searchCSV(data, whatToSearch, "Songs");
 
             for (let i = 0; i < results.length; i++) {
+                if (firstMatch) {
+                    resultsTable.innerHTML = "";
+                    firstMatch = false;
+                }
+
                 // Add the release year
                 let cell = results[i].insertCell();
                 cell.innerHTML = year;
@@ -1374,9 +1395,17 @@ function handleSearch() {
     // Search the albums
     document.getElementById("search-results-albums-table").innerHTML = "";
     document.getElementById("search-results-songs-table").innerHTML = "";
-    searchAllGrids(whatToSearch);
-    searchAlbumTables(whatToSearch);
+    let wasGridMatch = searchAllGrids(whatToSearch);
+    let wasTableMatch = searchAlbumTables(whatToSearch);
     searchAllSongs(whatToSearch);
+
+    // If there was a TABLE album match, but not a GRID album match, default to the table view
+    // searchAlbumTables() does not block like it should, I think the d3 library is async. As a result, I cannot rely on its return
+    // However, searchAllGrids() WILL return the correct result 
+    // As a workaround, I will just default to the table if no grid results were found, regardless of if table results were also found
+    if (!wasGridMatch) {
+        SELECTED_LAYOUT = "TABLE";
+    }
 
     // Update the display
     updateDisplay();
