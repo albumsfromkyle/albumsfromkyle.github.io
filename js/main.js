@@ -920,8 +920,13 @@ document.getElementById("list-list").addEventListener("click", async function(ev
     // Set the currently selected list and change the active button
     SELECTED_LIST = listType;
 
-    // Always default to grid layout when switching lists (because songs list does not have a grid option)
-    SELECTED_LAYOUT = "TABLE";
+    // Default to the grid display for albums, and table display for songs
+    if (SELECTED_LIST == "Favorite Albums") {
+        SELECTED_LAYOUT = "GRID";
+    }
+    else if (SELECTED_LIST == "Favorite Songs") {
+        SELECTED_LAYOUT = "TABLE";
+    }
     
     updateDisplay();
     grayOutMissingYears();
