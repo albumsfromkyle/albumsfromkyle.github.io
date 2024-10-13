@@ -1127,7 +1127,7 @@ function searchAndHighlightSquare(square, whatToSearch) {
  * @returns A list of HTML album grid elements that contained the searched for text.
  */
 function searchGrid(year, whatToSearch) {
-    let grid = document.getElementById("album-grid-" + year + "-" + "5");
+    let grid = document.getElementById("album-grid-" + year + "-" + NUM_ALBUMS_PER_ROW);
     let results = [];
 
     // For each square in the grid, search all its components for matches

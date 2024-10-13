@@ -68,12 +68,18 @@
 /* Centers the entire year navbar */
 #year-navbar .container {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Puts the buttons and year list into a flex row */
 #year-navbar #year-menu {
     display: flex;
+    text-align: center;
+    justify-content: center;
+
+    position: absolute;
+    margin-left: auto;
 }
 
 /* Styles and adds border to the list elements */
@@ -93,7 +99,7 @@
 }
 
 /* Style ALL the buttons */
-#year-navbar button {
+#year-navbar button:not(#search-button) {
     padding: 0.125rem 1.125rem;
     display: block;
     font-size: 1rem;
@@ -105,7 +111,7 @@
     height: 100%;
 }
 
-#year-navbar button:hover {
+#year-navbar button:not(#search-button):hover {
     background: var(--YEAR-BUTTON-BACKGROUND-HOVER);
     color: var(--YEAR-TEXT-HOVER);
     cursor: pointer;
@@ -345,19 +351,19 @@
 **** SEARCH ****
 ***************/
 /* #region SEARCH  */
-.search-bar {
-    margin: 20px;
+#search-bar {
+    margin-left: auto;
+    display: flex;
 }
 
-.search-bar input {
-    padding: 10px;
-    font-size: 16px;
+#search-bar input {
+    font-size: 1rem;
 }
 
-.search-bar button {
-    padding: 10px;
-    font-size: 16px;
+#search-bar button {
+    font-size: 1rem;
     cursor: pointer;
+    background-color: var(--YEAR-BACKGROUND);
 }
 .highlight {
     background-color: lime;
@@ -374,12 +380,16 @@
 /* #endregion  */
 
 
+
+
+
+
 @media only screen and (max-width: 600px) {
     /* Make all fonts 25% smaller */
     #list-select-navbar ul li button {
         font-size: 0.75rem;
     }
-    #year-navbar button {
+    #year-navbar button:not(#search-button) {
         font-size: 0.75rem;
     }
     #alertclose {
@@ -431,9 +441,35 @@
     #year-navbar .container {
         width: 100%;
         padding: 0;
+        flex-direction: column;
+        justify-content: center;
     }
-    #year-navbar button {
+    #year-navbar button:not(#search-button) {
         padding: 0.125rem 0.75rem;
         word-wrap: break-word;
+    }
+    #year-navbar #year-menu{
+        position: relative;
+        margin: 0;
+    }
+
+    /* Search bar on its own line */
+    #search-bar {
+        margin: 0;
+        position: relative;
+        padding-top: 0.75rem;
+    }
+    #search-bar input {
+        font-size: 0.75rem;
+    }
+    #search-bar button {
+        font-size: 0.75rem;
+    }
+    .search-title {
+        font-size: 1.5rem;
+        padding-left: 1.375rem;
+    }
+    #matching-songs {
+        padding-top: 1.5rem;
     }
 }
