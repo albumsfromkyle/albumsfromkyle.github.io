@@ -1223,7 +1223,10 @@ function gridResultsToTable() {
 /******************************
 **** ALBUM TABLE SEARCHING ****
 ******************************/
-
+/**
+ * Searches each albums CSV to find if any of the albums match the searched for text.
+ * @param {*} whatToSearch Text to search for.
+ */
 function searchAlbumTables(whatToSearch) {
     let resultsTable = document.getElementById("search-results-albums-table");
 
@@ -1276,6 +1279,13 @@ function searchAndHighlightRow(row, whatToSearch, list) {
 }
 
 
+/**
+ * Given CSV data, search each entry for the searched for text.
+ * @param {*} data CSV data.
+ * @param {*} whatToSearch Text to search for.
+ * @param {*} list String indicating "Albums" or "Songs".
+ * @returns A list of HTML rows containing the CSV data that matched whatToSearch.
+ */
 function searchCSV(data, whatToSearch, list) {
     let results = [];
 
@@ -1311,6 +1321,10 @@ function searchCSV(data, whatToSearch, list) {
 }
 
 
+/**
+ * Searches each songs CSV to find if any of the songs match the searched for text.
+ * @param {*} whatToSearch Text to search for.
+ */
 function searchAllSongs(whatToSearch) {
     let resultsTable = document.getElementById("search-results-songs-table");
 
@@ -1323,7 +1337,7 @@ function searchAllSongs(whatToSearch) {
                 // Add the release year
                 let cell = results[i].insertCell();
                 cell.innerHTML = year;
-                
+
                 let newRow = resultsTable.insertRow(-1);
                 newRow.replaceWith(results[i]);
             }
@@ -1368,6 +1382,9 @@ document.getElementById("search-button").addEventListener("click", function(even
 });
 
 
+/**
+ * Updates which layout is seen in the search results.
+ */
 function updateSearch() {
     // If in GRID layout, convert to table
     if (SELECTED_LAYOUT == "GRID") {
