@@ -117,12 +117,12 @@
     cursor: pointer;
 }
 
-#year-navbar button:disabled {
+#year-navbar button:disabled:not(#search-button) {
     background: var(--YEAR-DISABLED-BUTTON-BACKGROUND);
     color: var(--YEAR-DISABLED-TEXT);
 }
 
-#year-navbar button:disabled:hover {
+#year-navbar button:disabled:not(#search-button):hover {
     background: var(--YEAR-DISABLED-BUTTON-BACKGROUND-HOVER);
     color: var(--YEAR-DISABLED-TEXT-HOVER);
     cursor: pointer;
