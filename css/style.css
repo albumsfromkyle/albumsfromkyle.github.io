@@ -358,6 +358,11 @@
 
 #search-bar input {
     font-size: 1rem;
+    border: 0.175rem solid transparent;
+    border-radius: 0.188rem;
+}
+#search-bar input:hover::placeholder {
+    color: var(--PRIMARY-COLOR);
 }
 
 #search-bar button {
