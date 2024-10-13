@@ -1379,7 +1379,6 @@ function handleSearch() {
     searchAllSongs(whatToSearch);
 
     // Update the display
-    console.log(SELECTED_LAYOUT)
     updateDisplay();
 }
 document.getElementById("search-button").addEventListener("click", function(event){
@@ -1391,7 +1390,6 @@ document.getElementById("search-button").addEventListener("click", function(even
  * Watch for when the user presses enter while in the input search box.
  */
 document.getElementById("search-input").addEventListener("keydown", function(event){
-    console.log("KEY PRESSES")
     if(event.key === 'Enter') {
         handleSearch();        
     }
