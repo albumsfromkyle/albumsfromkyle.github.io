@@ -227,7 +227,7 @@ function updateSpotifyPlaylist() {
     // If in a search list, remove the spotify playlist
     if (SELECTED_LIST == "Search") {
         playlistLink.parentElement.classList.add("hidden");
-        playlistLink.parentElement.parentElement.style.minHeight = "34px";
+        playlistLink.parentElement.parentElement.style.minHeight = "42.19px";
         return;
     }
     playlistLink.parentElement.classList.remove("hidden");
