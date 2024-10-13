@@ -256,6 +256,10 @@
     font-weight: bold;
 }
 
+#list-display table {
+    width: 100%;
+}
+
 #list-display table, td {
     padding: 0.3125rem 0.3125rem;
     border: 0.0625rem solid var(--TABLE-BORDER);

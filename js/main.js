@@ -1029,9 +1029,9 @@ function updateYearsShownInList(targetYear) {
 }
 
 
-/************************
-**** ALBUM SEARCHING ****
-************************/
+/*****************************
+**** ALBUM GRID SEARCHING ****
+*****************************/
 /**
  * Formats a given list of album grid square elements into a single tbody element.
  * @param {*} squareList List of album grid square HTML elements.
@@ -1220,9 +1220,9 @@ function gridResultsToTable() {
 }
 
 
-/***********************
-**** SONG SEARCHING ****
-***********************/
+/******************************
+**** ALBUM TABLE SEARCHING ****
+******************************/
 
 function searchAlbumTables(whatToSearch) {
     let resultsTable = document.getElementById("search-results-albums-table");
@@ -1248,10 +1248,9 @@ function searchAlbumTables(whatToSearch) {
 }
 
 
-/************************
-**** ALBUM SEARCHING ****
-************************/
-
+/***********************
+**** SONG SEARCHING ****
+***********************/
 function searchAndHighlightRow(row, whatToSearch, list) {
     let found = false;
 
@@ -1321,6 +1320,10 @@ function searchAllSongs(whatToSearch) {
             let results = searchCSV(data, whatToSearch, "Songs");
 
             for (let i = 0; i < results.length; i++) {
+                // Add the release year
+                let cell = results[i].insertCell();
+                cell.innerHTML = year;
+                
                 let newRow = resultsTable.insertRow(-1);
                 newRow.replaceWith(results[i]);
             }
