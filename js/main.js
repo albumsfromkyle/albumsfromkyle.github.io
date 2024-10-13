@@ -471,9 +471,10 @@ function createAllGrids() {
  * The result is a single album "grid block."
  * @param {*} csvRow The row of CSV data to convert into an album "grid block."
  * @param {*} workingRow The HTML row to insert the HTML album "grid block" into.
+ * @param {*} imageSize Optional param to manually set the image size.
  * @returns The HTML element of the album "grid block" created.
  */
-async function csvRowToGridImage(csvRow, workingRow) {
+async function csvRowToGridImage(csvRow, workingRow, imageSize = IMAGE_SIZE) {
     let releaseYear = csvRow["Release Date"].slice(-4).toLowerCase();
     let albumName = csvRow["Album"].replace(/[^\p{L}\p{N}]+/gu,"").toLowerCase();
     let artistName = csvRow["Artist"].split(",")[0].replace(/[^\p{L}\p{N}]+/gu,"").toLowerCase();
@@ -489,7 +490,7 @@ async function csvRowToGridImage(csvRow, workingRow) {
     // Insert the image
     let cell = workingRow.insertCell();
     cell.classList.add("art-cell");
-    cell.innerHTML  = "<img class=\"art-art\" src=\"" + imageFilename + "\" width=\"" + IMAGE_SIZE + "px\" height=\"" + IMAGE_SIZE + "px\">";
+    cell.innerHTML  = "<img class=\"art-art\" src=\"" + imageFilename + "\" width=\"" + imageSize + "px\" height=\"" + imageSize + "px\">";
 
     // Insert all the other album info
     cell.innerHTML += "<div class=\"art-album\"><i>" + csvRow["Album"] + "</i></div>";
@@ -517,12 +518,11 @@ async function listToGrid(csvRowList, year, albumsPerRow) {
     let index = 0;
     for (let csvRow of csvRowList) {
         // If this is the start of a new row, insert it. Otherwise, get the last row
-        (albumsPerRow == 2) ? IMAGE_SIZE = 135 : IMAGE_SIZE = 200;
         let workingRow = (index % albumsPerRow == 0) ? newTable.insertRow(-1) : newTable.rows[newTable.rows.length - 1];
         index = index + 1;
 
         // Insert the new image grid element
-        let newCell = await csvRowToGridImage(csvRow, workingRow);
+        let newCell = await csvRowToGridImage(csvRow, workingRow, (albumsPerRow == 2) ? 135 : 200);
         
         // Color the element appropriately
         highlightElementFromRating(newCell, csvRow["Rating"]);
