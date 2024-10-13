@@ -1383,6 +1383,17 @@ document.getElementById("search-button").addEventListener("click", function(even
 
 
 /**
+ * Watch for when the user presses enter while in the input search box.
+ */
+document.getElementById("search-input").addEventListener("keydown", function(event){
+    console.log("KEY PRESSES")
+    if(event.key === 'Enter') {
+        handleSearch();        
+    }
+});
+
+
+/**
  * Updates which layout is seen in the search results.
  */
 function updateSearch() {
