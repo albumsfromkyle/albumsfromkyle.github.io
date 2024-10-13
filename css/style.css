@@ -383,6 +383,33 @@
 
 
 
+@media only screen and (max-width: 900px) {
+    /* Search bar on its own line */
+    #year-navbar #year-menu{
+        position: relative;
+        margin: 0;
+    }
+
+    #year-navbar .container {
+        width: 100%;
+        padding: 0;
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    #search-bar {
+        margin: 0;
+        position: relative;
+        padding-top: 0.75rem;
+    }
+    #search-bar input {
+        font-size: 1rem;
+    }
+    #search-bar button {
+        font-size: 1rem;
+    }
+}
+
 
 @media only screen and (max-width: 600px) {
     /* Make all fonts 25% smaller */
@@ -472,4 +499,6 @@
     #matching-songs {
         padding-top: 1.5rem;
     }
+
+    
 }
