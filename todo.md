@@ -39,3 +39,13 @@
 * Should I just remove the songs list entirely?
     - Doesn't look very good unless I add grid view
     - Maybe just display the albums list, but give TWO spotify playlist links: one to albums, one to songs
+
+
+# SEARCH DESIGN DECISIONS
+* If you search in an albums list, it will search the albums grids (only album name, artist name, genre)
+* If you search in a songs list, it will search the favorite songs tables
+
+# SEARCH TODO
+- Make search work for albums (only album name, artist name, genre)
+- Allow search results to toggle between list and grid view
+- Add extra info to the search results (year, favorite songs)

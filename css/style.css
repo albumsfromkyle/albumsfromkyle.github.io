@@ -68,12 +68,18 @@
 /* Centers the entire year navbar */
 #year-navbar .container {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Puts the buttons and year list into a flex row */
 #year-navbar #year-menu {
     display: flex;
+    text-align: center;
+    justify-content: center;
+
+    position: absolute;
+    margin-left: auto;
 }
 
 /* Styles and adds border to the list elements */
@@ -93,7 +99,7 @@
 }
 
 /* Style ALL the buttons */
-#year-navbar button {
+#year-navbar button:not(#search-button) {
     padding: 0.125rem 1.125rem;
     display: block;
     font-size: 1rem;
@@ -105,7 +111,7 @@
     height: 100%;
 }
 
-#year-navbar button:hover {
+#year-navbar button:not(#search-button):hover {
     background: var(--YEAR-BUTTON-BACKGROUND-HOVER);
     color: var(--YEAR-TEXT-HOVER);
     cursor: pointer;
@@ -170,7 +176,8 @@
 **** Spotify Playlist ****
 *************************/
 /* #region SPOTIFY PLAYLIST */
-#spotify-playlist .container, #spotify-playlist .grid-container {
+#playlist-and-layout .container, 
+#playlist-and-layout .grid-container {
     padding-top: 0.9375rem;
     padding-bottom: 0.2rem;
     text-align: center;
@@ -180,13 +187,13 @@
     position: relative;
 }
 
-#spotify-playlist a {
+#playlist-and-layout a {
     font-style: italic;
     color: var(--PRIMARY-COLOR);
     border-bottom: 0.0625rem solid transparent;
 }
 
-#spotify-playlist a:hover {
+#playlist-and-layout a:hover {
     border-bottom: 0.0625rem solid var(--PRIMARY-COLOR);
     font-weight: bold;
 }
@@ -197,8 +204,6 @@
     transition: 0.15s;
     position: absolute;
     right: 0.938rem;
-    /* top: 50%;
-    transform: translateY(-50%); */
 }
 
 #layout-button:hover {
@@ -211,87 +216,96 @@
 **** Table ****
 **************/
 /* #region TABLE */
-#album-list .container {
+#list-display .container {
     padding-top: 0.9375rem;
     padding-bottom: 3.125rem;
     background: var(--CONTAINER-BACKGROUND);
 }
 
 /* Table column widths */
-#album-list .song {
+#list-display .song {
     width: 21.5%;
 }
 
-#album-list .album {
+#list-display .album {
     width: 21.5%;
 }
 
-#album-list .artist {
+#list-display .artist {
     width: 21%;
 }
 
-#album-list .genre {
+#list-display .genre {
     width: 18.5%;
 }
 
-#album-list .favorite-songs {
+#list-display .favorite-songs {
     width: 39%;
 }
 
+#list-display .release-year {
+    width: 20%;
+}
+
 /* Table ordering triangles */
-#album-list #table-headers .header span { /* Order triangles */
+#list-display #display-headers .header span { /* Order triangles */
     color: var(--TABLE-HEADER-ORDER);
 }
 
-#album-list #table-headers .header .active {
+#list-display #display-headers .header .active {
     color: var(--TABLE-SELECTED-HEADER-ORDER);
 }
 
 /* Table style */
-#album-list #table-headers .header { /* Inner div inside the cell */
+#list-display .header {
     font-size: 1rem;
     font-weight: bold;
 }
 
-#album-list table, td {
+#list-display table {
+    width: 100%;
+}
+
+#list-display table, td {
     padding: 0.3125rem 0.3125rem;
     border: 0.0625rem solid var(--TABLE-BORDER);
     border-collapse: collapse;
     position: relative;
 }
-#album-list .container table {
+#list-display .container table {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
 }
-#album-list td {
+#list-display td {
     padding: 0.625rem 1rem;
 }
 
-#album-list thead td {  /* Entire header cell */
+#list-display thead td {  /* Entire header cell */
     padding: 0.3125rem 1rem;
     color: var(--TABLE-HEADER-TEXT);
     background: var(--TABLE-HEADER-BACKGROUND);
     border-bottom: 0.125rem solid var(--TABLE-BORDER);
 }
 
-#album-list thead td:hover {  /* Entire header cell */
+#list-display thead td:hover {  /* Entire header cell */
     color: var(--TABLE-HEADER-TEXT-HOVER);
     background: var(--TABLE-HEADER-BACKGROUND-HOVER);
 }
 
-#album-list #album-table {
+#list-display #display-table {
     background: var(--TABLE-CELL-BACKGROUND);
     margin-bottom: 8rem;
 }
-#album-list #album-table .ten {
+
+#list-display .ten {
     background: var(--TABLE-10);
 }
-#album-list #album-table .gold {
+#list-display .gold {
     background: var(--TABLE-GOLD);
 }
-#album-list #album-table .silver {
+#list-display .silver {
     background: var(--TABLE-SILVER);
 }
-#album-list #album-table .bronze {
+#list-display .bronze {
     background: var(--TABLE-BRONZE);
 }
 /* #endregion */
@@ -313,24 +327,61 @@
     padding: 0 0.9375rem;
 }
 
-#album-list .grid-container table, .grid-container td {
+#list-display .grid-container table, .grid-container td {
     padding-top: 2rem;
     border: 0.75rem solid transparent;
 }
 
-#album-list .grid-container td {
+#list-display .grid-container td {
     border-radius: 10%;
 }
 @media only screen and (max-width: 600px) {
-    #album-list .grid-container td {
+    #list-display .grid-container td {
         border-radius: 15%;
     }
 }
 
-#album-list .grid-container #album-table {
+#list-display .grid-container #display-table {
     background: var(--BODY-BACKGROUND);
 }
 /* #endregion */
+
+
+/***************
+**** SEARCH ****
+***************/
+/* #region SEARCH  */
+#search-bar {
+    margin-left: auto;
+    display: flex;
+}
+
+#search-bar input {
+    font-size: 1rem;
+}
+
+#search-bar button {
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: var(--YEAR-BACKGROUND);
+}
+.highlight {
+    background-color: lime;
+}
+
+.search-title {
+    font-size: 1.75rem;
+    padding-left: 1.375rem;
+    font-weight: 600;
+}
+#matching-songs {
+    padding-top: 3rem;
+}
+/* #endregion  */
+
+
+
+
 
 
 @media only screen and (max-width: 600px) {
@@ -338,24 +389,24 @@
     #list-select-navbar ul li button {
         font-size: 0.75rem;
     }
-    #year-navbar button {
+    #year-navbar button:not(#search-button) {
         font-size: 0.75rem;
     }
     #alertclose {
         font-size: 0.9375rem;
     }
-    #album-list #table-headers .header { /* Inner div inside the cell */
+    #list-display .header {
         font-size: 0.75rem;
     }
-    #spotify-playlist {
+    #playlist-and-layout {
         font-size: 0.75rem;
     }
 
     /* Stop table from overspilling */
-    #album-list {
+    #list-display {
         width: 100vw;
     }
-    #album-list .container {
+    #list-display .container {
         width: 100%;
         margin: 0;
         padding-left: 0.9375rem;
@@ -363,12 +414,12 @@
         padding-top: 0.9375rem;
         padding-bottom: 3.125rem;
     }
-    #album-list table {
+    #list-display table {
         table-layout: fixed;
         width: 100%;
         word-wrap: break-word;
     }
-    #album-list td, #album-list thead td {
+    #list-display td, #list-display thead td {
         padding: 0.3125rem 0.3125rem;
     }
 
@@ -390,9 +441,35 @@
     #year-navbar .container {
         width: 100%;
         padding: 0;
+        flex-direction: column;
+        justify-content: center;
     }
-    #year-navbar button {
+    #year-navbar button:not(#search-button) {
         padding: 0.125rem 0.75rem;
         word-wrap: break-word;
+    }
+    #year-navbar #year-menu{
+        position: relative;
+        margin: 0;
+    }
+
+    /* Search bar on its own line */
+    #search-bar {
+        margin: 0;
+        position: relative;
+        padding-top: 0.75rem;
+    }
+    #search-bar input {
+        font-size: 0.75rem;
+    }
+    #search-bar button {
+        font-size: 0.75rem;
+    }
+    .search-title {
+        font-size: 1.5rem;
+        padding-left: 1.375rem;
+    }
+    #matching-songs {
+        padding-top: 1.5rem;
     }
 }

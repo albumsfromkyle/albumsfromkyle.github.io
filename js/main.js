@@ -188,12 +188,8 @@ document.addEventListener("DOMContentLoaded", async function() {
     // Update the current layout design
     updateDisplay();
 
-    // Update the List Selector navbar to display the correct list being selected
-    updateActiveList();
-    
     // Update the Year Selector navbar to display the correct list being selected
     updateYearsShownInList(SELECTED_YEAR);
-    updateActiveYear();
     grayOutMissingYears();
 
     // Update the favicon depending on light/dark mode
@@ -228,6 +224,15 @@ function updateLayoutButton() {
 function updateSpotifyPlaylist() {
     let playlistLink = document.getElementById("playlist-link");
 
+    // If in a search list, remove the spotify playlist
+    if (SELECTED_LIST == "Search") {
+        playlistLink.parentElement.classList.add("hidden");
+        playlistLink.parentElement.parentElement.style.minHeight = "34px";
+        return;
+    }
+    playlistLink.parentElement.classList.remove("hidden");
+    playlistLink.parentElement.parentElement.style.minHeight = "0px";
+
     // Update the text / name of the playlist
     let playlistName = (SELECTED_LIST == "Favorite Albums") ? "Albums " : "Songs ";
     playlistName += String(SELECTED_YEAR)
@@ -240,24 +245,20 @@ function updateSpotifyPlaylist() {
 
 
 /**
- * Updates the classes of the album table to match the current layout
- */
-function updateContainerStyle() {
-    if (SELECTED_LAYOUT == "TABLE")
-        document.getElementById("table-container").classList.replace("grid-container", "container");
-    else if (SELECTED_LAYOUT == "GRID")
-        document.getElementById("table-container").classList.replace("container", "grid-container");
-}
-
-
-/**
  * Updates the website URL with the current list, year, and layout parameters
  */
 function updateUrl() {
+    // Build the new URL with all the website display info
     let newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + 
                  "?list=" + (SELECTED_LIST == "Favorite Albums" ? "albums" : "songs") + 
                  "&year=" + SELECTED_YEAR +
                  "&layout=" + SELECTED_LAYOUT.toLowerCase();
+    
+    // If in the search list, use a different URL
+    if (SELECTED_LIST == "Search") {
+        newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + "?search=?"
+    }
+    
     window.history.pushState({ path: newUrl }, '', newUrl);
 }
 
@@ -268,13 +269,38 @@ function updateUrl() {
 document.getElementById("layout-button").addEventListener("click", function(event) {
     if (SELECTED_LAYOUT == "TABLE") {
         SELECTED_LAYOUT = "GRID";
-        updateDisplay();
     }
     else if (SELECTED_LAYOUT == "GRID"){
         SELECTED_LAYOUT = "TABLE";
-        updateDisplay();
     }
+
+    updateDisplay();
 });
+
+
+function updateShownDisplay() {
+    // Special case for searches
+    if (SELECTED_LIST == "Search") {
+        document.getElementById("table-container").classList.add("hidden");
+        document.getElementById("grid-container").classList.add("hidden");
+        document.getElementById("search-container").classList.remove("hidden");
+        return;
+    }
+
+    // Hide the search elements
+    document.getElementById("search-input").value = "";
+    document.getElementById("search-container").classList.add("hidden");
+
+    // Update the display to match the current year and list, depending on the layout
+    if (SELECTED_LAYOUT == "TABLE") {
+        document.getElementById("table-container").classList.remove("hidden");
+        document.getElementById("grid-container").classList.add("hidden");
+    }
+    else if (SELECTED_LAYOUT == "GRID") {
+        document.getElementById("table-container").classList.add("hidden");
+        document.getElementById("grid-container").classList.remove("hidden");
+    }
+}
 
 
 /**
@@ -284,11 +310,19 @@ function updateDisplay() {
     // Update the small stuff
     updateLayoutButton();
     updateSpotifyPlaylist();
-    updateContainerStyle();
     updateUrl();
+    updateActiveList();
+    updateActiveYear();
+    updateShownDisplay();
 
-    // Update the actual display
-    if (SELECTED_LAYOUT == "TABLE") {
+    // If searching, handle it's display separately
+    if (SELECTED_LIST == "Search") {
+        updateSearch();
+    }
+
+    // Otherwise the albums/songs list is being shown
+    // So, update the display to match the current year and list, depending on the layout
+    else if (SELECTED_LAYOUT == "TABLE") {
         updateTable();
     }
     else if (SELECTED_LAYOUT == "GRID") {
@@ -339,7 +373,11 @@ window.addEventListener('resize', function() {
 
         // If that value is different from what is currently displayed, update which grid is shown
         if (NUM_ALBUMS_PER_ROW != prev) {
-            updateShownGrid();
+            // If this is the search grid, recreate it. Otherwise, change which grid is displayed
+            if (SELECTED_LIST == "Search")
+                handleSearch();
+            else
+                updateGrid();
         }
     }, 200);
 });
@@ -455,8 +493,8 @@ async function csvRowToGridImage(csvRow, workingRow) {
 
     // Insert all the other album info
     cell.innerHTML += "<div class=\"art-album\"><i>" + csvRow["Album"] + "</i></div>";
-    cell.innerHTML += "<div class=\"art-artist\">By: <u>" + csvRow["Artist"] + "</u></div>";
-    cell.innerHTML += "<div class=\"art-genre\">Genre: " + csvRow["Genre"] + "</div>";
+    cell.innerHTML += "<div class=\"art-artist\"><b>By:</b> <u>" + csvRow["Artist"] + "</u></div>";
+    cell.innerHTML += "<div class=\"art-genre\"><b>Genre:</b> " + csvRow["Genre"] + "</div>";
     cell.innerHTML += "<div class=\"art-hidden-ranking hidden\">" + csvRow["Hidden Ranking"] + "</div>";
 
     return cell;
@@ -513,7 +551,7 @@ async function createGrid(year, albumsPerRow) {
         // If this grid already exists, replace it
         (document.getElementById(grid.id)) 
             ? (document.getElementById(grid.id).innerHTML = grid.innerHTML) 
-            : document.getElementById("album-table-body").parentNode.appendChild(grid);
+            : document.getElementById("album-grids").appendChild(grid);
     });
 }
 
@@ -534,48 +572,11 @@ function hideAllGrids() {
 
 
 /**
- * Uses the global variables to determine which grid should be shown, and hides all other grids
- */
-function updateShownGrid() {
-    // Hide each year's grid
-    hideAllGrids();
-    
-    // Display the correct grid
-    let grid = document.getElementById("album-grid-" + SELECTED_YEAR + "-" + NUM_ALBUMS_PER_ROW);
-    if (grid != null) {
-        grid.classList.remove("hidden");
-    }
-    else {
-        console.log("Grid doesn't exist yet!");
-        showAlertBanner("Grid layout for year " + SELECTED_YEAR + " does not exist!");
-        SELECTED_LAYOUT = "TABLE";
-        updateDisplay();
-    }
-}
-
-
-/**
- * Updates the headers of the display table to the grid style (AKA it removes the headers)
- */
-function updateGridHeaders() {
-    // Clear the current headers
-    let header = document.getElementById("table-headers");
-    header.innerHTML = "";
-}
-
-
-/**
  * Updates which grid is visible
  */
 function updateGrid() {
-    // Update the headers (by removing them)
-    updateGridHeaders();
-
-    // Hide the main table
-    document.getElementById("album-table-body").classList.add("hidden");
-    
-    // Update which grids are hidden / shown
-    updateShownGrid();
+    hideAllGrids();
+    document.getElementById("album-grid-" + SELECTED_YEAR + "-" + NUM_ALBUMS_PER_ROW).classList.remove("hidden");
 }
 
 
@@ -630,7 +631,7 @@ function csvRowToTableRow(htmlRow, headersToShow, csvRow, defaultVal = "-") {
 function csvToTable(data) {
     // Create a new table element so I can do all the replacing at once and prevent flickering
     let newTable = document.createElement('tbody');
-    newTable.id = "album-table-body";
+    newTable.id = "display-table-body";
 
     // Loop through each row in the CSV data (which is an album entry), and copy the data into the HTML table
     data.forEach(function(csvRow) {
@@ -662,7 +663,7 @@ function csvToTable(data) {
     });
 
     // Replace the entire old table with the new table
-    let oldTable = document.getElementById("album-table-body");
+    let oldTable = document.getElementById("display-table-body");
     oldTable.parentNode.replaceChild(newTable, oldTable);
 }
 
@@ -675,7 +676,7 @@ function csvToTable(data) {
  * @param {*} activeElement The HTML span element of the active header
  */
 function updateOrderTriangles(activeElement) {
-    document.querySelectorAll("#album-list #table-headers .header span").forEach(span => {
+    document.querySelectorAll("#list-display #table-headers .header span").forEach(span => {
         // If this is a column NOT being used for sorting, gray out the order triangle and set it pointing up
         if (span != activeElement){
             span.innerHTML = "▲&#xFE0E;";
@@ -706,7 +707,7 @@ function swapAdjacentRows(topRow, botRow) {
  * @param {*} order The direction to sort in ("asc" or "desc")
  */
 function tableBubbleSort(headerIndex, order) {
-    let table = document.getElementById("album-table-body");
+    let table = document.getElementById("display-table-body");
     let rows = table.rows;
 
     // It's fine doing a simple bubble sort (performance wise) since n is always small for my tables (number of album entries will never exceed 3 digits)
@@ -770,7 +771,7 @@ function sortTable(headerIndex) {
  */
 function updateTableHeaders() {
     // Clear the current headers
-    let header = document.getElementById("table-headers");
+    let header = document.getElementById("display-headers");
     header.innerHTML = "";
 
     // Create the new header row
@@ -807,8 +808,6 @@ function updateTable() {
             sortTable(ALBUMS_CSV_HEADERS.indexOf("Hidden Ranking"));
         }
     });
-
-    hideAllGrids();
 }
 
 
@@ -826,9 +825,9 @@ function hideAlertBanner() {
 
 
 /**
- * Displays an alert banner displaying the warning that the current year/list combination is invalid
- * @param {*} list The invalid list
- * @param {*} year The invalid year
+ * Shows the alert banner with the given message.
+ * @param {*} msg The message to display in the alert.
+ * @param {*} permanent Optional boolean of if the banner should be permanent (true), or time out after 8 seconds (false - default).
  */
 function showAlertBanner(msg, permanent = false) {
     let alertMsg = document.getElementById("alert-msg");
@@ -890,8 +889,11 @@ document.getElementById("year-list").addEventListener("click", async function(ev
     // Set the currently selected year and change the active button
     SELECTED_YEAR = year;
     
-    updateUrl();
-    updateActiveYear();
+    // If the user is coming from a search result, then default back to the albums list
+    if (SELECTED_LIST == "Search") {
+        SELECTED_LIST = "Favorite Albums";
+    } 
+
     updateDisplay(); 
 });
 
@@ -901,6 +903,11 @@ document.getElementById("year-list").addEventListener("click", async function(ev
  */
 document.getElementById("list-list").addEventListener("click", async function(event) {
     let listType = event.target.innerHTML;
+
+    // If coming from a search menu, default to the current year
+    if (SELECTED_LIST == "Search") {
+        SELECTED_YEAR = CURRENT_YEAR;
+    }
 
     // If a CSV for this year/list does not exist, show an error banner and go back to the default page
     if (!await isValidListYearCombo(listType, SELECTED_YEAR)) {
@@ -917,9 +924,7 @@ document.getElementById("list-list").addEventListener("click", async function(ev
     SELECTED_LAYOUT = "TABLE";
     
     updateDisplay();
-    updateActiveList();
     grayOutMissingYears();
-    updateActiveYear();
 });
 
 
@@ -1029,202 +1034,383 @@ function updateYearsShownInList(targetYear) {
 }
 
 
-
-
-
-
-
-
-/**************************************
-**** IN-BROWSER EDITING (DEV ONLY) ****
-**************************************/
-// These functions allow me to modify the album table in the web browser, rather than having to manually edit the CSV data
-// All editing functionality should be kept to this section, and it should not mingle with any other core functions
-// Because of this (and the fact that this isn't going to ever be active for deployment), this code might be a bit gross (and that's okay with me)
-
-// As of adding the grid layout, I am really not sure if this will work anymore
-
-const EDITING = false;
-
+/*****************************
+**** ALBUM GRID SEARCHING ****
+*****************************/
 /**
- * If I am editing in the browser, modify certain elements and adjust the view to allow me to edit.
+ * Formats a given list of album grid square elements into a single tbody element.
+ * @param {*} squareList List of album grid square HTML elements.
+ * @returns The tbody element with the formatted album grid squares.
  */
-if (EDITING) {
-    SHOWN_ALBUM_HEADERS = SHOWN_ALBUM_HEADERS.concat(["Hidden Ranking", "RANKING UP", "RANKING DOWN", "PRINT TABLE", "RESET RANKINGS"]);
-    SHOWN_SONG_HEADERS = SHOWN_SONG_HEADERS.concat(["Hidden Ranking", "RANKING UP", "RANKING DOWN", "PRINT", "RESET"]);
-    addEditingElements();
-}
+function createGridFromHtmlSquareList(squareList) {
+    let newTable = document.createElement('tbody');
+    newTable.id = "search-results-albums-grid";
 
-
-if (EDITING) { document.querySelector('#list-select-navbar').addEventListener('click', (ev) => { 
-    addEditingElements();
-});}
-
-
-/**
- * Adds cells to the table that when clicked on, allow me to move around the rows.
- */
-function addEditingCells() {
-    let table = document.getElementById("album-table-body");
-    let rows = table.rows;
-
-    for (let i = 0; i < rows.length; i++) {
-        let cell = rows[i].insertCell();
-        cell.innerHTML = "UP";
-        cell = rows[i].insertCell();
-        cell.innerHTML = "DOWN";
-        cell = rows[i].insertCell();
-        cell.innerHTML = "PRINT";
-        cell = rows[i].insertCell();
-        cell.innerHTML = "RESET";
-    }   
-}
-
-
-/**
- * Wait for all the base data to be loaded in (and sorted), and then add the new editing elements.
- */
-async function addEditingElements() {
-    await sleep(0.1*1000);
-    addEditingCells();
-}
-
-/**
- * Given an HTML tag, find the first HTML element of that tag that contains certain text.
- * @param {*} tag The HTML tag to search all of (e.g. "p", "div", "td")
- * @param {*} text The text to search for within the HTML elements
- * @returns The HTML element if found, otherwise null
- */
-function findElementByInnerText(tag, text) {
-    const elements = document.getElementsByTagName(tag);
-
-    // Iterate through the elements and check if the innerHTML matches
-    for (let element of elements) {
-        if (element.textContent.toLowerCase().trim() === text.toLowerCase()) {
-            return element;
+    // If the list is less than the NUM_ALBUMS_PER_ROW, must fill the row with empty cells to make the spacing correct
+    if (squareList.length < NUM_ALBUMS_PER_ROW) {
+        for (let i = squareList.length; i < NUM_ALBUMS_PER_ROW; i++) {
+            let td = document.createElement("td");
+            td.classList.add("art-cell");
+            squareList.push(td);
         }
     }
 
-    console.log("ERROR: Could not find <" + tag + "> with text \"" + text + "\"");
-    return null;
-}
+    // Format the list of squares into the appropriately sized grid
+    let index = 0;
+    for (let square of squareList) {
+        let workingRow = (index % NUM_ALBUMS_PER_ROW == 0) ? newTable.insertRow(-1) : newTable.rows[newTable.rows.length - 1];
+        index = index + 1;
 
-
-/**
- * Given a list of string values, join them together in CSV format (i.e. comma separating all values except the last one, and putting quotes around values with "," in them).
- * @param {*} values List of string values to join together
- * @returns The final joined-together string
- */
-function csv_join(values) {
-    let result = "";
-
-    if (values.length == 0)
-        return result;
-    
-    for (let i = 0; i < values.length - 1; i++) {
-        result += (values[i].includes(",")) ? ("\"" + values[i] + "\",") : (values[i] + ",");
+        let cell = workingRow.insertCell();
+        cell.replaceWith(square);
     }
-    result += (values[values.length - 1].includes(",")) ? "\"" + values[values.length - 1] + "\"," : values[values.length - 1] + ",";
 
-    return result;
+    return newTable;
 }
 
 
 /**
- * Reprint the CSV EXACTLY as it is, EXCEPT change the "Hidden Ranking" to match what is in the table.
- * @param {*} csv_data The D3 CSV data, could be the albums CSV or the songs CSV
+ * Removes the info text to the square content. (The "By: " and "Genre: " indicators.)
+ * @param {*} square The square to remove the text from.
  */
-function printEditedCSV(csv_data) {   
-    let table_string = (SELECTED_LIST == "Favorite Albums") ?
-            "Artist,Album,Genre,Release Date,Listened On,Favorite Songs,Rating,Hidden Ranking\n" :
-            "Song,Album,Artist,Genre,Hidden Ranking\n";
-    let hr_index = (SELECTED_LIST == "Favorite Albums") ? ALBUMS_CSV_HEADERS.indexOf("Hidden Ranking") : SONGS_CSV_HEADERS.indexOf("Hidden Ranking");
+function stripSquareElemContent(square) {
+    if (square.classList.contains("art-artist"))
+        square.innerHTML = square.innerHTML.substring(11); // Removes the "<b>By:</b> "
+    else if (square.classList.contains("art-genre"))
+        square.innerHTML = square.innerHTML.substring(14); // Removes the "<b>Genre:</b> "
+}
 
-    csv_data.forEach(function(csv_row, r) {
-        // Copy all non-header rows, EXCEPT put in the new hidden ranking
-        first_rows = csv_join( Object.values(csv_row).slice(0, hr_index) );
-        hidden_ranking = findElementByInnerText("td", csv_row["Album"]).parentElement.children[hr_index].innerHTML
-        last_rows = csv_join( Object.values(csv_row).slice(hr_index + 1) );
 
-        table_string += first_rows + hidden_ranking + last_rows + "\n"
+/**
+ * Adds back the info text to the square content. (The "By: " and "Genre: " indicators.)
+ * @param {*} square The square to add the text back to.
+ */
+function resetSquareElemContent(square) {
+    if (square.classList.contains("art-artist"))
+        square.innerHTML = "<b>By:</b> " + square.innerHTML;
+    else if (square.classList.contains("art-genre"))
+        square.innerHTML = "<b>Genre:</b> " + square.innerHTML;
+}
+
+
+/**
+ * Searches a given album grid square for the given text, and highlights the matching text if found. (THIS ALTERS THE HTML ELEMENT!)
+ * @param {*} square The HTML album square to search/highlight.
+ * @param {*} whatToSearch The text to search for.
+ * @returns Boolean of if the text was found (and the square was highlighted) or not
+ */
+function searchAndHighlightSquare(square, whatToSearch) {
+    let found = false;
+
+    // Search the 3 text components of the grid square
+    let parts = square.querySelectorAll(".art-album, .art-artist, .art-genre");
+    Array.from(parts).forEach(elem => {
+        // Strip the inner text of the cell
+        stripSquareElemContent(elem);
+        
+        // If this grid square component contains the searched text, highlight the text and add the parent square
+        let text = elem.textContent.toLowerCase();
+        if (text.includes(whatToSearch)) {
+            found = true;
+            let regex = new RegExp(whatToSearch, 'gi');
+            let highlightedText = elem.innerHTML.replace(regex, (match) => `<span class="highlight">${match}</span>`);
+            elem.innerHTML = highlightedText;
+        }
+
+        // Add back the removed text
+        resetSquareElemContent(elem);
     });
 
-    console.log(table_string)
+    return found;
 }
 
 
 /**
- * Resets all the hidden rankings to the index the album is in the ORDERED list.
+ * Searches all albums in a given grid to the searched for text.
+ * @param {*} year The year of the grid to search within.
+ * @param {*} whatToSearch The text to search for.
+ * @returns A list of HTML album grid elements that contained the searched for text.
  */
-function resetRankings() {
-    console.log("RESETTING RANKINGS")
-    let table = document.getElementById("album-table-body");
-    let rows = table.rows;
+function searchGrid(year, whatToSearch) {
+    let grid = document.getElementById("album-grid-" + year + "-" + NUM_ALBUMS_PER_ROW);
+    let results = [];
 
-    for (let i = 0; i < rows.length; i++) {
-        rows[i].cells[ALBUMS_CSV_HEADERS.indexOf("Hidden Ranking")].innerHTML = rows.length - i;
-    }
+    // For each square in the grid, search all its components for matches
+    let allGridSquares = grid.querySelectorAll(".art-cell");
+    Array.from(allGridSquares).forEach(square => {
+        // Save the original state of the square, since it WILL be altered (by highlighting) during the search
+        let oldSquare = square.innerHTML;
 
-    rankingsAreReset = true;
+        // If the search text is found in the square, add a copy of the (highlighted) square to the results
+        if (searchAndHighlightSquare(square, whatToSearch)) {
+            let clone = square.cloneNode(true);
+            clone.innerHTML += "<b>Release year:</b> " + year + "";
+            results.push(clone);
+        }
+
+        // Reset the square in the grid to its original state
+        square.innerHTML = oldSquare;
+    });
+
+    return results;
 }
 
 
 /**
- * Performs the associated actions when the EDITING cells are clicked on
+ * Searches all the album grids for the searched for text.
+ * @param {*} whatToSearch The text to search for.
  */
-if (EDITING) { document.querySelector('#album-table').addEventListener('click', (ev) => { 
-    // Get the clicked on coordinates
-    [x, y] = [
-        ev.target.cellIndex, 
-        ev.target.parentElement.rowIndex
-    ];
-    if (x === undefined || y === undefined) {
-        return;
+function searchAllGrids(whatToSearch) {
+    // Search the albums grid for each year
+    // NOTE: Since I am NOT searching the album table, this search will not work for my favorite tracks, release date, listen date, ect.
+    //       It will ONLY work for the artist name, album name, and genre
+    let searchResults = []; // Holds a list of album grid squares that contain the searched text
+    for (let year = OLDEST_YEAR; year <= CURRENT_YEAR; year++) {
+        let foundElements = searchGrid(year, whatToSearch);
+        searchResults = searchResults.concat(foundElements);
     }
-    y = y - 1;
 
-    // Get table values before acting
-    let table = document.getElementById("album-table-body");
-    let rows = table.rows;
+    // If there were no results, display
+    if (searchResults.length == 0) {
+        showAlertBanner("No search results found for \"" + whatToSearch + "\"")
+    }
 
-    let hr_index = (SELECTED_LIST == "Favorite Albums") ? ALBUMS_CSV_HEADERS.indexOf("Hidden Ranking") : SONGS_CSV_HEADERS.indexOf("Hidden Ranking");
+    // Update the result grid
+    let resultsGrid = createGridFromHtmlSquareList(searchResults);
+    document.getElementById(resultsGrid.id).innerHTML = resultsGrid.innerHTML;
+}
 
-    // Move row up
-    if (x == hr_index + 1) {
-        // At the top, don't do anything
-        if (y == 0) { 
+
+/**
+ * Uses the existing HTML element containing the search results in grid form, and converts it into a table format.
+ */
+function gridResultsToTable() {
+    let newTable = document.createElement("tbody");
+    newTable.id = "search-results-albums-table";
+
+    let gridResults = document.getElementById("search-results-albums-grid");
+    for (let r = 0; r <  gridResults.rows.length; r++) { // Loops through rows of the grid
+        for (let i = 0; i <  gridResults.rows[r].cells.length; i++) { // Loops through cells in the row
+            let square = gridResults.rows[r].cells[i];
+
+            // Skip placeholder (empty) squares
+            if (square.innerHTML == "") {
+                continue;
+            }
+
+            // Convert the square to a table row (stripping the extra html formatting)
+            let newRow = newTable.insertRow();
+            let cell = newRow.insertCell();
+            cell.innerHTML = square.children[1].innerHTML.slice(square.children[1].innerHTML.indexOf("<i>") + 3); // Album
+            cell = newRow.insertCell();
+            cell.innerHTML = square.children[2].innerHTML.slice(square.children[2].innerHTML.indexOf("<b>By:</b> <u>") + 14); // Artist
+            cell = newRow.insertCell();
+            cell.innerHTML = square.children[3].innerHTML.slice(square.children[3].innerHTML.indexOf("<b>Genre:</b> ") + 14); // Genre
+            cell = newRow.insertCell();
+            cell.innerHTML = square.innerHTML.slice(square.innerHTML.indexOf("<b>Release year:</b> ") + 21); // Release Year
+            
+            // Color the row the same as the grid
+            if (square.classList.contains("ten"))
+                highlightElementFromRating(newRow, 10);
+            if (square.classList.contains("gold"))
+                highlightElementFromRating(newRow, 9);
+            if (square.classList.contains("silver"))
+                highlightElementFromRating(newRow, 8);
+            if (square.classList.contains("bronze"))
+                highlightElementFromRating(newRow, 7);
+        }
+    }
+
+    document.getElementById("search-results-albums-table").replaceWith(newTable);
+}
+
+
+/******************************
+**** ALBUM TABLE SEARCHING ****
+******************************/
+/**
+ * Searches each albums CSV to find if any of the albums match the searched for text.
+ * @param {*} whatToSearch Text to search for.
+ */
+function searchAlbumTables(whatToSearch) {
+    let resultsTable = document.getElementById("search-results-albums-table");
+
+    for (let year = OLDEST_YEAR; year <= CURRENT_YEAR; year++) {
+        let filename = "csv/" + year + getExtensionFromList("Favorite Albums") + ".csv";
+        d3.csv(filename).then(function(data) {
+            let results = searchCSV(data, whatToSearch, "Albums");
+
+            for (let i = 0; i < results.length; i++) {
+                // Add the release year
+                let cell = results[i].insertCell();
+                cell.innerHTML = year;
+
+                // Add the row to the results table
+                let newRow = resultsTable.insertRow(-1);
+                newRow.replaceWith(results[i]);
+                
+            }
+            document.getElementById("search-results-albums-table").replaceWith(resultsTable);
+        });
+    }
+}
+
+
+/***********************
+**** SONG SEARCHING ****
+***********************/
+function searchAndHighlightRow(row, whatToSearch, list) {
+    let found = false;
+
+    // Search the 3 text components of the grid square
+    let parts = [];
+    if (list == "Songs")
+        parts = Array.from(row.querySelectorAll("td")).slice(0, -1);
+    else if (list == "Albums")
+        parts = Array.from(row.querySelectorAll("td")).slice(0, 4).concat([Array.from(row.querySelectorAll("td"))[5]]);
+
+    parts.forEach(elem => {
+        // If this grid square component contains the searched text, highlight the text and add the parent square
+        let text = elem.textContent.toLowerCase();
+        if (text.includes(whatToSearch)) {
+            found = true;
+            let regex = new RegExp(whatToSearch, 'gi');
+            let highlightedText = elem.innerHTML.replace(regex, (match) => `<span class="highlight">${match}</span>`);
+            elem.innerHTML = highlightedText;
+        }
+    });
+
+    return found;
+}
+
+
+/**
+ * Given CSV data, search each entry for the searched for text.
+ * @param {*} data CSV data.
+ * @param {*} whatToSearch Text to search for.
+ * @param {*} list String indicating "Albums" or "Songs".
+ * @returns A list of HTML rows containing the CSV data that matched whatToSearch.
+ */
+function searchCSV(data, whatToSearch, list) {
+    let results = [];
+
+    data.forEach(function(csvRow) {
+        // Some previous lists include albums from ANY year
+        // I want to exclude those for now, and only include albums release the selected year
+        let releaseDate = Date.parse( csvRow["Release Date"] );
+        if (releaseDate < Date.parse("1/1/" + SELECTED_YEAR)) {
             return;
         }
 
-        // Swap hidden rankings
-        rows[y].cells[hr_index].innerHTML = parseInt(rows[y].cells[hr_index].innerHTML) + 1;
-        rows[y - 1].cells[hr_index].innerHTML = parseInt(rows[y - 1].cells[hr_index].innerHTML) - 1;
+        // If I am not showing the ratings for the albums, only show the albums I would recommend (which are albums above 6 in their score)
+        if (!shouldShowAlbum(csvRow["Rating"])) {
+            return;
+        }
 
-        // Swap rows
-        swapAdjacentRows(rows[y - 1], rows[y]);
-    }
+        let newRow = document.createElement("tr");
+        if (list == "Songs")
+            csvRowToTableRow(newRow, SHOWN_SONG_HEADERS, csvRow);
+        else if (list == "Albums")
+            csvRowToTableRow(newRow, SHOWN_ALBUM_HEADERS, csvRow);
+        
+        // Highlight the row depending on its rating
+        highlightElementFromRating(newRow, csvRow["Rating"]);
 
-    // Move row down
-    else if (x == hr_index + 2) {
-        // Swap hidden rankings
-        rows[y].cells[hr_index].innerHTML = parseInt(rows[y].cells[hr_index].innerHTML) - 1;
-        rows[y + 1].cells[hr_index].innerHTML = parseInt(rows[y + 1].cells[hr_index].innerHTML) + 1;
+        // Actually search for the text within the row, and highlight any occurances of it
+        if(searchAndHighlightRow(newRow, whatToSearch, list)) {
+            results.push(newRow.cloneNode(true));
+        }
+    });
 
-        // Swap rows
-        swapAdjacentRows(rows[y], rows[y + 1]);
-    }
+    return results;
+}
 
-     // Print the HTML as a CSV (since JS can't edit local files, just copy/paste this print into the CSV file)
-    else if (x == hr_index + 3) {
-        let extension = getExtensionFromList(SELECTED_LIST);
-        let filename = "csv/" + SELECTED_YEAR + extension + ".csv";
+
+/**
+ * Searches each songs CSV to find if any of the songs match the searched for text.
+ * @param {*} whatToSearch Text to search for.
+ */
+function searchAllSongs(whatToSearch) {
+    let resultsTable = document.getElementById("search-results-songs-table");
+
+    for (let year = OLDEST_YEAR; year <= CURRENT_YEAR; year++) {
+        let filename = "csv/" + year + getExtensionFromList("Favorite Songs") + ".csv";
         d3.csv(filename).then(function(data) {
-            printEditedCSV(data);
+            let results = searchCSV(data, whatToSearch, "Songs");
+
+            for (let i = 0; i < results.length; i++) {
+                // Add the release year
+                let cell = results[i].insertCell();
+                cell.innerHTML = year;
+
+                let newRow = resultsTable.insertRow(-1);
+                newRow.replaceWith(results[i]);
+            }
+            document.getElementById("search-results-songs-table").replaceWith(resultsTable);
         });
     }
-    
-    // Reset the hidden rankings
-    else if (x == hr_index + 4) {
-        resetRankings();
+}
+
+
+/******************
+**** SEARCHING ****
+******************/
+/**
+ * Handles when the search button is presses
+ */
+let searchTimer;
+function handleSearch() {
+    // Get the search text
+    let whatToSearch = document.getElementById("search-input").value.toLowerCase();
+    if (!whatToSearch) {
+        return;
     }
-});}
+
+    // Set the global variables
+    SELECTED_YEAR = -1;
+    SELECTED_LIST = "Search";
+    SELECTED_LAYOUT = "GRID";
+
+    // Search the albums
+    document.getElementById("search-results-albums-table").innerHTML = "";
+    document.getElementById("search-results-songs-table").innerHTML = "";
+    searchAllGrids(whatToSearch);
+    searchAlbumTables(whatToSearch);
+    searchAllSongs(whatToSearch);
+
+    // Update the display
+    console.log(SELECTED_LAYOUT)
+    updateDisplay();
+}
+document.getElementById("search-button").addEventListener("click", function(event){
+    handleSearch();
+});
+
+
+/**
+ * Watch for when the user presses enter while in the input search box.
+ */
+document.getElementById("search-input").addEventListener("keydown", function(event){
+    console.log("KEY PRESSES")
+    if(event.key === 'Enter') {
+        handleSearch();        
+    }
+});
+
+
+/**
+ * Updates which layout is seen in the search results.
+ */
+function updateSearch() {
+    // If in GRID layout, convert to table
+    if (SELECTED_LAYOUT == "GRID") {
+        document.getElementById("search-albums-grid-container").classList.remove("hidden");
+        document.getElementById("search-albums-table-container").classList.add("hidden");
+    }
+    // If in TABLE layout, convert to grid
+    else if (SELECTED_LAYOUT == "TABLE") {
+        document.getElementById("search-albums-grid-container").classList.add("hidden");
+        document.getElementById("search-albums-table-container").classList.remove("hidden");
+    }
+}
+
