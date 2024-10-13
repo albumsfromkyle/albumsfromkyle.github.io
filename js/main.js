@@ -373,7 +373,11 @@ window.addEventListener('resize', function() {
 
         // If that value is different from what is currently displayed, update which grid is shown
         if (NUM_ALBUMS_PER_ROW != prev) {
-            updateGrid();
+            // If this is the search grid, recreate it. Otherwise, change which grid is displayed
+            if (SELECTED_LIST == "Search")
+                handleSearch();
+            else
+                updateGrid();
         }
     }, 200);
 });
