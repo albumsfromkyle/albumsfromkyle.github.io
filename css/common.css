@@ -163,7 +163,8 @@ img {
 
 /* Styles the list elements */
 #navbar ul li a {
-    padding: 0.3125rem 1.25rem;
+    padding: 0.3125rem 0.35rem;
+    margin-left: 1.8rem;
     display: block;
     font-size: 1.15rem;
     font-weight: normal;
@@ -241,6 +242,7 @@ img {
     }
     #navbar ul li a {
         padding: 0.3125rem 0.5715rem;
+        margin-left: 0rem;
     }
     #navbar #main-menu img {
         display: block;
