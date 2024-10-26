@@ -219,6 +219,7 @@
 #list-display .container {
     padding-top: 0.9375rem;
     padding-bottom: 3.125rem;
+    margin-bottom: 5rem;
     background: var(--CONTAINER-BACKGROUND);
 }
 

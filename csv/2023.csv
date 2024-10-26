@@ -1,10 +1,10 @@
 Album,Artist,Genre,Release Date,Listened On,Favorite Songs,Rating,Hidden Ranking
 Beloved! Paradise! Jazz!?,McKinley Dixon,Jazz Rap / Conscious Hip Hop,6/2/2023,7/3/2023,"Beloved! Paradise! Jazz!?, Tyler Forever, Sun I Rise",9.5,109
 SCARING THE HOES,"JPEGMAFIA, Danny Brown",Experimental Hip Hop,3/24/2023,3/26/2023,"Lean Beef Patty, Burfict!, Jack Harlow Combo Meal",9.5,108
-Let's Start Here.,Lil Yachty,Psychedelic Rock,1/27/2023,2/27/2023,"drive ME crazy!, running out of time, the BLACK seminole.",9,107
-Why Does the Earth Give Us People to Love?,Kara Jackson,Singer-Songwriter / Indie Folk,4/14/2023,4/23/2023,"pawnshop, why does the earth give us people to love?, no fun/party",9,106
-Drive Home,Portraits Of Tracy,Pop Rap / R&B,5/26/2023,6/8/2023,"Found!, Graceland, Home",9,105
-Lahai,Sampha,Alternative R&B,10/20/2023,12/4/2023,"Spirit 2.0, Dancing Circles, Only",9,104
+Lahai,Sampha,Alternative R&B,10/20/2023,12/4/2023,"Spirit 2.0, Dancing Circles, Only",9,107
+Drive Home,Portraits Of Tracy,Pop Rap / R&B,5/26/2023,6/8/2023,"Found!, Graceland, Home",9,106
+Why Does the Earth Give Us People to Love?,Kara Jackson,Singer-Songwriter / Indie Folk,4/14/2023,4/23/2023,"pawnshop, why does the earth give us people to love?, no fun/party",9,105
+Let's Start Here.,Lil Yachty,Psychedelic Rock,1/27/2023,2/27/2023,"drive ME crazy!, running out of time, the BLACK seminole.",9,104
 Bewitched,Laufey,Jazz,9/8/2023,9/10/2023,"Bewitched, Lovesick, Dreamer",9,103
 That! Feels Good!,Jessie Ware,Dance Pop / Disco,4/28/2023,5/10/2023,"Begin Again, Pearls, That! Feels Good!",8.5,102
 blómi,Susanne Sundfør,Singer-Songwriter,4/28/2023,5/1/2023,"blómi, alyosha, náttsǫngr",8.5,101
@@ -29,32 +29,35 @@ Live at Bush Hall,"Black Country, New Road",Art Rock,3/24/2023,12/28/2023,"Turbi
 KNOWER FOREVER,KNOWER,Jazz / Funk,6/2/2023,10/11/2023,"I'm The President, The Abyss, Do Hot Girls Like Chords?",7,82
 The Rise and Fall of a Midwest Princess,Chappell Roan,Dance Pop,9/22/2023,12/11/2023,"Red Wine Supernova, Femininomenon, Casual",7,81
 NEVER ENOUGH,Daniel Caesar,R&B,4/7/2023,4/18/2023,"Please Do Not Lean, Toronto 2014, Let Me Go",7,80
-"PetroDragonic Apocalypse; or, Dawn of Eternal Night: An Annihilation of Planet Earth and the Beginning of Merciless Damnation",King Gizzard & The Lizard Wizard,Metal,6/16/2023,6/20/2023,"Gila Monster, Motor Spirit, Witchcraft",7,79
-But Here We Are,Foo Fighters,Alternative Rock,6/2/2023,10/29/2023,"Rescued, Hearing Voices, Nothing At All",7,78
-My Back Was A Bridge For You To Cross,ANOHNI,Singer-Songwriter / Soul,7/7/2023,7/15/2023,"Sliver Of Ice, Rest, It Must Change",7,77
-After the Magic,Parannoul,Shoegaze,1/28/2023,2/15/2023,"Arrival, Polaris, Parade",7,76
-Everything Harmony,The Lemon Twigs,Soft Rock,5/5/2023,12/6/2023,"When Winter Comes Around, In My Head, New To Me",7,75
-映帶する煙 (Eitai suru kemuri),君島大空 (Ohzora Kimishima),Folktronica,1/18/2023,2/13/2023,"19℃, ぬい, 都合",7,74
-Volcano,Jungle,Funk / Disco,8/11/2023,12/15/2023,"Candle Flame, I've Been In Love, Back On 74",7,73
+映帶する煙 (Eitai suru kemuri),君島大空 (Ohzora Kimishima),Folktronica,1/18/2023,2/13/2023,"19℃, ぬい, 都合",7,79
+Volcano,Jungle,Funk / Disco,8/11/2023,12/15/2023,"Candle Flame, I've Been In Love, Back On 74",7,78
+"PetroDragonic Apocalypse; or, Dawn of Eternal Night: An Annihilation of Planet Earth and the Beginning of Merciless Damnation",King Gizzard & The Lizard Wizard,Metal,6/16/2023,6/20/2023,"Gila Monster, Motor Spirit, Witchcraft",7,77
+But Here We Are,Foo Fighters,Alternative Rock,6/2/2023,10/29/2023,"Rescued, Hearing Voices, Nothing At All",7,76
+My Back Was A Bridge For You To Cross,ANOHNI,Singer-Songwriter / Soul,7/7/2023,7/15/2023,"Sliver Of Ice, Rest, It Must Change",7,75
+After the Magic,Parannoul,Shoegaze,1/28/2023,2/15/2023,"Arrival, Polaris, Parade",7,74
+Everything Harmony,The Lemon Twigs,Soft Rock,5/5/2023,12/6/2023,"When Winter Comes Around, In My Head, New To Me",7,73
 portrait of a dog,Jonah Yano,Jazz / Neo-soul,1/27/2023,3/6/2023,"the ordinary is ordinary because it ordinarily repeats, always, haven't haven't",6.5,72
 Moments of Clarity,Narrow Head,Shoegaze / Grunge,2/10/2023,2/23/2023,"Caroline, The Real, Moments of Clarity",6.5,71
 Ascension,Sarah Kinsley,Indie Pop,6/9/2023,12/8/2023,"Oh No Darling!, Lovegod, Sliver Of Time",6.5,70
 The Loveliest Time,Carly Rae Jepsen,Pop,7/28/2023,7/17/2023,"Shy Boy, Kamikaze, Put It To Rest",6.5,69
 My 21st Century Blues,RAYE,Pop / R&B,2/3/2023,11/2/2023,"Worth It., Escapism, The Thrill Is Gone",6.5,68
-Midnight Tangerine,death's dynamic shroud,Vaporwave / Glitch Pop,10/10/2023,11/23/2023,"A Part Of Me, Who I Say I Am, The Bleeding Of The Sun",6.5,67
 Gigi's Recovery,The Murder Capital,Art-Rock / Punk,1/20/2023,1/27/2023,"A Thousand Lives, Crying, Only Good Things",6.5,66
 Girl with Fish,feeble little horse,Noise Pop / Shoegaze,6/9/2023,12/27/2023,"Freak, Station, Paces",6.5,65
-Miniature Tigers,Miniature Tigers,Indie Pop,1/27/2023,1/30/2023,"Zzz, Lavender Boombox, Bloomless",6.5,64
-The Silver Cord,King Gizzard & The Lizard Wizard,Synthpop,10/27/2023,11/28/2023,"The Silver Cord, Theia, Chang'e",6,63
 Variety Pack,Mustard Service,Indie Pop,8/4/2023,8/5/2023,"Baby It's Scary, Late Night Drive, Larkin's Parkin'",6.5,62
 Life's a Blur,Superbloom,Grunge / Shoegaze,6/8/2023,12/13/2023,"Pig, Head First, Daisy",6.5,61
-Fountain Baby,Amaarae,Alternative R&B / Pop,6/9/2023,12/26/2023,"Angels in Tibet, Disguise, Reckless & Sweet",6.5,60
-Quiet Music For Young People,Dana and Alden,Jazz,8/4/2023,8/12/2023,"Dragonfly, Let's Go to Trader Joe's, July 98",6.5,59
-Sensory Flows - the 1st Album,YESUNG,K-Pop,1/25/2023,2/28/2023,"Small Things, All Night Long, Like Us",6.5,58
+Midnight Tangerine,death's dynamic shroud,Vaporwave / Glitch Pop,10/10/2023,11/23/2023,"A Part Of Me, Who I Say I Am, The Bleeding Of The Sun",6.5,60
+Fountain Baby,Amaarae,Alternative R&B / Pop,6/9/2023,12/26/2023,"Angels in Tibet, Disguise, Reckless & Sweet",6.5,59
+Quiet Music For Young People,Dana and Alden,Jazz,8/4/2023,8/12/2023,"Dragonfly, Let's Go to Trader Joe's, July 98",6.5,58
+Sensory Flows - the 1st Album,YESUNG,K-Pop,1/25/2023,2/28/2023,"Small Things, All Night Long, Like Us",6.5,57
+Miniature Tigers,Miniature Tigers,Indie Pop,1/27/2023,1/30/2023,"Zzz, Lavender Boombox, Bloomless",6.5,50
+Rádio Mistério,Pedro Martins,Jazz / Funk,5/31/2023,10/1/2023,"Isn't It Strange, Nada Vai Ser Em Vão, Polos",6.5,43
+Ooh Rap I Ya,George Clanton,Dream Pop / Psychedelia,7/28/2023,12/21/2023,"Everything I Want, I Been Young, Punching Down",6.5,42
+Bluebeard,The Brook & The Bluff,Indie Pop,9/15/2023,10/30/2023,"Hiding, Bulletins From The Past, Bluebeard",6,27
 Jiminy,Bear Ghost,Alternative Rock,9/22/2023,10/13/2023,"Heavy News, Sirens, Vulture",6,57
 "Desire, I Want To Turn Into You",Caroline Polachek,Art Pop,2/14/2023,2/22/2023,"Blood And Butter, Fly To You, Sunset",6,56
 FULLMETAL KAIJU,Kill Bill: The Rapper,Jazz Rap,4/26/2023,4/26/2023,"False Swipe, Polybius, Simple",6,55
-The  Age of Pleasure,Janelle Monáe,Pop,6/9/2023,6/18/2023,"Float, Only Have Eyes 42, Champagne Shit",6,54
+The Age of Pleasure,Janelle Monáe,Pop,6/9/2023,6/18/2023,"Float, Only Have Eyes 42, Champagne Shit",6,54
+The Silver Cord,King Gizzard & The Lizard Wizard,Synthpop,10/27/2023,11/28/2023,"The Silver Cord, Theia, Chang'e",6,53
 Good Company,"Monday Night, 3wayslim",Abstract Hip Hop,1/1/2023,1/20/2023,"Kwanzaa, Shine, Brown Baggies",5.5,53
 Honey,Samia,Indie Pop,1/27/2023,2/1/2023,"Kill Her Freak Out, Charm You, Honey",5.5,52
 Cracker Island,Gorillaz,Synthpop,2/24/2023,2/24/2023,"New Gold, Possession Island, Cracker Island",5.5,51
@@ -65,9 +68,7 @@ the Billage of perception: chapter three,Billlie,K-Pop,3/28/2023,4/12/2023,"EUNO
 "Praise A Lord Who Chews But Which Does Not Consume; (Or Simply, Hot Between Worlds)",Yves Tumor,Indie Rock / Psychedelic,3/17/2023,7/2/2023,"In Spite of War, Fear Evil Like Fire, Ebony Eye",5.5,46
 The Brightest Days,Origami Angel,Pop Punk / Emo,6/16/2023,7/10/2023,"The Brightest Days, Thank You New Jersey, Picture Frame",5.5,45
 Victims & Villains,"Musiq Soulchild, Hit-Boy",R&B,3/10/2023,8/8/2023,"victims and villains, will i touch the sky, is it love is it lies",5.5,44
-Rádio Mistério,Pedro Martins,Jazz / Funk,5/31/2023,10/1/2023,"Isn't It Strange, Nada Vai Ser Em Vão, Polos",6.5,43
 When We Were Younger,grentperez,Indie pop,6/2/2023,10/14/2023,"When We Were Younger, Stuck On You, When The Day Is Done",5.5,42
-Ooh Rap I Ya,George Clanton,Dream Pop / Psychedelia,7/28/2023,12/21/2023,"Everything I Want, I Been Young, Punching Down",6.5,42
 "Flying High, Part 2",The Alchemist,Abstract Hip Hop / Jazz Rap,11/3/2023,11/9/2023,"Turkish Link, Vertigo, Phil Drummond",5.5,40
 Future Self Only Dreams,Certainly So,Alternative / Indie,3/5/2023,11/20/2023,"Foreign Ties, Story to Tell, Wonderful Time",5.5,39
 Seeking the Sources of Streams,Cicada,Ambient,2/6/2023,2/8/2023,"Seeking the Sources of Streams, Remains of Ancient Trees, ",5,37
@@ -80,7 +81,6 @@ Destroyer,M.A.G.S.,Indie Rock / Alternative,8/4/2023,8/7/2023,"Sins, Floyd, Dest
 Se Bueno,TURQUOISEDEATH,Breakcore,7/28/2023,8/13/2023,"Dive, The Sky Fell, Vertigo",5,30
 The Land Is Inhospitable and So Are We,Mitski,Indie,9/15/2023,9/23/2023,"Heaven, The Frost, My Love Mine All Mine",5,29
 Génesis,Peso Pluma,Latin,6/22/2023,10/15/2023,"ROSA PASTEL, LADY GAGA, PRC",5,28
-Bluebeard,The Brook & The Bluff,Indie Pop,9/15/2023,10/30/2023,"Hiding, Bulletins From The Past, Bluebeard",6.5,27
 I Hope You Can Forgive Me,Madison McFerrin,Alternative R&B / Soul,5/12/2023,10/31/2023,"(Please Don't) Leave Me Now, Utah, Stay Away (From Me)",5,27
 Cousin,Wilco,Alternative Folk,9/29/2023,11/21/2023,"A Bowl and A Pudding, Evicted, Infinite Surprise",5,26
 Transcendence Bot,death's dynamic shroud,Vaporwave / Glitch Pop,10/10/2023,11/23/2023,"Un-reflected, Over Again, What? to be human",5,25
