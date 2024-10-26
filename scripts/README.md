@@ -69,6 +69,20 @@ The goal is for me to be able to copy over my manual lists made in my Google She
 <!-- ---------------------------------------------------------------------------------------- -->
 
 
+## set_rankings.py
+This script will set the hidden rankings of a CSV file to be in the same order as the rows are organized.
+
+### How to use
+1) Run the script as `python3 set_rankings.py <path/to/csv_to_edit>`
+    - For example inside the `scripts/` directory, run `python3 set_rankings.py ../csv/2024.csv`
+
+### Things to note
+* ...
+
+
+<!-- ---------------------------------------------------------------------------------------- -->
+
+
 ## put_csv_in_hidden_order.py
 This script reorganizes a CSV by the by putting it in order of values of the hidden ranking.
 
