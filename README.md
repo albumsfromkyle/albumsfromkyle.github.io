@@ -35,17 +35,19 @@ Otherwise, it will just be updated whenever I have enough to share, and whenever
 
 ## Repository structure
 The repository structure is pretty self-explanatory, but here is a quick rundown:
-* `css/` contains the website styling and fonts.
-* `csv/` contains all the CSVs of my year-end album/song lists.
-    - My lists of favorite albums for a given year are denoted as `<year>.csv`.
-    - My lists of favorite songs are a given year are denoted as `<year>_songs.csv`.
-* `images/` contains all the images used on the website, as well as copies of album art (to maybe be used later)
-* `js/` contains the JavaScript backend of the website.
-* `scripts/` contains python scripts which are used only to aid in my organization of albums/songs data (and as such are not used by the website).
-* The actual HTML files for the website are located in the root directory.
-    - `index.html` is the main homepage containing the album/song lists.
-    - `base_index.html` is the main homepage without any of the lists in it.
-    - `site-info.html` contains information about the website and its purpose.
-    - `resources.html` contains links to my Spotify playlists and websites I use to help me find music.
+* `css/` contains the website styling and fonts
+* `csv/` contains all the CSVs of my year-end album/song lists
+    - My lists of favorite albums for a given year are denoted as `<year>.csv`
+    - My lists of favorite songs are a given year are denoted as `<year>_songs.csv`
+* `images/` contains all the images used on the website, including icons and album art
+* `js/` contains the JavaScript backend of the website
+* `scripts/` contains python scripts which are used by me to aid in the organization of all my albums/songs data (none of these are used by the website)
+* The actual HTML files for the website are located in the root directory
+    - `index.html` is the main homepage containing the album/song lists
+    - `base_index.html` is the main homepage without any of the lists in it (and is not used in the website)
+    - `site-info.html` contains information about the website and its purpose
+    - `resources.html` contains links to my Spotify playlists and websites I use to help me find music
 
-The only noteworthy design decision I will mention is that rather than have an individual HTML page for each year or each list, I instead have a single "homepage" (`index.html`) which loads in data from a CSV file into an HTML table. So, that same page is able of displaying every list from every year as long as there is a CSV able to be loaded in. This is the only page that uses JavaScript, as the other pages (`site-info.html` and `resources.html` are purely text based).
+The only noteworthy design decision I will mention is that rather than have an individual HTML page for each year or each list, I instead have a single "homepage" (`index.html`) which loads in data from a CSV file into an HTML table. So, that same page is able of displaying every list from every year as long as there is a CSV able to be loaded in. This is the only page that uses JavaScript, as the other pages (`site-info.html` and `resources.html`) are purely text based.
+
+For the image grid (the display which shows the album arts), things work a bit differently. Dynamically loading hundreds of images was (shockingly) not great for performance. To get around this, I have a script that can generate the HTML code containing all the list data for each year. I then use `base_index.html` as the base file and paste all the HTML code into it to acheive the final webpage as seen in `index.html`. It's jank, makes the file thousands of lines longer than it needs to be, and I'm sure a better solution exists, but it works.
