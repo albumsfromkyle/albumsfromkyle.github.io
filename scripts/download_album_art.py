@@ -102,7 +102,7 @@ if __name__ == "__main__":
         if len(year) < 4:
             continue
 
-        print("download_image_from_url(" + url_300 + ", " + year + ", " + artist_name + ", " + album_name + ", 640)")
+        print("download_image_from_url(" + url_300 + ", " + year + ", " + artist_name + ", " + album_name + ", 300)")
 
         # if not download_image_from_url(url_640, year, artist_name, album_name, 640):
         #     print("[ERROR] Downloading 640px image")
