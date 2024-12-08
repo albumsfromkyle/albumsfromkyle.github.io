@@ -1,81 +1,103 @@
-Song,Artist,Album,Genre,Hidden Ranking
-Classical,Vampire Weekend,Only God Was Above Us,Indie Pop,1
-Sadness As A Gift,Adrianne Lenker,Bright Future,"Folk, Singer-Songwriter",2
-Samurai,Lupe Fiasco,Samurai,Jazz Rap,3
-Killing Time,Magdalena Bay,Imaginal Disk,,4
-Von dutch,Charli xcx,BRAT,Electropop,5
-I'll Be Right There,JPEGMAFIA,I LAY DOWN MY LIFE FOR YOU,,6
-Juna,Clairo,Charm,,7
-coelacanth,glass beach,plastic death,Art Rock,8
-NONE OF YOUR BUSINESS,"SUMIN,Slom",MINISERIES 2,,9
-Stupid (Can’t run from the urge),underscores,Wallsocket (Director's Cut),Hyperpop,10
-Around The Planet,Apathy,Connecticut Casual: Chapter 2,East Coast Hip Hop,11
-Neverender,Justice,Hyperdrama,,12
-Dream Job,Yard Act,Where’s My Utopia?,"Art Punk, Dance-Punk",13
-The World Breathes with Me,Caligula's Horse,Charcoal Grace,Progressive Metal,14
-String theory,wishlane,Nobody's listening!,,15
-Galina,Allie X,Girl With No Face,Goth Pop,16
-Prologue,Kamasi Washington,Fearless Movement,Jazz Fusion,17
-Pluto,Raveena,Where the Butterflies Go in the Rain,"R&B, Soul",18
-room for one,twikipedia,for the rest of your life,"Indie Rock, Shoegaze",19
-Where We've Been,Friko,"Where we've been, Where we go from here",Indie Rock,20
-Surface,acloudyskye,There Must Be Something Here,Indie Rock,21
-"Myrtle Beach, SC",rous.,God Plays His Piano Drone,"Shoegaze, Dream Pop",22
-On A Grassy Knoll (We'll Bow Together),Tapir!,"The Pilgrim, Their God and The King of My Decrepit Mountain",Indie Folk,23
-I'm Happy You're Here,Ugly (UK),Twice Around the Sun,Art Rock,24
-#RICHAXXHAITIAN,Mach-Hommy,#RICHAXXHAITIAN,,25
-Alibi,Hurray For The Riff Raff,The Past Is Still Alive,Alternative Country,26
-Bronwyn,Hannah Frances,Keeper of the Shepherd,"Progressive Folk, Singer-Songwriter",27
-bye,Ariana Grande,eternal sunshine,Pop,28
-Emily G,Courting,New Last Name,Pop Rock,29
-I Got Heaven,Mannequin Pussy,I Got Heaven,"Indie Rock, Punk Rock",30
-The Invisible Man,Maruja,Connla's Well,"Post-Punk, Post-Rock",31
-Buenos tiempos,Dillom,Por cesárea,Experimental Hip Hop,32
-You Know I Love You Still,Kacy Hill,BUG,Indie Pop,33
-Supernatural,NewJeans,Supernatural,K-Pop,34
-Suddenly,Peter Cat Recording Co.,BETA,,35
-The World’s Biggest Paving Slab,English Teacher,This Could Be Texas,Art Rock,36
-Dancing In Babylon,MGMT,Loss Of Life,Psychedelic Pop,37
-I Know That It’s Like This (Baby),Bill Ryder-Jones,Iechyd Da,Chamber Pop,38
-Underdressed at the Symphony,Faye Webster,Underdressed at the Symphony,"Soft Rock, Singer-Songwriter",39
-Could You Help Me,Lucy Rose,This Ain't The Way You Go Out,"Singer-Songwriter, Neo-Soul",40
-Your Blood,AURORA,What Happened To The Heart?,Art Pop,41
-Chẳng Thể Né Tránh,My Anh,Em,Vietnamese Pop,42
-King of Sweden,Future Islands,People Who Aren’t There Anymore,Synthpop,43
-Family Garden,Dana and Alden,"Coyote, You're My Star","Lounge, Jazz",44
-Cinderella,Remi Wolf,Big Ideas,Dance-Pop,45
-Lithonia,Childish Gambino,Bando Stone and The New World,Experimental Hip Hop,46
-huh,glaive,a bit of a mad one,Folk Pop,47
-The Afterparty - Disco Version,Portraits Of Tracy,The Afterparty (Remixes),,48
-symptom of life,WILLOW,empathogen,Art Pop,49
-AMAMA,Crumb,AMAMA,Neo-Psychedelia,50
-Unique Lights,Casey,How To Disappear,Emo,51
-Good Stuff,Bnny,One Million Love Songs,Indie Folk,52
-Next Semester,Twenty One Pilots,Clancy,Alt-Pop,53
-Sinner,samlrc,A Lonely Sinner,Post-Rock,54
-Come Down Soon,Lizzy McAlpine,Older,Singer-Songwriter,55
-Good Blood Mexico City,Elbow,AUDIO VERTIGO,"Art Rock, Indie Rock",56
-NOURISH A THUG,Action Bronson,JOHANN SEBASTIAN BACHLAVA THE DOCTOR,Jazz Rap,57
-DOWNSIDE,I DONT KNOW HOW BUT THEY FOUND ME,GLOOM DIVISION,Pop Rock,58
-JOLENE,Beyoncé,COWBOY CARTER,Country Pop,59
-Igual Que Un Ángel,Kali Uchis,ORQUÍDEAS,Latin Pop,60
-LUNCH,Billie Eilish,HIT ME HARD AND SOFT,Alt-Pop,61
-Red Flags,Brittany Howard,What Now,Psychadelic Soul,62
-Wild Guess,Home Counties,Exactly As It Seems,Dance-Punk,63
-Done With You,Omar Apollo,God Said No,,64
-When I Was Younger,Bonny Light Horseman,Keep Me on Your Mind/See You Free,Folk Rock,65
-EASIER,Quadeca,SCRAPYARD,Experimental Hip Hop,66
-Scaling Walls,Pile,Hot Air Balloon EP,Art Rock,67
-Mythologize Me,Eliza McLamb,Going Through It,"Indie, Singer-Songwriter",68
-Black Friday,Tom Odell,Black Friday,Singer-Songwriter,69
-Moving On,Pissed Jeans,Half Divorced,"Noise Rock, Hardcore Punk",70
-CHEEZY STREET,Louie Zong,RAT TAXI,"Nu Jazz, Jazz-Funk",71
-i'll be okay,potsu,STAR-CROSSED,Lo-fi Hip Hop,72
-Cheerleader,Porter Robinson,SMILE! :D,,73
-open waters,MAVI,shadowbox,,74
-Mirage City,King Gizzard & The Lizard Wizard,Flight b741,,75
-Paul Rodriguez,Logic,Ultra 85,,76
-MACKEREL MILE,Louie Zong,AQUARIUM CITY,,77
-Please Please Please,Sabrina Carpenter,Short n' Sweet,,78
-Marilyn Monroe,Citizen,Marilyn Monroe,,79
-To Be Alright,AURORA,What Happened To The Heart?,Art Pop,80
+Song,Artist,Album,Genre
+Sadness As A Gift,Adrianne Lenker,Bright Future,Folk / Singer-Songwriter
+Classical,Vampire Weekend,Only God Was Above Us,Indie Pop
+Hello again,Liana Flores,Flower of the soul,Bossa Nova / Singer-Songwriter
+Von dutch,Charli xcx,BRAT,Electropop / Dance Pop
+Where We've Been,Friko,"Where we've been, Where we go from here",Indie Rock
+reincarnated,Kendrick Lamar,GNX,West Coast Hip Hop
+Mahashmashana,Father John Misty,Mahashmashana,Chamber Pop / Singer-Songwriter
+I'll Be Right There,JPEGMAFIA,I LAY DOWN MY LIFE FOR YOU,Experimental Hip Hop
+Satellite Business 2.0,"Sampha, Little Simz",Lahai (Deluxe),Alternative R&B
+Samurai,Lupe Fiasco,Samurai,Jazz Rap
+Juna,Clairo,Charm,Soft Rock
+Neverender,"Justice, Tame Impala",Hyperdrama,Electro House
+Killing Time,Magdalena Bay,Imaginal Disk,Synthpop
+No Problems,Ginger Root,SHINBANGUMI,City Pop / Bedroom Pop
+Terra,Geordie Greep,The New Sound,Jazz Rock / Experiemental Rock
+Stupid (Can’t run from the urge),underscores,Wallsocket (Director's Cut),Hyperpop / Electronic
+Phantom Island,King Gizzard & The Lizard Wizard,Phantom Island,Symphonic Rock / Jazz Rock
+The Invisible Man,Maruja,Connla's Well,Post-Punk / Post-Rock
+"Darling, I (feat. Teezo Touchdown)","Tyler, The Creator, Teezo Touchdown",CHROMAKOPIA,West Coast Hip Hop / Neo Soul
+NONE OF YOUR BUSINESS,"SUMIN, Slom",MINISERIES 2,K-Pop / R&B
+coelacanth,glass beach,plastic death,Art Rock
+Y,"HYUKOH, 落日飛車 Sunset Rollercoaster",AAA,Sophisti Pop / Soft Rock
+Pluto,Raveena,Where the Butterflies Go in the Rain,R&B / Soul
+Family Garden,"Dana and Alden, Melanie Charles","Coyote, You're My Star",Alternative R&B / Synth Funk
+Brightness of Vega,"Colliding With Mars, brakence",Brightness of Vega,Alternative R&B / Hyperpop
+THINGS BEHIND THINGS BEHIND THINGS,Bon Iver,"SABLE,",Singer-Songwriter / Indie Folk
+Cheerleader,Porter Robinson,SMILE! :D,Electropop
+Around The Planet,Apathy,Connecticut Casual: Chapter 2,East Coast Hip Hop
+room for one,twikipedia,for the rest of your life,Indie Rock / Shoegaze
+On A Grassy Knoll (We'll Bow Together),Tapir!,"The Pilgrim, Their God and The King of My Decrepit Mountain",Indie Folk
+27 degrees,wishlane,Nobody's listening!,Glitch Pop
+Dream Job,Yard Act,Where’s My Utopia?,Art Punk / Dance Punk
+I Got Heaven,Mannequin Pussy,I Got Heaven,Indie Rock / Punk Rock
+Cinderella,Remi Wolf,Big Ideas,Pop Rock / Dance Pop
+"Myrtle Beach, SC",rous.,God Plays His Piano Drone,Shoegaze / Dream Pop
+Prologue,Kamasi Washington,Fearless Movement,Jazz Fusion
+symptom of life,WILLOW,empathogen,Art Pop
+#RICHAXXHAITIAN,"Mach-Hommy, KAYTRANADA, 03 Greedo",#RICHAXXHAITIAN,Abstract Hip Hop / East Coast Hip Hop
+I'm Happy You're Here,Ugly (UK),Twice Around the Sun,Art Rock
+"Keep Your Cool, Man",Riley!,Keep Your Cool,Midwest Emo
+Flares,acloudyskye,There Must Be Something Here,Indie Rock
+The Afterparty - Disco Version,Portraits Of Tracy,Drive Home: Parting Gifts,Pop Rap / R&B
+Galina,Allie X,Girl With No Face,Goth Pop
+Alibi,Hurray For The Riff Raff,The Past Is Still Alive,Alternative Country
+The World Breathes with Me,Caligula's Horse,Charcoal Grace,Progressive Metal
+80 Summers,John Roseboro,Fools,Bossa Nova
+Ghost in the Machine,Logic,Ultra 85,East Coast Hip Hop
+Last Time We Never Meet Again,Sarah Kinsley,Escaper,Indie Pop
+BUSSIT,Joey Valence & Brae,NO HANDS,East Coast Hip Hop
+the giver,MAVI,shadowbox,Abstract Hip Hop
+Suddenly,Peter Cat Recording Co.,BETA,Jazz Pop / Sophisti Pop
+Mirage City,King Gizzard & The Lizard Wizard,Flight b741,Blues Rock
+NOURISH A THUG,Action Bronson,JOHANN SEBASTIAN BACHLAVA THE DOCTOR,Jazz Rap
+Coming Home Song,Sammy Rae & The Friends,Something for Everybody,Funk Pop
+Underdressed at the Symphony,Faye Webster,Underdressed at the Symphony,Soft Rock / Singer-Songwriter
+MACKEREL MILE,Louie Zong,AQUARIUM CITY,City Pop / Jazz
+Buenos tiempos,Dillom,Por cesárea,Experimental Hip Hop
+Plant the Garden,Melt,If There's a Heaven,Funk Pop
+Starburster,Fontaines D.C.,Romance,Indie Rock / Punk
+WHITNEY,Tommy Richman,COYOTE,Alternative R&B / Synth Funk
+You Know I Love You Still,Kacy Hill,BUG,Indie Pop
+Supernatural,NewJeans,Supernatural,K-Pop
+Could You Help Me,Lucy Rose,This Ain't The Way You Go Out,Singer-Songwriter / Neo-Soul
+Old Scratch Blues,Jack White,No Name,Garage Rock
+All In My Head,The Linda Lindas,No Obligation,Punk Pop
+Where Blue Light Blooms,Origami Angel,Feeling Not Found,Emo-Pop
+Blissful Blossoms,16:9 krollo ✥,Goodbye Despair 2,Cloud Rap / Digicore
+Name of God,Mustafa,Dunya,Singer-Songwriter / Neo-Soul
+Eyes & Mouth,The Smile,Cutouts,Art Rock
+play with earth!,wave to earth,play with earth! 0.03,Neo-Psychedelia / Soft Rock
+I Know That It’s Like This (Baby),Bill Ryder-Jones,Iechyd Da,Chamber Pop
+Sinner,samlrc,A Lonely Sinner,Post-Rock
+Your Blood,AURORA,What Happened To The Heart?,Art Pop
+Lithonia,Childish Gambino,Bando Stone and The New World,Experimental Hip Hop / Art Pop
+AMAMA,Crumb,AMAMA,Neo-Psychedelia
+Next Semester,Twenty One Pilots,Clancy,Alt-Pop
+laced up,tsubi club,laced up,Digicore / Hyperpop
+King of Sweden,Future Islands,People Who Aren’t There Anymore,Synthpop
+bye,Ariana Grande,eternal sunshine,Pop
+For Cryin' Out Loud!,FINNEAS,For Cryin' Out Loud!,Indie Pop
+The Feminine Urge,The Last Dinner Party,Prelude to Ecstasy,Pop Rock
+Chẳng Thể Né Tránh,Mỹ Anh,Em,Vietnamese Pop
+Bronwyn,Hannah Frances,Keeper of the Shepherd,Progressive Folk / Singer-Songwriter
+Dancing In Babylon (feat. Christine and the Queens),"MGMT, Christine and the Queens",Loss Of Life,Psychedelic Pop
+Marilyn Monroe,Citizen,Marilyn Monroe,Funk Pop
+The World’s Biggest Paving Slab,English Teacher,This Could Be Texas,Art Rock
+LUNCH,Billie Eilish,HIT ME HARD AND SOFT,Alt Pop
+Red Flags,Brittany Howard,What Now,Psychadelic Soul
+Please Please Please,Sabrina Carpenter,Short n' Sweet,Pop
+Method Actor,Nilüfer Yanya,My Method Actor,Indie Rock
+Come Down Soon,Lizzy McAlpine,Older,Singer-Songwriter / Indie Folk
+Emily G,Courting,New Last Name,Pop Rock
+TEXAS HOLD 'EM,Beyoncé,COWBOY CARTER,Country Pop
+Igual Que Un Ángel (with Peso Pluma),"Kali Uchis, Peso Pluma",ORQUÍDEAS,Latin Pop
+Done With You,Omar Apollo,God Said No,Alternative Pop / R&B
+When I Was Younger,"Bonny Light Horseman, Eric D. Johnson, Josh Kaufman, Anaïs Mitchell",Keep Me on Your Mind/See You Free,Contemporary Folk
+Maquillada en la Cama,Juliana Gattas,Maquillada en la Cama,Dance Pop
+Good Stuff,Bnny,One Million Love Songs,Indie Folk
+Can't Get You,JAEHYUN,J - The 1st Album,K-Pop / R&B
+Unique Lights,Casey,How To Disappear,Emo
+Good Blood Mexico City,Elbow,AUDIO VERTIGO,Art Rock / Indie Rock
+DOWNSIDE,I DONT KNOW HOW BUT THEY FOUND ME,GLOOM DIVISION,Pop Rock / Emo
