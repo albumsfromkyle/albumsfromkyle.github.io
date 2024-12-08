@@ -17,7 +17,6 @@ This script takes a backed-up CSV of my "Albums <Year>" Spotify playlist, and or
 4) Go back to [Spotify Backup](https://www.spotify-backup.com/) and click `Import` at the top
 5) Type in the name of the playlist you want to create
 6) Click `Upload Your Playlist`, navigate to the outputted CSV file, and select it
-    - If using WSL, it might be easier to copy the outputted CSV back to somewhere on your windows file system
 7) Allow [Spotify Backup](https://www.spotify-backup.com/) to link to your Spotify account if it asks
     - If you want to unlink it, login to your Spotify account on the **INTERNET** (this cannot be done through the Spotify app), and go to "Manage Apps". (You can click here to go there: https://www.spotify.com/us/account/apps/). Then find `spotify-backup`, and hit `Remove Access`.
 8) Click `Import Playlist`. The resulting Spotify playlist should appear in your profile in a minute
@@ -50,7 +49,7 @@ The goal of this script is to take the exported CSV from my personal Google Shee
 <!-- ---------------------------------------------------------------------------------------- -->
 
 
-## set_new_rankings.py
+## set_rankings_from_list.py
 This script will set new hidden rankings for a list.
 The goal is for me to be able to copy over my manual lists made in my Google Sheets, and have that list be converted into the hidden rankings in a CSV.
 
@@ -59,8 +58,8 @@ The goal is for me to be able to copy over my manual lists made in my Google She
     - If using the albums list, only copy the album names (so each row in the CSV only has one column, the album name)
     - If using the songs list, only copy the song names (so each row in the CSV only has one column, the song name)
 2) Paste the list into a new csv file
-3) Run the script as `python3 set_new_rankings.py <path/to/source.csv> <path/to/list.csv> <path/to/output.csv>`
-    - For example inside the `scripts/` directory, run `python3 set_new_rankings.py ../csv/2024.csv list.csv ../csv/2024.csv`
+3) Run the script as `python3 set_rankings_from_list.py <path/to/source.csv> <path/to/list.csv> <path/to/output.csv>`
+    - For example inside the `scripts/` directory, run `python3 set_rankings_from_list.py ../csv/2024.csv list.csv ../csv/2024.csv`
 
 ### Things to note
 * ...
@@ -69,12 +68,12 @@ The goal is for me to be able to copy over my manual lists made in my Google She
 <!-- ---------------------------------------------------------------------------------------- -->
 
 
-## set_rankings.py
+## set_rankings_in_file_order.py
 This script will set the hidden rankings of a CSV file to be in the same order as the rows are organized.
 
 ### How to use
-1) Run the script as `python3 set_rankings.py <path/to/csv_to_edit>`
-    - For example inside the `scripts/` directory, run `python3 set_rankings.py ../csv/2024.csv`
+1) Run the script as `python3 set_rankings_in_file_order.py <path/to/csv_to_edit>`
+    - For example inside the `scripts/` directory, run `python3 set_rankings_in_file_order.py ../csv/2024.csv`
 
 ### Things to note
 * ...
@@ -152,12 +151,13 @@ This downloads 3 images of the album art in different sizes (64x64, 300x300, and
 2) Copy over that CSV into the scripts folder for ease of access
 3) Run `format_sheets_albums.py`. This will trim the excess data off the sheet and add in the hidden ranking values
     - After doing this, double check the diff to make sure no formatting or spelling mistakes were copied over
-4) If wanting to also update the order of hidden rankings, follow the directions for `set_new_rankings.py`.
-    - If updating a list for an older year (before 2022), it might just be faster to update it manually
-5) If desired, follow the directions for `put_csv_in_hidden_order.py` to put the new CSV in order of the hidden rankings
-6) Afterwards, follow the directions for `run download_album_art.py`
+4) If wanting to update the order of hidden rankings from a list, run `set_rankings_from_list.py`.
+   If wanting manually adjust the order of albums in the CSV file, run `set_rankings_in_file_order.py`.
+    - If updating a list for an older year (before 2022), it might just be faster to update it manually and not run either script
+5) If desired, run `put_csv_in_hidden_order.py` to put the new CSV in order of the hidden rankings
+6) Run `download_album_art.py`
     - If the file is really long, you may want to manually edit it to only include the new albums you are wanting to add
-7) Finally, follow the directions for `create_organized_playlist.py` to create the Spotify playlist of the new albums list
+7) Finally, run `create_organized_playlist.py` to create the Spotify playlist of the new albums list
 
 ## Updating the songs list
 1) ...

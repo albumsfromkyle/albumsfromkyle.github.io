@@ -55,13 +55,14 @@ def download_image_from_url(url, year, artist_name, album_name, size):
     response = requests.get(url)
     if response.status_code == 200: # Request was successful
         # Create local file to download to
-        
         with open(filename, "wb") as file:
             file.write(response.content)
+        print("Download succeeded")
         return True
     
     # Return false if the download failed
     else:
+        print("Download failed")
         return False
 
 
