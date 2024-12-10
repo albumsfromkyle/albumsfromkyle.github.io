@@ -5,26 +5,26 @@ const CURRENT_YEAR = 2024; // Hard code for now to make it easier for views (unt
 const NUM_YEARS_TO_SHOW = 5;
 
 // Selectors
-let SELECTED_YEAR = CURRENT_YEAR; // Default year to show
-let SELECTED_LIST = "Favorite Albums"; // Default list to show
-let SELECTED_LAYOUT = "GRID"; // Default layout to show
+let SELECTED_YEAR = CURRENT_YEAR; // Default year to show (OLDEST_YEAR <= SELECTED_YEAR <= CURRENT_YEAR)
+let SELECTED_LIST = "Favorite Albums"; // Default list to show ("Favorite Albums" or "Favorite Songs")
+let SELECTED_LAYOUT = "GRID"; // Default layout to show ("GRID" or "TABLE")
 
 // Table headers
-const ALBUMS_CSV_HEADERS = ["Album", "Artist", "Genre", "Release Date", "Listened On", "Favorite Songs", "Rating", "Hidden Ranking"];
-const SHOWN_ALBUM_HEADERS = ["Album", "Artist", "Genre", "Favorite Songs"];
+const ALBUMS_CSV_HEADERS = ["Album", "Artist", "Genre", "Release Date", "Listened On", "Favorite Songs", "Rating", "Hidden Ranking"]; // Everything in my CSV
+const SHOWN_ALBUM_HEADERS = ["Album", "Artist", "Genre", "Favorite Songs"]; // Everything shown on the website
 
-const SONGS_CSV_HEADERS = ["Song", "Album", "Artist", "Genre", "Hidden Ranking"];
-const SHOWN_SONG_HEADERS = ["Song", "Artist", "Album", "Genre"];
+const SONGS_CSV_HEADERS = ["Song", "Album", "Artist", "Genre", "Hidden Ranking"]; // Everything in my CSV
+const SHOWN_SONG_HEADERS = ["Song", "Artist", "Album", "Genre"]; // Everything shown on the website
 
-const SORTABLE_HEADERS = [""];
+const SORTABLE_HEADERS = [""]; // Potentially add the feature to sort the tables in the future, skeleton for this is in place
 
-const SHOW_RATING = SHOWN_ALBUM_HEADERS.includes("Rating");
+const SHOW_RATING = SHOWN_ALBUM_HEADERS.includes("Rating"); // Don't plan on ever showing ratings, but keeping this just in case
 
 // Grid layout
 let NUM_ALBUMS_PER_ROW = 5; // Updated when window is loaded
-let IMAGE_SIZE = 200;
+let IMAGE_SIZE = 200; // Size of the album art images that are shown in grid form
 
-// Helper constants
+// Spotify playlist links (note not all years/lists combos have playlists)
 const PLAYLIST_LINKS = {
     "Albums 2024" : "https://open.spotify.com/playlist/0MATwTyjzRLJT9rhMKwM6S?si=5e28ec4d25564422",
     "Songs 2024" : "https://open.spotify.com/playlist/7nzU9D67SJdgd41dLbRwcf?si=18384ce1a1d54f9d",
@@ -175,7 +175,7 @@ document.addEventListener("DOMContentLoaded", async function() {
     let layoutQuery = getQueryParam("layout");
 
     SELECTED_LIST = listQuery ? (listQuery == "albums" ? "Favorite Albums" : "Favorite Songs") : "Favorite Albums";
-    SELECTED_YEAR = yearQuery ? yearQuery : CURRENT_YEAR;
+    SELECTED_YEAR = yearQuery ? yearQuery : SELECTED_YEAR;
     SELECTED_LAYOUT = layoutQuery ? layoutQuery.toUpperCase() : SELECTED_LAYOUT;
 
     // If the parameters are not valid (there is not list for that year/list combination), then use defaults
@@ -183,17 +183,18 @@ document.addEventListener("DOMContentLoaded", async function() {
         showAlertBanner(SELECTED_LIST, SELECTED_YEAR);
         SELECTED_LIST = "Favorite Albums";
         SELECTED_YEAR = CURRENT_YEAR;
-        SELECTED_LAYOUT = "TABLE";
+        SELECTED_LAYOUT = "GRID";
     }
 
     // Update the current layout design
     updateDisplay();
 
-    // Update the Year Selector navbar to display the correct list being selected
+    // Update the Year Selector navbar to display the correct list being selected (since the navbar is not part of the "display" area)
+    console.log("SHOWING YEAR " + SELECTED_YEAR)
     updateYearsShownInList(SELECTED_YEAR);
     grayOutMissingYears();
 
-    // Update the favicon depending on light/dark mode
+    // Update the favicon depending on light/dark mode (unreliable)
     let favicon = document.getElementById("favicon");
     let darkModeMediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
     if (darkModeMediaQuery.matches) {
@@ -279,6 +280,9 @@ document.getElementById("layout-button").addEventListener("click", function(even
 });
 
 
+/**
+ * Updates which display (table, grid, search) is shown
+ */
 function updateShownDisplay() {
     // Special case for searches
     if (SELECTED_LIST == "Search") {
