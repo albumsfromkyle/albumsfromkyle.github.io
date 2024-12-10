@@ -1,6 +1,7 @@
 // Years
 const OLDEST_YEAR = 2018;
-const CURRENT_YEAR = parseInt(new Date().getFullYear());
+// const CURRENT_YEAR = parseInt(new Date().getFullYear());
+const CURRENT_YEAR = 2024; // Hard code for now to make it easier for views (until I make the first update to the 2025 list)
 const NUM_YEARS_TO_SHOW = 5;
 
 // Selectors
