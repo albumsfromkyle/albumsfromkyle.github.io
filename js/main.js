@@ -17,12 +17,14 @@ const SONGS_CSV_HEADERS = ["Song", "Album", "Artist", "Genre", "Hidden Ranking"]
 const SHOWN_SONG_HEADERS = ["Song", "Artist", "Album", "Genre"]; // Everything shown on the website
 
 const SORTABLE_HEADERS = [""]; // Potentially add the feature to sort the tables in the future, skeleton for this is in place
-
 const SHOW_RATING = SHOWN_ALBUM_HEADERS.includes("Rating"); // Don't plan on ever showing ratings, but keeping this just in case
 
 // Grid layout
 let NUM_ALBUMS_PER_ROW = 5; // Updated when window is loaded
 let IMAGE_SIZE = 200; // Size of the album art images that are shown in grid form
+
+// Set to true to allow the grid elements to be recreated on load
+let RECREATE_GRIDS = false;
 
 // Spotify playlist links (note not all years/lists combos have playlists)
 const PLAYLIST_LINKS = {
@@ -167,7 +169,9 @@ document.addEventListener("DOMContentLoaded", async function() {
     setGridAlbumsPerRow();
     
     // UNCOMMENT TO RECREATE ALL THE GRIDS TO COPY OVER INTO INDEX.HTML
-    // createAllGrids();
+    if (RECREATE_GRIDS) {
+        createAllGrids();
+    }
 
     // Get the parameters to load from the URL (or the get the defaults otherwise)
     let listQuery = getQueryParam("list");
