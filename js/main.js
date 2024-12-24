@@ -194,7 +194,6 @@ document.addEventListener("DOMContentLoaded", async function() {
     updateDisplay();
 
     // Update the Year Selector navbar to display the correct list being selected (since the navbar is not part of the "display" area)
-    console.log("SHOWING YEAR " + SELECTED_YEAR)
     updateYearsShownInList(SELECTED_YEAR);
     grayOutMissingYears();
 
