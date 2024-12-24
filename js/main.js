@@ -1250,7 +1250,7 @@ function gridResultsToTable() {
  */
 function searchAlbumTables(whatToSearch) {
     let resultsTable = document.getElementById("search-results-albums-table");
-    resultsTable.innerHTML = "<div class=table-msg>No matching songs...</div>";
+    resultsTable.innerHTML = "<div class=table-msg>No matching albums...</div>";
 
     let firstMatch = true;
 
@@ -1261,6 +1261,7 @@ function searchAlbumTables(whatToSearch) {
 
             for (let i = 0; i < results.length; i++) {
                 if (firstMatch) {
+                    // Reset the table once a result was found (so it does not show "no matching albums..." anymore)
                     resultsTable.innerHTML = "";
                     firstMatch = false;
                 }
@@ -1285,13 +1286,20 @@ function searchAlbumTables(whatToSearch) {
 /***********************
 **** SONG SEARCHING ****
 ***********************/
+/**
+ * Searches an CSV row for all occurances of a given string
+ * @param {*} row The CSV row to search within
+ * @param {*} whatToSearch The string to search for
+ * @param {*} list What list is being searched ("Albums" or "Songs")
+ * @returns A boolean of if the string was found within the CSV row or not
+ */
 function searchAndHighlightRow(row, whatToSearch, list) {
     let found = false;
 
     // Search the 3 text components of the grid square
     let parts = [];
     if (list == "Songs")
-        parts = Array.from(row.querySelectorAll("td")).slice(0, -1);
+        parts = Array.from(row.querySelectorAll("td")).slice(0);
     else if (list == "Albums")
         parts = Array.from(row.querySelectorAll("td")).slice(0, 4).concat([Array.from(row.querySelectorAll("td"))[5]]);
 
@@ -1328,7 +1336,7 @@ function searchCSV(data, whatToSearch, list) {
             return;
         }
 
-        // If I am not showing the ratings for the albums, only show the albums I would recommend (which are albums above 6 in their score)
+        // If I am not showing this album on my lists (meaning it is below a 6 in score), then skip it in the search
         if (!shouldShowAlbum(csvRow["Rating"])) {
             return;
         }
@@ -1368,6 +1376,7 @@ function searchAllSongs(whatToSearch) {
             let results = searchCSV(data, whatToSearch, "Songs");
 
             for (let i = 0; i < results.length; i++) {
+                // Reset the table once a result was found (so it does not show "no matching songs..." anymore)
                 if (firstMatch) {
                     resultsTable.innerHTML = "";
                     firstMatch = false;
@@ -1408,15 +1417,15 @@ function handleSearch() {
     // Search the albums
     document.getElementById("search-results-albums-table").innerHTML = "";
     document.getElementById("search-results-songs-table").innerHTML = "";
-    let wasGridMatch = searchAllGrids(whatToSearch);
-    let wasTableMatch = searchAlbumTables(whatToSearch);
+    let isGridMatch = searchAllGrids(whatToSearch);
+    let isTableMatch = searchAlbumTables(whatToSearch);
     searchAllSongs(whatToSearch);
 
-    // If there was a TABLE album match, but not a GRID album match, default to the table view
+    // If there is a TABLE album match, but not a GRID album match, default to the table view
     // searchAlbumTables() does not block like it should, I think the d3 library is async. As a result, I cannot rely on its return
     // However, searchAllGrids() WILL return the correct result 
-    // As a workaround, I will just default to the table if no grid results were found, regardless of if table results were also found
-    if (!wasGridMatch) {
+    // As a workaround, I will just default to the table if no grid results are found, regardless of if table results are also found
+    if (!isGridMatch) {
         SELECTED_LAYOUT = "TABLE";
     }
 
