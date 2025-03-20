@@ -1,11 +1,11 @@
 // Years
 const OLDEST_YEAR = 2018;
-// const CURRENT_YEAR = parseInt(new Date().getFullYear());
-const CURRENT_YEAR = 2024; // Hard code for now to make it easier for views (until I make the first update to the 2025 list)
+const CURRENT_YEAR = 2024; // parseInt(new Date().getFullYear());
+const DEFAULT_YEAR = 2024;
 const NUM_YEARS_TO_SHOW = 5;
 
 // Selectors
-let SELECTED_YEAR = CURRENT_YEAR; // Default year to show (OLDEST_YEAR <= SELECTED_YEAR <= CURRENT_YEAR)
+let SELECTED_YEAR = DEFAULT_YEAR; // Default year to show (OLDEST_YEAR <= SELECTED_YEAR <= CURRENT_YEAR)
 let SELECTED_LIST = "Favorite Albums"; // Default list to show ("Favorite Albums" or "Favorite Songs")
 let SELECTED_LAYOUT = "GRID"; // Default layout to show ("GRID" or "TABLE")
 
@@ -186,7 +186,7 @@ document.addEventListener("DOMContentLoaded", async function() {
     if (!await isValidListYearCombo(SELECTED_LIST, SELECTED_YEAR)) {
         showAlertBanner(SELECTED_LIST, SELECTED_YEAR);
         SELECTED_LIST = "Favorite Albums";
-        SELECTED_YEAR = CURRENT_YEAR;
+        SELECTED_YEAR = DEFAULT_YEAR;
         SELECTED_LAYOUT = "GRID";
     }
 
@@ -912,15 +912,15 @@ document.getElementById("year-list").addEventListener("click", async function(ev
 document.getElementById("list-list").addEventListener("click", async function(event) {
     let listType = event.target.innerHTML;
 
-    // If coming from a search menu, default to the current year
+    // If coming from a search menu, default to the default year
     if (SELECTED_LIST == "Search") {
-        SELECTED_YEAR = CURRENT_YEAR;
+        SELECTED_YEAR = DEFAULT_YEAR;
     }
 
     // If a CSV for this year/list does not exist, show an error banner and go back to the default page
     if (!await isValidListYearCombo(listType, SELECTED_YEAR)) {
         showAlertBanner("\"" + listType + "\" list does not exist for " + SELECTED_YEAR);
-        SELECTED_YEAR = CURRENT_YEAR;
+        SELECTED_YEAR = DEFAULT_YEAR;
         updateYearsShownInList(SELECTED_YEAR);
         // Do not return, instead send the user to the current year (which should have both lists)
     }
