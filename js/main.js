@@ -196,6 +196,7 @@ document.addEventListener("DOMContentLoaded", async function() {
     // Update the Year Selector navbar to display the correct list being selected (since the navbar is not part of the "display" area)
     updateYearsShownInList(SELECTED_YEAR);
     grayOutMissingYears();
+    updateYearIncDecButtons();
 
     // Update the favicon depending on light/dark mode (unreliable)
     let favicon = document.getElementById("favicon");
