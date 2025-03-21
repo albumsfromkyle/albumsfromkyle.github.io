@@ -1,6 +1,6 @@
 // Years
 const OLDEST_YEAR = 2018;
-const CURRENT_YEAR = 2024; // parseInt(new Date().getFullYear());
+const CURRENT_YEAR = parseInt(new Date().getFullYear());
 const DEFAULT_YEAR = 2024;
 const NUM_YEARS_TO_SHOW = 5;
 
@@ -184,7 +184,7 @@ document.addEventListener("DOMContentLoaded", async function() {
 
     // If the parameters are not valid (there is not list for that year/list combination), then use defaults
     if (!await isValidListYearCombo(SELECTED_LIST, SELECTED_YEAR)) {
-        showAlertBanner(SELECTED_LIST, SELECTED_YEAR);
+        showAlertBanner("\"" + listType + "\" list does not exist for " + SELECTED_YEAR);
         SELECTED_LIST = "Favorite Albums";
         SELECTED_YEAR = DEFAULT_YEAR;
         SELECTED_LAYOUT = "GRID";
