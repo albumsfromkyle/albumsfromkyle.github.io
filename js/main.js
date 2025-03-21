@@ -28,6 +28,7 @@ let RECREATE_GRIDS = false;
 
 // Spotify playlist links (note not all years/lists combos have playlists)
 const PLAYLIST_LINKS = {
+    "Songs 2025" : "https://open.spotify.com/playlist/78N72f5j0mTbZOkbTlPAJH?si=18c024ca5f964778",
     "Albums 2024" : "https://open.spotify.com/playlist/0MATwTyjzRLJT9rhMKwM6S?si=5e28ec4d25564422",
     "Songs 2024" : "https://open.spotify.com/playlist/7nzU9D67SJdgd41dLbRwcf?si=18384ce1a1d54f9d",
     "Albums 2023" : "https://open.spotify.com/playlist/01jDUCJ4Z4c2No5bijVJKw?si=2e76605284f64e8e",

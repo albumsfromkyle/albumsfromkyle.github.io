@@ -53,7 +53,7 @@ if __name__ == "__main__":
         
         # Handle header
         next(csvreader)
-        new_data.append(["Song", "Artist", "Album", "Genre", "Hidden Ranking"])
+        new_data.append(["Song", "Artist", "Album", "Genre"])
         
         # Iterate through the actual data and save the important data
         for r, row in enumerate(csvreader):
@@ -61,9 +61,8 @@ if __name__ == "__main__":
             album = row[2]
             artist = get_truncated_value(dest_csv_path, row[3], 2)
             genres = get_genre(dest_csv_path, album)
-            hidden_ranking = num_albums - r
 
-            new_data.append([song, artist, album, genres, hidden_ranking])
+            new_data.append([song, artist, album, genres])
             
         
     # Write all the data at once at the end
