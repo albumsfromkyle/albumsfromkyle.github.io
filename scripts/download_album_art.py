@@ -1,114 +1,86 @@
-import sys
-import csv
+import os
 import requests
-import json
-from pathlib import Path
+import spotipy
+from spotipy.oauth2 import SpotifyOAuth
+
+# Configure the Spotify developer values needed
+# https://developer.spotify.com/dashboard/
+CLIENT_ID = '35be824d954c4a7c8d93a687cabd8fbf'
+CLIENT_SECRET = ""
+REDIRECT_URI = 'http://127.0.0.1:8888/callback'
+SCOPE = 'playlist-read-private'
+
+PLAYLIST_ID = "1dMXP1fy7ylPeqJh4i4o41"                      # EDIT HERE
+OUTPUT_DIR = '../images/albums/2025'                        # EDIT HERE
+
+with open("./client_secret.txt", 'r') as file:
+    CLIENT_SECRET = file.read().strip()
 
 
-seen = []
+# Authenticate
+sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
+    client_id=CLIENT_ID,
+    client_secret=CLIENT_SECRET,
+    redirect_uri=REDIRECT_URI,
+    scope=SCOPE
+))
 
 
-def get_track_ids(source_csv_path):
-    # Use https://www.spotify-backup.com/ to export a playlist that contains the individual track IDs
-    track_ids = []
-    with open(source_csv_path, 'r', newline='') as source_csv:
-        csvreader = csv.reader(source_csv)
+# Gets all the trackIDs for each song in a playlist
+def get_all_tracks(playlist_id):
+    tracks = []
+    results = sp.playlist_items(playlist_id)
+    tracks.extend(results['items'])
 
-        # If using the above website, there is no header
-        
-        for row in csvreader:
-            track_ids.append(row[0])
-    
-    return track_ids
+    while results['next']:
+        results = sp.next(results)
+        tracks.extend(results['items'])
 
-
-def send_spotify_art_GET(track_id):
-    url = "https://www.spotifycover.art/api/apee?inputType=tracks&id=" + track_id
-
-    try:
-        response = requests.get(url)
-        if response.status_code == 200: # Request was successful
-            return response.text # This will be a JSON file
-        else:
-            return ""
-
-    except requests.exceptions.RequestException as e:
-        return ""
+    return tracks
 
 
-def download_image_from_url(url, year, artist_name, album_name, size):
-    # If this URL has already been seen, skip downloading
-    if url in seen:
-        print("Already seen")
-        return True
-    seen.append(url)
-
-    Path("../images/albums/" + year + "/").mkdir(parents=True, exist_ok=True)
-    filename = "../images/albums/" + year + "/" + artist_name + "_" + album_name + "_" + str(size) + ".jpg"
-
-    # Skip if this image is already downloaded
-    if Path(filename).is_file():
-        print("Already downloaded")
-        return True
-
-    # Otherwise, download the image
+# Downloads an image from a URL to the given filepath
+def download_image(url, filename):
     response = requests.get(url)
-    if response.status_code == 200: # Request was successful
-        # Create local file to download to
-        with open(filename, "wb") as file:
-            file.write(response.content)
-        print("Download succeeded")
-        return True
-    
-    # Return false if the download failed
-    else:
-        print("Download failed")
-        return False
+    if response.status_code == 200:
+        with open(filename, 'wb') as f:
+            f.write(response.content)
 
 
+# Downloads all the album art for every song in the given playlist
 if __name__ == "__main__":
-    # Get the user command line arguments
-    if len(sys.argv) < 2:
-        print("[ERROR] Need to pass in 1 argument: the path to the exported csv containing the TRACK IDs")
-        print("Run again as 'python3 download_album_art.py /path/to/exported.csv'")
-        exit()
+    # Make output directory
+    if not os.path.exists(OUTPUT_DIR):
+        os.makedirs(OUTPUT_DIR)
 
-    source_csv_path = sys.argv[1]
+    # Get all the songs' trackIDs
+    tracks = get_all_tracks(PLAYLIST_ID)
+    print(f"Found {len(tracks)} tracks in the playlist.")
 
-    # Step 1: Obtain a list of all TRACK IDs from the input playlist CSV
-    track_ids = get_track_ids(source_csv_path)
-
-    # Step 2: For each track, send a GET request to www.spotifycover.art and get the response
-    for track_id in track_ids:
-        response = send_spotify_art_GET(track_id)
-        response = json.loads(response)
-        
-        # Skip if there was no response
-        if len(response) == 0:
+    # For each song, download the album art
+    for item in tracks:
+        track = item['track']
+        if not track:
             continue
 
-        # Step 3: Parse the JSON response to obtain a link to the album arts
-        url_640 = response["album"]["images"][0]["url"] # 640x640 image
-        url_300 = response["album"]["images"][1]["url"] # 300x300 image
-        url_64 = response["album"]["images"][2]["url"] # 64x64 image
-    
-        # Step 4: Download the images from the links
-        album_name = response["album"]["name"]
-        artist_name = response["album"]["artists"][0]["name"]
-        year = response["album"]["release_date"][0:4]
-
-        # Sanitize album/artist
+        # Extract track info
+        album = track['album']
+        album_name = album['name'].replace("/", "-")
+        artist_name = track['artists'][0]['name'].replace("/", "-")
+        
+        # Format info to match my filename structure
         artist_name = ''.join(c for c in artist_name if c.isalnum()).lower()
         album_name = ''.join(c for c in album_name if c.isalnum()).lower()
-        if len(year) < 4:
+
+        # Download the 300x300 image
+        image_url = next((img['url'] for img in album['images'] if img['height'] == 300), None)
+        if not image_url:
+            print(f"Skipping (no 300x300): {artist_name} - {album_name}")
             continue
 
-        print("download_image_from_url(" + url_300 + ", " + year + ", " + artist_name + ", " + album_name + ", 300)")
-
-        # if not download_image_from_url(url_640, year, artist_name, album_name, 640):
-        #     print("[ERROR] Downloading 640px image")
-        if not download_image_from_url(url_300, year, artist_name, album_name, 300):
-            print("[ERROR] Downloading 3px image")
-        # if not download_image_from_url(url_64, year, artist_name, album_name, 64):
-        #     print("[ERROR] Downloading 64px image")
-
+        filename = f"{OUTPUT_DIR}/{artist_name}_{album_name}_300.jpg"
+        if not os.path.exists(filename):
+            print(f"Downloading: {filename}")
+            download_image(image_url, filename)
+        else:
+            print(f"Already exists: {filename}")
