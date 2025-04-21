@@ -1,6 +1,6 @@
 // Years
 const OLDEST_YEAR = 2018;
-const CURRENT_YEAR = 2024; //parseInt(new Date().getFullYear());
+const CURRENT_YEAR = 2025; //parseInt(new Date().getFullYear());
 const DEFAULT_YEAR = 2024;
 const NUM_YEARS_TO_SHOW = 5;
 
@@ -28,19 +28,27 @@ let RECREATE_GRIDS = false;
 
 // Spotify playlist links (note not all years/lists combos have playlists)
 const PLAYLIST_LINKS = {
+    "Albums 2025" : "https://open.spotify.com/playlist/0Q6k70RNa5yfCzR7FoWZJT?si=088be65e8d3d4ad1",
     "Songs 2025" : "https://open.spotify.com/playlist/78N72f5j0mTbZOkbTlPAJH?si=18c024ca5f964778",
+    
     "Albums 2024" : "https://open.spotify.com/playlist/0MATwTyjzRLJT9rhMKwM6S?si=5e28ec4d25564422",
     "Songs 2024" : "https://open.spotify.com/playlist/7nzU9D67SJdgd41dLbRwcf?si=18384ce1a1d54f9d",
+
     "Albums 2023" : "https://open.spotify.com/playlist/01jDUCJ4Z4c2No5bijVJKw?si=2e76605284f64e8e",
     "Songs 2023" : "https://open.spotify.com/playlist/4SLr4bfpWLHQGyQzKonxjE?si=35409659241941f0",
+
     "Albums 2022" : "https://open.spotify.com/playlist/7jwCBOFBCl1BrwmkPrPLBr?si=099649841fa54b03",
     "Songs 2022" : "https://open.spotify.com/playlist/1JGn9zna2lNdGRklbuOlUX?si=eea92f25e4d44292",
+
     "Albums 2021" : "https://open.spotify.com/playlist/0T0mqDU2EjiHQaDFIJm79V?si=ff7af6c9a10449a9",
     "Songs 2021" : "",
+
     "Albums 2020" : "https://open.spotify.com/playlist/3UXyXqHD527llczssqr3TK?si=6a27492ae6ec4ad1",
     "Songs 2020" : "",
+
     "Albums 2019" : "https://open.spotify.com/playlist/3v253ZQ652keRJmdDJy0Sb?si=edfb8d65f1c342b1",
     "Songs 2019" : "",
+
     "Albums 2018" : "https://open.spotify.com/playlist/2khHeRdQA4tF096H1LNX08?si=f7691f6956294331",
     "Songs 2018" : "",
 }
