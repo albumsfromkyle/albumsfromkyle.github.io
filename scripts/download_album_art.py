@@ -69,6 +69,7 @@ if __name__ == "__main__":
         artist_name = track['artists'][0]['name'].replace("/", "-")
         
         # Format info to match my filename structure
+        artist_name = artist_name.split(",")[0] # Split at the first comma (do this to conform with what the old website code expects)
         artist_name = ''.join(c for c in artist_name if c.isalnum()).lower()
         album_name = ''.join(c for c in album_name if c.isalnum()).lower()
 

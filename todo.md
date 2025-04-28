@@ -1,3 +1,5 @@
 # GENERAL
-* Add a suggestion box (for music and website improvements)
 * Fix search for albums table not always being in chronological order (only for the table, not the grid search)
+* Remove images that are not actually displayed on website
+    - Was originally debating to show ALL albums or just the ones I recommend, which led to me downloading ALL album art
+    - Now feel confident in decision to only show recommended albums, so can free up space by removing unused images 

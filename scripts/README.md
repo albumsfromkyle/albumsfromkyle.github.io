@@ -29,7 +29,10 @@ This section contains scripts that aid me in organizing my music. These interfac
 
 
 ## Update the songs list
-1) Do manually
+1) Edit `pull_songs_list.py` to make sure it is referencing the correct year and playlist ID
+    - This only needs to be done once per year
+2) Run `powershell.exe -Command "python '\\\\wsl$\\Ubuntu\\home\\kyledowens\\projects\\albumsfromkyle.github.io\\scripts\\pull_songs_list.py'"`
+    - This will pull all the songs from my Spotify "Songs 20XX" playlist and put them in the year's CSV
 
 
 <!-- ---------------------------------------------------------------------------------------- -->
