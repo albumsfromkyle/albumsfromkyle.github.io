@@ -10,28 +10,27 @@ This section contains scripts that aid me in organizing my music. These interfac
     - This will trim the excess data off the sheet, while maintaining the previously set hidden rankings
 4) Run `python3 put_csv_in_hidden_order.py ../csv/<year>.csv`
     - This will put the CSV file into the same order as the hidden rankings, for ease of editing later on
-5) Edit `download_album_art.py` to make sure it is referencing the correct year and playlist ID
+5) Edit download_album_art.py to make sure it is referencing the correct year and playlist ID
     - This only needs to be done once per year
-5) Run `powershell.exe -Command "python '\\\\wsl$\\Ubuntu\\home\\kyledowens\\projects\\albumsfromkyle.github.io\\scripts\\download_album_art.py'"`
+5) Run `powershell.exe -Command "python '\\\\wsl$\\Ubuntu\\home\\kyledowens\\projects\\albumsfromkyle.github.io\\scripts\\download_album_art.py'" && rm .cache`
     - This will download the album art for the new albums
 6) Edit the year's CSV file (`../csv/<year>.csv`) to be in the desired order
 7) Run `python3 set_rankings_in_file_order.py ../csv/<year>.csv`
     - This will set all the hidden rankings to match the order of the file
-8) Edit `create_organized_playlist.py` to make sure it is referencing the correct year and playlist ID
+8) Edit create_organized_playlist.py to make sure it is referencing the correct year and playlist ID
     - This only needs to be done once per year
-9) Run `powershell.exe -Command "python '\\\\wsl$\\Ubuntu\\home\\kyledowens\\projects\\albumsfromkyle.github.io\\scripts\\create_organized_playlist.py'"`
+9) Run `powershell.exe -Command "python '\\\\wsl$\\Ubuntu\\home\\kyledowens\\projects\\albumsfromkyle.github.io\\scripts\\create_organized_playlist.py'" && rm .cache`
     - This will create the organized Spotify playlist in the same order as the CSV
-10) Run `rm .cache`
 
-11) Edit the `RECREATE_GRIDS` variable within `main.js` to be `TRUE`
-12) On the website, go into developer tools and copy the entire `album-grids` element, and replace the existing element in `index.html`
-13) Undo the changes to `main.js`
+10) Edit the `RECREATE_GRIDS` variable within `main.js` to be `TRUE`
+11) On the website, go into developer tools and copy the entire `album-grids` element, and replace the existing element in `index.html`
+12) Undo the changes to `main.js`
 
 
 ## Update the songs list
-1) Edit `pull_songs_list.py` to make sure it is referencing the correct year and playlist ID
+1) Edit pull_songs_list.py to make sure it is referencing the correct year and playlist ID
     - This only needs to be done once per year
-2) Run `powershell.exe -Command "python '\\\\wsl$\\Ubuntu\\home\\kyledowens\\projects\\albumsfromkyle.github.io\\scripts\\pull_songs_list.py'"`
+2) Run `powershell.exe -Command "python '\\\\wsl$\\Ubuntu\\home\\kyledowens\\projects\\albumsfromkyle.github.io\\scripts\\pull_songs_list.py'" && rm .cache`
     - This will pull all the songs from my Spotify "Songs 20XX" playlist and put them in the year's CSV
 
 
