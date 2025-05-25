@@ -3,40 +3,37 @@ This section contains scripts that aid me in organizing my music. These interfac
 
 
 # How-To
-## Update the albums list
-1) Export the Google Sheets as a CSV
-2) Copy the exported CSV into the /scripts directory
-3) Run `python3 format_sheets_albums.py <exported_csv> ../csv/<year>.csv`
-    - This will trim the excess data off the sheet, while maintaining the previously set hidden rankings
-4) Run `python3 put_csv_in_hidden_order.py ../csv/<year>.csv`
-    - This will put the CSV file into the same order as the hidden rankings, for ease of editing later on
-5) Edit download_album_art.py to make sure it is referencing the correct year and playlist ID
-    - This only needs to be done once per year
-5) Run `powershell.exe -Command "python '\\\\wsl$\\Ubuntu\\home\\kyledowens\\projects\\albumsfromkyle.github.io\\scripts\\download_album_art.py'" && rm .cache`
-    - This will download the album art for the new albums
-6) Edit the year's CSV file (`../csv/<year>.csv`) to be in the desired order
-7) Run `python3 set_rankings_in_file_order.py ../csv/<year>.csv`
-    - This will set all the hidden rankings to match the order of the file
-8) Edit create_organized_playlist.py to make sure it is referencing the correct year and playlist ID
-    - This only needs to be done once per year
-9) Run `powershell.exe -Command "python '\\\\wsl$\\Ubuntu\\home\\kyledowens\\projects\\albumsfromkyle.github.io\\scripts\\create_organized_playlist.py'" && rm .cache`
-    - This will create the organized Spotify playlist in the same order as the CSV
+## General notes before making changes
+* Edit `download_album_art.py` to make sure it is referencing the correct year and playlist ID. This only needs to be done once per year
+* Edit `create_organized_playlist.py` to make sure it is referencing the correct year and playlist ID. This only needs to be done once per year
+* Edit `pull_songs_list.py` to make sure it is referencing the correct year and playlist ID 
 
-10) Edit the `RECREATE_GRIDS` variable within `main.js` to be `TRUE`
-11) On the website, go into developer tools and copy the entire `album-grids` element, and replace the existing element in `index.html`
-12) Undo the changes to `main.js`
+## Update the albums list
+### OPTION 1
+Use `auto_pull_albums.sh`. This pulls from the "Organized Playlist 20XX" playlist on Spotify, and updates the website to match that. This is best for small, incremental updates.
+1) Run `./auto_pull_albums.sh`
+2) On the website, go into developer tools and copy the entire `album-grids` element, and replace the existing element in `index.html`
+3) Press 'enter' to finish the script
+
+### OPTION 2
+Use `auto_upload_albums.sh`. This takes the exported CSV document and updates the website with all new albums. This is best for adding a large number of albums (and is the only way to add albums that would not appear on the "Organized Albums 20XX" playlist).
+1) Export the Google Sheets as a CSV and copy it into the /scripts directory
+2) Run `./auto_upload_albums.sh`
+3) Edit the CSV (`../csv/<year>.csv`) so it is in the desired order. Press 'enter' when done to resume the script
+4) On the website, go into developer tools and copy the entire `album-grids` element, and replace the existing element in `index.html`
+5) Press 'enter' to finish the script
 
 
 ## Update the songs list
-1) Edit pull_songs_list.py to make sure it is referencing the correct year and playlist ID
-    - This only needs to be done once per year
-2) Run `powershell.exe -Command "python '\\\\wsl$\\Ubuntu\\home\\kyledowens\\projects\\albumsfromkyle.github.io\\scripts\\pull_songs_list.py'" && rm .cache`
-    - This will pull all the songs from my Spotify "Songs 20XX" playlist and put them in the year's CSV
+Use `pull_songs_list.py`. This will pull all the songs from my Spotify "Songs 20XX" playlist and put them in the year's song CSV
+1) Run `powershell.exe -Command "python '\\\\wsl$\\Ubuntu\\home\\kyledowens\\projects\\albumsfromkyle.github.io\\scripts\\pull_songs_list.py'" && rm .cache`
+
 
 
 <!-- ---------------------------------------------------------------------------------------- -->
 
 
+# Individual scripts documentation
 ## create_organized_playlist.py
 This script creates a new organized playlist in the same order as the year's matching CSV file.
 
