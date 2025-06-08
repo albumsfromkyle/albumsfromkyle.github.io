@@ -55,7 +55,7 @@ if __name__ == "__main__":
 
     # Get all the songs' trackIDs
     tracks = get_all_tracks(PLAYLIST_ID)
-    print(f"Found {len(tracks)} tracks in the playlist.")
+    # print(f"Found {len(tracks)} tracks in the playlist.")
 
     # For each song, download the album art
     for item in tracks:
@@ -84,4 +84,5 @@ if __name__ == "__main__":
             print(f"Downloading: {filename}")
             download_image(image_url, filename)
         else:
-            print(f"Already exists: {filename}")
+            # print(f"Already exists: {filename}")
+            pass

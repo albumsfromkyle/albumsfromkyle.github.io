@@ -12,7 +12,7 @@ This section contains scripts that aid me in organizing my music. These interfac
 ### OPTION 1
 Use `auto_pull_albums.sh`. This pulls from the "Organized Playlist 20XX" playlist on Spotify, and updates the website to match that. This is best for small, incremental updates.
 1) Run `./auto_pull_albums.sh`
-2) On the website, go into developer tools and copy the entire `album-grids` element, and replace the existing element in `index.html`
+2) On the locally hosted version of the website, go into developer tools and copy the entire `album-grids` element, and replace the existing element in `index.html`
 3) Press 'enter' to finish the script
 
 ### OPTION 2

@@ -8,7 +8,7 @@ sed -i 's/let RECREATE_GRIDS = false;/let RECREATE_GRIDS = true;/g' ../js/main.j
 powershell.exe -Command "python '\\\\wsl$\\Ubuntu\\home\\kyledowens\\projects\\albumsfromkyle.github.io\\scripts\\pull_albums_list.py'"
 
 # Step 3: Download all new album art (unless explicitly told not to, for when just reorganizing)
-if [ $1 != skip_art ]; then
+if [[ $1 != skip_art ]]; then
     powershell.exe -Command "python '\\\\wsl$\\Ubuntu\\home\\kyledowens\\projects\\albumsfromkyle.github.io\\scripts\\download_album_art.py'"
 fi
 
