@@ -1,7 +1,7 @@
 // Years
 const OLDEST_YEAR = 2018;
 const CURRENT_YEAR = 2025; //parseInt(new Date().getFullYear());
-const DEFAULT_YEAR = 2024;
+const DEFAULT_YEAR = 2025;
 const NUM_YEARS_TO_SHOW = 5;
 
 // Selectors
