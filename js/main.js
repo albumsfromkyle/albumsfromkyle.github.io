@@ -5,6 +5,7 @@ const DEFAULT_YEAR = 2025;
 const NUM_YEARS_TO_SHOW = 5;
 
 // Selectors
+// TODO: Change SELECTED_LIST and SELECTED_LAYOUT types to enum
 let SELECTED_YEAR = DEFAULT_YEAR; // Default year to show (OLDEST_YEAR <= SELECTED_YEAR <= CURRENT_YEAR)
 let SELECTED_LIST = "Favorite Albums"; // Default list to show ("Favorite Albums" or "Favorite Songs")
 let SELECTED_LAYOUT = "GRID"; // Default layout to show ("GRID" or "TABLE")
