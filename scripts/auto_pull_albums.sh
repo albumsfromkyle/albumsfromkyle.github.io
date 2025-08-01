@@ -13,7 +13,7 @@ if [[ $1 != skip_art ]]; then
 fi
 
 # Step 4: Update the hidden rankings for each album in the CSV
-python3 set_rankings_in_file_order.py ../csv/2025.csv
+# python3 set_rankings_in_file_order.py ../csv/2025.csv
 read -p "Manually copy over the new HTML into index.html. Press 'enter' when done:"
 
 # Step 5: Set "main.js" back to only display static lists
