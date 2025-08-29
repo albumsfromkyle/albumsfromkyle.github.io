@@ -90,7 +90,7 @@ def group_songs_by_album(tracks, preserved_genres, preserved_ratings):
             rating = groups[-1]["Rating"] if groups and groups[-1] else 9 # Adds default rating for album if there is nothing above it in the list
             print(f"[INFO] Added album \"{album_name}\" by \"{artists}\"")
             print(f"       Setting rating to {rating}, update if needed")
-            print(f"       Make sure to manually update the genre information")
+            print(f"       Make sure to manually update the genre information\n")
         
         # Save the results
         groups.append({

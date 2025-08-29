@@ -11,7 +11,8 @@ REDIRECT_URI = 'http://127.0.0.1:8888/callback'
 SCOPE = 'playlist-read-private'
 
 PLAYLIST_ID = "1dMXP1fy7ylPeqJh4i4o41"                      # EDIT HERE
-OUTPUT_DIR = '../images/albums/2025'                        # EDIT HERE
+YEAR = "2025"                                               # EDIT HERE
+OUTPUT_DIR = "../images/albums/" + YEAR
 
 with open("./client_secret.txt", 'r') as file:
     CLIENT_SECRET = file.read().strip()
