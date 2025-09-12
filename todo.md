@@ -5,3 +5,4 @@
     - Now feel confident in decision to only show recommended albums, so can free up space by removing unused images
 * Remove hidden rankings - instead just go by file order
 * Remove all 1-10 rankings, replace with custom
+* Split main JS file into smaller files
