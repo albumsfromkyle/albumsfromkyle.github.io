@@ -10,7 +10,7 @@ CLIENT_SECRET = ""
 REDIRECT_URI = 'http://127.0.0.1:8888/callback'
 SCOPE = 'playlist-read-private'
 
-PLAYLIST_ID = "1dMXP1fy7ylPeqJh4i4o41"                      # EDIT HERE
+PLAYLIST_ID = "0Q6k70RNa5yfCzR7FoWZJT"                      # EDIT HERE
 YEAR = "2025"                                               # EDIT HERE
 OUTPUT_DIR = "../images/albums/" + YEAR
 

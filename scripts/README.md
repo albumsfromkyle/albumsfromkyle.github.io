@@ -11,13 +11,13 @@ This section contains scripts that aid me in organizing my music. These mostly u
 
 ## Update the albums list
 ### OPTION 1
-Use `auto_pull_albums.sh`. This pulls from my "Organized Playlist 20XX" playlist on Spotify and updates the website to match that. This is best for small, incremental updates.
+Use `auto_pull_albums.sh`. This pulls from my "Organized Playlist 20XX" playlist on Spotify and updates the website to match that.
 1) Run `./auto_pull_albums.sh`
 2) On the locally hosted version of the website, go into developer tools and copy the entire `album-grids` element, and replace the existing element in `index.html`
 3) Press 'enter' to finish the script
 
 ### OPTION 2
-Use `auto_upload_albums.sh`. This takes the exported CSV document and updates the website with all new albums. This is best for adding a large number of albums (and is the only way to add albums that do not appear on the "Organized Albums 20XX" playlist).
+Use `auto_upload_albums.sh`. This takes the exported CSV document and updates the website with all new albums. This is mostly for older years when I organized them in Google Sheets - newer years are organized purely on Spotify.
 1) Export the Google Sheets as a CSV and copy it into the /scripts directory
 2) Run `./auto_upload_albums.sh`
 3) Edit the CSV (`../csv/<year>.csv`) so it is in the desired order. Press 'enter' when done to resume the script
