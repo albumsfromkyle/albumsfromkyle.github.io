@@ -582,7 +582,7 @@ async function createGrid(year, albumsPerRow) {
  * Hides all the grid elements
  */
 function hideAllGrids() {
-    for (let year = OLDEST_YEAR; year <= parseInt(new Date().getFullYear()); year++) {
+    for (let year = OLDEST_YEAR; year <= CURRENT_YEAR; year++) {
         for (let albumsPerRow = 2; albumsPerRow <= 5; albumsPerRow++) {
             document.getElementById("album-grid-" + year + "-" + albumsPerRow).classList.add("hidden");
         }
